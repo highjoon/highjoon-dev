@@ -1,28 +1,28 @@
 {
-	"extends": "next/core-web-vitals",
-	"plugins": ["simple-import-sort"],
-	"rules": {
-		"simple-import-sort/imports": [
-			"warn",
-			{
-				"groups": [
-					[
-						"^next",
-						"^react",
-						"^@?\\w",
-						"^(component)(/.*|$)",
-						"^(lib)(/.*|$)",
-						"^\\u0000",
-						"^\\.\\.(?!/?$)",
-						"^\\.\\./?$",
-						"^\\./(?=.*/)(?!/?$)",
-						"^\\.(?!/?$)",
-						"^\\./?$",
-						"^.+\\.?(css)$"
-					]
-				]
-			}
-		],
-		"simple-import-sort/exports": "warn"
-	}
+  "extends": "next/core-web-vitals",
+  "plugins": ["simple-import-sort"],
+  "rules": {
+    "simple-import-sort/imports": [
+      "warn",
+      {
+        "groups": [
+          [
+            "^next",
+            "^react",
+            "^@?\\w",
+            "^(component)(/.*|$)",
+            "^(lib)(/.*|$)",
+            "^\\u0000",
+            "^\\.\\.(?!/?$)",
+            "^\\.\\./?$",
+            "^\\./(?=.*/)(?!/?$)",
+            "^\\.(?!/?$)",
+            "^\\./?$",
+            "^.+\\.?(css)$"
+          ]
+        ]
+      }
+    ],
+    "simple-import-sort/exports": "warn"
+  }
 }
