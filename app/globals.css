@@ -3,7 +3,23 @@
 @tailwind utilities;
 
 :root {
-	--color-black: #000000;
-	--color-white: #ffffff;
-	--color-primary: #474c65;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-primary-50: #eff3f7;
+  --color-primary-500: #436af1;
+  --color-grey-200: #cccccc;
+  --color-grey-900: #1a1a1a;
+  --color-secondary-100: #e1e6eb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--color-secondary-100);
 }
