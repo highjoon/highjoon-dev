@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { PropsWithChildren } from 'react';
+import classNames from 'classnames';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko">
-      <body className={inter.className}>{children}</body>
+      <body className={classNames(inter.className, 'max-w-[1200px] mx-auto p-[15px]')}>{children}</body>
     </html>
   );
 }
