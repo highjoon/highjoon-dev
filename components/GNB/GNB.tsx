@@ -5,9 +5,9 @@ import LinkedInLogo from 'public/images/img-linkedin-logo.png';
 
 import { LINK } from '@/services/constants/link';
 
-export default function Header() {
+const GNB = () => {
   return (
-    <header className="flex items-center h-[92px] bg-white shadow-header border-b-grey-200 rounded-[0.5rem] p-[20px]">
+    <header className="flex items-center h-[92px] bg-white shadow-header border-b-grey-200 p-[20px]">
       <nav className="flex justify-between w-full">
         <ul className="flex items-center">
           <li>
@@ -29,4 +29,6 @@ export default function Header() {
       </nav>
     </header>
   );
-}
+};
+
+export default GNB;

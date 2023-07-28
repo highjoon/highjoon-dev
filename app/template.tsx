@@ -1,11 +1,11 @@
 import { PropsWithChildren } from 'react';
 
-import Header from '@/components/Header/Header';
+import GNB from '@/components/GNB/GNB';
 
 export default function RootTemplate({ children }: PropsWithChildren) {
   return (
     <>
-      <Header />
+      <GNB />
       {children}
     </>
   );
