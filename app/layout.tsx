@@ -1,11 +1,9 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import { PropsWithChildren } from 'react';
 import './globals.css';
 
 import GNB from '@/components/GNB/GNB';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'highJoon.dev',
@@ -15,10 +13,31 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko">
-      <body className={inter.className}>
+      <body className={pretendard.className}>
         <GNB />
         <main className="w-full px-5 pt-40 pb-20">{children}</main>
       </body>
     </html>
   );
 }
+
+export const pretendard = localFont({
+  src: '../public/fonts/pretendard.woff2',
+  display: 'swap',
+  fallback: [
+    'Pretendard',
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'system-ui',
+    'Roboto',
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    'sans-serif',
+  ],
+});
