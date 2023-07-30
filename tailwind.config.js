@@ -11,5 +11,5 @@ module.exports = {
     colors,
     boxShadow,
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };
