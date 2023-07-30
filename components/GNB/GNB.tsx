@@ -11,7 +11,9 @@ const GNB = () => {
       <nav className="flex justify-between w-full">
         <ul className="flex items-center">
           <li>
-            <Link href={LINK.HOME}>highjoon.dev</Link>
+            <Link href={LINK.HOME} className="text-3xl font-bold hover:text-primary-500">
+              HIGHJOON.DEV
+            </Link>
           </li>
         </ul>
         <ul className="flex items-center gap-[20px]">
