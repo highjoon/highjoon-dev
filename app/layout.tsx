@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko">
-      <body className={pretendard.className}>
+      <body className={pretendard.className} suppressHydrationWarning>
         <GNB />
         <main className="w-full px-5 pt-40 pb-20">{children}</main>
       </body>
