@@ -2,12 +2,7 @@ import { readFileSync } from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
 import { BLOG_CONTENTS_DIR } from '../constants/blogs';
-
-type FrontMatter = {
-  title: string;
-  description: string;
-  date: string;
-};
+import { FrontMatter } from '../types/post';
 
 const getBlogPosts = (files: string[]) => {
   return files.map((fileName) => {
