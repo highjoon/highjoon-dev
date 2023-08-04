@@ -4,6 +4,7 @@ import path from 'path';
 
 import PostCard from '@/components/Post/PostCard';
 import { BLOG_CONTENTS_DIR } from '@/services/constants/blogs';
+import createPostPath from '@/services/utils/createPostPath';
 import getBlogPosts from '@/services/utils/getBlogPosts';
 
 export default function Home() {
@@ -13,7 +14,7 @@ export default function Home() {
   return (
     <div className="py-2 flex flex-col max-w-[768px] mx-auto">
       {blogs.map((blog) => (
-        <Link href={'/blogs/' + blog.slug} passHref key={blog.slug}>
+        <Link href={createPostPath(blog.slug)} passHref key={blog.slug}>
           <PostCard title={blog.meta.title} description={blog.meta.description} date={blog.meta.date} />
         </Link>
       ))}
