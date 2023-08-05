@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import GitHubLogo from 'public/images/github.png';
-import LinkedInLogo from 'public/images/linkedin.png';
+import GitHubLogo from 'public/images/img-github-logo.png';
+import LinkedInLogo from 'public/images/img-linkedin-logo.png';
 
 import { LINK } from '@/services/constants/link';
 
