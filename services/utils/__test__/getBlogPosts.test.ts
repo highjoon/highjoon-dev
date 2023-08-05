@@ -3,7 +3,7 @@ import matter from 'gray-matter';
 import path from 'path';
 import getBlogPosts from '../getBlogPosts';
 
-import { BLOG_CONTENTS_DIR } from '@/services/constants/blogs';
+import { BLOG_CONTENTS_DIR } from '@/services/constants/blogPosts';
 
 jest.mock('fs');
 jest.mock('gray-matter');

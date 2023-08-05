@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
-import { BLOG_CONTENTS_DIR } from '../constants/blogs';
+import { BLOG_CONTENTS_DIR } from '../constants/blogPosts';
 import { FrontMatter } from '../types/post';
 
 const getBlogPost = ({ slug }: { slug: string }) => {
