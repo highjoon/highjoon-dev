@@ -3,10 +3,14 @@ import matter from 'gray-matter';
 import path from 'path';
 import { BLOG_CONTENTS_DIR } from '../constants/blogPosts';
 import { FrontMatter } from '../types/post';
+import createBannerImgPath from './createBannerImgPath';
 
 const getBlogPost = ({ slug }: { slug: string }) => {
+  const postTitle = slug.replace('.mdx', '');
   const markdownFile = readFileSync(path.join(BLOG_CONTENTS_DIR, slug + '.mdx'), 'utf-8');
-  const { data: frontMatter, content } = matter(markdownFile);
+  const { data, content } = matter(markdownFile);
+  const bannerImg = createBannerImgPath(postTitle);
+  const frontMatter = { ...data, bannerImg };
 
   return {
     frontMatter: frontMatter as FrontMatter,

@@ -12,7 +12,7 @@ export default function Home() {
   const blogPosts = getBlogPosts(files);
 
   return (
-    <div className="py-2 flex flex-col max-w-[768px] mx-auto">
+    <div className="py-2 flex flex-col max-w-[768px] mx-auto gap-6">
       {blogPosts.map((blog) => (
         <Link href={createPostPath(blog.slug)} passHref key={blog.slug}>
           <PostCard

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import fs from 'fs';
 import path from 'path';
 
@@ -29,6 +30,15 @@ export default function PostPage({ params }: any) {
   return (
     <article className="mx-auto prose-sm prose md:prose-base lg:prose-lg prose-slate">
       <h1>{frontMatter.title}</h1>
+      <div className="relative h-[400px] mb-[40px]">
+        <Image
+          src={frontMatter.bannerImg}
+          fill
+          alt="post-logo"
+          priority
+          style={{ marginTop: '0px', marginBottom: '0px' }}
+        />
+      </div>
       <MDXContent source={content} />
     </article>
   );
