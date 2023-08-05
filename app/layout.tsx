@@ -8,6 +8,15 @@ import GNB from '@/components/GNB/GNB';
 export const metadata: Metadata = {
   title: 'highJoon.dev',
   description: "highJoon's dev-log",
+  icons: {
+    icon: '/favicon/apple-icon.png',
+    shortcut: '/favicon/apple-icon.png',
+    apple: '/favicon/apple-icon.png',
+    other: {
+      rel: '/favicon/apple-icon-precomposed',
+      url: '/favicon/apple-icon-precomposed.png',
+    },
+  },
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
