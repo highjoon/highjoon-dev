@@ -1,11 +1,12 @@
 import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc';
+import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import remarkMdxImages from 'remark-mdx-images';
 
 const options = {
   mdxOptions: {
     remarkPlugins: [remarkGfm],
-    rehypePlugins: [remarkMdxImages],
+    rehypePlugins: [remarkMdxImages, rehypeSlug],
   },
 };
 

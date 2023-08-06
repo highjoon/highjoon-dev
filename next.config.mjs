@@ -1,3 +1,5 @@
+import createMDX from '@next/mdx';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Configure pageExtensions to include md and mdx
@@ -9,7 +11,7 @@ const nextConfig = {
   },
 };
 
-const withMDX = require('@next/mdx')({
+const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
     // If you use remark-gfm, you'll need to use next.config.mjs
@@ -22,4 +24,4 @@ const withMDX = require('@next/mdx')({
   },
 });
 
-module.exports = withMDX(nextConfig);
+export default withMDX(nextConfig);

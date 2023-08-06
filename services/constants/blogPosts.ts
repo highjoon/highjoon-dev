@@ -7,3 +7,5 @@ export const POSTS_FILE_NAME = {
 } as const;
 
 export type POSTS_FILE_NAME = typeof POSTS_FILE_NAME;
+
+export const GNB_HEIGHT = 92;

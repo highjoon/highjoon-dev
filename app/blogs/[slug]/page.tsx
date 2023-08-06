@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 import MDXContent from '@/components/MDX/MDXContent';
+import TableOfContents from '@/components/Post/TableOfContents';
 import getBlogPost from '@/services/utils/getBlogPost';
 
 export async function generateStaticParams() {
@@ -28,7 +29,7 @@ export default function PostPage({ params }: any) {
   const { frontMatter, content } = getBlogPost(params);
 
   return (
-    <article className="mx-auto prose-sm prose md:prose-base lg:prose-lg prose-slate">
+    <article className="relative mx-auto prose-sm prose md:prose-base lg:prose-lg prose-slate">
       <h1>{frontMatter.title}</h1>
       <div className="relative h-[400px] mb-[40px]">
         <Image
@@ -38,6 +39,9 @@ export default function PostPage({ params }: any) {
           priority
           style={{ marginTop: '0px', marginBottom: '0px' }}
         />
+      </div>
+      <div className="absolute top-0 right-[-50px] hidden xl:block">
+        <TableOfContents />
       </div>
       <MDXContent source={content} />
     </article>
