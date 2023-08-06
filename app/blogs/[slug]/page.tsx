@@ -29,7 +29,7 @@ export default function PostPage({ params }: any) {
   const { frontMatter, content } = getBlogPost(params);
 
   return (
-    <article className="relative mx-auto prose-sm prose md:prose-base lg:prose-lg prose-slate">
+    <article className="relative mx-auto prose-sm prose md:prose-base lg:prose-lg prose-slate mb-[200px]">
       <h1>{frontMatter.title}</h1>
       <div className="relative h-[400px] mb-[40px]">
         <Image

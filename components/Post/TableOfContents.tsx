@@ -40,7 +40,7 @@ const TableOfContents = () => {
         margin: 0,
         paddingLeft: '15px',
         paddingRight: '15px',
-        maxHeight: 'calc(100vh - 128px)',
+        maxHeight: 'calc(100vh - 200px)',
       }}>
       {headingElements.length > 0
         ? headingElements.map((element, index) => (
