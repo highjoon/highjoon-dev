@@ -31,15 +31,14 @@ export default function PostPage({ params }: any) {
   return (
     <article className="relative mx-auto prose-sm prose md:prose-base lg:prose-lg prose-slate mb-[200px]">
       <h1>{frontMatter.title}</h1>
-      <div className="relative h-[400px] mb-[40px]">
-        <Image
-          src={frontMatter.bannerImg}
-          fill
-          alt="post-logo"
-          priority
-          style={{ marginTop: '0px', marginBottom: '0px' }}
-        />
-      </div>
+      <Image
+        src={frontMatter.bannerImg}
+        width={768}
+        height={400}
+        alt="post-logo"
+        priority
+        style={{ marginTop: '0px', marginBottom: '0px' }}
+      />
       <div className="absolute top-0 right-[-50px] hidden xl:block">
         <TableOfContents />
       </div>
