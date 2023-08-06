@@ -7,16 +7,16 @@ import { LINK } from '@/services/constants/link';
 
 const GNB = () => {
   return (
-    <header className="flex items-center h-[92px] bg-white shadow-header border-b-grey-200 p-[20px] fixed w-full z-10">
+    <header className="flex items-center h-[60px] md:h-[92px] bg-white shadow-header border-b-grey-200 p-[20px] fixed w-full z-10">
       <nav className="flex justify-between w-full">
         <ul className="flex items-center">
           <li>
-            <Link href={LINK.HOME} className="text-3xl font-bold hover:text-primary-500">
+            <Link href={LINK.HOME} className="text-xl font-bold sm:text-2xl md:text-3xl hover:text-primary-500">
               HIGHJOON.DEV
             </Link>
           </li>
         </ul>
-        <ul className="flex items-center gap-[20px]">
+        <ul className="flex items-center gap-[5px] md:gap-[20px]">
           <li>
             <Link href={LINK.GITHUB} target="_blank">
               <Image src={GitHubLogo} width={60} height={60} alt="github-logo" />

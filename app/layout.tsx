@@ -24,7 +24,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="ko">
       <body className={pretendard.className} suppressHydrationWarning>
         <GNB />
-        <main className="w-full px-5 pt-32 pb-20 md:pb-40 md:pt-40">{children}</main>
+        <main className="w-full px-5 pt-20 pb-20 sm:pt-32 md:pb-40 md:pt-40">{children}</main>
       </body>
     </html>
   );
