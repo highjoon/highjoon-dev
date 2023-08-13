@@ -26,7 +26,9 @@ export function generateStaticParams() {
 export default function Page({ params }: Params) {
   const pageNumber = parseInt(params.id);
 
-  if (validatePageNumber(pageNumber)) {
+  if (
+    !validatePageNumber({ pageNumber, totalPagesOfPosts: posts.length, postsPerPage: DEFAULT_NUMBER_OF_POSTS_PER_PAGE })
+  ) {
     return notFound();
   }
 

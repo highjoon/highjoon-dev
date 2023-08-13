@@ -1,8 +1,14 @@
-import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '../constants/blogPosts';
-import { posts } from '../data/posts';
-
-const validatePageNumber = (pageNumber: number) => {
-  return isNaN(pageNumber) || pageNumber > Math.ceil(posts.length / DEFAULT_NUMBER_OF_POSTS_PER_PAGE) || pageNumber < 1;
+const validatePageNumber = ({
+  pageNumber,
+  totalPagesOfPosts,
+  postsPerPage,
+}: {
+  pageNumber: number;
+  totalPagesOfPosts: number;
+  postsPerPage: number;
+}) => {
+  if (isNaN(pageNumber) || pageNumber > Math.ceil(totalPagesOfPosts / postsPerPage) || pageNumber < 1) return false;
+  return true;
 };
 
 export default validatePageNumber;

@@ -1,8 +1,6 @@
-import { POSTS_FILE_NAME } from './../constants/blogPosts';
+import { FILE_NAME } from './../constants/blogPosts';
 
-type FileName = POSTS_FILE_NAME[keyof POSTS_FILE_NAME];
-
-const createBannerImgPath = (fileName: FileName) => {
+const createBannerImgPath = (fileName: FILE_NAME) => {
   return `/images/contents/${fileName}/img-banner.png`;
 };
 
