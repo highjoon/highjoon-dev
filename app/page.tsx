@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import PostCard from '@/components/Post/PostCard';
 import Pagination from '@/components/Common/Pagination';
+import PostCard from '@/components/Post/PostCard';
 import { posts } from '@/services/data/posts';
 import createPostPath from '@/services/utils/createPostPath';
 
