@@ -3,7 +3,7 @@ import localFont from 'next/font/local';
 import { PropsWithChildren } from 'react';
 import './globals.css';
 
-import GNB from '@/components/GNB/GNB';
+import GNB from '@/components/Common/GNB';
 
 export const metadata: Metadata = {
   title: 'highJoon.dev',

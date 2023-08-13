@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import PostCard from '@/components/Post/PostCard';
+import Pagination from '@/components/Common/Pagination';
 import { posts } from '@/services/data/posts';
 import createPostPath from '@/services/utils/createPostPath';
 
@@ -12,6 +13,7 @@ export default function Home() {
           <PostCard title={post.title} description={post.description} date={post.date} bannerImg={post.bannerImg} />
         </Link>
       ))}
+      <Pagination currentPageNumber={2} nextPageLink={'#'} prevPageLink={'#'} hasNextPage />
     </div>
   );
 }
