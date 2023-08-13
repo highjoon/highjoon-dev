@@ -1,13 +1,12 @@
-import Image from 'next/image';
 import fs from 'fs';
 import path from 'path';
 
-import MDXContent from '@/components/MDX/MDXContent';
-import TableOfContents from '@/components/Post/TableOfContents';
+import PageContent from '@/components/Post/PageContent';
+import { BLOG_CONTENTS_DIR } from '@/services/constants/blogPosts';
 import getBlogPost from '@/services/utils/getBlogPost';
 
 export async function generateStaticParams() {
-  const files = fs.readdirSync(path.join('services/contents'));
+  const files = fs.readdirSync(path.join(BLOG_CONTENTS_DIR));
 
   const paths = files.map((filename) => ({
     slug: filename.replace('.mdx', ''),
@@ -25,24 +24,8 @@ export async function generateMetadata({ params }: any) {
   };
 }
 
-export default function PostPage({ params }: any) {
+export default function Page({ params }: any) {
   const { frontMatter, content } = getBlogPost(params);
 
-  return (
-    <article className="relative mx-auto prose-sm prose md:prose-base lg:prose-lg prose-slate mb-[200px]">
-      <h1>{frontMatter.title}</h1>
-      <Image
-        src={frontMatter.bannerImg}
-        width={768}
-        height={400}
-        alt="post-logo"
-        priority
-        style={{ marginTop: '0px', marginBottom: '0px' }}
-      />
-      <div className="absolute top-0 right-[-50px] hidden xl:block">
-        <TableOfContents />
-      </div>
-      <MDXContent source={content} />
-    </article>
-  );
+  return <PageContent title={frontMatter.title} bannerImg={frontMatter.bannerImg} content={content} />;
 }
