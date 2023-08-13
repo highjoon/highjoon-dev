@@ -1,19 +1,14 @@
-import Link from 'next/link';
-
-import Pagination from '@/components/Common/Pagination';
-import PostCard from '@/components/Post/PostCard';
+import PageContents from '@/components/Post/PageContents';
+import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/services/constants/blogPosts';
 import { posts } from '@/services/data/posts';
-import createPostPath from '@/services/utils/createPostPath';
+import getRecentPosts from '@/services/utils/getRecentPosts';
 
 export default function Home() {
+  const recentPosts = getRecentPosts(posts, DEFAULT_NUMBER_OF_POSTS_PER_PAGE);
+
   return (
     <div className="py-2 flex flex-col max-w-[768px] mx-auto gap-6">
-      {posts.map((post) => (
-        <Link href={createPostPath(post.fileName)} passHref key={post.title}>
-          <PostCard title={post.title} description={post.description} date={post.date} bannerImg={post.bannerImg} />
-        </Link>
-      ))}
-      <Pagination currentPageNumber={2} nextPageLink={'#'} prevPageLink={'#'} hasNextPage />
+      <PageContents currentPagePosts={recentPosts} />
     </div>
   );
 }
