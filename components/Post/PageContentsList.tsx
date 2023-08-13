@@ -8,7 +8,7 @@ type Props = {
   currentPagePosts: Post[];
 };
 
-const PageContents = ({ currentPagePosts }: Props) => {
+const PageContentsList = ({ currentPagePosts }: Props) => {
   return (
     <ul>
       {currentPagePosts.map((post, index) => (
@@ -22,4 +22,4 @@ const PageContents = ({ currentPagePosts }: Props) => {
   );
 };
 
-export default PageContents;
+export default PageContentsList;
