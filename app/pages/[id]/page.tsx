@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Pagination from '@/components/Common/Pagination';
 import PageContentsList from '@/components/Post/PageContentsList';
 import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/services/constants/blogPosts';
+import { ROUTES } from '@/services/constants/routes';
 import { posts } from '@/services/data/posts';
 import getPageContents from '@/services/utils/getPageContents';
 import validatePageNumber from '@/services/utils/validatePageNumber';
@@ -39,8 +40,8 @@ export default function Page({ params }: Params) {
       <PageContentsList currentPagePosts={currentPagePosts} />
       <Pagination
         currentPageNumber={pageNumber}
-        nextPageLink={`/pages/${pageNumber + 1}`}
-        prevPageLink={`/pages/${pageNumber - 1}`}
+        nextPageLink={ROUTES.PAGES + `${pageNumber + 1}`}
+        prevPageLink={ROUTES.PAGES + `${pageNumber - 1}`}
         hasNextPage={hasNextPage}
       />
     </>
