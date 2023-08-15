@@ -11,19 +11,19 @@ const Pagination = ({ currentPageNumber, nextPageLink, prevPageLink, hasNextPage
   return (
     <div className="flex items-center justify-between">
       {currentPageNumber > 1 && !!prevPageLink ? (
-        <Link href={prevPageLink} className="text-grey-600 hover:text-primary-500">
+        <Link href={prevPageLink} className="flex justify-start flex-1 text-grey-600 hover:text-primary-500">
           &larr; Page {currentPageNumber - 1}
         </Link>
       ) : (
-        <div />
+        <div className="flex-1" />
       )}
       <span className="font-bold text-grey-900">Page {currentPageNumber}</span>
       {!!hasNextPage ? (
-        <Link href={nextPageLink} className="text-grey-600 hover:text-primary-500">
+        <Link href={nextPageLink} className="flex justify-end flex-1 text-grey-600 hover:text-primary-500">
           Page {currentPageNumber + 1} &rarr;
         </Link>
       ) : (
-        <div />
+        <div className="flex-1" />
       )}
     </div>
   );
