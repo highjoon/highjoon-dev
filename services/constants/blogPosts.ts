@@ -16,3 +16,5 @@ export const GNB_HEIGHT = 92;
 export const POSTS_PER_PAGE = 5;
 
 export const DEFAULT_NUMBER_OF_POSTS_PER_PAGE = 5;
+
+export const POST_ID_PREFIX = 'post-';

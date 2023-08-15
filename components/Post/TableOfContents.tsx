@@ -2,12 +2,10 @@
 
 import Link from 'next/link';
 
-import useClickTocLink from '@/hooks/useClickTocLink';
-import useObserveHeadingElements from '@/hooks/useObserveHeadingElements';
+import useToc from '@/hooks/useTOC';
 
 const TableOfContents = () => {
-  const { headingElements, activeId } = useObserveHeadingElements();
-  const { handleClickLink } = useClickTocLink();
+  const { tocElements, handleClickTocLink, activeTocId } = useToc();
 
   return (
     <ul
@@ -18,14 +16,14 @@ const TableOfContents = () => {
         paddingRight: '15px',
         maxHeight: 'calc(100vh - 200px)',
       }}>
-      {headingElements.length > 0
-        ? headingElements.map((element, index) => (
+      {tocElements.length > 0
+        ? tocElements.map((element, index) => (
             <li key={String(element) + index} className="py-1 text-sm list-none" style={{ margin: 0, paddingLeft: 0 }}>
               <Link
                 href={`#${element.id}`}
-                onClick={handleClickLink}
+                onClick={handleClickTocLink}
                 className={`${
-                  element.id === activeId ? 'text-primary-500' : 'text-grey-600'
+                  element.id === activeTocId ? 'text-primary-500' : 'text-grey-600'
                 } py-1 w-fit cursor-pointer transition-all duration-75 no-underline`}>
                 {element.innerHTML}
               </Link>
