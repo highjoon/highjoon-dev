@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import GitHubLogo from 'public/images/img-github-logo.png';
 import LinkedInLogo from 'public/images/img-linkedin-logo.png';
 
@@ -19,12 +20,12 @@ const GNB = () => {
         <ul className="flex items-center gap-[5px] md:gap-[20px]">
           <li>
             <Link href={LINKS.GITHUB} target="_blank">
-              <Image src={GitHubLogo} width={60} height={60} alt="github-logo" />
+              <AiFillGithub className="text-[30px] md:text-[40px] lg:text-[50px] hover:text-primary-500" />
             </Link>
           </li>
           <li>
             <Link href={LINKS.LINKED_IN} target="_blank">
-              <Image src={LinkedInLogo} width={50} height={50} alt="linkedin-logo" />
+              <AiFillLinkedin className="text-[30px] md:text-[40px] lg:text-[50px] hover:text-primary-500" />
             </Link>
           </li>
         </ul>
