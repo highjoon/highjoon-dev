@@ -5,8 +5,14 @@ export type FrontMatter = {
   description: string;
   date: string;
   bannerImg: string;
+  tags: string[];
 };
 
 export interface Post extends FrontMatter {
   fileName: POSTS_FILE_NAME[keyof POSTS_FILE_NAME];
+}
+
+export interface TagPath {
+  tag: string;
+  id: string;
 }

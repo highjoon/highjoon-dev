@@ -1,7 +1,7 @@
 import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '../constants/blogPosts';
-import { posts } from '../data/posts';
+import { Post } from '../types/post';
 
-const getPageContents = (pageNumber: number) => {
+const getPageContents = (posts: Post[], pageNumber: number) => {
   const startIndex = (pageNumber - 1) * DEFAULT_NUMBER_OF_POSTS_PER_PAGE;
   const endIndex = startIndex + DEFAULT_NUMBER_OF_POSTS_PER_PAGE;
 
