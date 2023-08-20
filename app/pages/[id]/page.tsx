@@ -33,11 +33,11 @@ export default function Page({ params }: Params) {
     return notFound();
   }
 
-  const { currentPagePosts, hasNextPage } = getPageContents(pageNumber);
+  const { currentPagePosts, hasNextPage } = getPageContents(posts, pageNumber);
 
   return (
     <>
-      <PageContentsList currentPagePosts={currentPagePosts} />
+      <PageContentsList posts={currentPagePosts} />
       <Pagination
         currentPageNumber={pageNumber}
         nextPageLink={ROUTES.PAGES + `${pageNumber + 1}`}
