@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-import useToc from '@/hooks/useTOC';
+import useToc from '@/hooks/useToc';
 
 const TableOfContents = () => {
   const { tocElements, handleClickTocLink, activeTocId } = useToc();
