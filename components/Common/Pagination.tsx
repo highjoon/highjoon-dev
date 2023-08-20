@@ -1,32 +1,68 @@
 import Link from 'next/link';
+import { PropsWithChildren } from 'react';
 
-type Props = {
+import { ROUTES } from '@/services/constants/routes';
+
+type CurrentPageProps = {
   currentPageNumber: number;
-  nextPageLink: string;
-  prevPageLink?: string;
-  hasNextPage?: boolean;
 };
 
-const Pagination = ({ currentPageNumber, nextPageLink, prevPageLink, hasNextPage }: Props) => {
+type PrevPageLinkProps = {
+  prevPageLink?: string;
+  currentPageNumber: number;
+};
+
+type NextPageLinkProps = {
+  hasNextPage?: boolean;
+  nextPageLink: string;
+  currentPageNumber: number;
+};
+
+const Pagination = ({ children }: PropsWithChildren) => {
+  return <div className="flex items-center justify-between">{children}</div>;
+};
+
+const CurrentPage = ({ currentPageNumber }: CurrentPageProps) => {
+  return <span className="font-bold text-grey-900">Page {currentPageNumber}</span>;
+};
+
+const PrevPageLink = ({ prevPageLink, currentPageNumber }: PrevPageLinkProps) => {
+  if (currentPageNumber <= 1 || !prevPageLink) {
+    return <div className="flex-1" />;
+  }
+
   return (
-    <div className="flex items-center justify-between">
-      {currentPageNumber > 1 && !!prevPageLink ? (
-        <Link href={prevPageLink} className="flex justify-start flex-1 text-grey-600 hover:text-primary-500">
-          &larr; Page {currentPageNumber - 1}
-        </Link>
-      ) : (
-        <div className="flex-1" />
-      )}
-      <span className="font-bold text-grey-900">Page {currentPageNumber}</span>
-      {!!hasNextPage ? (
-        <Link href={nextPageLink} className="flex justify-end flex-1 text-grey-600 hover:text-primary-500">
-          Page {currentPageNumber + 1} &rarr;
-        </Link>
-      ) : (
-        <div className="flex-1" />
-      )}
+    <Link href={prevPageLink} className="flex justify-start flex-1 text-grey-600 hover:text-primary-500">
+      &larr; Page {currentPageNumber - 1}
+    </Link>
+  );
+};
+
+const NextPageLink = ({ hasNextPage, nextPageLink, currentPageNumber }: NextPageLinkProps) => {
+  if (!hasNextPage) {
+    return <div className="flex-1" />;
+  }
+
+  return (
+    <Link href={nextPageLink} className="flex justify-end flex-1 text-grey-600 hover:text-primary-500">
+      Page {currentPageNumber + 1} &rarr;
+    </Link>
+  );
+};
+
+const AllPages = () => {
+  return (
+    <div className="flex justify-end w-full">
+      <Link href={ROUTES.PAGES + '1'} className="text-grey-600 hover:text-primary-500">
+        All Pages &rarr;
+      </Link>
     </div>
   );
 };
+
+Pagination.AllPages = AllPages;
+Pagination.CurrentPage = CurrentPage;
+Pagination.PrevPageLink = PrevPageLink;
+Pagination.NextPageLink = NextPageLink;
 
 export default Pagination;

@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 
 import Pagination from '@/components/Common/Pagination';
 import PageContentsList from '@/components/Post/PageContentsList';
-import PostsLayout from '@/components/Post/PostsLayout';
 import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/services/constants/blogPosts';
 import { ROUTES } from '@/services/constants/routes';
 import { posts } from '@/services/data/posts';
@@ -60,14 +59,21 @@ export default function Page({
   const { currentPagePosts, hasNextPage } = getPageContents(postsWithTag, pageNumber);
 
   return (
-    <PostsLayout title={`#${currentTag}`}>
+    <div className="py-2 flex flex-col max-w-[768px] mx-auto gap-6">
+      <h1 className="text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-grey-900">#{currentTag}</h1>
       <PageContentsList posts={currentPagePosts} />
-      <Pagination
-        currentPageNumber={pageNumber}
-        nextPageLink={ROUTES.TAGS + currentTag + `/${pageNumber + 1}`}
-        prevPageLink={ROUTES.TAGS + currentTag + `/${pageNumber - 1}`}
-        hasNextPage={hasNextPage}
-      />
-    </PostsLayout>
+      <Pagination>
+        <Pagination.PrevPageLink
+          currentPageNumber={pageNumber}
+          prevPageLink={ROUTES.TAGS + currentTag + `/${pageNumber - 1}`}
+        />
+        <Pagination.CurrentPage currentPageNumber={pageNumber} />
+        <Pagination.NextPageLink
+          currentPageNumber={pageNumber}
+          nextPageLink={ROUTES.TAGS + currentTag + `/${pageNumber + 1}`}
+          hasNextPage={hasNextPage}
+        />
+      </Pagination>
+    </div>
   );
 }

@@ -38,12 +38,15 @@ export default function Page({ params }: Params) {
   return (
     <>
       <PageContentsList posts={currentPagePosts} />
-      <Pagination
-        currentPageNumber={pageNumber}
-        nextPageLink={ROUTES.PAGES + `${pageNumber + 1}`}
-        prevPageLink={ROUTES.PAGES + `${pageNumber - 1}`}
-        hasNextPage={hasNextPage}
-      />
+      <Pagination>
+        <Pagination.PrevPageLink currentPageNumber={pageNumber} prevPageLink={ROUTES.PAGES + `${pageNumber - 1}`} />
+        <Pagination.CurrentPage currentPageNumber={pageNumber} />
+        <Pagination.NextPageLink
+          currentPageNumber={pageNumber}
+          nextPageLink={ROUTES.PAGES + `${pageNumber + 1}`}
+          hasNextPage={hasNextPage}
+        />
+      </Pagination>
     </>
   );
 }
