@@ -21,7 +21,7 @@ interface Params {
 
 export async function generateMetadata({ params: { tag, id } }: Params) {
   return {
-    title: `#${tag} - ${id}`,
+    title: `# ${tag} - ${id}`,
   };
 }
 
@@ -59,8 +59,9 @@ export default function Page({
   const { currentPagePosts, hasNextPage } = getPageContents(postsWithTag, pageNumber);
 
   return (
-    <div className="py-2 flex flex-col max-w-[768px] mx-auto gap-6">
-      <h1 className="text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-grey-900">#{currentTag}</h1>
+    <>
+      <h1 className="text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-grey-900"># {currentTag}</h1>
+      <h3 className="font-bold text-md sm:text-lg md:text-xl text-grey-700">Page {id}</h3>
       <PageContentsList posts={currentPagePosts} />
       <Pagination>
         <Pagination.PrevPageLink
@@ -74,6 +75,6 @@ export default function Page({
           hasNextPage={hasNextPage}
         />
       </Pagination>
-    </div>
+    </>
   );
 }

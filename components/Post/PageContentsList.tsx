@@ -24,7 +24,7 @@ const PageContentsList = ({ posts }: Props) => {
                 href={ROUTES.TAGS + tag + '/1'}
                 passHref
                 className="px-2 py-1 text-xs rounded-lg sm:text-sm text-primary-500 bg-primary-50 shrink-0 hover:bg-primary-100">
-                {tag}
+                # {tag}
               </Link>
             ))}
           </div>
