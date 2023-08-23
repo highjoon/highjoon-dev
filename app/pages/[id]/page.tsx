@@ -37,6 +37,7 @@ export default function Page({ params }: Params) {
 
   return (
     <>
+      <h1 className="text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-grey-900">Posts</h1>
       <PageContentsList posts={currentPagePosts} />
       <Pagination>
         <Pagination.PrevPageLink currentPageNumber={pageNumber} prevPageLink={ROUTES.PAGES + `${pageNumber - 1}`} />
