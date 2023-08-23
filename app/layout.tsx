@@ -4,6 +4,7 @@ import { PropsWithChildren } from 'react';
 import './globals.css';
 
 import GNB from '@/components/Common/GNB';
+import TabBar from '@/components/Common/TabBar';
 
 export const metadata: Metadata = {
   title: 'highJoon.dev',
@@ -24,7 +25,12 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="ko">
       <body className={pretendard.className} suppressHydrationWarning>
         <GNB />
-        <main className="w-full px-5 pt-20 pb-20 sm:pt-32 md:pb-40 md:pt-40">{children}</main>
+        <main className="w-full px-5 pt-20 pb-20 sm:pt-32 md:pb-40 md:pt-40">
+          <div className="py-2 flex flex-col max-w-[768px] mx-auto gap-6">
+            <TabBar />
+            {children}
+          </div>
+        </main>
       </body>
     </html>
   );
