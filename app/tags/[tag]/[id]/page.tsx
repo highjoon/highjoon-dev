@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import Pagination from '@/components/Common/Pagination';
+import Title from '@/components/Common/Title';
 import PageContentsList from '@/components/Post/PageContentsList';
 import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/services/constants/blogPosts';
 import { ROUTES } from '@/services/constants/routes';
@@ -60,8 +61,9 @@ export default function Page({
 
   return (
     <>
-      <h1 className="text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-grey-900"># {currentTag}</h1>
-      <h3 className="font-bold text-md sm:text-lg md:text-xl text-grey-700">Page {id}</h3>
+      <Title title={`# ${currentTag}`}>
+        <Title.Subtitle subTitle={`Page ${id}`} />
+      </Title>
       <PageContentsList posts={currentPagePosts} />
       <Pagination>
         <Pagination.PrevPageLink
