@@ -15,7 +15,7 @@ interface Params {
 
 export async function generateMetadata({ params: { id } }: Params) {
   return {
-    title: `Page ${id}`,
+    title: `highJoon-dev [Pages ${id}]`,
   };
 }
 
@@ -38,7 +38,9 @@ export default function Page({ params }: Params) {
 
   return (
     <>
-      <Title title="Posts" />
+      <Title title="Posts">
+        <Title.Subtitle subTitle={`Page ${pageNumber}`} />
+      </Title>
       <PageContentsList posts={currentPagePosts} />
       <Pagination>
         <Pagination.PrevPageLink currentPageNumber={pageNumber} prevPageLink={ROUTES.PAGES + `${pageNumber - 1}`} />

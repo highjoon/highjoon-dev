@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import HashTag from '../Tags/HashTag';
 import PostCard from './PostCard';
 
 import { ROUTES } from '@/services/constants/routes';
@@ -19,13 +20,7 @@ const PageContentsList = ({ posts }: Props) => {
           </Link>
           <div className="flex gap-2 px-2 overflow-scroll">
             {post.tags.map((tag, index) => (
-              <Link
-                key={tag + index}
-                href={ROUTES.TAGS + tag + '/1'}
-                passHref
-                className="px-2 py-1 text-xs rounded-lg sm:text-sm text-primary-500 bg-primary-50 shrink-0 hover:bg-primary-100">
-                # {tag}
-              </Link>
+              <HashTag key={tag + index} href={ROUTES.TAGS + tag + '/1'} passHref tag={`# ${tag}`} />
             ))}
           </div>
         </li>
