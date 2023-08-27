@@ -1,8 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
-import GitHubLogo from 'public/images/img-github-logo.png';
-import LinkedInLogo from 'public/images/img-linkedin-logo.png';
 
 import { LINKS } from '@/services/constants/links';
 

@@ -4,12 +4,6 @@ import { ROUTES } from '@/services/constants/routes';
 import countTags from '@/services/utils/countTags';
 import getAllTagsFromPosts from '@/services/utils/getAllTagsFromPosts';
 
-const getAllTags = async () => {
-  const allTags = getAllTagsFromPosts();
-  const tagCountsArray = countTags(allTags);
-  return tagCountsArray;
-};
-
 export async function generateMetadata() {
   return {
     title: 'highJoon-dev [Tags]',
@@ -17,12 +11,13 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const tagCountsArray = await getAllTags();
+  const allTags = getAllTagsFromPosts();
+  const tagCountsArray = countTags(allTags);
 
   return (
     <>
       <Title title="Tags" />
-      <div className="flex flex-wrap gap-2 px-2">
+      <div className="flex flex-wrap gap-2">
         {tagCountsArray.map((tagCount, index) => {
           const tag = Object.keys(tagCount)[0];
           const count = tagCount[tag];
