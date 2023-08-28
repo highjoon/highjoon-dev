@@ -26,8 +26,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="ko">
       <body className={pretendard.className} suppressHydrationWarning>
         <GNB />
-        <main className="w-full px-5 pt-20 pb-20 sm:pt-32 md:pb-40 md:pt-40">
-          <div className="py-2 flex flex-col max-w-[768px] mx-auto gap-6">
+        <main className="flex-1 justify-between w-full h-full px-5 pt-20 md:pt-32 pb-5 flex flex-col max-w-[768px] mx-auto gap-3 md:gap-6">
+          <div className="flex flex-col gap-6">
             <TabBar />
             {children}
           </div>
