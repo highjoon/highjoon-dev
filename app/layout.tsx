@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import { PropsWithChildren } from 'react';
 import './globals.css';
 
+import Footer from '@/components/Common/Footer';
 import GNB from '@/components/Common/GNB';
 import TabBar from '@/components/Common/TabBar';
 
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <TabBar />
             {children}
           </div>
+          <Footer />
         </main>
       </body>
     </html>
