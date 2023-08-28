@@ -1,5 +1,6 @@
 const { colors } = require('./styles/themes/foundations/colors');
 const { boxShadow } = require('./styles/themes/foundations/boxShadow');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -10,6 +11,14 @@ module.exports = {
   theme: {
     colors,
     boxShadow,
+    hljs: {
+      theme: 'github-dark',
+    },
   },
-  plugins: [require('@tailwindcss/typography')],
+  safelist: [
+    {
+      pattern: /hljs+/,
+    },
+  ],
+  plugins: [require('@tailwindcss/typography'), require('tailwind-highlightjs')],
 };
