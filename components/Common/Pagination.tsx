@@ -50,17 +50,6 @@ const NextPageLink = ({ hasNextPage, nextPageLink, currentPageNumber }: NextPage
   );
 };
 
-const AllPages = () => {
-  return (
-    <div className="flex justify-end w-full">
-      <Link href={ROUTES.PAGES + '1'} className="text-grey-600 hover:text-primary-500">
-        All Pages &rarr;
-      </Link>
-    </div>
-  );
-};
-
-Pagination.AllPages = AllPages;
 Pagination.CurrentPage = CurrentPage;
 Pagination.PrevPageLink = PrevPageLink;
 Pagination.NextPageLink = NextPageLink;
