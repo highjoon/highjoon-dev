@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <>
       <Title title="About" />
-      <div className="flex gap-5 md:gap-8 lg:gap-16">
+      <div className="flex flex-col gap-5 sm:flex-row md:gap-8 lg:gap-16">
         <div className="flex flex-col gap-3">
           <Image
             src={ProfileImage}
