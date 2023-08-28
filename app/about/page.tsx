@@ -3,6 +3,12 @@ import Image from 'next/image';
 import Title from '@/components/Common/Title';
 import ProfileImage from '@/public/images/img-profile.png';
 
+export async function generateMetadata() {
+  return {
+    title: 'About',
+  };
+}
+
 export default function Page() {
   return (
     <>

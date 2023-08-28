@@ -15,7 +15,7 @@ interface Params {
 
 export async function generateMetadata({ params: { id } }: Params) {
   return {
-    title: `highJoon-dev [Pages ${id}]`,
+    title: `Pages ${id}`,
   };
 }
 

@@ -6,7 +6,7 @@ import getAllTagsFromPosts from '@/services/utils/getAllTagsFromPosts';
 
 export async function generateMetadata() {
   return {
-    title: 'highJoon-dev [Tags]',
+    title: 'Tags',
   };
 }
 
