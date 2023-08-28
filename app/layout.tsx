@@ -10,6 +10,9 @@ import TabBar from '@/components/Common/TabBar';
 export const metadata: Metadata = {
   title: 'highJoon.dev',
   description: "highJoon's dev-log",
+  creator: 'highJoon',
+  publisher: 'highJoon',
+  referrer: 'origin-when-cross-origin',
   icons: {
     icon: '/favicon/apple-icon.png',
     shortcut: '/favicon/apple-icon.png',
@@ -18,6 +21,23 @@ export const metadata: Metadata = {
       rel: '/favicon/apple-icon-precomposed',
       url: '/favicon/apple-icon-precomposed.png',
     },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
 };
 
