@@ -23,7 +23,7 @@ const Pagination = ({ children }: PropsWithChildren) => {
 };
 
 const CurrentPage = ({ currentPageNumber }: CurrentPageProps) => {
-  return <span className="font-bold text-grey-900">Page {currentPageNumber}</span>;
+  return <span className="font-bold text-grey-900 dark:text-white">Page {currentPageNumber}</span>;
 };
 
 const PrevPageLink = ({ prevPageLink, currentPageNumber }: PrevPageLinkProps) => {
@@ -32,7 +32,9 @@ const PrevPageLink = ({ prevPageLink, currentPageNumber }: PrevPageLinkProps) =>
   }
 
   return (
-    <Link href={prevPageLink} className="flex justify-start flex-1 text-grey-600 hover:text-primary-500">
+    <Link
+      href={prevPageLink}
+      className="flex justify-start flex-1 text-grey-600 hover:text-primary-500 dark:text-white dark:hover:text-primary-500">
       &larr; Page {currentPageNumber - 1}
     </Link>
   );
@@ -44,7 +46,9 @@ const NextPageLink = ({ hasNextPage, nextPageLink, currentPageNumber }: NextPage
   }
 
   return (
-    <Link href={nextPageLink} className="flex justify-end flex-1 text-grey-600 hover:text-primary-500">
+    <Link
+      href={nextPageLink}
+      className="flex justify-end flex-1 text-grey-600 hover:text-primary-500 dark:text-white dark:hover:text-primary-500">
       Page {currentPageNumber + 1} &rarr;
     </Link>
   );

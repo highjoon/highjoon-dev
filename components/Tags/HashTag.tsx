@@ -14,7 +14,7 @@ const HashTag = ({ children, tag, ...rest }: TagProps) => {
     <Link
       {...rest}
       passHref
-      className="px-2 py-1 text-xs rounded-lg sm:text-sm text-primary-500 bg-primary-50 shrink-0 hover:bg-primary-100">
+      className="px-2 py-1 text-xs rounded-lg sm:text-sm text-primary-500 bg-primary-50 shrink-0 hover:bg-primary-100 dark:bg-grey-800 dark:hover:bg-grey-700 dark:text-primary-100">
       {tag}
       {children}
     </Link>
@@ -22,7 +22,7 @@ const HashTag = ({ children, tag, ...rest }: TagProps) => {
 };
 
 const Count = ({ count }: CountProps) => {
-  return <span className="ml-2 font-bold text-grey-600">{count}</span>;
+  return <span className="ml-2 font-bold text-grey-600 dark:text-grey-100">{count}</span>;
 };
 
 HashTag.Count = Count;

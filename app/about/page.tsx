@@ -20,15 +20,15 @@ export default function Page() {
             width={200}
             height={200}
             alt="profile-image"
-            className="p-5 rounded-full bg-primary-50"
+            className="p-5 rounded-full bg-primary-50 dark:bg-grey-600"
           />
           <p className="italic">하고 싶은건 많은데 시간이 없다!</p>
         </div>
         <div className="flex flex-col">
           <div className="mb-5">
             <p className="mb-3 text-lg md:text-2xl">윤상준</p>
-            <p className="text-grey-700">1년차 웹 프론트엔드 개발자입니다.</p>
-            <p className="text-grey-700">라이브커머스 솔루션 기업에서 재직 중입니다.</p>
+            <p className="text-grey-700 dark:text-grey-300">1년차 웹 프론트엔드 개발자입니다.</p>
+            <p className="text-grey-700 dark:text-grey-300">라이브커머스 솔루션 기업에서 재직 중입니다.</p>
           </div>
           <ul className="flex flex-col gap-2">
             <li>
