@@ -1,6 +1,7 @@
 export const BLOG_CONTENTS_DIR = 'services/contents';
 
 export const POSTS_FILE_NAME = {
+  CRA_TO_VITE_MIGRATION: 'cra-to-vite-migration',
 } as const;
 
 export type POSTS_FILE_NAME = typeof POSTS_FILE_NAME;
