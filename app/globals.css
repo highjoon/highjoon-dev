@@ -42,3 +42,19 @@ body {
 html.dark {
   background-color: var(--color-grey-900);
 }
+
+code {
+  border-radius: 4px;
+  background-color: var(--color-grey-100);
+  padding: 3px;
+}
+
+.dark code {
+  background-color: var(--color-grey-700);
+  color: var(--color-grey-100);
+}
+
+code::before,
+code::after {
+  display: none;
+}
