@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watch",
-    "test:all": "jest --watch-all",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:watch-all": "jest --watch-all",
     "type-check": "tsc --noEmit",
     "lint:fix": "eslint --cache --fix '*.{ts,tsx}'",
     "prettier:fix": "prettier --write '*.{ts,tsx}'"
