@@ -12,6 +12,14 @@ import TabBar from '@/components/Common/TabBar';
 export const metadata: Metadata = {
   title: 'highJoon.dev',
   description: "highJoon's dev-log",
+  metadataBase: new URL('https://highjoon-dev.vercel.app'),
+  openGraph: {
+    title: 'highJoon.dev',
+    description: "highJoon's dev-log",
+    url: 'https://highjoon-dev.vercel.app/',
+    locale: 'ko',
+    type: 'website',
+  },
   creator: 'highJoon',
   publisher: 'highJoon',
   referrer: 'origin-when-cross-origin',

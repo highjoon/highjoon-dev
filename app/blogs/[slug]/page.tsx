@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
 
@@ -15,12 +16,15 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export async function generateMetadata({ params }: any) {
+export async function generateMetadata({ params }: any): Promise<Metadata> {
   const blog = getBlogPost(params);
 
   return {
     title: blog.frontMatter.title,
     description: blog.frontMatter.description,
+    openGraph: {
+      images: blog.frontMatter.bannerImg,
+    },
   };
 }
 
