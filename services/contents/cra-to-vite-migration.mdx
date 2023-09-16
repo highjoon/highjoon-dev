@@ -421,6 +421,25 @@ export default defineConfig(() => {
 });
 ```
 
+### 3. 타입 체크가 되지 않는 이슈
+
+> Vite는 .ts 파일에 대해서 트랜스파일링만 수행하며, 타입 검사는 IDE와 빌드 프로세스에서 수행된다고 가정합니다.
+>
+> [Vite 트랜스파일만 수행](https://ko.vitejs.dev/guide/features.html#transpile-only)
+
+vite는 타입 체크를 하지 않는다. 트랜스파일링은 Vite의 on demand HMR 컨셉과 일치한다. 변경된 모듈만 다시 트랜스파일링하여 교체할 수 있다. 반면 타입 체크는 모든 모듈에 대해 수행되어야 한다. 변경된 모듈에만 타입 에러가 발생한다는 보장이 없기 때문이다. 하지만 타입 체크를 매번 한다면 Vite는 빠른 속도를 제공할 수 없게 된다. 따라서 Vite 팀에서는 타입 체크는 별도로 수행할 것을 권장한다.
+
+> Vite의 역할은 소스 모듈을 가능한 빠르게 브라우저에서 실행할 수 있는 형태로 변환하는 것입니다. 따라서 이를 위해 Vite의 변환 파이프 라인에서 정적 분석 검사를 분리하는 것을 권장합니다.
+>
+> [Vite 트랜스파일만 수행](https://ko.vitejs.dev/guide/features.html#transpile-only)
+
+따라서 다음의 2가지 방법으로 타입 체크를 수행하도록 했다.
+
+1. 빌드 명령어에 `tsc --noEmit`을 추가하여 빌드 시 타입 체크가 이루어지도록 했다.
+2. [vite-plugin-checker](https://ko.vitejs.dev/guide/features.html#transpile-only:~:text=%EC%97%90%EB%9F%AC%EB%A5%BC%20%ED%99%95%EC%9D%B8%ED%95%98%EA%B3%A0%20%EC%8B%B6%EB%8B%A4%EB%A9%B4-,vite%2Dplugin%2Dchecker,-%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94%20%EA%B2%83%EC%9D%84) 플러그인을 추가하여 브라우저에서 타입 에러가 보여지도록 했다.
+
+다만 빌드 시 `tsc --noEmit`이 추가되니까 빌드 시간이 소폭 증가했다.
+
 ## 결과 및 후기
 
 `Vite`를 도입한지 약 2주가 지났고 현재는 모두가 만족하면서 사용하고 있다. 특히 빠른 개발 속도가 주는 만족감이 매우 크다.
