@@ -3,15 +3,15 @@ import { notFound } from 'next/navigation';
 import Pagination from '@/components/Common/Pagination';
 import Title from '@/components/Common/Title';
 import PageContentsList from '@/components/Post/PageContentsList';
-import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/services/constants/blogPosts';
-import { ROUTES } from '@/services/constants/routes';
-import { posts } from '@/services/data/posts';
-import calculateNumberOfTags from '@/services/utils/calculateNumberOfTags';
-import calculateTagPageCount from '@/services/utils/calculateTagPageCount';
-import generateTagPaths from '@/services/utils/generateTagPaths';
-import getAllTagsFromPosts from '@/services/utils/getAllTagsFromPosts';
-import getPageContents from '@/services/utils/getPageContents';
-import validatePageNumber from '@/services/utils/validatePageNumber';
+import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/constants/blogPosts';
+import { ROUTES } from '@/constants/routes';
+import { posts } from '@/data/posts';
+import calculateNumberOfTags from '@/utils/calculateNumberOfTags';
+import calculateTagPageCount from '@/utils/calculateTagPageCount';
+import generateTagPaths from '@/utils/generateTagPaths';
+import getAllTagsFromPosts from '@/utils/getAllTagsFromPosts';
+import getPageContents from '@/utils/getPageContents';
+import validatePageNumber from '@/utils/validatePageNumber';
 
 interface Params {
   params: {

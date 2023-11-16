@@ -3,11 +3,11 @@ import { notFound } from 'next/navigation';
 import Pagination from '@/components/Common/Pagination';
 import Title from '@/components/Common/Title';
 import PageContentsList from '@/components/Post/PageContentsList';
-import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/services/constants/blogPosts';
-import { ROUTES } from '@/services/constants/routes';
-import { posts } from '@/services/data/posts';
-import getPageContents from '@/services/utils/getPageContents';
-import validatePageNumber from '@/services/utils/validatePageNumber';
+import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/constants/blogPosts';
+import { ROUTES } from '@/constants/routes';
+import { posts } from '@/data/posts';
+import getPageContents from '@/utils/getPageContents';
+import validatePageNumber from '@/utils/validatePageNumber';
 
 interface Params {
   params: { id: string };

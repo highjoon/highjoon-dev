@@ -1,6 +1,6 @@
 import createBannerImgPath from '../createBannerImgPath';
 
-import { POSTS_FILE_NAME } from '@/services/constants/blogPosts';
+import { POSTS_FILE_NAME } from '@/constants/blogPosts';
 
 describe('createBannerImgPath', () => {
   it.each(Object.values(POSTS_FILE_NAME))('파일 이름 "%s"으로 올바른 배너 이미지 경로를 생성합니다.', (fileName) => {

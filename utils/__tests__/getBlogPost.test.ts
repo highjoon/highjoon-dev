@@ -4,7 +4,7 @@ import path from 'path';
 import createBannerImgPath from '../createBannerImgPath';
 import getBlogPost from '../getBlogPost';
 
-import { BLOG_CONTENTS_DIR } from '@/services/constants/blogPosts';
+import { BLOG_CONTENTS_DIR } from '@/constants/blogPosts';
 
 jest.mock('fs');
 jest.mock('gray-matter');

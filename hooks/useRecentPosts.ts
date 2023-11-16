@@ -1,5 +1,5 @@
-import { posts } from '@/services/data/posts';
-import sortPostsByDate from '@/services/utils/sortPostsByDate';
+import { posts } from '@/data/posts';
+import sortPostsByDate from '@/utils/sortPostsByDate';
 
 const useRecentPosts = () => {
   const sortedPostsByDate = sortPostsByDate(posts);

@@ -1,8 +1,8 @@
 import Title from '@/components/Common/Title';
 import HashTag from '@/components/Tags/HashTag';
-import { ROUTES } from '@/services/constants/routes';
-import countTags from '@/services/utils/countTags';
-import getAllTagsFromPosts from '@/services/utils/getAllTagsFromPosts';
+import { ROUTES } from '@/constants/routes';
+import countTags from '@/utils/countTags';
+import getAllTagsFromPosts from '@/utils/getAllTagsFromPosts';
 
 export async function generateMetadata() {
   return {

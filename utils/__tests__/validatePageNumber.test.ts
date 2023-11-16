@@ -1,6 +1,6 @@
 import validatePageNumber from '../validatePageNumber';
 
-import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/services/constants/blogPosts';
+import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/constants/blogPosts';
 
 describe('validatePageNumber', () => {
   it('pageNumber의 유효성 검사를 통과하지 못할 경우 false를 반환합니다.', () => {

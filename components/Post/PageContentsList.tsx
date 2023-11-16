@@ -2,9 +2,9 @@ import Link from 'next/link';
 import HashTag from '../Tags/HashTag';
 import PostCard from './PostCard';
 
-import { ROUTES } from '@/services/constants/routes';
-import { Post } from '@/services/types/post';
-import createPostPath from '@/services/utils/createPostPath';
+import { ROUTES } from '@/constants/routes';
+import { Post } from '@/types/post';
+import createPostPath from '@/utils/createPostPath';
 
 type Props = {
   posts: Post[];

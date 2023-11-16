@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { GNB_HEIGHT } from '@/services/constants/blogPosts';
-import { getIntersectionObserver } from '@/services/utils/getIntersectionObserver';
+import { GNB_HEIGHT } from '@/constants/blogPosts';
+import { getIntersectionObserver } from '@/utils/getIntersectionObserver';
 
 const useToc = () => {
   const [headingElements, setHeadingElements] = useState<Element[]>([]);

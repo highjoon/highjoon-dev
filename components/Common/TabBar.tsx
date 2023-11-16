@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { ROUTES } from '@/services/constants/routes';
-import { TAB_NAME } from '@/services/constants/tab';
+import { ROUTES } from '@/constants/routes';
+import { TAB_NAME } from '@/constants/tab';
 
 const Tab = ({ href, tabName, isActive }: { href: string; tabName: string; isActive: boolean }) => {
   return (

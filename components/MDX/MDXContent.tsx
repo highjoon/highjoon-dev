@@ -5,7 +5,7 @@ import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import remarkMdxImages from 'remark-mdx-images';
 
-import { POST_ID_PREFIX } from '@/services/constants/blogPosts';
+import { POST_ID_PREFIX } from '@/constants/blogPosts';
 
 const options: SerializeOptions = {
   mdxOptions: {

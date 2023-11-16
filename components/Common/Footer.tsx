@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AiFillGithub, AiFillLinkedin, AiFillMail } from 'react-icons/ai';
 
-import { LINKS } from '@/services/constants/links';
+import { LINKS } from '@/constants/links';
 
 const Footer = () => {
   return (

@@ -1,7 +1,7 @@
 import getPageContents from '../getPageContents';
 
-import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/services/constants/blogPosts';
-import { posts } from '@/services/data/posts';
+import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '@/constants/blogPosts';
+import { posts } from '@/data/posts';
 
 describe('getPageContents', () => {
   it('첫 페이지일 경우 올바른 페이지 컨텐츠를 반환해야 합니다.', () => {

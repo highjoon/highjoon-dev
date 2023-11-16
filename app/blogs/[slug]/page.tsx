@@ -3,8 +3,8 @@ import fs from 'fs';
 import path from 'path';
 
 import PageContent from '@/components/Post/PageContent';
-import { BLOG_CONTENTS_DIR } from '@/services/constants/blogPosts';
-import getBlogPost from '@/services/utils/getBlogPost';
+import { BLOG_CONTENTS_DIR } from '@/constants/blogPosts';
+import getBlogPost from '@/utils/getBlogPost';
 
 export async function generateStaticParams() {
   const files = fs.readdirSync(path.join(BLOG_CONTENTS_DIR));

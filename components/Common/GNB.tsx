@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import ThemeSwitch from './ThemeSwitch';
 
-import { LINKS } from '@/services/constants/links';
+import { LINKS } from '@/constants/links';
 
 const GNB = () => {
   return (

@@ -1,6 +1,6 @@
 import sortPostsByDate from '../sortPostsByDate';
 
-import { Post } from '@/services/types/post';
+import { Post } from '@/types/post';
 
 describe('sortPostsByDate', () => {
   it('Date를 기준으로 내림차순 정렬해야 합니다.', () => {

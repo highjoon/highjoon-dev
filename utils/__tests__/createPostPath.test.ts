@@ -1,6 +1,6 @@
 import createPostPath from '../createPostPath';
 
-import { POSTS_FILE_NAME } from '@/services/constants/blogPosts';
+import { POSTS_FILE_NAME } from '@/constants/blogPosts';
 
 describe('createPostPath', () => {
   it.each(Object.values(POSTS_FILE_NAME))('slug "%s"로 올바른 포스트 경로를 생성합니다.', (fileName) => {
