@@ -1,6 +1,5 @@
 import Title from '@/components/Common/Title';
-import HashTag from '@/components/Tags/HashTag';
-import { ROUTES } from '@/constants/routes';
+import PageContent from '@/components/Tag/PageContent';
 import countTags from '@/utils/countTags';
 import getAllTagsFromPosts from '@/utils/getAllTagsFromPosts';
 
@@ -17,17 +16,7 @@ export default async function Page() {
   return (
     <>
       <Title title="Tags" />
-      <div className="flex flex-wrap gap-2">
-        {tagCountsArray.map((tagCount, index) => {
-          const tag = Object.keys(tagCount)[0];
-          const count = tagCount[tag];
-          return (
-            <HashTag key={tag + index} href={ROUTES.TAGS + tag + '/1'} passHref tag={`# ${tag}`}>
-              <HashTag.Count count={count} />
-            </HashTag>
-          );
-        })}
-      </div>
+      <PageContent tagCountsArray={tagCountsArray} />
     </>
   );
 }
