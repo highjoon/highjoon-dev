@@ -2,6 +2,7 @@ export const BLOG_CONTENTS_DIR = 'contents';
 
 export const POSTS_FILE_NAME = {
   CRA_TO_VITE_MIGRATION: 'cra-to-vite-migration',
+  COMPONENT_DESIGN_TOKEN_ARE_THEY_WORTH_IT: 'component-level-design-tokens-are-they-worth-it',
 } as const;
 
 export type POSTS_FILE_NAME = typeof POSTS_FILE_NAME;
