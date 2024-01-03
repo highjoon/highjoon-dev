@@ -79,11 +79,11 @@ Apollo는 단순히 여러분이 원하는 데이터를 설명하고 불러오�
 **업데이트 (Update)**
 `gcTime`은 이전에 `cacheTime`으로 알려져있던 개념입니다. v5부터 동작을 더 명확하게 의미하기 위해 이름이 변경되었습니다.
 
-#### React Query 데브툴을 사용하세요 (Use the React Query DevTools)
+### React Query 데브툴을 사용하세요 (Use the React Query DevTools)
 
 데브툴은 쿼리가 어떤 상태에 있는지 이해하는데 큰 도움이 될 것입니다. 또한 데브툴은 현재 캐시에 어떤 데이터가 들어있는지도 보여주므로 디버깅이 더 쉬워집니다. 이외에도 백그라운드에서의 데이터 다시 불러오기를 더 잘 파악하려면 브라우저 개발자 도구에서 네트워크 연결을 쓰로틀링 하는 것도 도움이 될 것입니다. 개발 환경 서버는 보통 꽤 빠르기 때문이죠.
 
-#### 쿼리 키를 의존성 배열처럼 다루세요. (Treat the query key like a dependency array)
+### 쿼리 키를 의존성 배열처럼 다루세요. (Treat the query key like a dependency array)
 
 여기서 말하는 의존성 배열이란 [useEffect](https://reactjs.org/docs/hooks-reference.html#conditionally-firing-an-effect) 훅의 의존성 배열입니다. 여러분들께서 이미 친숙하실 거라 믿습니다.이 두가지가 왜 비슷할까요?
 왜냐하면 React Query는 쿼리 키가 변할 때마다 데이터를 다시 불러올 것이기 때문입니다. 따라서 어떠한 값이 변할 때마다 데이터를 불러오기를 원한다면 그 값을 `queryFn`에 매개변수로 전달합니다. 데이터 다시 불러오기를 수동으로 트리거하기 위해 복잡한 효과를 조정하는 대신 쿼리 키를 활용할 수 있습니다.
@@ -176,20 +176,27 @@ const MyForm = ({ initialData }) => {
 만약 화면에 보여지는 데이터를 사용자가 수정할 수 있도록 하고 싶다면 이 방식은 따르기 어려울 수 있습니다. 하지만 이 방식은 많은 이점이 있습니다. [codesandbox](https://rp3jx.csb.app/)로 예시를 준비했어요.
 이 데모에서 중요한 점은 React Query에서 가져온 데이터를 로컬 상태로 관리하지 않는다는 점입니다. 로컬에 데이터의 복사본이 없기 때문에 항상 최신의 데이터를 볼 수 있다는 점이 보장됩니다.
 
-#### enabled 옵션은 매우 강력합니다. (The enabled option is very powerful)
+### enabled 옵션은 매우 강력합니다. (The enabled option is very powerful)
 
 `useQuery` 훅은 동작을 커스터마이징 할 수 있는 많은 옵션을 갖고 있습니다. 그 중에서 `enabled` 옵션은 매우 강력한 옵션으로 많은 멋진 일을 할 수 있게 해줍니다. (말장난 입니다.) 이 옵션 덕분에 다음과 같은 일을 달성할 수 있었습니다.
 
 - [종속적인 쿼리 (Dependent Queries)](https://tanstack.com/query/latest/docs/react/guides/dependent-queries)
+
   하나의 쿼리에서 데이터를 가져오며 첫 번째 쿼리에서 데이터를 성공적으로 얻은 후에 두 번째 쿼리를 실행합니다.
+
 - 쿼리를 켜고 끄기 (Turn queries on and off)
+
   `refetchInterval` 덕분에 정기적으로 데이터를 가져올 수 있는 쿼리가 있습니다. 하지만 모달 팝업이 잠시 열려있는 동안에는 화면 뒷부분의 업데이트를 피하기 위해 잠시 멈출 수 있습니다.
+
 - 사용자의 입력 대기 (Wait for user input)
+
   쿼리 키에는 일부 필터 기준을 갖고 있지만, 사용자가 필터를 적용할 때 까지 일시적으로 비활성화 합니다.
+
 - 사용자 입력 후 쿼리 비활성화 (Disable a query after some user input)
+
   예를 들어, 서버 데이터보다 우선시 해야 하는 드래프트 값이 있는 경우 위의 예제를 참고하세요.
 
-#### queryCache를 로컬 상태 관리자로 사용하지 마세요. (Don't use the queryCache as a local state manager)
+### queryCache를 로컬 상태 관리자로 사용하지 마세요. (Don't use the queryCache as a local state manager)
 
 만약 queryCache (`queryClient.setQueryData`)를 조작한다면 낙관적인 업데이트 또는 mutation 이후 백엔드에서 받은 데이터를 작성하는 경우여야만 합니다. 백그라운드에서 다시 불러오는 데이터는 현재 데이터를 덮어씌울 수 있다는 점을 기억하세요. 따라서 로컬 상태에는 [다른](https://zustand.surge.sh/) [무언가를](https://redux.js.org/) [사용하세요.](https://reactjs.org/docs/hooks-state.html) \***\*서크텀 훅을 생성하세요. (Create custom hooks)\*\***
 하나의 useQuery 호출만 감싼다고 하더라도 커스텀 훅을 만드는 것은 보통 가치가 있습니다.
