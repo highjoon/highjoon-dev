@@ -4,6 +4,14 @@ import createBannerImgPath from '../utils/createBannerImgPath';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME.PRACTICAL_REACT_QUERY,
+    title: '#1: Practical React Query',
+    description: '번역 [#1: Practical React Query]',
+    date: '2024-01-04',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME.PRACTICAL_REACT_QUERY),
+    tags: ['react-query', 'translation'],
+  },
+  {
     fileName: POSTS_FILE_NAME.SPECTRUM_DESIGN_TOKENS,
     title: '스펙트럼 디자인 토큰',
     description: '번역 [Adobe 스펙트럼 디자인 시스템의 디자인 토큰 문서]',
