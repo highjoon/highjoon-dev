@@ -1,0 +1,200 @@
+---
+title: React Query Render Optimizations
+date: 2024-01-08
+description: React Query Render Optimizations 번역
+---
+
+> 💡 **알립니다.**
+>
+> 렌더링 최적화는 모든 어플리케이션에 있어서 고급 개념입니다. React Query는 이미 매우 좋은 수준의 최적화와 기본값을 제공하고 있으며 대부분의 경우 추가적인 최적화는 필요하지 않습니다. “불필요한 리렌더링”은 많은 사람들이 많은 관심을 갖는 주제이기 때문에 다루기로 결정했습니다. 하지만 한 번 더 강조하고 싶은 점은 일반적으로 대부분의 어플리케이션에서 렌더링 최적화는 생각보다 그렇게 중요하지 않습니다. 리렌더링은 좋은 것입니다. 리렌더링을 통해 어플리케이션은 최신성을 보장할 수 있습니다. 저는 “불필요한 리렌더링”을 “꼭 이루어져야할 렌더링이 누락되는 것”보다 훨씬 더 선호합니다. 이 주제에 대해서 더 알고싶다면 다음의 글을 읽어보세요.
+>
+> - [Fix the slow render before you fix the re-render](https://kentcdodds.com/blog/fix-the-slow-render-before-you-fix-the-re-render) by Kent C. Dodds
+> - [this article by @ryanflorence about premature optimizations](https://reacttraining.com/blog/react-inline-functions-and-performance)
+
+---
+
+[#2: React Query 데이터 변환](https://tkdodo.eu/blog/react-query-data-transformations)에서 select 옵션을 설명할 때 렌더링 최적화에 대해서 약간 언급했습니다. 하지만 제게 들어오는 대부분의 질문은 아마도 “데이터가 변하지 않았는데 왜 React Query가 컴포넌트를 두 번 씩이나 리렌더링을 하나요?” 일 것 같네요. (아니면 “v2 공식 문서는 어디서 볼 수 있나요?” 일 수도 있을 것 같아요 😅) 그렇기 때문에 깊이 있게 설명하겠습니다.
+
+## isFetching 전환 (isFetching transition)
+
+지난 [글의 예시](https://tkdodo.eu/blog/react-query-data-transformations#3-using-the-select-option)에서 이 컴포넌트는 할 일 목록의 길이가 변할 때에만 리렌더링한다고 했던 말은 사실 100% 맞는 말은 아닙니다.
+
+```tsx
+// count-component
+
+export const useTodosQuery = (select) =>
+  useQuery({
+    queryKey: ['todos'],
+    queryFn: fetchTodos,
+    select,
+  });
+export const useTodosCount = () => useTodosQuery((data) => data.length);
+
+function TodosCount() {
+  const todosCount = useTodosCount();
+
+  return <div>{todosCount.data}</div>;
+}
+```
+
+백그라운드에서 데이터를 다시 불러올 때마다 이 컴포넌트는 두 번 리렌더링하면서 다음과 같은 쿼리 정보를 갖게 될 것입니다.
+
+```tsx
+{ status: 'success', data: 2, isFetching: true }
+{ status: 'success', data: 2, isFetching: false }
+```
+
+이는 React Query가 각 쿼리마다 많은 수의 메타 정보를 반환하며 `isFetching`도 그 중 하나이기 때문입니다. 이 플래그는 요청이 가는 중일 때 항상 true 일 것입니다. 이 플래그는 백그라운드 로딩 표시를 출력하고 싶을 때 꽤 유용합니다. 하지만 그 외의 경우에는 불필요한 값일 수 있습니다.
+
+### notifyOnChangeProps
+
+이러한 사용 사례로 인해, React Query는 `notifyOnChangeProps` 옵션을 갖고 있습니다. 이 옵션은 옵저버 별로 설정할 수 있으며 React Query에게 props 중 일부가 변경되었을 때에만 옵저버에게 알리도록 설정할 수 있습니다. 이 옵션을 `['data']`로 설정하면 원하는 데이터의 최적화된 버전을 찾을 수 있습니다.
+
+```tsx
+// optimized-with-notifyOnChangeProps
+
+export const useTodosQuery = (select, notifyOnChangeProps) =>
+  useQuery({
+    queryKey: ['todos'],
+    queryFn: fetchTodos,
+    select,
+    notifyOnChangeProps,
+  });
+export const useTodosCount = () => useTodosQuery((data) => data.length, ['data']);
+```
+
+실제 동작은 공식 문서의 [optimistic-updates-typescript](https://github.com/tannerlinsley/react-query/blob/9023b0d1f01567161a8c13da5d8d551a324d6c23/examples/optimistic-updates-typescript/pages/index.tsx#L35-L48) 예시에서 볼 수 있습니다.
+
+### 동기화가 된 채로 유지 (Staying in sync)
+
+위의 코드가 동작은 잘 할지 몰라도 동기화는 쉽게 깨질 수 있습니다. 만약 `error`에도 대응하고 싶다면요? 아니면 `isLoading` 플래그를 사용하기 시작했다면요? 이 경우 컴포넌트에서 실제로 사용하는 필드를 `notifyOnChangeProps` 배열에 계속 동기화해야 합니다. 이 작업을 잊어버렸다면, 그래서 `data` 프로퍼티만 관찰하게 되었는데, 화면에 표시되어야하는 `error`를 받게 되었다면, 컴포넌트는 리렌더링하지 않고 최신성을 잃어버릴 것입니다. 커스텀 훅에서 하드 코딩으로 구현되어있을 경우 특히 더 문제가 될 수 있습니다. 훅은 자기 자신이 어떤 컴포넌트에서 사용되는지 모르기 때문입니다.
+
+```tsx
+// outdated-component
+
+export const useTodosCount = () => useTodosQuery((data) => data.length, ['data']);
+
+function TodosCount() {
+  // 🚨 we are using error,
+  // but we are not getting notified if error changes!
+  const { error, data } = useTodosCount();
+
+  return (
+    <div>
+      {error ? error : null}
+      {data ? data : null}
+    </div>
+  );
+}
+```
+
+서두에서 힌트를 드렸듯이, 이는 때때로 발생하는 불필요한 리렌더링보다 훨씬 더 좋지 않다고 생각합니다. 물론 커스텀 훅에 옵션을 제공할 수 있긴 하지만, 여전히 수동적이고 보일러플레이트처럼 느껴집니다. 자동으로 할 수는 없을까요? 여기 다음과 같은 기능이 있습니다.
+
+### 추적되는 쿼리 (Tracked Queries)
+
+저는 이 기능이 꽤 자랑스럽습니다. 이 라이브러리에 대한 저의 첫 기여이기 때문이죠. `notifyOnChangeProps`를 `‘tracked’`로 설정하면 React Query는 렌더링하는 과정에서 현재 사용 중인 필드를 계속해서 추적하며 목록을 계산할 때 사용할 것입니다. 이 방식은 목록을 수동으로 구성하는 것과 완전히 같은 방식으로 최적화를 진행할 것이며 전혀 신경쓸 필요가 없습니다. 이 기능은 전역에서 활성화하여 모든 쿼리에 적용할 수 있습니다.
+
+```tsx
+// tracked-queries
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      notifyOnChangeProps: 'tracked',
+    },
+  },
+});
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Example />
+    </QueryClientProvider>
+  );
+}
+```
+
+이를 통해 리렌더링이 중복되는 일은 신경쓰지 않아도 괜찮습니다. 물론 이러한 추적은 성능에 약간 부담을 주므로 현명하게 사용하세요. 또한 추적되는 쿼리 기능은 한계를 갖고 있기 때문에 선택 사항으로 제공됩니다.
+
+- [rest 구조분해할당](https://github.com/tc39/proposal-object-rest-spread/blob/6ee4ce3cdda246746fc46fb149bb8b43c28e704d/Rest.md)을 사용하면 모든 필드를 효율적으로 관찰할 수 있습니다. 일반적인 구조분해할당은 괜찮지만 이렇게는 하지 마세요.
+
+```tsx
+// problematic-rest-destructuring
+
+// 🚨 will track all fields
+const { isLoading, ...queryInfo } = useQuery(...)
+
+// ✅ this is totally fine
+const { isLoading, data } = useQuery(...)
+```
+
+추적되는 쿼리는 “렌더링 도중에만” 동작합니다. useEffect 등의 effect 과정에서만 접근하는 필드는 추적되지 않을 것입니다. 이는 의존성 배열 때문에 엣지 케이스로 꽤 작용할 수 있습니다.
+
+```tsx
+// tracking-effects
+
+const queryInfo = useQuery(...)
+
+// 🚨 will not corectly track data
+React.useEffect(() => {
+    console.log(queryInfo.data)
+})
+
+// ✅ fine because the dependency array is accessed during render
+React.useEffect(() => {
+    console.log(queryInfo.data)
+}, [queryInfo.data])
+```
+
+- 추적되는 쿼리는 렌더링 할 때마다 초기화되지 않습니다. 따라서 한 번 추적하면 옵저버의 생명 주기 동안 계속 추적할 것입니다.
+
+```tsx
+// no-reset
+
+const queryInfo = useQuery(...)
+
+if (someCondition()) {
+    // 🟡 we will track the data field if someCondition was true in any previous render cycle
+    return <div>{queryInfo.data}</div>
+}
+```
+
+> 💡 **업데이트**
+>
+> React Query v4부터 추적되는 쿼리는 활성화가 기본값이 됩니다. `notifyOnChangeProps: 'all'`로 설정하여 비활성화 할 수 있습니다.
+
+## 구조적인 공유 (Structural sharing)
+
+React Query에서 기본적으로 활성화 되어있는 또 다른 렌더링 최적화는 바로 *구조적인 공유*입니다. 이 기능은 모든 수준에서 `data`의 참조적 동일성을 유지하는 것을 보장합니다. 예를 들어 다음과 같은 데이터 구조가 있습니다.
+
+```tsx
+[
+  { id: 1, name: 'Learn React', status: 'active' },
+  { id: 2, name: 'Learn React Query', status: 'todo' },
+];
+```
+
+이제 첫 번째 할 일이 완료 상태로 변경되었다고 가정하고 백그라운드에서 데이터를 다시 불러옵니다. 백엔드로부터 완전히 새로운 json을 받을 것입니다.
+
+```tsx
+[
+  -{ id: 1, name: 'Learn React', status: 'active' },
+  +{ id: 1, name: 'Learn React', status: 'done' },
+  { id: 2, name: 'Learn React Query', status: 'todo' },
+];
+```
+
+이제 React Query는 이전 상태와 새로운 상태를 비교하려고 할 것이며 최대한 이전 상태를 유지하려고 할 것입니다. 앞의 예시에서 할 일 목록 배열은 새로운 데이터일 것입니다. 왜냐하면 할 일을 업데이트 했기 때문이죠. id 1을 가진 객체 또한 새로운 데이터일 것입니다. 하지만 id 2를 가진 객체는 이전 상태의 객체와 동일한 참조를 가질 것입니다. - 이 객체는 아무것도 변하지 않았으므로 React Query는 새로운 결과로 복사할 것입니다.
+
+이는 부분적인 구독을 하는 셀렉터를 사용할 때 매우 유용합니다.
+
+```tsx
+// optimized-selectors
+
+// ✅ will only re-render if _something_ within todo with id:2 changes
+// thanks to structural sharing
+const { data } = useTodo(2);
+```
+
+앞에서 힌트를 드렸듯이, 셀렉터에서는, 구조적인 공유가 2번 이루어질 것입니다. Once on the result returned from the `queryFn` to determine if anything changed at all, and then once more on the *result* of the selector function. 하나는 `queryFn`에서 반환된 결과를 검사하여 전체적인 변경 여부를 결정할 때이고, 다른 하나는 셀렉터 함수에서 결과가 반환될 때 입니다. 일부 경우에서, 특히 큰 자료구조를 다룰 경우, 구조적인 공유는 병목현상으로 작용할 수 있습니다. 또한 이 기능은 json으로 직렬화 할 수 있는 데이터에서만 동작합니다. 이 최적화가 필요 없다면 쿼리에서 `structuralSharing: false` 으로 설정할 수 있습니다.
+
+이 기능이 어떻게 동작하는지 더 자세히 알고 싶다면 [replaceEqualDeep tests](https://github.com/tannerlinsley/react-query/blob/80cecef22c3e088d6cd9f8fbc5cd9e2c0aab962f/src%2Fcore%2Ftests%2Futils.test.tsx#L97-L304)를 살펴보세요.
