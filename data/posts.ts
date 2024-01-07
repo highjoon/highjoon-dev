@@ -4,6 +4,14 @@ import createBannerImgPath from '../utils/createBannerImgPath';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME.REACT_QUERY_DATA_TRANSFORMATIONS,
+    title: '#2: React Query Data Transformations',
+    description: '번역 [#2: React Query Data Transformations]',
+    date: '2024-01-06',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME.REACT_QUERY_DATA_TRANSFORMATIONS),
+    tags: ['react-query', 'translation'],
+  },
+  {
     fileName: POSTS_FILE_NAME.PRACTICAL_REACT_QUERY,
     title: '#1: Practical React Query',
     description: '번역 [#1: Practical React Query]',
