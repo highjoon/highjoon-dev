@@ -198,7 +198,10 @@ const MyForm = ({ initialData }) => {
 
 ### queryCache를 로컬 상태 관리자로 사용하지 마세요. (Don't use the queryCache as a local state manager)
 
-만약 queryCache (`queryClient.setQueryData`)를 조작한다면 낙관적인 업데이트 또는 mutation 이후 백엔드에서 받은 데이터를 작성하는 경우여야만 합니다. 백그라운드에서 다시 불러오는 데이터는 현재 데이터를 덮어씌울 수 있다는 점을 기억하세요. 따라서 로컬 상태에는 [다른](https://zustand.surge.sh/) [무언가를](https://redux.js.org/) [사용하세요.](https://reactjs.org/docs/hooks-state.html) \***\*서크텀 훅을 생성하세요. (Create custom hooks)\*\***
+만약 queryCache (`queryClient.setQueryData`)를 조작한다면 낙관적인 업데이트 또는 mutation 이후 백엔드에서 받은 데이터를 작성하는 경우여야만 합니다. 백그라운드에서 다시 불러오는 데이터는 현재 데이터를 덮어씌울 수 있다는 점을 기억하세요. 따라서 로컬 상태에는 [다른](https://zustand.surge.sh/) [무언가를](https://redux.js.org/) [사용하세요.](https://reactjs.org/docs/hooks-state.html)
+
+### 커스텀 훅을 생성하세요. (Create custom hooks)
+
 하나의 useQuery 호출만 감싼다고 하더라도 커스텀 훅을 만드는 것은 보통 가치가 있습니다.
 
 - 실제 데이터 불러오기를 ui와 분리하여 `useQuery` 호출과 함께 위치시킬 수 있습니다.
