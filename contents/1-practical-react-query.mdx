@@ -40,11 +40,9 @@ Apollo는 단순히 여러분이 원하는 데이터를 설명하고 불러오�
 
 저는 공식 문서가 가이드와 컨셉을 훌륭하게 설명하고 있다고 생각합니다. 여러 강연에서 나온 [동영상](https://tanstack.com/query/latest/docs/react/videos)도 시청할 수 있고, 라이브러리에 익숙해지고 싶다면 Tanner가 제공하는 React Query [Essentials Course](https://learn.tanstack.com/)도 수강할 수 있습니다.
 
-<aside>
-  💡 **업데이트 (Update)** <br />
-  저는 [ui.dev](https://ui.dev/)와 함께 새로운 코스를 개발 중이에요. 지금까지 만들어온 콘텐츠를 즐겨주셨다면, [query.gg](https://query.gg/?r=dom)를
-  좋아하실 겁니다.
-</aside>
+> 💡 **업데이트 (Update)** <br />
+> 저는 [ui.dev](https://ui.dev/)와 함께 새로운 코스를 개발 중이에요. 지금까지 만들어온 콘텐츠를 즐겨주셨다면, [query.gg](https://query.gg/?r=dom)를
+> 좋아하실 겁니다.
 
 저는 공식 문서를 넘어서 더욱 실용적인 팁에 집중할 생각입니다. 이미 라이브러리를 사용 중이시라면 유용할겁니다. 제가 제공할 팁은 제가 이 라이브러리를 활발하게 사용했을 뿐 아니라 React Query 커뮤니티에 합류하여 디스코드와 깃허브 Discussion에서 답변을 하면서 선택한 것입니다.
 
@@ -52,22 +50,17 @@ Apollo는 단순히 여러분이 원하는 데이터를 설명하고 불러오�
 
 저는 React Query의 [기본 설정](https://tanstack.com/query/latest/docs/react/guides/important-defaults)이 매우 잘되어있다고 믿지만, 특히 처음에는 때때로 당황할 수 있습니다. 제일 먼저 React Query는 리렌더링을 할 때마다 `queryFn`을 실행하지 않습니다. `staleTime`의 기본값이 0이어도 말이죠. 어플리케이션은 다양한 이유로 언제든지 리렌더링할 수 있습니다. 이 때마다 데이터를 불러오는 것은 미친 짓일 수도 있습니다!
 
-<aside>
-💡 *항상 리렌더링과 리렌더링이 자주 발생할 수 있음을 알고 코딩하세요. 저는 이걸 렌더링 강건성 (render resiliency)이라고 부르는 것을 좋아합니다.*
-— Tanner Linsley
-
-</aside>
+> 💡 _항상 리렌더링과 리렌더링이 자주 발생할 수 있음을 알고 코딩하세요. 저는 이걸 렌더링 강건성 (render resiliency)이라고 부르는 것을 좋아합니다._
+> — Tanner Linsley
 
 만약 예상하지 못한 다시 불러오기가 일어나는 것을 봤다면 대부분은 여러분이 window를 포커스했고 React Query가 `refetchOnWindowFocus`를 실행했을겁니다. 프로덕션 환경에서 아주 훌륭한 기능이죠. 만약 사용자가 다른 브라우저 탭으로 이동했다가 다시 돌아오면 뒷단에서 데이터 다시 불러오기가 자동으로 실행됩니다. 만약 서버 상에서 데이터가 변경되었다면 화면에 보여지는 데이터는 업데이트 될겁니다. 이 모든 일은 로딩 스피너의 출력 없이 발생하며 만약 데이터가 현재 캐시 상에 있는 데이터와 동일하다면 리렌더링은 일어나지 않을겁니다.
 
 이러한 현상은 개발 환경에서 더 자주 발생할 것입니다. 특히 브라우저의 개발자 도구와 어플리케이션을 오갈 때마다 데이터 불러오기가 실행될 것이니 주의하세요.
 
-<aside>
-  💡 **업데이트 (Update)** <br />
-  React Query v5 업데이트부터 `refetchOnWindowFocus`는 더이상 `focus` 이벤트를 감지하지 않습니다. 대신 `visibilityChange`
-  이벤트를 감지합니다. 따라서 개발 환경에서 의도하지 않은 데이터 불러오기가 줄어들 것이며 운영 환경에서의 불러오기를 대부분
-  유지할 수 있습니다. 또한 여러 이슈를 해결했으며 [이 곳](https://github.com/TanStack/query/pull/4805)에서 확인할 수 있습니다.
-</aside>
+> 💡 **업데이트 (Update)** <br />
+> React Query v5 업데이트부터 `refetchOnWindowFocus`는 더이상 `focus` 이벤트를 감지하지 않습니다. 대신 `visibilityChange`
+> 이벤트를 감지합니다. 따라서 개발 환경에서 의도하지 않은 데이터 불러오기가 줄어들 것이며 운영 환경에서의 불러오기를 대부분
+> 유지할 수 있습니다. 또한 여러 이슈를 해결했으며 [이 곳](https://github.com/TanStack/query/pull/4805)에서 확인할 수 있습니다.
 
 두 번째로 `gcTime`과 `staleTime`에 대해 약간의 논쟁이 있는 것 같아서 한 번 정리하겠습니다.
 
