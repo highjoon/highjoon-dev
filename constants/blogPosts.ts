@@ -9,6 +9,7 @@ export const POSTS_FILE_NAME = {
   REACT_QUERY_RENDER_OPTIMIZATIONS: '3-react-query-render-optimizations',
   STATUS_CHECKS_IN_REACT_QUERY: '4-status-checks-in-react-query',
   TESTING_REACT_QUERY: '5-testing-react-query',
+  REACT_QUERY_AND_TYPESCRIPT: '6-react-query-and-typescript',
 } as const;
 
 export type POSTS_FILE_NAME = typeof POSTS_FILE_NAME;
