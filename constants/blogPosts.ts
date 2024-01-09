@@ -7,6 +7,7 @@ export const POSTS_FILE_NAME = {
   PRACTICAL_REACT_QUERY: '1-practical-react-query',
   REACT_QUERY_DATA_TRANSFORMATIONS: '2-react-query-data-transformations',
   REACT_QUERY_RENDER_OPTIMIZATIONS: '3-react-query-render-optimizations',
+  STATUS_CHECKS_IN_REACT_QUERY: '4-status-checks-in-react-query',
 } as const;
 
 export type POSTS_FILE_NAME = typeof POSTS_FILE_NAME;
