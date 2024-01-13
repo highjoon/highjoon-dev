@@ -6,7 +6,7 @@ description: React Query Render Optimizations 번역
 
 > 💡 **알립니다.**
 >
-> 렌더링 최적화는 모든 어플리케이션에 있어서 고급 개념입니다. React Query는 이미 매우 좋은 수준의 최적화와 기본값을 제공하고 있으며 대부분의 경우 추가적인 최적화는 필요하지 않습니다. “불필요한 리렌더링”은 많은 사람들이 많은 관심을 갖는 주제이기 때문에 다루기로 결정했습니다. 하지만 한 번 더 강조하고 싶은 점은 일반적으로 대부분의 어플리케이션에서 렌더링 최적화는 생각보다 그렇게 중요하지 않습니다. 리렌더링은 좋은 것입니다. 리렌더링을 통해 어플리케이션은 최신성을 보장할 수 있습니다. 저는 “불필요한 리렌더링”을 “꼭 이루어져야할 렌더링이 누락되는 것”보다 훨씬 더 선호합니다. 이 주제에 대해서 더 알고싶다면 다음의 글을 읽어보세요.
+> 렌더링 최적화는 모든 어플리케이션에 있어서 고급 개념입니다. React Query는 이미 매우 좋은 수준의 최적화와 기본값을 제공하고 있으며 대부분의 경우 추가적인 최적화는 필요하지 않습니다. “불필요한 리렌더링”은 많은 사람들이 많은 관심을 갖는 주제이기 때문에 다루기로 결정했습니다. 하지만 한 번 더 강조하고 싶은 점은 일반적으로 대부분의 어플리케이션에서 렌더링 최적화는 생각보다 그렇게 중요하지 않다는 점입니다. 리렌더링은 좋은 것입니다. 리렌더링을 통해 어플리케이션은 최신성을 보장할 수 있습니다. 저는 “불필요한 리렌더링”을 “꼭 이루어져야할 렌더링이 누락되는 것”보다 훨씬 더 선호합니다. 이 주제에 대해서 더 알고싶다면 다음의 글을 읽어보세요.
 >
 > - [Fix the slow render before you fix the re-render](https://kentcdodds.com/blog/fix-the-slow-render-before-you-fix-the-re-render) by Kent C. Dodds
 > - [this article by @ryanflorence about premature optimizations](https://reacttraining.com/blog/react-inline-functions-and-performance)
@@ -75,8 +75,8 @@ export const useTodosCount = () => useTodosQuery((data) => data.length, ['data']
 export const useTodosCount = () => useTodosQuery((data) => data.length, ['data']);
 
 function TodosCount() {
-  // 🚨 we are using error,
-  // but we are not getting notified if error changes!
+  // 🚨 error를 사용하고 있습니다.
+  // 하지만 error가 변경되었는지는 알 수 없습니다!
   const { error, data } = useTodosCount();
 
   return (
@@ -120,10 +120,10 @@ function App() {
 ```tsx
 // problematic-rest-destructuring
 
-// 🚨 will track all fields
+// 🚨 모든 필드를 추적할 것입니다
 const { isLoading, ...queryInfo } = useQuery(...)
 
-// ✅ this is totally fine
+// ✅ 완전히 괜찮습니다
 const { isLoading, data } = useQuery(...)
 ```
 
@@ -134,12 +134,12 @@ const { isLoading, data } = useQuery(...)
 
 const queryInfo = useQuery(...)
 
-// 🚨 will not corectly track data
+// 🚨 data를 올바르게 추적하지 않을 것입니다
 React.useEffect(() => {
     console.log(queryInfo.data)
 })
 
-// ✅ fine because the dependency array is accessed during render
+// ✅ 렌더링 과정에서 의존성 배열에 접근하므로 괜찮습니다
 React.useEffect(() => {
     console.log(queryInfo.data)
 }, [queryInfo.data])
@@ -153,7 +153,7 @@ React.useEffect(() => {
 const queryInfo = useQuery(...)
 
 if (someCondition()) {
-    // 🟡 we will track the data field if someCondition was true in any previous render cycle
+    // 🟡 이전의 렌더링 사이클에서 someCondition이 true가 되었을 경우 data 필드를 추적할 것입니다
     return <div>{queryInfo.data}</div>
 }
 ```
@@ -190,11 +190,11 @@ React Query에서 기본적으로 활성화 되어있는 또 다른 렌더링 �
 ```tsx
 // optimized-selectors
 
-// ✅ will only re-render if _something_ within todo with id:2 changes
-// thanks to structural sharing
+// ✅ id:2를 가진 할 일 데이터 내부에 있는 _어떤 것_이 변할 경우에만 리렌더링 할 것입니다
+// 이는 구조적인 공유 덕분입니다
 const { data } = useTodo(2);
 ```
 
-앞에서 힌트를 드렸듯이, 셀렉터에서는, 구조적인 공유가 2번 이루어질 것입니다. Once on the result returned from the `queryFn` to determine if anything changed at all, and then once more on the *result* of the selector function. 하나는 `queryFn`에서 반환된 결과를 검사하여 전체적인 변경 여부를 결정할 때이고, 다른 하나는 셀렉터 함수에서 결과가 반환될 때 입니다. 일부 경우에서, 특히 큰 자료구조를 다룰 경우, 구조적인 공유는 병목현상으로 작용할 수 있습니다. 또한 이 기능은 json으로 직렬화 할 수 있는 데이터에서만 동작합니다. 이 최적화가 필요 없다면 쿼리에서 `structuralSharing: false` 으로 설정할 수 있습니다.
+앞에서 힌트를 드렸듯이, 셀렉터에서는, 구조적인 공유가 2번 이루어질 것입니다. 하나는 `queryFn`에서 반환된 결과를 검사하여 전체적인 변경 여부를 결정할 때이고, 다른 하나는 셀렉터 함수에서 결과가 반환될 때 입니다. 일부 경우에서, 특히 큰 자료구조를 다룰 경우, 구조적인 공유는 병목현상으로 작용할 수 있습니다. 또한 이 기능은 json으로 직렬화 할 수 있는 데이터에서만 동작합니다. 이 최적화가 필요 없다면 쿼리에서 `structuralSharing: false` 으로 설정할 수 있습니다.
 
 이 기능이 어떻게 동작하는지 더 자세히 알고 싶다면 [replaceEqualDeep tests](https://github.com/tannerlinsley/react-query/blob/80cecef22c3e088d6cd9f8fbc5cd9e2c0aab962f/src%2Fcore%2Ftests%2Futils.test.tsx#L97-L304)를 살펴보세요.
