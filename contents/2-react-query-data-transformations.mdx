@@ -97,10 +97,10 @@ export const useTodosQuery = () => {
 
   return {
     ...queryInfo,
-    // 🚨 don't do this - the useMemo does nothing at all here!
+    // 🚨 하지 마세요 - useMemo는 아무런 역할도 수행하지 않습니다!
     data: React.useMemo(() => queryInfo.data?.map((todo) => todo.name.toUpperCase()), [queryInfo]),
 
-    // ✅ correctly memoizes by queryInfo.data
+    // ✅ queryInfo.data를 올바르게 메모이제이션 합니다.
     data: React.useMemo(() => queryInfo.data?.map((todo) => todo.name.toUpperCase()), [queryInfo.data]),
   };
 };
@@ -148,7 +148,7 @@ export const useTodosQuery = () =>
   useQuery({
     queryKey: ['todos'],
     queryFn: fetchTodos,
-    // ✅ uses a stable function reference
+    // ✅ 안정적인 함수 참조를 사용합니다
     select: transformTodoNames,
   });
 
@@ -156,7 +156,7 @@ export const useTodosQuery = () =>
   useQuery({
     queryKey: ['todos'],
     queryFn: fetchTodos,
-    // ✅ memoizes with useCallback
+    // ✅ useCallback을 통해 메모이제이션 합니다
     select: React.useCallback((data: Todos) => data.map((todo) => todo.name.toUpperCase()), []),
   });
 ```
@@ -179,12 +179,12 @@ export const useTodo = (id) => useTodosQuery((data) => data.find((todo) => todo.
 
 예시에서는 커스텀 셀렉터를 `useTodosQuery`에 전달하면서 마치 [useSelector](https://react-redux.js.org/api/hooks#useselector)와 비슷한 API를 제작했습니다. 이 커스텀 훅은 이전과 동일하게 동작하지만 `select`를 따로 전달하지않으면 `undefined`가 될 것이고 상태 전체가 반환될 것입니다.
 
-반면 셀렉터를 전달하면 오직 셀렉터 함수의 반환값만을 구독합니다. 이는 꽤 강력합니다. 왜냐하면 할 일의 이름을 업데이트해도 `useTodosCount`를 통해 횟수를 구독하고 있는 컴포넌트는 리렌더링되지 않을 것이기 때문입니다. 횟수는 변하지 않았기 때문에 react-query는 이 옵저버에게 업데이트를 알리지 않아도 괜찮습니다. 🥳 (이 설명에서는 약간 간략하게 설명했습니다. 실제 기술적으로는 완전히 맞는 설명은 아닙니다. Part 3에서 렌더링 최적화에 대해서 더 설명하겠습니다.)
+반면 셀렉터를 전달하면 오직 셀렉터 함수의 반환값만을 구독합니다. 이는 꽤 강력합니다. 왜냐하면 할 일의 이름을 업데이트해도 `useTodosCount`를 통해 횟수를 구독하고 있는 컴포넌트는 리렌더링되지 않을 것이기 때문입니다. 횟수는 변하지 않았기 때문에 react-query는 이 옵저버에게 업데이트를 알리지 않아도 괜찮습니다. 🥳 (여기서는 약간 간략하게 설명했습니다. 실제로 기술적으로는 완전히 맞는 설명은 아닙니다. Part 3에서 렌더링 최적화에 대해서 더 설명하겠습니다.)
 
 🟢   최고의 최적화
 
 🟢   부분적인 구독을 허용합니다.
 
-🟡   옵저버마다 구조가 다를 수 있음
+🟡   옵저버마다 구조가 다를 수 있습니다.
 
 🟡   데이터 구조의 공유가 2번 동작합니다. ([Part 3](https://tkdodo.eu/blog/react-query-render-optimizations)에서 더 깊게 다루겠습니다.)
