@@ -4,6 +4,14 @@ import createBannerImgPath from '../utils/createBannerImgPath';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME.USING_WEBSOCKES_WITH_REACT_QUERY,
+    title: '#7: Using WebSockets with React Query',
+    description: '번역 [#7: Using WebSockets with React Query]',
+    date: '2024-01-10',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME.USING_WEBSOCKES_WITH_REACT_QUERY),
+    tags: ['react-query', 'translation'],
+  },
+  {
     fileName: POSTS_FILE_NAME.REACT_QUERY_AND_TYPESCRIPT,
     title: '#6: React Query and TypeScript',
     description: '번역 [#6: React Query and TypeScript]',
