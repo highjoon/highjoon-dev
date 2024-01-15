@@ -4,6 +4,12 @@ date: 2024-01-09
 description: Testing React Query 번역
 ---
 
+<hr />
+
+[TkDodo](https://github.com/tkdodo)의 [Testing React Query](https://tkdodo.eu/blog/testing-react-query)를 번역한 문서입니다.
+
+<hr />
+
 React Query와 함께 테스트하는 방법을 주제로 질문이 꽤 많이 올라오므로 이번 아티클에서 다루도록 하겠습니다. 이러한 질문이 올라오는 이유 중 하나는 “똑똑한” 컴포넌트 (또는 [컨테이너 컴포넌트](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)라고 불리우는)를 테스트하는 것은 쉬운 일이 아니기 때문이라고 생각합니다. hooks가 등장하면서 이런 식으로 분리하는 것은 거의 폐기되었습니다. 임의로 컴포넌트를 나눈 후 props를 내려주는 대신에, 이제는 특정 위치에서 훅을 직접 사용하는 것이 더 권장되고 있습니다.
 
 저는 이 방식이 공간 배치 및 코드 가독성 관점에서 대체로 아주 좋은 개선이라고 생각하지만, 이제는 “그저 props”가 아닌 의존성을 소비하는 컴포넌트가 많아졌습니다.
