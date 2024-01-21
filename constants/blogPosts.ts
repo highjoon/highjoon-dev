@@ -12,6 +12,7 @@ export const POSTS_FILE_NAME = {
   REACT_QUERY_AND_TYPESCRIPT: '6-react-query-and-typescript',
   USING_WEBSOCKES_WITH_REACT_QUERY: '7-using-websockets-with-react-query',
   EFFECTIVE_REACT_QUERY_KEYS: '8-effective-react-query-keys',
+  LEVERAGING_THE_QUERY_FUNCTION_CONTEXT: '8a-leveraging-the-query-function-context',
 } as const;
 
 export type POSTS_FILE_NAME = typeof POSTS_FILE_NAME;

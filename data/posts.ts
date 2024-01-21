@@ -4,6 +4,14 @@ import createBannerImgPath from '../utils/createBannerImgPath';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME.LEVERAGING_THE_QUERY_FUNCTION_CONTEXT,
+    title: '#8a: Leveraging the Query Function Context',
+    description: '번역 [#8a: Leveraging the Query Function Context]',
+    date: '2024-01-22',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME.LEVERAGING_THE_QUERY_FUNCTION_CONTEXT),
+    tags: ['react-query', 'translation'],
+  },
+  {
     fileName: POSTS_FILE_NAME.EFFECTIVE_REACT_QUERY_KEYS,
     title: '#8: Effective React Query Keys',
     description: '번역 [#8: Effective React Query Keys]',
