@@ -4,6 +4,14 @@ import createBannerImgPath from '../utils/createBannerImgPath';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME.PLACEHOLDER_AND_INITIAL_DATA_IN_REACT_QUERY,
+    title: '#9: Placeholder and Initial Data in React Query',
+    description: '번역 [#9: Placeholder and Initial Data in React Query]',
+    date: '2024-03-10',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME.PLACEHOLDER_AND_INITIAL_DATA_IN_REACT_QUERY),
+    tags: ['react-query', 'translation'],
+  },
+  {
     fileName: POSTS_FILE_NAME.LEVERAGING_THE_QUERY_FUNCTION_CONTEXT,
     title: '#8a: Leveraging the Query Function Context',
     description: '번역 [#8a: Leveraging the Query Function Context]',
