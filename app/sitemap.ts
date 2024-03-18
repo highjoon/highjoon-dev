@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
     ...getAllTagsFromPosts().map((tag) => {
       return {
-        url: `https://highjoon-dev.vercel.app/tags/${tag}`,
+        url: `https://highjoon-dev.vercel.app/tags/${tag}/1`,
       };
     }),
   ];
