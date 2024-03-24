@@ -4,6 +4,14 @@ import createBannerImgPath from '../utils/createBannerImgPath';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME.FLEXIBLE_AND_REUSABLE_MODALS,
+    title: '유연하고 재사용 가능한 모달',
+    description: '합성 컴포넌트 패턴으로 구현하는 유연하고 재사용 가능한 모달',
+    date: '2024-03-25',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME.FLEXIBLE_AND_REUSABLE_MODALS),
+    tags: ['react'],
+  },
+  {
     fileName: POSTS_FILE_NAME.REACT_QUERY_ERROR_HANDLING,
     title: '#11: React Query Error Handling',
     description: '번역 [#11: React Query Error Handling]',

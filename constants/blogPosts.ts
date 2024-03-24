@@ -16,6 +16,7 @@ export const POSTS_FILE_NAME = {
   PLACEHOLDER_AND_INITIAL_DATA_IN_REACT_QUERY: '9-placeholder-and-initial-data-in-react-query',
   REACT_QUERY_AS_A_STATE_MANAGER: '10-react-query-as-a-state-manager',
   REACT_QUERY_ERROR_HANDLING: '11-react-query-error-handling',
+  FLEXIBLE_AND_REUSABLE_MODALS: 'flexible-and-reusable-modals',
 } as const;
 
 export type POSTS_FILE_NAME = typeof POSTS_FILE_NAME;
