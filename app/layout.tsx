@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import Script from 'next/script';
 import { PropsWithChildren } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import classnames from 'classnames';
 import './globals.css';
 
@@ -21,6 +23,7 @@ export const metadata: Metadata = {
     locale: 'ko',
     type: 'website',
   },
+  authors: [{ name: 'highJoon' }],
   creator: 'highJoon',
   publisher: 'highJoon',
   referrer: 'origin-when-cross-origin',
@@ -56,8 +59,8 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko" suppressHydrationWarning>
       <body className={classnames(pretendard.className, 'dark:bg-grey-900')} suppressHydrationWarning>
-        <TopScroll />
         <Provider>
+          <TopScroll />
           <GNB />
           <main className="flex-1 justify-between w-full h-full px-5 pt-20 md:pt-32 pb-5 flex flex-col max-w-[768px] mx-auto gap-3 md:gap-6">
             <div className="flex flex-col w-full gap-6">
@@ -67,6 +70,16 @@ export default function RootLayout({ children }: PropsWithChildren) {
             <Footer />
           </main>
         </Provider>
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=G-XW8LXFXK6N`} strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-XW8LXFXK6N');
+        `}
+        </Script>
+        <Analytics />
       </body>
     </html>
   );
