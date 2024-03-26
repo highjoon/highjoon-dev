@@ -22,13 +22,14 @@ const PageContent = () => {
             alt="profile-image"
             className="p-5 rounded-full bg-primary-50 dark:bg-grey-600"
           />
-          <p className="italic">하고 싶은건 많은데 시간이 없다!</p>
+          <p className="italic">부족함이 많습니다.</p>
+          <p className="italic">스스로한테 바라는 점도 많습니다.</p>
+          <p className="italic">그래서 더 잘하려고 노력합니다.</p>
         </div>
         <div className="flex flex-col">
           <div className="mb-5">
             <p className="mb-3 text-lg md:text-2xl">윤상준</p>
             <p className="text-grey-700 dark:text-grey-300">2년차 웹 프론트엔드 개발자입니다.</p>
-            <p className="text-grey-700 dark:text-grey-300">라이브커머스 솔루션 기업에서 재직 중입니다.</p>
           </div>
           <ul className="flex flex-col gap-2">
             <li>
