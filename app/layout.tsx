@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import Script from 'next/script';
 import { PropsWithChildren } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import classnames from 'classnames';
 import './globals.css';
 
@@ -13,19 +14,20 @@ import TabBar from '@/components/Common/TabBar';
 import TopScroll from '@/components/Common/TopScroll';
 
 export const metadata: Metadata = {
-  title: 'highJoon.dev',
-  description: "highJoon's dev-log",
+  title: 'highjoon-dev',
+  description: "highjoon's dev-log",
   metadataBase: new URL('https://highjoon-dev.vercel.app'),
   openGraph: {
-    title: 'highJoon.dev',
-    description: "highJoon's dev-log",
+    title: 'highjoon-dev',
+    description: "highjoon's dev-log",
     url: 'https://highjoon-dev.vercel.app/',
     locale: 'ko',
     type: 'website',
+    siteName: 'highjoon-dev',
   },
-  authors: [{ name: 'highJoon' }],
-  creator: 'highJoon',
-  publisher: 'highJoon',
+  authors: [{ name: 'highjoon' }],
+  creator: 'highjoon',
+  publisher: 'highjoon',
   referrer: 'origin-when-cross-origin',
   icons: {
     icon: '/favicon/apple-icon.png',
@@ -80,6 +82,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         `}
         </Script>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
