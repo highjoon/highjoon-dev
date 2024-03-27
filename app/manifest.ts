@@ -4,8 +4,8 @@ import { colors } from '@/styles/themes/foundations/colors';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'highJoon.dev',
-    short_name: 'highJoon.dev',
+    name: 'highJoon-dev',
+    short_name: 'highJoon-dev',
     description: "highJoon's dev-log",
     start_url: '/',
     display: 'standalone',
