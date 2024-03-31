@@ -6,6 +6,7 @@ export type FrontMatter = {
   date: string;
   bannerImg: string;
   tags: string[];
+  url: string;
 };
 
 export interface Post extends FrontMatter {

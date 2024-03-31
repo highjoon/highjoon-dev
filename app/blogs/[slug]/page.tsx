@@ -22,8 +22,29 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   return {
     title: blog.frontMatter.title,
     description: blog.frontMatter.description,
+    metadataBase: new URL('https://highjoon-dev.vercel.app'),
     openGraph: {
+      title: blog.frontMatter.title,
+      description: blog.frontMatter.description,
       images: blog.frontMatter.bannerImg,
+      url: blog.frontMatter.title,
+      locale: 'ko',
+      type: 'website',
+      siteName: 'highjoon-dev',
+    },
+    applicationName: 'highjoon-dev',
+    authors: [{ name: 'highjoon' }],
+    creator: 'highjoon',
+    publisher: 'highjoon',
+    referrer: 'origin-when-cross-origin',
+    icons: {
+      icon: '/favicon/apple-icon.png',
+      shortcut: '/favicon/apple-icon.png',
+      apple: '/favicon/apple-icon.png',
+      other: {
+        rel: '/favicon/apple-icon-precomposed',
+        url: '/favicon/apple-icon-precomposed.png',
+      },
     },
   };
 }

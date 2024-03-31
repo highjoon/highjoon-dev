@@ -20,11 +20,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'highjoon-dev',
     description: "highjoon's dev-log",
+    images: `https://highjoon-dev.vercel.app/images/img-profile.png`,
     url: 'https://highjoon-dev.vercel.app/',
     locale: 'ko',
     type: 'website',
     siteName: 'highjoon-dev',
   },
+  applicationName: 'highjoon-dev',
   authors: [{ name: 'highjoon' }],
   creator: 'highjoon',
   publisher: 'highjoon',
