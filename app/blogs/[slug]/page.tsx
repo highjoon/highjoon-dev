@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
       title: blog.frontMatter.title,
       description: blog.frontMatter.description,
       images: blog.frontMatter.bannerImg,
-      url: blog.frontMatter.title,
+      url: `/blogs/${blog.slug}`,
       locale: 'ko',
       type: 'website',
       siteName: 'highjoon-dev',
