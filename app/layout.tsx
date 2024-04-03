@@ -57,7 +57,10 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  verification: { google: 'LbwOezrQXMgFnEcGilDJsYIojUzx99UyZvDbGAIVX0Y' },
+  verification: {
+    google: 'LbwOezrQXMgFnEcGilDJsYIojUzx99UyZvDbGAIVX0Y',
+    other: { 'naver-site-verification': '44f53dec93fca8bf3a5dc2af731720fe14e9fffe' },
+  },
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
