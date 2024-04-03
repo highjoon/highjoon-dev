@@ -57,6 +57,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
+  verification: { google: 'LbwOezrQXMgFnEcGilDJsYIojUzx99UyZvDbGAIVX0Y' },
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
