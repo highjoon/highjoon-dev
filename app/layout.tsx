@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: 'highjoon-dev',
   description: "highjoon's dev-log",
   metadataBase: new URL('https://highjoon-dev.vercel.app'),
+  keywords: ['highjoon', 'highjoon-dev', '윤상준'],
   openGraph: {
     title: 'highjoon-dev',
     description: "highjoon's dev-log",
@@ -30,7 +31,6 @@ export const metadata: Metadata = {
   authors: [{ name: 'highjoon' }],
   creator: 'highjoon',
   publisher: 'highjoon',
-  referrer: 'origin-when-cross-origin',
   icons: {
     icon: '/favicon/apple-icon.png',
     shortcut: '/favicon/apple-icon.png',
@@ -40,26 +40,14 @@ export const metadata: Metadata = {
       url: '/favicon/apple-icon-precomposed.png',
     },
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
-  },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-  },
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
   verification: {
     google: 'LbwOezrQXMgFnEcGilDJsYIojUzx99UyZvDbGAIVX0Y',
     other: { 'naver-site-verification': '44f53dec93fca8bf3a5dc2af731720fe14e9fffe' },
+  },
+  alternates: { canonical: '/' },
+  twitter: {
+    title: 'highjoon-dev',
+    description: "highjoon's dev-log",
   },
 };
 
