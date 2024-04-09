@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 import { PropsWithChildren } from 'react';
+import { ColorSchemeScript } from '@mantine/core';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import classnames from 'classnames';
 import './globals.css';
+import '@mantine/core/styles.css';
 
 import Footer from '@/components/Common/Footer';
 import GNB from '@/components/Common/GNB';
@@ -54,6 +56,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko" suppressHydrationWarning>
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body className={classnames(pretendard.className, 'dark:bg-grey-900')} suppressHydrationWarning>
         <Provider>
           <TopScroll />
