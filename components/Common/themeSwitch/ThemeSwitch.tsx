@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import { BsMoonFill, BsSunFill } from 'react-icons/bs';
-import { rem, Switch, useComputedColorScheme, useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { BoxProps, rem, Switch, useComputedColorScheme, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { THEME } from '@/constants/theme';
 
-const ThemeSwitch = () => {
+type Props = { visibleFrom?: BoxProps['visibleFrom'] };
+
+const ThemeSwitch = ({ visibleFrom }: Props) => {
   const mantineTheme = useMantineTheme();
   const { setColorScheme } = useMantineColorScheme({ keepTransitions: true });
   const computedColorScheme = useComputedColorScheme(THEME.LIGHT);
@@ -29,7 +31,7 @@ const ThemeSwitch = () => {
         onLabel={<BsSunFill style={{ width: rem(13), height: rem(13) }} color={mantineTheme.colors.yellow[4]} />}
         offLabel={<BsMoonFill style={{ width: rem(13), height: rem(13) }} color={mantineTheme.white} />}
         disabled
-        visibleFrom="sm"
+        visibleFrom={visibleFrom}
       />
     );
   }
@@ -42,7 +44,7 @@ const ThemeSwitch = () => {
       offLabel={<BsMoonFill style={{ width: rem(13), height: rem(13) }} color={mantineTheme.white} />}
       checked={computedColorScheme === THEME.LIGHT}
       onChange={handleSwitchTheme}
-      visibleFrom="sm"
+      visibleFrom={visibleFrom}
     />
   );
 };

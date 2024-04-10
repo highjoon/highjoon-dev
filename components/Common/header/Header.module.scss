@@ -20,6 +20,18 @@
   height: 100%;
 }
 
+.title {
+  gap: unset;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    width: 100%;
+  }
+}
+
+.home-link {
+  margin: 0 auto;
+}
+
 .link {
   display: block;
   line-height: 1;
@@ -28,6 +40,11 @@
   text-decoration: none;
   font-size: var(--mantine-font-size-sm);
   font-weight: 500;
+
+  &.sidebar {
+    width: fit-content;
+    font-size: var(--mantine-font-size-xl);
+  }
 
   @include hover {
     background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
