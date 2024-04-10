@@ -1,14 +1,13 @@
 'use client';
 
-import { useTheme } from 'next-themes';
 import { useEffect, useRef } from 'react';
+import { useMantineColorScheme } from '@mantine/core';
 
 const Comments = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const { resolvedTheme } = useTheme();
+  const { colorScheme } = useMantineColorScheme();
 
-  // https://github.com/giscus/giscus/tree/main/styles/themes
-  const theme = resolvedTheme === 'dark' ? 'dark' : 'light';
+  const theme = colorScheme === 'dark' ? 'dark' : 'light';
 
   useEffect(() => {
     if (!ref.current || ref.current.hasChildNodes()) return;

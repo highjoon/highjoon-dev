@@ -10,6 +10,9 @@ const nextConfig = {
     optimizeCss: true,
     mdxRs: true,
   },
+  sassOptions: {
+    prependData: `@import "./styles/_mantine.scss";`,
+  },
 };
 
 const withMDX = createMDX({

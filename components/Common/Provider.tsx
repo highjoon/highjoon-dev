@@ -1,13 +1,18 @@
 'use client';
 
-import { ThemeProvider } from 'next-themes';
 import { PropsWithChildren } from 'react';
-import { MantineProvider } from '@mantine/core';
+import { createTheme, MantineProvider, Switch } from '@mantine/core';
+import '@mantine/core/styles.css';
+import '@/styles/_components.scss';
+
+const theme = createTheme({
+  primaryColor: 'indigo',
+});
 
 const Provider = ({ children }: PropsWithChildren) => {
   return (
-    <MantineProvider>
-      <ThemeProvider attribute="class">{children}</ThemeProvider>
+    <MantineProvider theme={theme} defaultColorScheme="auto">
+      {children}
     </MantineProvider>
   );
 };

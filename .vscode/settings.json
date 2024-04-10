@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "Bezier",
+    "Combobox",
     "gtag",
     "highjoon",
     "highlightjs",
@@ -10,11 +11,13 @@
     "pretendard",
     "referencetypes",
     "rehype",
+    "splitted",
     "SSOT",
     "tailwindcss",
     "textonly",
     "Theo",
     "WEBSOCKES",
     "websockets"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

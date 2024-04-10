@@ -1,0 +1,51 @@
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: rem(100px);
+  margin-bottom: rem(120px);
+  background-color: var(--mantine-color-body);
+  border-bottom: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  padding-left: var(--mantine-spacing-md);
+  padding-right: var(--mantine-spacing-md);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    margin-bottom: rem(60px);
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    margin-bottom: rem(30px);
+  }
+}
+
+.inner {
+  width: 100%;
+  height: 100%;
+}
+
+.link {
+  display: block;
+  line-height: 1;
+  padding: rem(8px) rem(12px);
+  border-radius: var(--mantine-radius-sm);
+  text-decoration: none;
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 500;
+
+  @include hover {
+    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+  }
+
+  @include dark {
+    color: var(--mantine-color-white);
+  }
+
+  @include light {
+    color: var(--mantine-color-dark-4);
+  }
+
+  &.active {
+    color: var(--mantine-color-indigo-text);
+  }
+}
