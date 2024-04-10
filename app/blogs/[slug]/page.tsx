@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import fs from 'fs';
 import path from 'path';
-
 import PageContent from '@/components/Post/PageContent';
 import { BLOG_CONTENTS_DIR } from '@/constants/blogPosts';
 import getBlogPost from '@/utils/getBlogPost';

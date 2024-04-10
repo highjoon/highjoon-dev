@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import classNames from 'classnames';
-
 import useToc from '@/hooks/useToc';
 
 const TableOfContents = () => {

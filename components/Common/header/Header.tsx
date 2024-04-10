@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import { BsSearch } from 'react-icons/bs';
-import { Autocomplete, Avatar, Burger, em, Flex, Group, rem, Text, useMantineTheme } from '@mantine/core';
+import { Autocomplete, Avatar, Burger, em, Flex, Group, rem, Text } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import classNames from 'classnames';
 import ThemeSwitch from '@/components/Common/themeSwitch/ThemeSwitch';
@@ -23,7 +23,6 @@ const links = [
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const theme = useMantineTheme();
   const [opened, { toggle }] = useDisclosure(false);
   const isMobile = useMediaQuery(`(max-width: ${em(576)})`);
   const isTablet = useMediaQuery(`(min-width: ${em(576)}) and (max-width: ${em(768)})`);

@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
-import ThemeSwitch from './themeSwitch/ThemeSwitch';
-
 import { LINKS } from '@/constants/links';
+import ThemeSwitch from './themeSwitch/ThemeSwitch';
 
 const GNB = () => {
   return (

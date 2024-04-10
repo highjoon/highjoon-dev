@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 
-import { ROUTES } from '@/constants/routes';
-
 type CurrentPageProps = {
   currentPageNumber: number;
 };

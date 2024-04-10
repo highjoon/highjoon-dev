@@ -1,9 +1,8 @@
 'use client';
 
 import { AnimatePresence, motion, Variants } from 'framer-motion';
-import HashTag from '../Tags/HashTag';
-
 import { ROUTES } from '@/constants/routes';
+import HashTag from '../Tags/HashTag';
 
 type Props = {
   tagCountsArray: {

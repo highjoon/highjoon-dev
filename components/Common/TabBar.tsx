@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
 import { ROUTES } from '@/constants/routes';
 import { TAB_NAME } from '@/constants/tab';
 

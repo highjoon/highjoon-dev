@@ -2,12 +2,11 @@
 
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
-import HashTag from '../Tags/HashTag';
-import PostCard from './PostCard';
-
 import { ROUTES } from '@/constants/routes';
 import { Post } from '@/types/post';
 import createPostPath from '@/utils/createPostPath';
+import HashTag from '../Tags/HashTag';
+import PostCard from './PostCard';
 
 type Props = {
   posts: Post[];

@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-
 import Pagination from '@/components/Common/Pagination';
 import Title from '@/components/Common/Title';
 import PageContentsList from '@/components/Post/PageContentsList';

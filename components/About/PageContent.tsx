@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
-
 import ProfileImage from '@/public/images/img-profile.png';
 
 const PageContent = () => {

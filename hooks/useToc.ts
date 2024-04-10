@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-
 import { GNB_HEIGHT } from '@/constants/blogPosts';
 import { getIntersectionObserver } from '@/utils/getIntersectionObserver';
 

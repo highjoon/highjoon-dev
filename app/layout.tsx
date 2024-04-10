@@ -9,7 +9,7 @@ import classnames from 'classnames';
 import Footer from '@/components/Common/Footer';
 import Header from '@/components/Common/header/Header';
 import Provider from '@/components/Common/Provider';
-import './globals.css';
+import './globals.scss';
 import styles from './layout.module.scss';
 
 export const metadata: Metadata = {
@@ -82,7 +82,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
   );
 }
 
-export const pretendard = localFont({
+const pretendard = localFont({
   src: '../public/fonts/pretendard.woff2',
   display: 'swap',
   fallback: [
