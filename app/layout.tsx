@@ -9,8 +9,8 @@ import classnames from 'classnames';
 import Footer from '@/components/Common/Footer';
 import Header from '@/components/Common/header/Header';
 import Provider from '@/components/Common/Provider';
-import TopScroll from '@/components/Common/TopScroll';
 import './globals.css';
+import styles from './layout.module.scss';
 
 export const metadata: Metadata = {
   title: 'highjoon-dev',
@@ -58,12 +58,13 @@ export default function RootLayout({ children }: PropsWithChildren) {
       </head>
       <body className={classnames(pretendard.className)} suppressHydrationWarning>
         <Provider>
-          <TopScroll />
           <Header />
-          <main className="flex-1 justify-between w-full h-full px-5 pb-5 pt-[150px] flex flex-col max-w-[768px] mx-auto gap-3 md:gap-6">
-            <div className="flex flex-col w-full gap-6">{children}</div>
-            <Footer />
-          </main>
+          <div className={styles.root}>
+            <main className={styles.main}>
+              <div className={styles.container}>{children}</div>
+              <Footer />
+            </main>
+          </div>
         </Provider>
         <Script src={`https://www.googletagmanager.com/gtag/js?id=G-XW8LXFXK6N`} strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
