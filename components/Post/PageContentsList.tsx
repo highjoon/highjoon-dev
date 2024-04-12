@@ -16,7 +16,6 @@ const PageContentsList = ({ posts }: Props) => {
   return (
     <AnimatePresence>
       <motion.ul
-        className="border-b-[1px] border-b-grey-100"
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -10, opacity: 0 }}
