@@ -7,6 +7,7 @@ import '@/styles/_components.scss';
 
 const theme = createTheme({
   primaryColor: 'indigo',
+  autoContrast: true,
 });
 
 const Provider = ({ children }: PropsWithChildren) => {
