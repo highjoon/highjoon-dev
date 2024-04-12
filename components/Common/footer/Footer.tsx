@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 import { AiFillGithub, AiFillLinkedin, AiFillMail } from 'react-icons/ai';
-import { LINKS } from '@/constants/links';
-import { Avatar, Flex, Text, em, rem } from '@mantine/core';
-import styles from './Footer.module.scss';
+import { Avatar, em, Flex, rem, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { LINKS } from '@/constants/links';
+import styles from './Footer.module.scss';
 
 const Footer = () => {
   const isMobile = useMediaQuery(`(max-width: ${em(576)})`);
