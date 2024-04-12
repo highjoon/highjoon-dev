@@ -16,8 +16,10 @@
 }
 
 .inner {
+  max-width: 1080px;
   width: 100%;
   height: 100%;
+  gap: var(--mantine-spacing-md);
 }
 
 .title {

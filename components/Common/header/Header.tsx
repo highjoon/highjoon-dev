@@ -43,7 +43,7 @@ const Header = () => {
 
   return (
     <>
-      <header className={styles.header}>
+      <Flex component="header" className={styles.header} justify="center">
         <Flex className={styles.inner} justify="space-between" align="center">
           <Group className={styles.title}>
             <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
@@ -81,7 +81,7 @@ const Header = () => {
             <ThemeSwitch />
           </Group>
         </Flex>
-      </header>
+      </Flex>
       <SideDrawer opened={opened} onClose={close} link={link} />
     </>
   );
