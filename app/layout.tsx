@@ -6,7 +6,7 @@ import { ColorSchemeScript } from '@mantine/core';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import classnames from 'classnames';
-import Footer from '@/components/Common/Footer';
+import Footer from '@/components/Common/footer/Footer';
 import Header from '@/components/Common/header/Header';
 import Provider from '@/components/Common/Provider';
 import './globals.scss';

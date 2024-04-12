@@ -1,0 +1,52 @@
+.footer {
+  padding: rem(30px);
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-9));
+  border-top: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    padding: rem(20px) rem(15px);
+  }
+}
+
+.container {
+  max-width: 1080px;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    flex-direction: column;
+  }
+}
+
+.text {
+  color: light-dark(var(--mantine-color-dark-9), var(--mantine-color-white)) !important;
+}
+
+.profile-wrapper {
+  @media (max-width: $mantine-breakpoint-xs) {
+    display: flex;
+    justify-content: center;
+    gap: rem(10px);
+  }
+}
+
+.info-wrapper {
+  justify-content: center;
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    justify-content: flex-start;
+  }
+}
+
+.icon {
+  width: rem(30px);
+  height: rem(30px);
+  color: light-dark(var(--mantine-color-dark-9), var(--mantine-color-white));
+
+  &:hover {
+    color: var(--mantine-color-indigo-text);
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    width: rem(20px);
+    height: rem(20px);
+  }
+}
