@@ -1,4 +1,6 @@
 import { PropsWithChildren } from 'react';
+import { Text } from '@mantine/core';
+import styles from './Title.module.scss';
 
 interface TitleProps extends PropsWithChildren {
   title: string;
@@ -11,14 +13,20 @@ type SubTitleProps = {
 const Title = ({ title, children }: TitleProps) => {
   return (
     <>
-      <h1 className="text-2xl font-bold sm:text-3xl md:text-4xl lg:text-5xl text-grey-900 dark:text-white">{title}</h1>
+      <Text component="h1" className={styles.title}>
+        {title}
+      </Text>
       {children}
     </>
   );
 };
 
 const SubTitle = ({ subTitle }: SubTitleProps) => {
-  return <h3 className="font-bold text-md sm:text-lg md:text-xl text-grey-700 dark:text-grey-200">{subTitle}</h3>;
+  return (
+    <Text component="h3" className="font-bold text-md sm:text-lg md:text-xl text-grey-700 dark:text-grey-200">
+      {subTitle}
+    </Text>
+  );
 };
 
 Title.Subtitle = SubTitle;

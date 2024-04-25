@@ -1,4 +1,4 @@
-import Title from '@/components/Common/Title';
+import Title from '@/components/Common/title/Title';
 import PageContent from '@/components/Tag/PageContent';
 import countTags from '@/utils/countTags';
 import getAllTagsFromPosts from '@/utils/getAllTagsFromPosts';

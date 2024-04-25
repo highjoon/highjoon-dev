@@ -1,5 +1,5 @@
-import Title from '@/components/Common/Title';
-import PageContentsList from '@/components/Post/PageContentsList';
+import Title from '@/components/Common/title/Title';
+import PageContentsList from '@/components/Post/pageContentsList/PageContentsList';
 import useRecentPosts from '@/hooks/useRecentPosts';
 
 export default function Page() {
@@ -7,7 +7,7 @@ export default function Page() {
 
   return (
     <>
-      <Title title="Recent Posts" />
+      <Title title="Latest Post" />
       <PageContentsList posts={recentPosts} />
     </>
   );

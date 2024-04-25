@@ -1,5 +1,5 @@
 import PageContent from '@/components/About/PageContent';
-import Title from '@/components/Common/Title';
+import Title from '@/components/Common/title/Title';
 
 export async function generateMetadata() {
   return {

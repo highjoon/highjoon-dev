@@ -1,0 +1,13 @@
+.title {
+  color: light-dark(var(--mantine-color-dark-9), var(--mantine-color-white));
+  font-size: var(--mantine-font-size-xl);
+  font-weight: bold;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: var(--mantine-font-size-lg);
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    font-size: var(--mantine-font-size-md);
+  }
+}
