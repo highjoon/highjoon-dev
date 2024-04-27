@@ -10,6 +10,7 @@ import Footer from '@/components/Common/footer/Footer';
 import Header from '@/components/Common/header/Header';
 import Provider from '@/components/Common/Provider';
 import './globals.scss';
+import '@mantine/spotlight/styles.css';
 import styles from './layout.module.scss';
 
 export const metadata: Metadata = {

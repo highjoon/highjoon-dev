@@ -1,16 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import React from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { Autocomplete, Avatar, Burger, Divider, Drawer, em, Flex, Group, rem, Text } from '@mantine/core';
+import { Avatar, Burger, em, Flex, Group, Text } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import classNames from 'classnames';
 import ThemeSwitch from '@/components/Common/themeSwitch/ThemeSwitch';
 import { ROUTES } from '@/constants/routes';
-import { posts } from '@/data/posts';
-import { searchOptionsFilter } from '@/utils/searchOptionsFilter';
+import SearchBar from '../searchBar/SearchBar';
 import SideDrawer from '../sideDrawer/SideDrawer';
 import styles from './Header.module.scss';
 
@@ -22,7 +20,6 @@ const links = [
 ];
 
 const Header = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const [opened, { toggle, close }] = useDisclosure(false);
   const isMobile = useMediaQuery(`(max-width: ${em(576)})`);
@@ -35,7 +32,8 @@ const Header = () => {
       <Link
         key={link.label}
         href={link.link}
-        className={classNames(styles.link, { [styles.active]: isActive, [styles.sidebar]: opened })}>
+        className={classNames(styles.link, { [styles.active]: isActive, [styles.sidebar]: opened })}
+        onClick={close}>
         {link.label}
       </Link>
     );
@@ -65,19 +63,7 @@ const Header = () => {
             <Group ml={50} gap={5} visibleFrom="sm">
               {link}
             </Group>
-            <Autocomplete
-              placeholder="Search"
-              leftSection={<BsSearch style={{ width: rem(16), height: rem(16), stroke: '1.5' }} />}
-              data={posts.map((post) => post.title)}
-              visibleFrom="md"
-              filter={searchOptionsFilter}
-              comboboxProps={{ shadow: 'md', transitionProps: { transition: 'fade-down', duration: 200 } }}
-              leftSectionPointerEvents="none"
-              onOptionSubmit={(option) => {
-                const link = posts.find((post) => post.title === option)?.fileName;
-                router.push(`/blogs/${link}`);
-              }}
-            />
+            <SearchBar visibleFrom="sm" />
             <ThemeSwitch />
           </Group>
         </Flex>
