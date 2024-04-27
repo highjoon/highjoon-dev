@@ -39,6 +39,7 @@ const SearchBar = ({ visibleFrom, onClickPost = noop }: Props) => {
         w={isDesktop ? 200 : undefined}
         h={34}
         visibleFrom={visibleFrom}
+        c="gray.6"
         onClick={spotlight.open}>
         <Group>
           <BsSearch className={styles['search-icon']} />
