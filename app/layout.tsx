@@ -62,7 +62,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <Header />
           <div className={styles.root}>
             <main className={styles.main}>
-              <div className={styles.container}>{children}</div>
+              <section className={styles.container}>{children}</section>
               <Footer />
             </main>
           </div>

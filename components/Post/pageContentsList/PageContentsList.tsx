@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Badge, Image } from '@mantine/core';
+import { Badge, Button, Image } from '@mantine/core';
 import { Card, Flex, Group, Text } from '@mantine/core';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ROUTES } from '@/constants/routes';
@@ -58,6 +58,11 @@ const PageContentsList = ({ posts }: Props) => {
           )),
         )}
       </motion.ul>
+      <Flex w="100%" justify="center" align="center">
+        <Button variant="default" onClick={() => router.push(`${ROUTES.PAGES}/1`)}>
+          게시물 전체 보기
+        </Button>
+      </Flex>
     </AnimatePresence>
   );
 };
