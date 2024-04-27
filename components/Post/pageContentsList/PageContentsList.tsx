@@ -1,15 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Badge, Image } from '@mantine/core';
-import { Button, Card, Flex, Group, Text } from '@mantine/core';
+import { Card, Flex, Group, Text } from '@mantine/core';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ROUTES } from '@/constants/routes';
 import { Post } from '@/types/post';
 import createPostPath from '@/utils/createPostPath';
-import HashTag from '../../Tags/HashTag';
-import PostCard from '../postCard/PostCard';
 import styles from './PageContentsList.module.scss';
 
 type Props = {
@@ -44,6 +41,9 @@ const PageContentsList = ({ posts }: Props) => {
                         {item.description}
                       </Text>
                     </Flex>
+                    <Text size="sm" c="dimmed">
+                      {item.date}
+                    </Text>
                   </Group>
                 </Group>
                 <Flex className={styles['hashtag-list']} gap={5}>
