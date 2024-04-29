@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Badge, Button, Image } from '@mantine/core';
 import { Card, Flex, Group, Text } from '@mantine/core';
 import { AnimatePresence, motion } from 'framer-motion';
+import { v4 as uuid } from 'uuid';
 import { ROUTES } from '@/constants/routes';
 import { Post } from '@/types/post';
 import createPostPath from '@/utils/createPostPath';
@@ -25,8 +26,8 @@ const PageContentsList = ({ posts }: Props) => {
         exit={{ y: -10, opacity: 0 }}
         transition={{ duration: 0.2 }}>
         {posts.map((post) =>
-          post.map((item, index) => (
-            <li className={styles.card} key={item.title + index}>
+          post.map((item) => (
+            <li className={styles.card} key={uuid()}>
               <Card shadow="sm" padding="lg" radius="md" withBorder h="100%" style={{ gap: 20 }}>
                 <Group className={styles.content} onClick={() => router.push(createPostPath(item.fileName))}>
                   <Card.Section>
@@ -48,7 +49,10 @@ const PageContentsList = ({ posts }: Props) => {
                 </Group>
                 <Flex className={styles['hashtag-list']} gap={5}>
                   {item.tags.map((tag) => (
-                    <Badge key={tag} className={styles.hashtag} onClick={() => router.push(`${ROUTES.TAGS}/${tag}/1`)}>
+                    <Badge
+                      key={uuid() + tag}
+                      className={styles.hashtag}
+                      onClick={() => router.push(`${ROUTES.TAGS}/${tag}/1`)}>
                       #{tag}
                     </Badge>
                   ))}
