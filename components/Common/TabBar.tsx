@@ -22,24 +22,24 @@ const Tab = ({ href, tabName, isActive }: { href: string; tabName: string; isAct
 const TabBar = () => {
   const pathname = usePathname();
 
-  if (pathname.includes(ROUTES.POSTS)) return null;
+  if (pathname?.includes(ROUTES.POSTS)) return null;
 
   return (
     <ul className="flex items-center justify-between w-full">
       <Tab
         href={ROUTES.PAGES + '1'}
         tabName={TAB_NAME.POSTS}
-        isActive={pathname !== ROUTES.HOME && (pathname.includes(ROUTES.PAGES) || ROUTES.PAGES.includes(pathname))}
+        isActive={pathname !== ROUTES.HOME && (pathname?.includes(ROUTES.PAGES) || ROUTES.PAGES.includes(pathname))}
       />
       <Tab
         href={ROUTES.TAGS}
         tabName={TAB_NAME.TAGS}
-        isActive={pathname !== ROUTES.HOME && (pathname.includes(ROUTES.TAGS) || ROUTES.TAGS.includes(pathname))}
+        isActive={pathname !== ROUTES.HOME && (pathname?.includes(ROUTES.TAGS) || ROUTES.TAGS.includes(pathname))}
       />
       <Tab
         href={ROUTES.ABOUT}
         tabName={TAB_NAME.ABOUT}
-        isActive={pathname !== ROUTES.HOME && (pathname.includes(ROUTES.ABOUT) || ROUTES.ABOUT.includes(pathname))}
+        isActive={pathname !== ROUTES.HOME && (pathname?.includes(ROUTES.ABOUT) || ROUTES.ABOUT.includes(pathname))}
       />
     </ul>
   );
