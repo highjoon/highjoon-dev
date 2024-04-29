@@ -1,10 +1,9 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
+import { BLOG_CONTENTS_DIR } from '@/constants/blogPosts';
 import createBannerImgPath from '../createBannerImgPath';
 import getBlogPost from '../getBlogPost';
-
-import { BLOG_CONTENTS_DIR } from '@/constants/blogPosts';
 
 jest.mock('fs');
 jest.mock('gray-matter');
@@ -22,7 +21,7 @@ describe('getBlogPost', () => {
   it('올바른 구조의 블로그 포스트 데이터를 반환합니다.', () => {
     const slug = 'mock-post';
     const mockMarkdownFile = 'Mock Post Contents';
-    const mockFrontMatter = { title: 'Mock Post', date: '2023-08-13', url: '/blogs/Mock Post' };
+    const mockFrontMatter = { title: 'Mock Post', date: '2023-08-13', url: '/posts/Mock Post' };
     const mockContent = 'Mock content';
     const mockBannerImg = `images/contents/${slug}/img-banner.png`;
 
