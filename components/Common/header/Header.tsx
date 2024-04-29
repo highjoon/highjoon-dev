@@ -26,7 +26,7 @@ const Header = () => {
   const isTablet = useMediaQuery(`(min-width: ${em(576)}) and (max-width: ${em(768)})`);
 
   const link = links.map((link) => {
-    const isActive = link.link === ROUTES.HOME ? pathname === ROUTES.HOME : pathname.includes(link.link);
+    const isActive = link.link === ROUTES.HOME ? pathname === ROUTES.HOME : pathname?.includes(link.link);
 
     return (
       <Link

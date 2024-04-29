@@ -22,7 +22,7 @@ const Tab = ({ href, tabName, isActive }: { href: string; tabName: string; isAct
 const TabBar = () => {
   const pathname = usePathname();
 
-  if (pathname?.includes(ROUTES.POSTS)) return null;
+  if (!pathname || pathname?.includes(ROUTES.POSTS)) return null;
 
   return (
     <ul className="flex items-center justify-between w-full">

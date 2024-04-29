@@ -1,0 +1,66 @@
+.card-list {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5px;
+}
+
+.card {
+  min-width: 300px;
+  flex-basis: 33%;
+  flex-shrink: 0;
+  flex-grow: 1;
+  justify-content: space-between;
+  margin-top: 10px;
+  border-radius: 12px;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+
+  &:hover {
+    transform: scale(1.01);
+    box-shadow: var(--mantine-shadow-md);
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    flex-basis: 100%;
+  }
+}
+
+.content {
+  cursor: pointer;
+}
+
+.title {
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.description {
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.hashtag-list {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.hashtag {
+  min-width: fit-content;
+  cursor: pointer;
+
+  span {
+    text-overflow: unset;
+    overflow: visible;
+  }
+}
