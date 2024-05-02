@@ -14,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...posts.map((post) => {
       return {
-        url: `https://highjoon-dev.vercel.app/posts/${post.fileName}`,
+        url: `https://highjoon-dev.vercel.app/blogs/${post.fileName}`,
         lastModified: new Date(post.date),
       };
     }),

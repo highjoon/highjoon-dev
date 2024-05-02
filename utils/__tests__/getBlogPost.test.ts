@@ -21,7 +21,7 @@ describe('getBlogPost', () => {
   it('올바른 구조의 블로그 포스트 데이터를 반환합니다.', () => {
     const slug = 'mock-post';
     const mockMarkdownFile = 'Mock Post Contents';
-    const mockFrontMatter = { title: 'Mock Post', date: '2023-08-13', url: '/posts/Mock Post' };
+    const mockFrontMatter = { title: 'Mock Post', date: '2023-08-13', url: '/blogs/Mock Post' };
     const mockContent = 'Mock content';
     const mockBannerImg = `images/contents/${slug}/img-banner.png`;
 
