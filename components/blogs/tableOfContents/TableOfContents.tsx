@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
+import { Box, Group, rem, Text } from '@mantine/core';
 import classNames from 'classnames';
 import { useToc } from '@/hooks/useToc';
-import { Group, rem, Box, Text } from '@mantine/core';
-import { useState } from 'react';
 import styles from './TableOfContents.module.scss';
 
 const TableOfContents = () => {
