@@ -5,69 +5,71 @@ import { Badge, Button, Image } from '@mantine/core';
 import { Card, Flex, Group, Text } from '@mantine/core';
 import { AnimatePresence, motion } from 'framer-motion';
 import { v4 as uuid } from 'uuid';
+import Title from '@/components/Common/title/Title';
 import { ROUTES } from '@/constants/routes';
+import useRecentPosts from '@/hooks/useRecentPosts';
 import { Post } from '@/types/post';
 import createPostPath from '@/utils/createPostPath';
 import styles from './LatestPosts.module.scss';
 
-type Props = {
-  posts: Post[][];
-};
-
-const LatestPosts = ({ posts }: Props) => {
+const LatestPosts = () => {
   const router = useRouter();
+  const { recentPosts } = useRecentPosts();
 
   return (
-    <AnimatePresence>
-      <motion.ul
-        className={styles['card-list']}
-        initial={{ y: 10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -10, opacity: 0 }}
-        transition={{ duration: 0.2 }}>
-        {posts.map((post) =>
-          post.map((item) => (
-            <li className={styles.card} key={uuid()}>
-              <Card shadow="sm" padding="lg" radius="md" withBorder h="100%" style={{ gap: 20 }}>
-                <Group className={styles.content} onClick={() => router.push(createPostPath(item.fileName))}>
-                  <Card.Section>
-                    <Image src={item.bannerImg} height={160} alt={item.title} />
-                  </Card.Section>
-                  <Group gap={10}>
-                    <Flex className={styles.title} w="100%" h={50} align="center">
-                      <Text fw={500}>{item.title}</Text>
-                    </Flex>
-                    <Flex className={styles.description} w="100%" h={40}>
+    <>
+      <Title title="Latest Post" />
+      <AnimatePresence>
+        <motion.ul
+          className={styles['card-list']}
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -10, opacity: 0 }}
+          transition={{ duration: 0.2 }}>
+          {recentPosts.map((post) =>
+            post.map((item) => (
+              <li className={styles.card} key={uuid()}>
+                <Card shadow="sm" padding="lg" radius="md" withBorder h="100%" style={{ gap: 20 }}>
+                  <Group className={styles.content} onClick={() => router.push(createPostPath(item.fileName))}>
+                    <Card.Section>
+                      <Image src={item.bannerImg} height={160} alt={item.title} />
+                    </Card.Section>
+                    <Group gap={10}>
+                      <Flex className={styles.title} w="100%" h={50} align="center">
+                        <Text fw={500}>{item.title}</Text>
+                      </Flex>
+                      <Flex className={styles.description} w="100%" h={40}>
+                        <Text size="sm" c="dimmed">
+                          {item.description}
+                        </Text>
+                      </Flex>
                       <Text size="sm" c="dimmed">
-                        {item.description}
+                        {item.date}
                       </Text>
-                    </Flex>
-                    <Text size="sm" c="dimmed">
-                      {item.date}
-                    </Text>
+                    </Group>
                   </Group>
-                </Group>
-                <Flex className={styles['hashtag-list']} gap={5}>
-                  {item.tags.map((tag) => (
-                    <Badge
-                      key={uuid() + tag}
-                      className={styles.hashtag}
-                      onClick={() => router.push(`${ROUTES.TAGS}/${tag}/1`)}>
-                      #{tag}
-                    </Badge>
-                  ))}
-                </Flex>
-              </Card>
-            </li>
-          )),
-        )}
-      </motion.ul>
-      <Flex w="100%" justify="center" align="center">
-        <Button variant="default" onClick={() => router.push(`${ROUTES.PAGES}/1`)}>
-          게시물 전체 보기
-        </Button>
-      </Flex>
-    </AnimatePresence>
+                  <Flex className={styles['hashtag-list']} gap={5}>
+                    {item.tags.map((tag) => (
+                      <Badge
+                        key={uuid() + tag}
+                        className={styles.hashtag}
+                        onClick={() => router.push(`${ROUTES.TAGS}/${tag}/1`)}>
+                        #{tag}
+                      </Badge>
+                    ))}
+                  </Flex>
+                </Card>
+              </li>
+            )),
+          )}
+        </motion.ul>
+        <Flex w="100%" justify="center" align="center">
+          <Button variant="default" onClick={() => router.push(`${ROUTES.PAGES}/1`)}>
+            게시물 전체 보기
+          </Button>
+        </Flex>
+      </AnimatePresence>
+    </>
   );
 };
 
