@@ -14,7 +14,7 @@ const splitArray = (array: Post[]) => {
   return result;
 };
 
-const useRecentPosts = () => {
+const useGetRecentPosts = () => {
   const sortedPostsByDate = sortPostsByDate(posts).slice(0, 9);
   const splittedPosts = splitArray(sortedPostsByDate);
 
@@ -23,4 +23,4 @@ const useRecentPosts = () => {
   };
 };
 
-export default useRecentPosts;
+export default useGetRecentPosts;
