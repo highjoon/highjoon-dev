@@ -5,13 +5,13 @@ import { Badge, Button, Image } from '@mantine/core';
 import { Card, Flex, Group, Text, Title } from '@mantine/core';
 import { v4 as uuid } from 'uuid';
 import { ROUTES } from '@/constants/routes';
-import useRecentPosts from '@/hooks/useRecentPosts';
+import useGetRecentPosts from '@/hooks/useGetRecentPosts';
 import createPostPath from '@/utils/createPostPath';
 import styles from './LatestPosts.module.scss';
 
 const LatestPosts = () => {
   const router = useRouter();
-  const { recentPosts } = useRecentPosts();
+  const { recentPosts } = useGetRecentPosts();
 
   return (
     <>

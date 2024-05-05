@@ -1,7 +1,7 @@
-import { DEFAULT_NUMBER_OF_POSTS_PER_PAGE } from '../constants/blogPosts';
+import { POSTS_PER_PAGE } from '@/components/Common/pagination/Pagination';
 
 const calculateTagPageCount = (numberOfTags: number) => {
-  const pageCount = Math.ceil(numberOfTags / DEFAULT_NUMBER_OF_POSTS_PER_PAGE);
+  const pageCount = Math.ceil(numberOfTags / POSTS_PER_PAGE);
   return pageCount;
 };
 

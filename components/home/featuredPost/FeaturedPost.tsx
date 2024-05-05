@@ -7,13 +7,13 @@ import React from 'react';
 import { Badge, Card, Flex, Text } from '@mantine/core';
 import { v4 as uuid } from 'uuid';
 import { ROUTES } from '@/constants/routes';
-import useRecentPosts from '@/hooks/useRecentPosts';
+import useGetRecentPosts from '@/hooks/useGetRecentPosts';
 import createPostPath from '@/utils/createPostPath';
 import styles from './FeaturedPost.module.scss';
 
 const FeaturedPost = () => {
   const router = useRouter();
-  const { recentPosts } = useRecentPosts();
+  const { recentPosts } = useGetRecentPosts();
   const featuredPost = recentPosts[0][0];
 
   return (
