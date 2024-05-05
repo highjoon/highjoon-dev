@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { Badge, Button, Image } from '@mantine/core';
 import { Card, Flex, Group, Text } from '@mantine/core';
-import { AnimatePresence, motion } from 'framer-motion';
 import { v4 as uuid } from 'uuid';
 import Title from '@/components/Common/title/Title';
 import { ROUTES } from '@/constants/routes';
