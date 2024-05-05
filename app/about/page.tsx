@@ -1,5 +1,5 @@
-import PageContent from '@/components/About/PageContent';
-import Title from '@/components/Common/Title';
+import { Flex, Title } from '@mantine/core';
+import AboutMe from '@/components/aboutMe/AboutMe';
 
 export async function generateMetadata() {
   return {
@@ -9,9 +9,11 @@ export async function generateMetadata() {
 
 export default function Page() {
   return (
-    <>
-      <Title title="About" />
-      <PageContent />
-    </>
+    <Flex direction="column" gap={30}>
+      <Title component="h1" order={3}>
+        ABOUT
+      </Title>
+      <AboutMe />
+    </Flex>
   );
 }

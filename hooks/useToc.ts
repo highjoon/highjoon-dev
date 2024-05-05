@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-
 import { GNB_HEIGHT } from '@/constants/blogPosts';
 import { getIntersectionObserver } from '@/utils/getIntersectionObserver';
 
-const useToc = () => {
+export const useToc = () => {
   const [headingElements, setHeadingElements] = useState<Element[]>([]);
   const [activeId, setActiveId] = useState('');
 
@@ -21,7 +20,7 @@ const useToc = () => {
   }, []);
 
   useEffect(() => {
-    const article = document.querySelector('article');
+    const article = document.querySelector('#page-content');
     if (!article) return;
     const headingElements = Array.from(article.querySelectorAll('h2, h3, h4'));
     setHeadingElements(headingElements);
@@ -36,5 +35,3 @@ const useToc = () => {
     handleClickTocLink: handleClickLink,
   };
 };
-
-export default useToc;

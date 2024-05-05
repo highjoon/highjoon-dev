@@ -2,16 +2,16 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 import { PropsWithChildren } from 'react';
+import { ColorSchemeScript } from '@mantine/core';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import classnames from 'classnames';
-import './globals.css';
-
-import Footer from '@/components/Common/Footer';
-import GNB from '@/components/Common/GNB';
-import Provider from '@/components/Common/Provider';
-import TabBar from '@/components/Common/TabBar';
-import TopScroll from '@/components/Common/TopScroll';
+import Footer from '@/components/footer/Footer';
+import Header from '@/components/header/Header';
+import Provider from '@/components/provider/Provider';
+import '@/styles/globals.scss';
+import '@mantine/spotlight/styles.css';
+import styles from './layout.module.scss';
 
 export const metadata: Metadata = {
   title: 'highjoon-dev',
@@ -54,17 +54,18 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body className={classnames(pretendard.className, 'dark:bg-grey-900')} suppressHydrationWarning>
+      <head>
+        <ColorSchemeScript defaultColorScheme="auto" />
+      </head>
+      <body className={classnames(pretendard.className)} suppressHydrationWarning>
         <Provider>
-          <TopScroll />
-          <GNB />
-          <main className="flex-1 justify-between w-full h-full px-5 pt-20 md:pt-32 pb-5 flex flex-col max-w-[768px] mx-auto gap-3 md:gap-6">
-            <div className="flex flex-col w-full gap-6">
-              <TabBar />
-              {children}
-            </div>
-            <Footer />
-          </main>
+          <Header />
+          <div className={styles.root}>
+            <main className={styles.main}>
+              <section className={styles.container}>{children}</section>
+              <Footer />
+            </main>
+          </div>
         </Provider>
         <Script src={`https://www.googletagmanager.com/gtag/js?id=G-XW8LXFXK6N`} strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -82,7 +83,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
   );
 }
 
-export const pretendard = localFont({
+const pretendard = localFont({
   src: '../public/fonts/pretendard.woff2',
   display: 'swap',
   fallback: [

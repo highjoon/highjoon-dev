@@ -1,5 +1,4 @@
 import { MetadataRoute } from 'next';
-
 import { posts } from '@/data/posts';
 import getAllTagsFromPosts from '@/utils/getAllTagsFromPosts';
 

@@ -10,6 +10,9 @@ const nextConfig = {
     optimizeCss: true,
     mdxRs: true,
   },
+  sassOptions: {
+    prependData: `@import "./styles/_mantine.scss";`,
+  },
 };
 
 const withMDX = createMDX({
@@ -21,7 +24,7 @@ const withMDX = createMDX({
     remarkPlugins: [],
     rehypePlugins: [],
     // If you use `MDXProvider`, uncomment the following line.
-    // providerImportSource: "@mdx-js/react",
+    providerImportSource: '@mdx-js/react',
   },
 });
 
