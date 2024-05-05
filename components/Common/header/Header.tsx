@@ -44,7 +44,7 @@ const Header = () => {
       <Flex component="header" className={styles.header} justify="center">
         <Flex className={styles.inner} justify="space-between" align="center">
           <Group className={styles.title}>
-            <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
+            <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="md" />
             <Link className={styles['home-link']} href={ROUTES.HOME}>
               <Flex align="center" gap={10}>
                 <Avatar src="/images/img-profile.png" bg="grey" alt="img-profile" size={isMobile ? 'sm' : 'md'} />
@@ -60,10 +60,10 @@ const Header = () => {
             </Link>
           </Group>
           <Group>
-            <Group ml={50} gap={5} visibleFrom="sm">
+            <Group ml={50} gap={5} visibleFrom="md">
               {link}
             </Group>
-            <SearchBar visibleFrom="sm" />
+            <SearchBar visibleFrom="md" />
             <ThemeSwitch />
           </Group>
         </Flex>

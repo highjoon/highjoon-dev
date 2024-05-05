@@ -36,7 +36,7 @@ const SearchBar = ({ visibleFrom, onClickPost = noop }: Props) => {
       <UnstyledButton
         className={styles['search-button']}
         px="sm"
-        w={isDesktop ? 200 : undefined}
+        w={isDesktop ? 200 : '100%'}
         h={34}
         visibleFrom={visibleFrom}
         c="gray.6"
