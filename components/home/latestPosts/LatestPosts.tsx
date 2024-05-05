@@ -2,9 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { Badge, Button, Image } from '@mantine/core';
-import { Card, Flex, Group, Text } from '@mantine/core';
+import { Card, Flex, Group, Text, Title } from '@mantine/core';
 import { v4 as uuid } from 'uuid';
-import Title from '@/components/Common/title/Title';
 import { ROUTES } from '@/constants/routes';
 import useRecentPosts from '@/hooks/useRecentPosts';
 import createPostPath from '@/utils/createPostPath';
@@ -16,7 +15,9 @@ const LatestPosts = () => {
 
   return (
     <>
-      <Title title="Latest Post" />
+      <Title component="h1" order={3}>
+        LATEST POSTS
+      </Title>
       <ul className={styles['card-list']}>
         {recentPosts.map((post) =>
           post.map((item, index) => (
@@ -55,11 +56,6 @@ const LatestPosts = () => {
           )),
         )}
       </ul>
-      <Flex w="100%" justify="center" align="center" key={uuid()}>
-        <Button variant="default" onClick={() => router.push(`${ROUTES.PAGES}/1`)}>
-          게시물 전체 보기
-        </Button>
-      </Flex>
     </>
   );
 };
