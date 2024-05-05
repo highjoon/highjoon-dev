@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button, Flex } from '@mantine/core';
-import FeaturedPost from '@/components/home/featuredPost/FeaturedPost';
-import LatestPosts from '@/components/home/latestPosts/LatestPosts';
+import FeaturedPost from '@/components/featuredPost/FeaturedPost';
+import LatestPosts from '@/components/latestPosts/LatestPosts';
 import { ROUTES } from '@/constants/routes';
 
 export default function HomePage() {

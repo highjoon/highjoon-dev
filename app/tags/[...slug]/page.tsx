@@ -1,6 +1,6 @@
 import { Flex } from '@mantine/core';
-import Pagination from '@/components/Common/pagination/Pagination';
-import Posts from '@/components/tags/posts/Posts';
+import Pagination from '@/components/pagination/Pagination';
+import TagPosts from '@/components/tagPosts/TagPosts';
 import { ROUTES } from '@/constants/routes';
 import { posts } from '@/data/posts';
 import calculateNumberOfTags from '@/utils/calculateNumberOfTags';
@@ -52,7 +52,7 @@ export default function Page({
 
   return (
     <Flex direction="column" gap={100}>
-      <Posts currentTag={currentTag} currentPagePosts={currentPagePosts} />
+      <TagPosts currentTag={currentTag} currentPagePosts={currentPagePosts} />
       <Pagination currentPage={currentPage} totalPage={totalPage} routerPath={`${ROUTES.TAGS}/${currentTag}`} />
     </Flex>
   );

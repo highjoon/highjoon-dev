@@ -1,32 +1,26 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Badge, Image, Title } from '@mantine/core';
-import { Card, Flex, Group, Text } from '@mantine/core';
+import React from 'react';
+import { Badge, Card, Flex, Group, Image, Text, Title } from '@mantine/core';
 import { v4 as uuid } from 'uuid';
 import { ROUTES } from '@/constants/routes';
-import { posts } from '@/data/posts';
+import { Post } from '@/types/post';
 import createPostPath from '@/utils/createPostPath';
-import styles from './Posts.module.scss';
+import styles from './TagPosts.module.scss';
 
-type Props = { currentPage: number };
+type Props = { currentTag: string; currentPagePosts: Post[] };
 
-const useGetPosts = (page: number) => {
-  const result = posts.slice((page - 1) * 9, 9 * page);
-  return result;
-};
-
-const Posts = ({ currentPage }: Props) => {
+const TagPosts = ({ currentTag, currentPagePosts }: Props) => {
   const router = useRouter();
-  const posts = useGetPosts(currentPage);
 
   return (
     <Flex direction="column" gap={30}>
-      <Title component="h1" order={3}>
-        POSTS
+      <Title component="h1" order={3} tt="uppercase">
+        # {currentTag}
       </Title>
       <ul className={styles['card-list']}>
-        {posts.map((post, index) => (
+        {currentPagePosts.map((post, index) => (
           <li className={styles.card} key={uuid() + index}>
             <Card shadow="sm" padding="lg" radius="md" withBorder h="100%" style={{ gap: 20 }}>
               <Group className={styles.content} onClick={() => router.push(createPostPath(post.fileName))}>
@@ -65,4 +59,4 @@ const Posts = ({ currentPage }: Props) => {
   );
 };
 
-export default Posts;
+export default TagPosts;

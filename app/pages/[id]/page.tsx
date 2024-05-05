@@ -1,6 +1,6 @@
 import { Flex } from '@mantine/core';
-import Pagination from '@/components/Common/pagination/Pagination';
-import Posts from '@/components/posts/posts/Posts';
+import AllPosts from '@/components/allPosts/AllPosts';
+import Pagination from '@/components/pagination/Pagination';
 import { ROUTES } from '@/constants/routes';
 import { posts } from '@/data/posts';
 
@@ -28,7 +28,7 @@ export default function Page({ params }: Params) {
 
   return (
     <Flex direction="column" gap={100}>
-      <Posts currentPage={currentPage} />
+      <AllPosts currentPage={currentPage} />
       <Pagination currentPage={currentPage} totalPage={totalPage} routerPath={`${ROUTES.PAGES}`} />
     </Flex>
   );

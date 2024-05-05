@@ -6,7 +6,7 @@ import React from 'react';
 import { Avatar, Burger, em, Flex, Group, Text } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import classNames from 'classnames';
-import ThemeSwitch from '@/components/Common/themeSwitch/ThemeSwitch';
+import ThemeSwitch from '@/components/themeSwitch/ThemeSwitch';
 import { ROUTES } from '@/constants/routes';
 import SearchBar from '../searchBar/SearchBar';
 import SideDrawer from '../sideDrawer/SideDrawer';
