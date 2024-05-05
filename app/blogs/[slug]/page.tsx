@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: any): Promise<Metadata> {
   const blog = getBlogPost(params);
 
   return {
-    title: blog.frontMatter.title,
+    title: `${blog.frontMatter.title} | highjoon-dev`,
     description: blog.frontMatter.description,
   };
 }

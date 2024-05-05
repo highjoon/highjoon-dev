@@ -3,7 +3,7 @@ import AboutMe from '@/components/aboutMe/AboutMe';
 
 export async function generateMetadata() {
   return {
-    title: 'About',
+    title: 'About | highjoon-dev',
   };
 }
 
