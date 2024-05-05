@@ -1,14 +1,13 @@
 import { Flex } from '@mantine/core';
 import Pagination from '@/components/pagination/Pagination';
 import TagPosts from '@/components/tagPosts/TagPosts';
+import { POSTS_PER_PAGE } from '@/constants/blogPosts';
 import { ROUTES } from '@/constants/routes';
 import { posts } from '@/data/posts';
 import calculateNumberOfTags from '@/utils/calculateNumberOfTags';
 import calculateTagPageCount from '@/utils/calculateTagPageCount';
 import generateTagPaths from '@/utils/generateTagPaths';
 import getAllTagsFromPosts from '@/utils/getAllTagsFromPosts';
-
-const POSTS_PER_PAGE = 9;
 
 interface Params {
   params: {

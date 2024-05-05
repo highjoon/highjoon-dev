@@ -1,10 +1,9 @@
 import { Flex } from '@mantine/core';
 import AllPosts from '@/components/allPosts/AllPosts';
 import Pagination from '@/components/pagination/Pagination';
+import { POSTS_PER_PAGE } from '@/constants/blogPosts';
 import { ROUTES } from '@/constants/routes';
 import { posts } from '@/data/posts';
-
-const POSTS_PER_PAGE = 9;
 
 interface Params {
   params: { id: string };
