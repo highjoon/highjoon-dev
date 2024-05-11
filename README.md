@@ -11,8 +11,8 @@ https://velog.io/@arthur
 - pnpm
 - next.js@14 (app router)
 - react@18
-- tailwindCSS
-- typeScript@5
+- scss
+- typescript@5
 - next-mdx-remote
 - mantine
 - vercel
