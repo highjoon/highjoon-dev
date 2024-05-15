@@ -1,5 +1,30 @@
+.container {
+  gap: rem(100px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    flex-direction: column;
+    gap: rem(50px);
+  }
+}
+
+.introduction {
+  --text-fz: var(--mantine-font-size-md);
+  --text-lh: var(--mantine-line-height-md);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    --text-fz: var(--mantine-font-size-sm);
+    --text-lh: var(--mantine-line-height-sm);
+  }
+}
+
 .profile-image {
   padding: rem(20px);
   border-radius: 100%;
   background-color: var(--mantine-color-gray-light);
+}
+
+.career-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: rem(20px);
 }
