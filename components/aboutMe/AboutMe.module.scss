@@ -10,6 +10,7 @@
 .introduction {
   --text-fz: var(--mantine-font-size-md);
   --text-lh: var(--mantine-line-height-md);
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-gray-3));
 
   @media (max-width: $mantine-breakpoint-md) {
     --text-fz: var(--mantine-font-size-sm);
@@ -27,4 +28,12 @@
   display: flex;
   flex-direction: column;
   gap: rem(20px);
+}
+
+.career-term {
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-gray-5));
+}
+
+.career-description {
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-gray-3));
 }
