@@ -4,6 +4,14 @@ import createBannerImgPath from '../utils/createBannerImgPath';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME.BUILDING_A_DESIGN_SYSTEM_IN_A_STARTUP,
+    title: '스타트업에서 디자인 시스템을 구축해본 후기',
+    description: '7개월 동안의 디자인 시스템 구축, 운영 및 실패 후기',
+    date: '2024-05-15',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME.BUILDING_A_DESIGN_SYSTEM_IN_A_STARTUP),
+    tags: ['design-system'],
+  },
+  {
     fileName: POSTS_FILE_NAME.FLEXIBLE_AND_REUSABLE_MODALS,
     title: '유연하고 재사용 가능한 모달',
     description: '합성 컴포넌트 패턴으로 구현하는 유연하고 재사용 가능한 모달',

@@ -23,9 +23,9 @@ const LatestPosts = () => {
           post.map((item, index) => (
             <li className={styles.card} key={uuid() + index}>
               <Card shadow="sm" padding="lg" radius="md" withBorder h="100%" style={{ gap: 20 }}>
-                <Group className={styles.content} onClick={() => router.push(createPostPath(item.fileName))}>
-                  <Card.Section key={uuid()}>
-                    <Image src={item.bannerImg} height={160} alt={item.title} />
+                <Group onClick={() => router.push(createPostPath(item.fileName))}>
+                  <Card.Section key={uuid()} className={styles.content}>
+                    <Image src={item.bannerImg} alt={item.title} className={styles.image} />
                   </Card.Section>
                   <Group gap={10}>
                     <Flex className={styles.title} w="100%" h={50} align="center">

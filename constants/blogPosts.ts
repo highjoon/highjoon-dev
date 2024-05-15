@@ -17,6 +17,7 @@ export const POSTS_FILE_NAME = {
   REACT_QUERY_AS_A_STATE_MANAGER: '10-react-query-as-a-state-manager',
   REACT_QUERY_ERROR_HANDLING: '11-react-query-error-handling',
   FLEXIBLE_AND_REUSABLE_MODALS: 'flexible-and-reusable-modals',
+  BUILDING_A_DESIGN_SYSTEM_IN_A_STARTUP: 'building-a-design-system-in-a-startup',
 } as const;
 
 export type POSTS_FILE_NAME = typeof POSTS_FILE_NAME;
