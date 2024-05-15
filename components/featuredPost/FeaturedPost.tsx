@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { Badge, Card, Flex, Text } from '@mantine/core';
 import { v4 as uuid } from 'uuid';
+import { POSTS_FILE_NAME } from '@/constants/blogPosts';
 import { ROUTES } from '@/constants/routes';
 import useGetRecentPosts from '@/hooks/useGetRecentPosts';
 import createPostPath from '@/utils/createPostPath';
@@ -14,7 +15,13 @@ import styles from './FeaturedPost.module.scss';
 const FeaturedPost = () => {
   const router = useRouter();
   const { recentPosts } = useGetRecentPosts();
-  const featuredPost = recentPosts[0][0];
+  const featuredPost = recentPosts
+    .flatMap((item) => item)
+    .find((post) => post.fileName === POSTS_FILE_NAME.BUILDING_A_DESIGN_SYSTEM_IN_A_STARTUP);
+
+  if (!featuredPost) {
+    return null;
+  }
 
   return (
     <Card className={styles.banner} shadow="md" radius="md" withBorder>
@@ -35,10 +42,7 @@ const FeaturedPost = () => {
             </Text>
             <Flex className={styles['hashtag-list']} gap={5}>
               {featuredPost.tags.map((tag) => (
-                <Badge
-                  key={uuid() + tag}
-                  className={styles.hashtag}
-                  onClick={() => router.push(`${ROUTES.TAGS}/${tag}/1`)}>
+                <Badge key={uuid() + tag} className={styles.hashtag}>
                   #{tag}
                 </Badge>
               ))}
