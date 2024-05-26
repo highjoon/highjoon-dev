@@ -7,6 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import classnames from 'classnames';
 import Footer from '@/components/footer/Footer';
+import GoogleAdsense from '@/components/googleAdsense/GoogleAdsense';
 import Header from '@/components/header/Header';
 import Provider from '@/components/provider/Provider';
 import '@/styles/globals.scss';
@@ -78,6 +79,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         </Script>
         <Analytics />
         <SpeedInsights />
+        <GoogleAdsense />
       </body>
     </html>
   );
