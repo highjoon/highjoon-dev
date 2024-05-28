@@ -4,6 +4,14 @@ import createBannerImgPath from '../utils/createBannerImgPath';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME.MASTERING_MUTATIONS_IN_REACT_QUERY,
+    title: '(번역) #12: Mastering Mutations in React Query',
+    description: '번역 [#12: Mastering Mutations in React Query]',
+    date: '2024-05-27',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME.MASTERING_MUTATIONS_IN_REACT_QUERY),
+    tags: ['react-query', 'translation'],
+  },
+  {
     fileName: POSTS_FILE_NAME.BUILDING_A_DESIGN_SYSTEM_IN_A_STARTUP,
     title: '스타트업에서 디자인 시스템을 구축해본 후기',
     description: '7개월 동안의 디자인 시스템 구축, 운영 및 실패 후기',
