@@ -19,6 +19,7 @@ export const POSTS_FILE_NAME = {
   FLEXIBLE_AND_REUSABLE_MODALS: 'flexible-and-reusable-modals',
   BUILDING_A_DESIGN_SYSTEM_IN_A_STARTUP: 'building-a-design-system-in-a-startup',
   MASTERING_MUTATIONS_IN_REACT_QUERY: '12-mastering-mutations-in-react-query',
+  OFFLINE_REACT_QUERY: '13-offline-react-query',
 } as const;
 
 export type POSTS_FILE_NAME = typeof POSTS_FILE_NAME;

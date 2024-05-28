@@ -4,6 +4,14 @@ import createBannerImgPath from '../utils/createBannerImgPath';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME.OFFLINE_REACT_QUERY,
+    title: '(번역) #13: Offline React Query',
+    description: '번역 [#13: Offline React Query]',
+    date: '2024-05-27',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME.OFFLINE_REACT_QUERY),
+    tags: ['react-query', 'translation'],
+  },
+  {
     fileName: POSTS_FILE_NAME.MASTERING_MUTATIONS_IN_REACT_QUERY,
     title: '(번역) #12: Mastering Mutations in React Query',
     description: '번역 [#12: Mastering Mutations in React Query]',
