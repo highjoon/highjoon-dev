@@ -141,7 +141,7 @@ export const posts: Post[] = [
   },
   {
     fileName: POSTS_FILE_NAME.SPECTRUM_DESIGN_TOKENS,
-    title: '스펙트럼 디자인 토큰',
+    title: '(번역) 스펙트럼 디자인 토큰',
     description: 'Adobe 스펙트럼 디자인 시스템의 디자인 토큰 문서 번역',
     date: '2023-12-16',
     bannerImg: createBannerImgPath(POSTS_FILE_NAME.SPECTRUM_DESIGN_TOKENS),
@@ -149,7 +149,7 @@ export const posts: Post[] = [
   },
   {
     fileName: POSTS_FILE_NAME.COMPONENT_DESIGN_TOKEN_ARE_THEY_WORTH_IT,
-    title: '컴포넌트 레벨 디자인 토큰: 그것들은 가치가 있을까요?',
+    title: '(번역) 컴포넌트 레벨 디자인 토큰: 그것들은 가치가 있을까요?',
     description: 'Component-level Design Tokens: are they worth it? 번역',
     date: '2023-11-26',
     bannerImg: createBannerImgPath(POSTS_FILE_NAME.COMPONENT_DESIGN_TOKEN_ARE_THEY_WORTH_IT),
