@@ -4,6 +4,14 @@ import { POSTS_FILE_NAME } from './blogPosts';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME.CSS_IN_REACT_SERVER_COMPONENTS,
+    title: '(번역) CSS in React Server Components',
+    description: 'CSS in React Server Components 번역',
+    date: '2024-07-11',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME.CSS_IN_REACT_SERVER_COMPONENTS),
+    tags: ['next.js', 'css'],
+  },
+  {
     fileName: POSTS_FILE_NAME.REACT_QUERY_AND_FORMS,
     title: '(번역) #14: React Query and Forms',
     description: '#14: React Query and Forms 번역',

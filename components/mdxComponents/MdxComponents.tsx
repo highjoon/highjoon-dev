@@ -40,7 +40,9 @@ export const MdxComponents: MDXComponentsType | MergeComponents | null | undefin
   ul: (props) => (
     <List {...props} className={styles.ul} type="unordered" component="ul" spacing="sm" listStyleType="disc" />
   ),
-  ol: (props) => <List {...props} type="ordered" component="ol" spacing="sm" center withPadding listStyleType="disc" />,
+  ol: (props) => (
+    <List {...props} type="ordered" component="ol" spacing="sm" center withPadding listStyleType="space-counter" />
+  ),
   li: (props) => (
     <ListItem
       {...props}

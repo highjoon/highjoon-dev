@@ -21,6 +21,7 @@ export const POSTS_FILE_NAME = {
   MASTERING_MUTATIONS_IN_REACT_QUERY: '12-mastering-mutations-in-react-query',
   OFFLINE_REACT_QUERY: '13-offline-react-query',
   REACT_QUERY_AND_FORMS: '14-react-query-and-forms',
+  CSS_IN_REACT_SERVER_COMPONENTS: 'css-in-react-server-components',
 } as const;
 
 export type POSTS_FILE_NAME = typeof POSTS_FILE_NAME;
