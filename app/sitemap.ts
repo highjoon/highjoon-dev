@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { posts } from '@/data/posts';
+import { posts } from '@/constants/posts';
 import getAllTagsFromPosts from '@/utils/getAllTagsFromPosts';
 
 export default function sitemap(): MetadataRoute.Sitemap {

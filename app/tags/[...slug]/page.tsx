@@ -3,7 +3,7 @@ import Pagination from '@/components/pagination/Pagination';
 import TagPosts from '@/components/tagPosts/TagPosts';
 import { POSTS_PER_PAGE } from '@/constants/blogPosts';
 import { ROUTES } from '@/constants/routes';
-import { posts } from '@/data/posts';
+import { posts } from '@/constants/posts';
 import calculateNumberOfTags from '@/utils/calculateNumberOfTags';
 import calculateTagPageCount from '@/utils/calculateTagPageCount';
 import generateTagPaths from '@/utils/generateTagPaths';

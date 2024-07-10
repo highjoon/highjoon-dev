@@ -1,6 +1,6 @@
-import { POSTS_FILE_NAME } from '../constants/blogPosts';
 import { Post } from '../types/post';
 import createBannerImgPath from '../utils/createBannerImgPath';
+import { POSTS_FILE_NAME } from './blogPosts';
 
 export const posts: Post[] = [
   {

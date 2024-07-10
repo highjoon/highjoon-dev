@@ -5,7 +5,7 @@ import { Badge, Image, Title } from '@mantine/core';
 import { Card, Flex, Group, Text } from '@mantine/core';
 import { v4 as uuid } from 'uuid';
 import { ROUTES } from '@/constants/routes';
-import { posts } from '@/data/posts';
+import { posts } from '@/constants/posts';
 import createPostPath from '@/utils/createPostPath';
 import styles from './AllPosts.module.scss';
 

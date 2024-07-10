@@ -3,7 +3,7 @@ import AllPosts from '@/components/allPosts/AllPosts';
 import Pagination from '@/components/pagination/Pagination';
 import { POSTS_PER_PAGE } from '@/constants/blogPosts';
 import { ROUTES } from '@/constants/routes';
-import { posts } from '@/data/posts';
+import { posts } from '@/constants/posts';
 
 interface Params {
   params: { id: string };

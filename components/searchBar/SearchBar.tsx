@@ -6,7 +6,7 @@ import { BsSearch } from 'react-icons/bs';
 import { em, Group, MantineSize, noop, UnstyledButton } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Spotlight, spotlight, SpotlightActionData } from '@mantine/spotlight';
-import { posts } from '@/data/posts';
+import { posts } from '@/constants/posts';
 import createPostPath from '@/utils/createPostPath';
 import styles from './SearchBar.module.scss';
 

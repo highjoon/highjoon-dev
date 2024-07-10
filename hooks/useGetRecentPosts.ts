@@ -1,4 +1,4 @@
-import { posts } from '@/data/posts';
+import { posts } from '@/constants/posts';
 import { Post } from '@/types/post';
 import sortPostsByDate from '@/utils/sortPostsByDate';
 
