@@ -20,14 +20,11 @@ const AboutMe = () => {
               고객이 있어야 회사가 있다고 믿고 있으며 고객 경험 향상에 기여하려고 노력합니다.
             </Text>
             <Text className={styles.introduction}>
-              제품의 기술 스택 선정에 있어서 무조건 최신 기술을 고집하지 않으며 시장에서 검증된 기술을 선택하려고
-              합니다.
-            </Text>
-            <Text className={styles.introduction}>
               변경과 확장에 유연하게 대응할 수 있는 컴포넌트를 설계하기 위해 고민합니다.
             </Text>
-            <Text className={styles.introduction}>제품의 디테일한 요소를 챙기는 것을 좋아합니다.</Text>
-            <Text className={styles.introduction}>부드러운 트랜지션이 있는 UI를 좋아합니다. 😎</Text>
+            <Text className={styles.introduction}>
+              제품의 디테일한 요소를 챙기는 것을 좋아하며 더 나은 제품을 만들기 위해 적극적으로 아이디어를 제시합니다.
+            </Text>
           </Flex>
         </Flex>
         <Divider />
