@@ -1,7 +1,7 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { Pagination as MantinePagination } from '@mantine/core';
 
 type Props = { currentPage: number; totalPage: number; routerPath: string };

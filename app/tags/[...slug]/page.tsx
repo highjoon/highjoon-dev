@@ -1,13 +1,13 @@
-import { Flex } from '@mantine/core';
 import Pagination from '@/components/pagination/Pagination';
 import TagPosts from '@/components/tagPosts/TagPosts';
 import { POSTS_PER_PAGE } from '@/constants/blogPosts';
-import { ROUTES } from '@/constants/routes';
 import { posts } from '@/constants/posts';
+import { ROUTES } from '@/constants/routes';
 import calculateNumberOfTags from '@/utils/calculateNumberOfTags';
 import calculateTagPageCount from '@/utils/calculateTagPageCount';
 import generateTagPaths from '@/utils/generateTagPaths';
 import getAllTagsFromPosts from '@/utils/getAllTagsFromPosts';
+import { Flex } from '@mantine/core';
 
 interface Params {
   params: {
@@ -29,10 +29,12 @@ export async function generateStaticParams() {
   const pathsPerTag = allTags.map((tag) => {
     const numberOfTags = calculateNumberOfTags(posts, tag);
     const tagPageCount = calculateTagPageCount(numberOfTags);
+
     return generateTagPaths(tag, tagPageCount);
   });
 
   const paths = pathsPerTag.flat();
+
   return paths;
 }
 

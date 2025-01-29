@@ -1,6 +1,6 @@
 'use client';
 
-import { PropsWithChildren, useEffect } from 'react';
+import { type PropsWithChildren, useEffect } from 'react';
 import { createTheme, MantineProvider } from '@mantine/core';
 import hljs from 'highlight.js';
 import css from 'highlight.js/lib/languages/css';
@@ -8,6 +8,7 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import plaintext from 'highlight.js/lib/languages/plaintext';
 import typescript from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/vbscript-html';
+
 import '@mantine/core/styles.css';
 import '@/styles/_components.scss';
 import 'highlight.js/styles/github-dark.css';

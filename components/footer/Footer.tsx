@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { AiFillGithub, AiFillLinkedin, AiFillMail } from 'react-icons/ai';
-import { Avatar, em, Flex, rem, Text } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import { LINKS } from '@/constants/links';
+import { Avatar, em, Flex, Text } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import { AiFillGithub, AiFillLinkedin, AiFillMail } from 'react-icons/ai';
+
 import styles from './Footer.module.scss';
 
 const Footer = () => {

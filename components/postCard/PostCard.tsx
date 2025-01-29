@@ -3,8 +3,8 @@
 import { ROUTES } from '@/constants/routes';
 import createPostPath from '@/utils/createPostPath';
 import { Card, Flex, Group, Text, Title, Image, Badge } from '@mantine/core';
-import React from 'react';
 import styles from './PostCard.module.scss';
+import React from 'react';
 import { Post } from '@/types/post';
 import Link from 'next/link';
 

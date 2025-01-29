@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { Badge, Flex, Text, Title } from '@mantine/core';
-import { v4 as uuid } from 'uuid';
 import { ROUTES } from '@/constants/routes';
 import countTags from '@/utils/countTags';
 import getAllTagsFromPosts from '@/utils/getAllTagsFromPosts';
+import { Badge, Flex, Text, Title } from '@mantine/core';
+import { v4 as uuid } from 'uuid';
 
 export async function generateMetadata() {
   return {
@@ -24,6 +24,7 @@ export default async function Page() {
         {tagCountsArray.map((tagCount) => {
           const tag = Object.keys(tagCount)[0];
           const count = tagCount[tag];
+
           return (
             <Link key={uuid() + tag} href={ROUTES.TAGS + `/${tag}/1`}>
               <Badge variant="outline" size="lg">

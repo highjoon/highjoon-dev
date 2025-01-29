@@ -1,9 +1,9 @@
-import { Flex } from '@mantine/core';
+import BlogPosts from '@/components/blogPosts/BlogPosts';
 import Pagination from '@/components/pagination/Pagination';
 import { POSTS_PER_PAGE } from '@/constants/blogPosts';
 import { posts } from '@/constants/posts';
 import { ROUTES } from '@/constants/routes';
-import BlogPosts from '@/components/blogPosts/BlogPosts';
+import { Flex } from '@mantine/core';
 
 interface Params {
   params: { id: string };
@@ -18,6 +18,7 @@ export async function generateMetadata({ params: { id } }: Params) {
 export function generateStaticParams() {
   const postsPerPage = new Array(Math.ceil(posts.length / POSTS_PER_PAGE)).keys();
   const params = [...postsPerPage].map((index) => ({ id: `${index + 1}` }));
+
   return params;
 }
 

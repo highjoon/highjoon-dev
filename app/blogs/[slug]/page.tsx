@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import Comments from '@/components/comments/Comments';
 import PageContent from '@/components/pageContent/PageContent';
+
 import { BLOG_CONTENTS_DIR } from '@/constants/blogPosts';
 import getBlogPost from '@/utils/getBlogPost';
 

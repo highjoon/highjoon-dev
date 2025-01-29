@@ -1,4 +1,4 @@
-import { POSTS_FILE_NAME } from './../constants/blogPosts';
+import { POSTS_FILE_NAME } from '@/constants/blogPosts';
 
 export type FrontMatter = {
   title: string;
@@ -9,7 +9,7 @@ export type FrontMatter = {
 };
 
 export interface Post extends FrontMatter {
-  fileName: POSTS_FILE_NAME[keyof POSTS_FILE_NAME];
+  fileName: POSTS_FILE_NAME;
 }
 
 export interface TagPath {

@@ -1,13 +1,14 @@
 'use client';
 
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
-import { Badge, Card, Flex, Text } from '@mantine/core';
-import { v4 as uuid } from 'uuid';
 import { POSTS_FILE_NAME } from '@/constants/blogPosts';
 import useGetRecentPosts from '@/hooks/useGetRecentPosts';
 import createPostPath from '@/utils/createPostPath';
+import { Badge, Card, Flex, Text } from '@mantine/core';
+import { v4 as uuid } from 'uuid';
+
 import styles from './FeaturedPost.module.scss';
 
 const FeaturedPost = () => {

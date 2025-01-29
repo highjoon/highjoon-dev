@@ -1,4 +1,5 @@
 import { POSTS_FILE_NAME } from '@/constants/blogPosts';
+
 import createPostPath from '../createPostPath';
 
 describe('createPostPath', () => {

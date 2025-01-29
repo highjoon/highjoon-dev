@@ -1,5 +1,5 @@
-import { Flex, Title } from '@mantine/core';
 import AboutMe from '@/components/aboutMe/AboutMe';
+import { Flex, Title } from '@mantine/core';
 
 export async function generateMetadata() {
   return {

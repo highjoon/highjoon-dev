@@ -1,9 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { BsMoonFill, BsSunFill } from 'react-icons/bs';
-import { BoxProps, rem, Switch, useComputedColorScheme, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { THEME } from '@/constants/theme';
+import {
+  type BoxProps,
+  rem,
+  Switch,
+  useComputedColorScheme,
+  useMantineColorScheme,
+  useMantineTheme,
+} from '@mantine/core';
+import { BsMoonFill, BsSunFill } from 'react-icons/bs';
 
 type Props = { visibleFrom?: BoxProps['visibleFrom'] };
 

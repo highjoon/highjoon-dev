@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { Divider, Flex, List, Text, Title } from '@mantine/core';
 import ProfileImage from '@/public/images/img-profile.png';
+import { Divider, Flex, List, Text, Title } from '@mantine/core';
+
 import styles from './AboutMe.module.scss';
 
 const AboutMe = () => {

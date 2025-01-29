@@ -1,13 +1,14 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import React from 'react';
-import { BsSearch } from 'react-icons/bs';
-import { em, Group, MantineSize, noop, UnstyledButton } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
-import { Spotlight, spotlight, SpotlightActionData } from '@mantine/spotlight';
+import { useRouter } from 'next/navigation';
 import { posts } from '@/constants/posts';
 import createPostPath from '@/utils/createPostPath';
+import { em, Group, type MantineSize, noop, UnstyledButton } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import { Spotlight, spotlight, type SpotlightActionData } from '@mantine/spotlight';
+import { BsSearch } from 'react-icons/bs';
+
 import styles from './SearchBar.module.scss';
 
 type Props = { visibleFrom?: MantineSize; onClickPost?: () => void };

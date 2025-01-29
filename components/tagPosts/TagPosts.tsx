@@ -1,9 +1,8 @@
 import React from 'react';
 import { Flex, Title } from '@mantine/core';
-import { v4 as uuid } from 'uuid';
 import { Post } from '@/types/post';
-import styles from './TagPosts.module.scss';
 import PostCard from '../postCard/PostCard';
+import styles from './TagPosts.module.scss';
 
 type Props = { currentTag: string; currentPagePosts: Post[] };
 
