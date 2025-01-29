@@ -22,6 +22,7 @@ export const POSTS_FILE_NAME = {
   OFFLINE_REACT_QUERY: '13-offline-react-query',
   REACT_QUERY_AND_FORMS: '14-react-query-and-forms',
   CSS_IN_REACT_SERVER_COMPONENTS: 'css-in-react-server-components',
+  EXPLORING_HLS: 'exploring-hls',
 } as const;
 
 export type POSTS_FILE_NAME = typeof POSTS_FILE_NAME;

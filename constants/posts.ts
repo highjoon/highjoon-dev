@@ -4,6 +4,14 @@ import { POSTS_FILE_NAME } from './blogPosts';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME.EXPLORING_HLS,
+    title: 'HLS 톺아보기',
+    description: 'HLS 간략하게 살펴보기',
+    date: '2025-01-29',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME.EXPLORING_HLS),
+    tags: ['HLS'],
+  },
+  {
     fileName: POSTS_FILE_NAME.CSS_IN_REACT_SERVER_COMPONENTS,
     title: '(번역) CSS in React Server Components',
     description: 'CSS in React Server Components 번역',
