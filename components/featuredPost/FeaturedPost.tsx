@@ -2,18 +2,15 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import React from 'react';
 import { Badge, Card, Flex, Text } from '@mantine/core';
 import { v4 as uuid } from 'uuid';
 import { POSTS_FILE_NAME } from '@/constants/blogPosts';
-import { ROUTES } from '@/constants/routes';
 import useGetRecentPosts from '@/hooks/useGetRecentPosts';
 import createPostPath from '@/utils/createPostPath';
 import styles from './FeaturedPost.module.scss';
 
 const FeaturedPost = () => {
-  const router = useRouter();
   const { recentPosts } = useGetRecentPosts();
   const featuredPost = recentPosts
     .flatMap((item) => item)

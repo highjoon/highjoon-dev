@@ -9,7 +9,7 @@ export const posts: Post[] = [
     description: 'HLS 간략하게 살펴보기',
     date: '2025-01-29',
     bannerImg: createBannerImgPath(POSTS_FILE_NAME.EXPLORING_HLS),
-    tags: ['HLS'],
+    tags: ['hls'],
   },
   {
     fileName: POSTS_FILE_NAME.CSS_IN_REACT_SERVER_COMPONENTS,

@@ -1,9 +1,9 @@
 import { Flex } from '@mantine/core';
-import AllPosts from '@/components/allPosts/AllPosts';
 import Pagination from '@/components/pagination/Pagination';
 import { POSTS_PER_PAGE } from '@/constants/blogPosts';
-import { ROUTES } from '@/constants/routes';
 import { posts } from '@/constants/posts';
+import { ROUTES } from '@/constants/routes';
+import BlogPosts from '@/components/blogPosts/BlogPosts';
 
 interface Params {
   params: { id: string };
@@ -24,10 +24,11 @@ export function generateStaticParams() {
 export default function Page({ params }: Params) {
   const currentPage = Number(params.id);
   const totalPage = Math.ceil(posts.length / POSTS_PER_PAGE);
+  const blogPosts = posts.slice((currentPage - 1) * 9, 9 * currentPage);
 
   return (
     <Flex direction="column" gap={100}>
-      <AllPosts currentPage={currentPage} />
+      <BlogPosts title="POSTS" posts={blogPosts} />
       <Pagination currentPage={currentPage} totalPage={totalPage} routerPath={`${ROUTES.PAGES}`} />
     </Flex>
   );
