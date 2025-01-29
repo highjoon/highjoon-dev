@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Divider, Flex, List, Text, Title } from '@mantine/core';
 
-import ProfileImage from '@/public/images/img-profile.png';
+import ProfileImage from '@/../public/images/img-profile.png';
 
 import styles from './AboutMe.module.scss';
 

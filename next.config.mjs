@@ -11,7 +11,7 @@ const nextConfig = {
     mdxRs: true,
   },
   sassOptions: {
-    prependData: `@import "./styles/_mantine.scss";`,
+    prependData: `@import "./src/styles/_mantine.scss";`,
   },
 };
 

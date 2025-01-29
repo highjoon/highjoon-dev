@@ -1,4 +1,4 @@
-export const BLOG_CONTENTS_DIR = 'contents';
+export const BLOG_CONTENTS_DIR = 'src/contents';
 
 export enum POSTS_FILE_NAME {
   CRA_TO_VITE_MIGRATION = 'cra-to-vite-migration',
