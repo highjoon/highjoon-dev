@@ -7,10 +7,24 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "api": "pnpm -F @highjoon-dev/api",
     "admin": "pnpm -F @highjoon-dev/admin",
-    "web": "pnpm -F @highjoon-dev/web"
+    "web": "pnpm -F @highjoon-dev/web",
+    "prettier-config": "pnpm -F @highjoon-dev/prettier-config",
+    "eslint-config": "pnpm -F @highjoon-dev/eslint-config"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@9.15.0"
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@highjoon-dev/eslint-config": "workspace:*",
+    "@highjoon-dev/prettier-config": "workspace:*",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "eslint": "^8.57.1"
+  }
 }
