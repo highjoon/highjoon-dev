@@ -56,13 +56,6 @@
     "sass": "^1.75.0",
     "ts-jest": "^29.1.2"
   },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "pnpm run lint:fix",
-      "pnpm run prettier:fix",
-      "pnpm run type-check"
-    ]
-  },
   "name": "@highjoon-dev/web",
   "packageManager": "pnpm@9.15.0",
   "private": true,
