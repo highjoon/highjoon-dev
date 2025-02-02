@@ -1,21 +1,4 @@
 {
-  "name": "@highjoon-dev/web",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "prepare": "husky",
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch",
-    "test:watch-all": "jest --watch-all",
-    "type-check": "tsc --noEmit",
-    "prettier:fix": "prettier './src/**/*.{js,jsx,ts,tsx}' --write",
-    "lint:fix": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix"
-  },
   "dependencies": {
     "@mantine/code-highlight": "^7.8.1",
     "@mantine/core": "^7.7.2",
@@ -80,5 +63,22 @@
       "pnpm run type-check"
     ]
   },
-  "packageManager": "pnpm@9.15.0"
+  "name": "@highjoon-dev/web",
+  "packageManager": "pnpm@9.15.0",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "next lint",
+    "lint:fix": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
+    "prepare": "husky",
+    "prettier:fix": "prettier './src/**/*.{js,jsx,ts,tsx}' --write",
+    "start": "next start",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test:watch-all": "jest --watch-all",
+    "type-check": "tsc --noEmit"
+  },
+  "version": "0.1.0"
 }

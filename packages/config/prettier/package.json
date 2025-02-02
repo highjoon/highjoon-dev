@@ -1,7 +1,7 @@
 {
-  "name": "@highjoon-dev/prettier-config",
-  "version": "1.0.0",
   "description": "",
+  "license": "ISC",
   "main": "index.js",
-  "license": "ISC"
+  "name": "@highjoon-dev/prettier-config",
+  "version": "1.0.0"
 }

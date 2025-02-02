@@ -1,30 +1,30 @@
 {
-  "name": "highjoon-dev",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "api": "pnpm -F @highjoon-dev/api",
-    "admin": "pnpm -F @highjoon-dev/admin",
-    "web": "pnpm -F @highjoon-dev/web",
-    "prettier-config": "pnpm -F @highjoon-dev/prettier-config",
-    "eslint-config": "pnpm -F @highjoon-dev/eslint-config"
-  },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@9.15.0",
-  "engines": {
-    "node": ">=20.0.0"
-  },
-  "type": "module",
+  "description": "",
   "devDependencies": {
     "@highjoon-dev/eslint-config": "workspace:*",
     "@highjoon-dev/prettier-config": "workspace:*",
+    "eslint": "^8.57.1",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5",
-    "eslint": "^8.57.1"
-  }
+    "prettier": "^3.2.5"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "highjoon-dev",
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "admin": "pnpm -F @highjoon-dev/admin",
+    "api": "pnpm -F @highjoon-dev/api",
+    "eslint-config": "pnpm -F @highjoon-dev/eslint-config",
+    "prettier-config": "pnpm -F @highjoon-dev/prettier-config",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "web": "pnpm -F @highjoon-dev/web"
+  },
+  "type": "module",
+  "version": "1.0.0"
 }

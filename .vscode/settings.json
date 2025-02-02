@@ -33,6 +33,7 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
+    "source.fixAll.sort-json": "explicit",
     "source.fixAll.eslint": "explicit"
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
