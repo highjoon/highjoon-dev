@@ -17,8 +17,6 @@
       "dependsOn": [],
       "outputs": []
     },
-    "test": {
-      "outputs": []
-    }
+    "test": { "dependsOn": ["^build"], "outputs": [] }
   }
 }
