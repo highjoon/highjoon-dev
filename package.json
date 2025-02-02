@@ -15,10 +15,9 @@
   "keywords": [],
   "license": "ISC",
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "pnpm run lint:fix",
-      "pnpm run prettier:fix",
-      "pnpm run type-check"
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
     ]
   },
   "main": "index.js",
