@@ -7,7 +7,8 @@
     "eslint": "^8.57.1",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "turbo": "^2.4.0"
   },
   "engines": {
     "node": ">=20.0.0"
@@ -26,21 +27,21 @@
   "scripts": {
     "admin": "pnpm -F @highjoon-dev/admin",
     "api": "pnpm -F @highjoon-dev/api",
-    "build": "pnpm -r run build",
+    "build": "turbo run build",
     "build:web": "pnpm -F @highjoon-dev/web build",
     "clean": "rimraf \"**/node_modules\"",
-    "dev": "pnpm -r run dev",
+    "dev": "turbo run dev",
     "dev:web": "pnpm -F @highjoon-dev/web dev",
     "eslint-config": "pnpm -F @highjoon-dev/eslint-config",
     "fix": "pnpm lint:fix && pnpm format:fix",
     "fresh": "pnpm clean && pnpm i",
-    "lint:fix": "pnpm -r run lint:fix",
+    "lint:fix": "turbo run lint:fix",
     "nuke": "rimraf pnpm-lock.yaml && pnpm fresh",
     "prepare": "husky",
     "prettier-config": "pnpm -F @highjoon-dev/prettier-config",
     "prettier:fix": "pnpm -r run prettier:fix",
     "prune": "pnpm prune",
-    "test": "pnpm -r run test",
+    "test": "turbo run test",
     "test:coverage": "pnpm -r run test --coverage",
     "type-check": "pnpm -r run type-check",
     "update": "pnpm update",
