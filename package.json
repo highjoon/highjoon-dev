@@ -25,7 +25,6 @@
     "dev": "pnpm -r run dev",
     "dev:web": "pnpm -F @highjoon-dev/web dev",
     "eslint-config": "pnpm -F @highjoon-dev/eslint-config",
-    "install": "pnpm install",
     "lint:fix": "pnpm -r run lint:fix",
     "prettier-config": "pnpm -F @highjoon-dev/prettier-config",
     "prettier:fix": "pnpm -r run prettier:fix",
