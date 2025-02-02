@@ -3,13 +3,12 @@ env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 on:
-  push:
-    branches:
-      - master
   workflow_run:
-    workflows: ["CI - Test"]
+    workflows: ["CI - Test"] # CI - Test가 성공적으로 완료되면 실행
     types:
       - completed
+    branches:
+      - master
 
 jobs:
   Deploy-Production:
