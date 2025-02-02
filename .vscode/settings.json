@@ -22,6 +22,7 @@
     "TARGETDURATION",
     "textonly",
     "Theo",
+    "vercel",
     "WEBSOCKES",
     "websockets",
     "zustand"
@@ -32,7 +33,12 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
+    "source.fixAll.sort-json": "explicit",
     "source.fixAll.eslint": "explicit"
   },
-  "typescript.preferences.importModuleSpecifier": "non-relative"
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "eslint.workingDirectories": [
+    { "pattern": "apps/**/*" },
+    { "pattern": "packages/**/*" }
+  ]
 }
