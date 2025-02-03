@@ -1,6 +1,6 @@
 {
-  "author": "",
-  "description": "",
+  "author": "highjoon",
+  "description": "highjoon-dev blog",
   "devDependencies": {
     "@highjoon-dev/eslint-config": "workspace:*",
     "@highjoon-dev/prettier-config": "workspace:*",
@@ -11,7 +11,7 @@
     "turbo": "^2.4.0"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "keywords": [],
   "license": "ISC",
@@ -21,16 +21,17 @@
       "prettier --write"
     ]
   },
-  "main": "index.js",
   "name": "highjoon-dev",
   "packageManager": "pnpm@9.15.0",
   "scripts": {
     "admin": "pnpm -F @highjoon-dev/admin",
     "api": "pnpm -F @highjoon-dev/api",
     "build": "turbo run build",
+    "build:api": "pnpm -F @highjoon-dev/api build",
     "build:web": "pnpm -F @highjoon-dev/web build",
     "clean": "rimraf \"**/node_modules\"",
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --parallel",
+    "dev:api": "pnpm -F @highjoon-dev/api dev",
     "dev:web": "pnpm -F @highjoon-dev/web dev",
     "eslint-config": "pnpm -F @highjoon-dev/eslint-config",
     "fix": "pnpm lint:fix && pnpm format:fix",
