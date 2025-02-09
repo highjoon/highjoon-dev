@@ -4,6 +4,14 @@ import { POSTS_FILE_NAME } from './blogPosts';
 
 export const posts: Post[] = [
   {
+    fileName: POSTS_FILE_NAME['2024_RETROSPECTIVE'],
+    title: '2024년 회고',
+    description: '많이 배웠습니다.',
+    date: '2025-02-10',
+    bannerImg: createBannerImgPath(POSTS_FILE_NAME['2024_RETROSPECTIVE']),
+    tags: ['회고'],
+  },
+  {
     fileName: POSTS_FILE_NAME.EXPLORING_HLS,
     title: 'HLS 톺아보기',
     description: 'HLS 간략하게 살펴보기',

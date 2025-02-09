@@ -23,6 +23,7 @@ export enum POSTS_FILE_NAME {
   REACT_QUERY_AND_FORMS = '14-react-query-and-forms',
   CSS_IN_REACT_SERVER_COMPONENTS = 'css-in-react-server-components',
   EXPLORING_HLS = 'exploring-hls',
+  '2024_RETROSPECTIVE' = '2024-retrospective',
 }
 
 export const POSTS_PER_PAGE = 9;
