@@ -4,6 +4,7 @@
     "dotenv": "^16.4.7",
     "envalid": "^8.0.0",
     "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
     "helmet": "^8.0.0",
     "pino": "^9.6.0",
     "pino-http": "^10.4.0",
@@ -22,10 +23,10 @@
   "private": true,
   "scripts": {
     "build": "tsup",
-    "dev": "tsx watch --clear-screen=false src/index.ts | pino-pretty",
+    "dev": "NODE_ENV=development tsx watch --clear-screen=false src/index.ts | pino-pretty",
     "lint:fix": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
     "prettier:fix": "prettier './src/**/*.{js,jsx,ts,tsx}' --write",
-    "start": "node dist/index.js"
+    "start": "NODE_ENV=production node dist/index.js"
   },
   "tsup": {
     "clean": true,
