@@ -3,6 +3,7 @@ import express from 'express';
 import helmet from 'helmet';
 import { pino } from 'pino';
 
+import errorHandler from '@/middlewares/errorHandler';
 import requestLogger from '@/middlewares/requestLogger';
 import { env } from '@/utils/env';
 
@@ -24,5 +25,8 @@ app.use(requestLogger);
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
+
+// Error handlers
+app.use(errorHandler());
 
 export { app, logger };
