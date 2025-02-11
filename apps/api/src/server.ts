@@ -5,6 +5,7 @@ import { pino } from 'pino';
 
 import errorHandler from '@/middlewares/errorHandler';
 import requestLogger from '@/middlewares/requestLogger';
+import { postRouter } from '@/routers/post.router';
 import { env } from '@/utils/env';
 
 const logger = pino({ name: 'server start' });
@@ -22,9 +23,7 @@ app.use(helmet());
 app.use(requestLogger);
 
 // Routes
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+app.use('/post', postRouter);
 
 // Error handlers
 app.use(errorHandler());
