@@ -6,21 +6,59 @@ import { ServiceResponse } from '@/models/servicesResponse';
 import { logger } from '@/server';
 import { type Nullable } from '@/types/nullable';
 
+const handleInternalError = (error: unknown, message: string) => {
+  const errorMessage = `${message}: ${(error as Error).message}`;
+  logger.error(errorMessage);
+
+  return ServiceResponse.failure('서버 내부 오류가 발생했습니다.', null, StatusCodes.INTERNAL_SERVER_ERROR);
+};
+
 export class PostService {
-  async findAll(): Promise<ServiceResponse<Nullable<Post[]>>> {
+  async findAllPosts(): Promise<ServiceResponse<Nullable<Post[]>>> {
     try {
       const posts = await prisma.post.findMany();
 
-      if (!posts || posts.length === 0) {
+      if (posts.length === 0) {
         return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
       }
 
       return ServiceResponse.success<Post[]>('게시물을 찾았습니다.', posts, StatusCodes.OK);
     } catch (error) {
-      const errorMessage = `에러가 발생했습니다. ${(error as Error).message}`;
-      logger.error(errorMessage);
+      return handleInternalError(error, 'findAllPosts Error');
+    }
+  }
 
-      return ServiceResponse.failure(errorMessage, null, StatusCodes.INTERNAL_SERVER_ERROR);
+  async findPost(id: string): Promise<ServiceResponse<Nullable<Post>>> {
+    try {
+      const post = await prisma.post.findUnique({ where: { id } });
+
+      if (!post) {
+        return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
+      }
+
+      return ServiceResponse.success<Post>('게시물을 찾았습니다.', post, StatusCodes.OK);
+    } catch (error) {
+      return handleInternalError(error, 'findPost Error');
+    }
+  }
+
+  async createPost(data: Post): Promise<ServiceResponse<Nullable<Post>>> {
+    try {
+      const post = await prisma.post.create({ data });
+
+      return ServiceResponse.success<Post>('게시물이 생성되었습니다.', post, StatusCodes.CREATED);
+    } catch (error) {
+      return handleInternalError(error, 'createPost Error');
+    }
+  }
+
+  async updatePost({ id, data }: { id: string; data: Post }): Promise<ServiceResponse<Nullable<Post>>> {
+    try {
+      const post = await prisma.post.update({ where: { id }, data });
+
+      return ServiceResponse.success<Post>('게시물이 수정되었습니다.', post, StatusCodes.OK);
+    } catch (error) {
+      return handleInternalError(error, 'updatePost Error');
     }
   }
 }
