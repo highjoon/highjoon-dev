@@ -16,7 +16,10 @@ class PostController {
     const id = req.params.id;
 
     if (!id) {
-      ServiceResponse.failure('유효하지 않은 게시물 ID입니다.', null, StatusCodes.BAD_REQUEST);
+      handleServiceResponse(
+        ServiceResponse.failure('유효하지 않은 게시물 ID입니다.', null, StatusCodes.BAD_REQUEST),
+        res,
+      );
 
       return;
     }
@@ -36,7 +39,10 @@ class PostController {
     const id = req.params.id;
 
     if (!id) {
-      ServiceResponse.failure('유효하지 않은 게시물 ID입니다.', null, StatusCodes.BAD_REQUEST);
+      handleServiceResponse(
+        ServiceResponse.failure('유효하지 않은 게시물 ID입니다.', null, StatusCodes.BAD_REQUEST),
+        res,
+      );
 
       return;
     }
@@ -44,7 +50,7 @@ class PostController {
     const data = req.body;
 
     if (!data) {
-      ServiceResponse.failure('유효하지 않은 데이터입니다.', null, StatusCodes.BAD_REQUEST);
+      handleServiceResponse(ServiceResponse.failure('유효하지 않은 데이터입니다.', null, StatusCodes.BAD_REQUEST), res);
 
       return;
     }

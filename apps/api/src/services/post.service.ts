@@ -6,7 +6,7 @@ import { ServiceResponse } from '@/models/servicesResponse';
 import { type Nullable } from '@/types/nullable';
 import { handleInternalError } from '@/utils/handleInternalError';
 
-export class PostService {
+class PostService {
   async findAllPosts(): Promise<ServiceResponse<Nullable<Post[]>>> {
     try {
       const posts = await prisma.post.findMany();
