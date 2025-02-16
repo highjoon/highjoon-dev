@@ -6,7 +6,7 @@ import { postService } from '@/services/post.service';
 import { handleServiceResponse } from '@/utils/httpHandlers';
 
 class PostController {
-  public getPosts = async (req: Request, res: Response) => {
+  public getAllPosts = async (req: Request, res: Response) => {
     const postsResponse = await postService.findAllPosts();
 
     handleServiceResponse(postsResponse, res);
@@ -17,6 +17,8 @@ class PostController {
 
     if (!id) {
       ServiceResponse.failure('유효하지 않은 게시물 ID입니다.', null, StatusCodes.BAD_REQUEST);
+
+      return;
     }
 
     const postsResponse = await postService.findPost(id);
@@ -35,12 +37,16 @@ class PostController {
 
     if (!id) {
       ServiceResponse.failure('유효하지 않은 게시물 ID입니다.', null, StatusCodes.BAD_REQUEST);
+
+      return;
     }
 
     const data = req.body;
 
     if (!data) {
       ServiceResponse.failure('유효하지 않은 데이터입니다.', null, StatusCodes.BAD_REQUEST);
+
+      return;
     }
 
     const postResponse = await postService.updatePost({ id, data });
