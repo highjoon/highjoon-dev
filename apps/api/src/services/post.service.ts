@@ -45,6 +45,18 @@ class PostService {
     }
   }
 
+  async createManyPosts(data: Post[]): Promise<ServiceResponse<Nullable<Post[]>>> {
+    try {
+      const posts = await prisma.post.createManyAndReturn({ data });
+
+      return ServiceResponse.success<Post[]>('게시물이 생성되었습니다.', posts, StatusCodes.CREATED);
+    } catch (error) {
+      console.log(error);
+
+      return handleInternalError(error, 'createManyPosts Error');
+    }
+  }
+
   async updatePost({ id, data }: { id: string; data: Post }): Promise<ServiceResponse<Nullable<Post>>> {
     try {
       const post = await prisma.post.update({ where: { id }, data });

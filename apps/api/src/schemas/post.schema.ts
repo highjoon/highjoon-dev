@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const postSchema = z.object({
   id: z.string().cuid(),
   title: z.string().min(1, { message: 'title은 필수입니다.' }),
+  slug: z.string().min(1, { message: 'slug는 필수입니다.' }),
   description: z.string().min(1, { message: 'description은 필수입니다.' }),
   contentUrl: z.string().url({ message: 'contentUrl은 유효한 URL이어야 합니다.' }),
   bannerImageUrl: z.string().url({ message: 'bannerImageUrl은 유효한 URL이어야 합니다.' }),
@@ -19,5 +20,7 @@ export const postSchema = z.object({
 });
 
 export const createPostSchema = postSchema.omit({ id: true, createdAt: true, updatedAt: true });
+
+export const createManyPostsSchema = z.array(postSchema.omit({ id: true, createdAt: true, updatedAt: true }));
 
 export const updatePostSchema = postSchema.omit({ id: true, createdAt: true, updatedAt: true });

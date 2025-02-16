@@ -35,6 +35,12 @@ class PostController {
     handleServiceResponse(postResponse, res);
   };
 
+  public createManyPosts = async (req: Request, res: Response) => {
+    const postsResponse = await postService.createManyPosts(req.body);
+
+    handleServiceResponse(postsResponse, res);
+  };
+
   public updatePost = async (req: Request, res: Response) => {
     const id = req.params.id;
 
