@@ -54,7 +54,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: api-build
-          path: apps/api/dist
+          path: ./apps/api/dist
 
       # AWS 인증
       - name: Configure AWS Credentials
@@ -73,6 +73,7 @@ jobs:
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
           script: |
             mkdir -p /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist
+
             echo "NODE_ENV=${{ secrets.NODE_ENV }}" > /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
             echo "APP_PORT=${{ secrets.APP_PORT }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
             echo "HOST=${{ secrets.HOST }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
@@ -81,6 +82,8 @@ jobs:
             echo "COMMON_RATE_LIMIT_WINDOW_MS=${{ secrets.COMMON_RATE_LIMIT_WINDOW_MS }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
             echo "COMMON_RATE_LIMIT_MAX_REQUESTS=${{ secrets.COMMON_RATE_LIMIT_MAX_REQUESTS }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
             echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
+
             rsync -avz --delete ./apps/api/dist/ /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist/
+
             cd /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api
             pm2 restart api || pm2 start dist/index.js --name api
