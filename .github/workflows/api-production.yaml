@@ -50,7 +50,6 @@ jobs:
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
           source: "./apps/api/dist/*"
           target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist"
-          strip_components: 1
 
       # PM2 프로세스 재시작
       - name: Restart PM2 process
