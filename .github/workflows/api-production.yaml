@@ -43,25 +43,20 @@ jobs:
 
       # 배포
       - name: Deploy to Lightsail
-        uses: appleboy/ssh-action@master
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
           username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
-          script: |
-            mkdir -p /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist
+          source: "./apps/api/dist/*"
+          target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist"
+          strip_components: 1
 
-            echo "NODE_ENV=${{ secrets.NODE_ENV }}" > /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
-            echo "APP_PORT=${{ secrets.APP_PORT }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
-            echo "HOST=${{ secrets.HOST }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
-            echo "CF_URL=${{ secrets.CF_URL }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
-            echo "CORS_ORIGIN=${{ secrets.CORS_ORIGIN }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
-            echo "COMMON_RATE_LIMIT_WINDOW_MS=${{ secrets.COMMON_RATE_LIMIT_WINDOW_MS }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
-            echo "COMMON_RATE_LIMIT_MAX_REQUESTS=${{ secrets.COMMON_RATE_LIMIT_MAX_REQUESTS }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
-            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
-
-            rsync -avz ./apps/api/dist/ /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist/
-            ls -al /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist/
-
-            cd /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api
-            pm2 restart api || pm2 start dist/index.js --name api
+      # PM2 프로세스 재시작
+      - name: Restart PM2 process
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
+          username: ${{secrets.AWS_LIGHTSAIL_USER_NAME}}
+          key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
+          script: pm2 restart app || pm2 start /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist/index.js --name app
