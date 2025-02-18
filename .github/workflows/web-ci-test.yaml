@@ -1,15 +1,19 @@
-name: CI - Test
+name: Web - CI - Test
 
 on:
   push:
     branches:
       - master
+    paths:
+      - "apps/web/**"
   pull_request:
     types: [opened, synchronize]
+    paths:
+      - "apps/web/**"
 
 jobs:
   build:
-    name: Build and Test
+    name: Web - Build and Test
     timeout-minutes: 10
     runs-on: ubuntu-latest
     strategy:

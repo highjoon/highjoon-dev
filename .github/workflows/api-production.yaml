@@ -1,0 +1,93 @@
+name: Api - Production Deployment
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "apps/api/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 브런치 체크아웃
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # pnpm 설치
+      - name: Install pnpm
+        run: npm install -g pnpm@9
+
+      # 프로젝트 의존성 설치
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 빌드
+      - name: Build
+        run: pnpm build:api
+
+      # 빌드 확인
+      - name: Check Build
+        run: ls -al ./apps/api/dist
+
+      # 빌드 아티팩트 업로드
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-build
+          path: apps/api/dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      # 브런치 체크아웃
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # 빌드 아티팩트 다운로드
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: api-build
+          path: apps/api/dist
+
+      # AWS 인증
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      # AWS 연결 확인
+      - name: Check AWS Connection
+        run: aws lightsail get-instances --region ${{ secrets.AWS_REGION }}
+
+      # 배포
+      - name: Deploy to Lightsail
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
+          username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
+          key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
+          script: |
+            mkdir -p /home/ubuntu/apps/api/dist
+            echo "NODE_ENV=${{ secrets.NODE_ENV }}" > /home/ubuntu/apps/api/.env
+            echo "PORT=${{ secrets.PORT }}" >> /home/ubuntu/apps/api/.env
+            echo "HOST=${{ secrets.HOST }}" >> /home/ubuntu/apps/api/.env
+            echo "CF_URL=${{ secrets.CF_URL }}" >> /home/ubuntu/apps/api/.env
+            echo "CORS_ORIGIN=${{ secrets.CORS_ORIGIN }}" >> /home/ubuntu/apps/api/.env
+            echo "COMMON_RATE_LIMIT_WINDOW_MS=${{ secrets.COMMON_RATE_LIMIT_WINDOW_MS }}" >> /home/ubuntu/apps/api/.env
+            echo "COMMON_RATE_LIMIT_MAX_REQUESTS=${{ secrets.COMMON_RATE_LIMIT_MAX_REQUESTS }}" >> /home/ubuntu/apps/api/.env
+            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> /home/ubuntu/apps/api/.env
+            rsync -avz --delete ./apps/api/dist/ /home/ubuntu/apps/api/dist/
+            cd /home/ubuntu/apps/api
+            if pm2 describe api > /dev/null; then
+              pm2 restart api
+            else
+              pm2 start dist/index.js --name api
+            fi
