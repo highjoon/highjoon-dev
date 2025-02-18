@@ -74,7 +74,7 @@ jobs:
           script: |
             mkdir -p /home/ubuntu/apps/api/dist
             echo "NODE_ENV=${{ secrets.NODE_ENV }}" > /home/ubuntu/apps/api/.env
-            echo "PORT=${{ secrets.PORT }}" >> /home/ubuntu/apps/api/.env
+            echo "APP_PORT=${{ secrets.APP_PORT }}" >> /home/ubuntu/apps/api/.env
             echo "HOST=${{ secrets.HOST }}" >> /home/ubuntu/apps/api/.env
             echo "CF_URL=${{ secrets.CF_URL }}" >> /home/ubuntu/apps/api/.env
             echo "CORS_ORIGIN=${{ secrets.CORS_ORIGIN }}" >> /home/ubuntu/apps/api/.env
