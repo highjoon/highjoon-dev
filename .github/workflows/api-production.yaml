@@ -6,11 +6,6 @@ on:
       - master
     paths:
       - "apps/api/**"
-    paths-ignore:
-      - ".github/workflows/**"
-      - "README.md"
-      - "apps/web/**"
-      - "apps/admin/**"
 
 jobs:
   build:

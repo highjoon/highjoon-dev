@@ -13,9 +13,6 @@ on:
     types: [opened, synchronize]
     paths:
       - "apps/web/**"
-    paths-ignore:
-      - ".github/workflows/**"
-      - "README.md"
 
 jobs:
   build:
