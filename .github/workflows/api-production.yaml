@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - "apps/api/**"
+      - ".github/workflows/api-production.yaml"
 
 jobs:
   build:
