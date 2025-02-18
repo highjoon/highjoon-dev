@@ -9,7 +9,7 @@ on:
       - ".github/workflows/api-production.yaml"
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,29 +32,6 @@ jobs:
       # 빌드 확인
       - name: Check Build
         run: ls -al ./apps/api/dist
-
-      # 빌드 아티팩트 업로드
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: api-build
-          path: apps/api/dist
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      # 브런치 체크아웃
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      # 빌드 아티팩트 다운로드
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: api-build
-          path: ./apps/api/dist
 
       # AWS 인증
       - name: Configure AWS Credentials
