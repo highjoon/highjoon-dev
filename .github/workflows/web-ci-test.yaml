@@ -6,9 +6,6 @@ on:
       - master
     paths:
       - "apps/web/**"
-    paths-ignore:
-      - ".github/workflows/**"
-      - "README.md"
   pull_request:
     types: [opened, synchronize]
     paths:
