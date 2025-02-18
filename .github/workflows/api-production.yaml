@@ -72,17 +72,17 @@ jobs:
           username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
           script: |
-            mkdir -p /home/ubuntu/apps/api/dist
-            echo "NODE_ENV=${{ secrets.NODE_ENV }}" > /home/ubuntu/apps/api/.env.production
-            echo "APP_PORT=${{ secrets.APP_PORT }}" >> /home/ubuntu/apps/api/.env.production
-            echo "HOST=${{ secrets.HOST }}" >> /home/ubuntu/apps/api/.env.production
-            echo "CF_URL=${{ secrets.CF_URL }}" >> /home/ubuntu/apps/api/.env.production
-            echo "CORS_ORIGIN=${{ secrets.CORS_ORIGIN }}" >> /home/ubuntu/apps/api/.env.production
-            echo "COMMON_RATE_LIMIT_WINDOW_MS=${{ secrets.COMMON_RATE_LIMIT_WINDOW_MS }}" >> /home/ubuntu/apps/api/.env.production
-            echo "COMMON_RATE_LIMIT_MAX_REQUESTS=${{ secrets.COMMON_RATE_LIMIT_MAX_REQUESTS }}" >> /home/ubuntu/apps/api/.env.production
-            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> /home/ubuntu/apps/api/.env.production
-            rsync -avz --delete ./apps/api/dist/ /home/ubuntu/apps/api/dist/
-            cd /home/ubuntu/apps/api
+            mkdir -p /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist
+            echo "NODE_ENV=${{ secrets.NODE_ENV }}" > /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
+            echo "APP_PORT=${{ secrets.APP_PORT }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
+            echo "HOST=${{ secrets.HOST }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
+            echo "CF_URL=${{ secrets.CF_URL }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
+            echo "CORS_ORIGIN=${{ secrets.CORS_ORIGIN }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
+            echo "COMMON_RATE_LIMIT_WINDOW_MS=${{ secrets.COMMON_RATE_LIMIT_WINDOW_MS }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
+            echo "COMMON_RATE_LIMIT_MAX_REQUESTS=${{ secrets.COMMON_RATE_LIMIT_MAX_REQUESTS }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
+            echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
+            rsync -avz --delete ./apps/api/dist/ /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist/
+            cd /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api
             if pm2 describe api > /dev/null; then
               pm2 restart api
             else
