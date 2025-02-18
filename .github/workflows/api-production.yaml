@@ -83,7 +83,8 @@ jobs:
             echo "COMMON_RATE_LIMIT_MAX_REQUESTS=${{ secrets.COMMON_RATE_LIMIT_MAX_REQUESTS }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
             echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/.env.production
 
-            rsync -avz --delete ./apps/api/dist/ /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist/
+            rsync -avz ./apps/api/dist/ /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist/
+            ls -al /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist/
 
             cd /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api
             pm2 restart api || pm2 start dist/index.js --name api
