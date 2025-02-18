@@ -2,9 +2,9 @@ import { env } from '@/utils/env';
 
 import { app, logger } from './server';
 
-const server = app.listen(env.PORT, () => {
-  const { NODE_ENV, HOST, PORT } = env;
-  logger.info(`Server (${NODE_ENV}) running on port http://${HOST}:${PORT}`);
+const server = app.listen(env.APP_PORT, () => {
+  const { NODE_ENV, HOST, APP_PORT } = env;
+  logger.info(`Server (${NODE_ENV}) running on port http://${HOST}:${APP_PORT}`);
 });
 
 const onCloseSignal = () => {
