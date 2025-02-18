@@ -17,6 +17,8 @@ on:
     paths-ignore:
       - ".github/workflows/**"
       - "README.md"
+      - "apps/api/**"
+      - "apps/admin/**"
 
 jobs:
   Deploy-Production:
