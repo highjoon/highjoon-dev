@@ -64,10 +64,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # AWS 연결 확인
-      - name: Check AWS Connection
-        run: aws lightsail get-instances --region ${{ secrets.AWS_REGION }}
-
       # 배포
       - name: Deploy to Lightsail
         uses: appleboy/ssh-action@master
