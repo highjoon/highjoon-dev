@@ -48,9 +48,7 @@ jobs:
           host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
           username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
-          source: |
-            ./apps/api/dist/*
-            ./apps/api/package.json
+          source: ./apps/api/dist/*
           target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api"
 
       # PM2 프로세스 재시작
