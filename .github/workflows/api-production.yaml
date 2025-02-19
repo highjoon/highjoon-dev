@@ -49,8 +49,6 @@ jobs:
           username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
           source: |
-            package.json
-            pnpm-lock.yaml
             apps/api/package.json
             apps/api/dist/*
           target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api"
