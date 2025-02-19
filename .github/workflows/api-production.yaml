@@ -54,6 +54,7 @@ jobs:
             apps/api/package.json
             apps/api/dist/*
           target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api"
+          debug: true
 
       # 의존성 설치 + PM2 프로세스 재시작
       - name: Restart PM2 process
