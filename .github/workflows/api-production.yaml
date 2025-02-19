@@ -33,6 +33,10 @@ jobs:
       - name: Check Build
         run: ls -al ./apps/api/dist
 
+      # 전체 파일 목록 확인
+      - name: Check Files
+        run: ls -al ./apps/api
+
       # AWS 인증
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -48,8 +52,11 @@ jobs:
           host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
           username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
-          source: ./apps/api/dist/*
-          target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api"
+          source: |
+            ./apps/api/dist/*
+            ./apps/api/package.json
+          target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist"
+          strip_components: 3
 
       # PM2 프로세스 재시작
       - name: Restart PM2 process
