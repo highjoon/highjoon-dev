@@ -49,9 +49,8 @@ jobs:
           username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
           source: |
-            "./apps/api/dist"
-            "./apps/api/package.json"
-            "./pnpm-lock.yaml"
+            ./apps/api/dist/*
+            ./apps/api/package.json
           target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api"
 
       # PM2 프로세스 재시작
