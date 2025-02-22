@@ -45,17 +45,48 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # 배포
+      # 배포 업로드
       - name: Deploy to Lightsail
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
           username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
-          source: |
-            ./apps/api/dist/*
-            ./apps/api/package.json
+          source: ./apps/api/dist/*
           target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist"
+          strip_components: 3
+
+      # package.json 업로드
+      - name: Deploy package.json to Lightsail
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
+          username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
+          key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
+          source: ./apps/api/package.json
+          target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/package.json"
+          strip_components: 3
+
+      # pnpm-lock.yaml 업로드
+      - name: Deploy pnpm-lock.yaml to Lightsail
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
+          username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
+          key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
+          source: ./pnpm-lock.yaml
+          target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/pnpm-lock.yaml"
+          strip_components: 3
+
+      # prisma 업로드
+      - name: Deploy prisma to Lightsail
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
+          username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
+          key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
+          source: ./apps/api/prisma
+          target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/prisma"
           strip_components: 3
 
       # PM2 프로세스 재시작
