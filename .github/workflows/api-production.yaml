@@ -94,7 +94,7 @@ jobs:
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
           script: |
             cd /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api
-            pnpm install --frozen-lockfile
+            pnpm install
 
       # PM2 프로세스 재시작
       - name: Restart PM2 process
@@ -103,4 +103,4 @@ jobs:
           host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
           username: ${{secrets.AWS_LIGHTSAIL_USER_NAME}}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
-          script: pm2 restart app || pm2 start /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/dist/index.js --name app
+          script: pm2 restart app || pm2 start /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/ecosystem.config.js
