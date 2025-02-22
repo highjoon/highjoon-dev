@@ -1,0 +1,6 @@
+{
+  "license": "ISC",
+  "main": "index.ts",
+  "name": "@highjoon-dev/types",
+  "version": "1.0.0"
+}

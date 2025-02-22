@@ -4,6 +4,7 @@
   "devDependencies": {
     "@highjoon-dev/eslint-config": "workspace:*",
     "@highjoon-dev/prettier-config": "workspace:*",
+    "@highjoon-dev/types": "workspace:*",
     "eslint": "^8.57.1",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
