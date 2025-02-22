@@ -73,7 +73,7 @@ jobs:
           username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
           source: ./pnpm-lock.yaml
-          target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}"
+          target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api"
 
       # prisma 업로드
       - name: Deploy prisma to Lightsail
