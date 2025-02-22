@@ -23,7 +23,6 @@ const ThemeSwitch = ({ visibleFrom }: Props) => {
   const [mounted, setMounted] = useState(false);
 
   const handleSwitchTheme = () => {
-    // setTheme(theme === THEME.DARK ? THEME.LIGHT : THEME.DARK);
     setColorScheme(computedColorScheme === THEME.DARK ? THEME.LIGHT : THEME.DARK);
   };
 

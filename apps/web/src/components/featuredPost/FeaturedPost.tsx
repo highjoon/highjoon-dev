@@ -4,19 +4,22 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Badge, Card, Flex, Text } from '@mantine/core';
+import { type Post } from '@highjoon-dev/types';
+import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
 
-import { POSTS_FILE_NAME } from '@/constants/blogPosts';
-import useGetRecentPosts from '@/hooks/useGetRecentPosts';
 import createPostPath from '@/utils/createPostPath';
 
 import styles from './FeaturedPost.module.scss';
 
-const FeaturedPost = () => {
-  const { recentPosts } = useGetRecentPosts();
+type Props = {
+  recentPosts: Post[][];
+};
+
+const FeaturedPost = ({ recentPosts }: Props) => {
   const featuredPost = recentPosts
     .flatMap((item) => item)
-    .find((post) => post.fileName === POSTS_FILE_NAME.BUILDING_A_DESIGN_SYSTEM_IN_A_STARTUP);
+    .find((post) => post.slug === 'building-a-design-system-in-a-startup');
 
   if (!featuredPost) {
     return null;
@@ -24,10 +27,10 @@ const FeaturedPost = () => {
 
   return (
     <Card className={styles.banner} shadow="md" radius="md" withBorder>
-      <Link href={createPostPath(featuredPost.fileName)}>
+      <Link href={createPostPath(featuredPost.slug)}>
         <Flex className={styles['banner-image']} pos="relative" w="100%">
           <Card.Section>
-            <Image src={featuredPost.bannerImg} fill alt={featuredPost.title} priority />
+            <Image src={featuredPost.bannerImageUrl} fill alt={featuredPost.title} priority />
           </Card.Section>
           <Card className={styles.info} shadow="md" radius="md" withBorder pos="absolute" bottom={-90}>
             <Text fw={500}>{featuredPost.title}</Text>
@@ -37,7 +40,7 @@ const FeaturedPost = () => {
               </Text>
             </Flex>
             <Text size="sm" c="dimmed">
-              {featuredPost.date}
+              {dayjs(featuredPost.publishedAt).format('YYYY-MM-DD')}
             </Text>
             <Flex className={styles['hashtag-list']} gap={5}>
               {featuredPost.tags.map((tag) => (

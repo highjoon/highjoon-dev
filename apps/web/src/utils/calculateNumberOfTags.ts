@@ -1,4 +1,4 @@
-import { type Post } from '@/types/post';
+import { type Post } from '@highjoon-dev/types';
 
 const calculateNumberOfTags = (posts: Post[], tag: string) => {
   const numberOfTags = posts.reduce((count, post) => {

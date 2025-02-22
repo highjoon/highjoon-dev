@@ -6,14 +6,14 @@ import FeaturedPost from '@/components/featuredPost/FeaturedPost';
 import { ROUTES } from '@/constants/routes';
 import useGetRecentPosts from '@/hooks/useGetRecentPosts';
 
-export default function HomePage() {
-  const { recentPosts } = useGetRecentPosts();
+export default async function HomePage() {
+  const { recentPosts } = await useGetRecentPosts();
   const flattenedPosts = recentPosts.flatMap((posts) => posts);
 
   return (
     <Flex direction="column" gap={100}>
       <Flex direction="column" gap={30}>
-        <FeaturedPost />
+        <FeaturedPost recentPosts={recentPosts} />
         <BlogPosts title="LATEST POSTS" posts={flattenedPosts} />
       </Flex>
       <Link href={`${ROUTES.PAGES}/1`} style={{ margin: '0 auto' }}>

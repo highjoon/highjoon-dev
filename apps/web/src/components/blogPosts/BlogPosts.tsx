@@ -1,8 +1,8 @@
 import React from 'react';
 import { Flex, Title } from '@mantine/core';
+import { type Post } from '@highjoon-dev/types';
 
 import PostCard from '@/components/postCard/PostCard';
-import { type Post } from '@/types/post';
 
 import styles from './BlogPosts.module.scss';
 

@@ -1,7 +1,11 @@
-import { posts } from '@/constants/posts';
+import { type Post } from '@highjoon-dev/types';
 
-const getAllTagsFromPosts = () => {
-  return posts.reduce<string[]>((acc, cur) => [...acc, ...cur.tags], []);
+type Args = {
+  postList: Post[];
+};
+
+const getAllTagsFromPosts = ({ postList }: Args) => {
+  return postList.reduce<string[]>((acc, cur) => [...acc, ...cur.tags], []);
 };
 
 export default getAllTagsFromPosts;

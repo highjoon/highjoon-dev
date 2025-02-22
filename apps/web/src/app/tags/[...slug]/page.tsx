@@ -1,9 +1,9 @@
 import { Flex } from '@mantine/core';
 
+import { getPostList } from '@/apis/post';
 import Pagination from '@/components/pagination/Pagination';
 import TagPosts from '@/components/tagPosts/TagPosts';
-import { POSTS_PER_PAGE } from '@/constants/blogPosts';
-import { posts } from '@/constants/posts';
+import { POSTS_PER_PAGE } from '@/constants/post';
 import { ROUTES } from '@/constants/routes';
 import calculateNumberOfTags from '@/utils/calculateNumberOfTags';
 import calculateTagPageCount from '@/utils/calculateTagPageCount';
@@ -25,10 +25,11 @@ export async function generateMetadata({ params: { slug } }: Params) {
 }
 
 export async function generateStaticParams() {
-  const allTags = getAllTagsFromPosts();
+  const postList = await getPostList();
+  const allTags = await getAllTagsFromPosts({ postList: postList.responseObject });
 
   const pathsPerTag = allTags.map((tag) => {
-    const numberOfTags = calculateNumberOfTags(posts, tag);
+    const numberOfTags = calculateNumberOfTags(postList.responseObject, tag);
     const tagPageCount = calculateTagPageCount(numberOfTags);
 
     return generateTagPaths(tag, tagPageCount);
@@ -39,16 +40,19 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export default function Page({
+export default async function Page({
   params: { slug },
 }: {
   params: {
     slug: [string, string];
   };
 }) {
+  const postList = await getPostList();
   const [currentTag, id] = slug;
   const currentPage = Number(id);
-  const postsWithTag = posts.filter((post) => post.tags.find((tag) => tag === currentTag.toLowerCase()));
+  const postsWithTag = postList.responseObject.filter((post) =>
+    post.tags.find((tag) => tag === currentTag.toLowerCase()),
+  );
   const currentPagePosts = postsWithTag.slice((currentPage - 1) * POSTS_PER_PAGE, POSTS_PER_PAGE * currentPage);
   const totalPage = Math.ceil(postsWithTag.length / POSTS_PER_PAGE);
 

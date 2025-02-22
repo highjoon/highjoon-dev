@@ -1,9 +1,9 @@
 import { Flex } from '@mantine/core';
 
+import { getPostList } from '@/apis/post';
 import BlogPosts from '@/components/blogPosts/BlogPosts';
 import Pagination from '@/components/pagination/Pagination';
-import { POSTS_PER_PAGE } from '@/constants/blogPosts';
-import { posts } from '@/constants/posts';
+import { POSTS_PER_PAGE } from '@/constants/post';
 import { ROUTES } from '@/constants/routes';
 
 interface Params {
@@ -16,17 +16,19 @@ export async function generateMetadata({ params: { id } }: Params) {
   };
 }
 
-export function generateStaticParams() {
-  const postsPerPage = new Array(Math.ceil(posts.length / POSTS_PER_PAGE)).keys();
+export async function generateStaticParams() {
+  const postList = await getPostList();
+  const postsPerPage = new Array(Math.ceil(postList.responseObject.length / POSTS_PER_PAGE)).keys();
   const params = [...postsPerPage].map((index) => ({ id: `${index + 1}` }));
 
   return params;
 }
 
-export default function Page({ params }: Params) {
+export default async function Page({ params }: Params) {
+  const postList = await getPostList();
   const currentPage = Number(params.id);
-  const totalPage = Math.ceil(posts.length / POSTS_PER_PAGE);
-  const blogPosts = posts.slice((currentPage - 1) * 9, 9 * currentPage);
+  const totalPage = Math.ceil(postList.responseObject.length / POSTS_PER_PAGE);
+  const blogPosts = postList.responseObject.slice((currentPage - 1) * 9, 9 * currentPage);
 
   return (
     <Flex direction="column" gap={100}>
