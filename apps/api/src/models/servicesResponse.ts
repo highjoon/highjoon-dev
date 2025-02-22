@@ -1,7 +1,8 @@
+import { type ServiceResponseInterface } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 import { z } from 'zod';
 
-export class ServiceResponse<T = null> {
+export class ServiceResponse<T = null> implements ServiceResponseInterface<T> {
   readonly success: boolean;
   readonly message: string;
   readonly responseObject: T;

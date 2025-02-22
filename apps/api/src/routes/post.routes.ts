@@ -7,7 +7,7 @@ import { createManyPostsSchema, createPostSchema, updatePostSchema } from '@/sch
 export const postRoutes: Router = express.Router();
 
 postRoutes.get('/', postController.getAllPosts);
-postRoutes.get('/:id', postController.getPost);
+postRoutes.get('/:slug', postController.getPost);
 postRoutes.post('/', validateRequest({ body: createPostSchema }), postController.createPost);
 postRoutes.post('/many', validateRequest({ body: createManyPostsSchema }), postController.createManyPosts);
 postRoutes.put('/:id', validateRequest({ body: updatePostSchema }), postController.updatePost);

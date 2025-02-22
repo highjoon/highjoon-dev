@@ -1,9 +1,8 @@
-import { type Post } from '@prisma/client';
+import { type Nullable, type Post } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
 import prisma from '@/client';
 import { ServiceResponse } from '@/models/servicesResponse';
-import { type Nullable } from '@/types/nullable';
 import { handleInternalError } from '@/utils/handleInternalError';
 
 class PostService {
@@ -21,9 +20,9 @@ class PostService {
     }
   }
 
-  async findPost(id: string): Promise<ServiceResponse<Nullable<Post>>> {
+  async findPost(slug: Post['slug']): Promise<ServiceResponse<Nullable<Post>>> {
     try {
-      const post = await prisma.post.findUnique({ where: { id } });
+      const post = await prisma.post.findUnique({ where: { slug } });
 
       if (!post) {
         return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);

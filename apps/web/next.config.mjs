@@ -13,6 +13,9 @@ const nextConfig = {
   sassOptions: {
     prependData: `@import "./src/styles/_mantine.scss";`,
   },
+  images: {
+    remotePatterns: [{ protocol: 'https', hostname: 'dngjtjyrczhgx.cloudfront.net' }],
+  },
 };
 
 const withMDX = createMDX({

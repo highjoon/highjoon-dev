@@ -1,37 +1,36 @@
 import { type Metadata } from 'next';
-import fs from 'fs';
-import path from 'path';
+import { type Post } from '@highjoon-dev/types';
 
+import { getPost, getPostList } from '@/apis/post';
 import Comments from '@/components/comments/Comments';
 import PageContent from '@/components/pageContent/PageContent';
-import { BLOG_CONTENTS_DIR } from '@/constants/blogPosts';
 import getBlogPost from '@/utils/getBlogPost';
 
 type Params = {
-  params: { slug: string };
+  params: { slug: Post['slug'] };
 };
 
 export async function generateStaticParams() {
-  const files = fs.readdirSync(path.join(BLOG_CONTENTS_DIR));
+  const postList = await getPostList();
 
-  const paths = files.map((filename) => ({
-    slug: filename.replace('.mdx', ''),
+  const paths = postList.responseObject.map((post) => ({
+    slug: post.slug,
   }));
 
   return paths;
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const blog = getBlogPost(params);
+  const post = await getPost(params.slug);
 
   return {
-    title: `${blog.frontMatter.title} | highjoon-dev`,
-    description: blog.frontMatter.description,
+    title: `${post.responseObject.title} | highjoon-dev`,
+    description: post.responseObject.description,
   };
 }
 
-export default function Page({ params }: Params) {
-  const { frontMatter, content } = getBlogPost(params);
+export default async function Page({ params }: Params) {
+  const { frontMatter, content } = await getBlogPost(params);
 
   return (
     <>

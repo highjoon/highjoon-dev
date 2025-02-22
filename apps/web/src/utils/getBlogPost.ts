@@ -1,23 +1,17 @@
-import { readFileSync } from 'fs';
+import { type Post } from '@highjoon-dev/types';
 import matter from 'gray-matter';
-import path from 'path';
 
-import { BLOG_CONTENTS_DIR, type POSTS_FILE_NAME } from '@/constants/blogPosts';
+import { getPost } from '@/apis/post';
 import { type FrontMatter } from '@/types/post';
-import createBannerImgPath from '@/utils/createBannerImgPath';
 
-const getBlogPost = ({ slug }: { slug: string }) => {
-  const postTitle = slug.replace('.mdx', '') as POSTS_FILE_NAME;
-  const markdownFile = readFileSync(path.join(BLOG_CONTENTS_DIR, slug + '.mdx'), 'utf-8');
-  const { data, content } = matter(markdownFile);
-  const bannerImg = createBannerImgPath(postTitle);
-  const frontMatter = { ...data, bannerImg };
+const getBlogPost = async ({ slug }: { slug: Post['slug'] }) => {
+  const post = await getPost(slug);
+  const bannerImg = post.responseObject.bannerImageUrl;
+  const contentUrl = await fetch(post.responseObject.contentUrl).then((res) => res.text());
+  const { data, content } = matter(contentUrl);
+  const frontMatter = { ...data, bannerImg } as FrontMatter;
 
-  return {
-    frontMatter: frontMatter as FrontMatter,
-    slug,
-    content,
-  };
+  return { frontMatter, content };
 };
 
 export default getBlogPost;

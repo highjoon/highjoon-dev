@@ -2,7 +2,9 @@
   "dependencies": {
     "@prisma/client": "6.3.1",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
+    "dotenv-cli": "^8.0.0",
     "envalid": "^8.0.0",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
@@ -29,12 +31,12 @@
     "build": "tsup",
     "db:pull": "dotenv -e .env.production -- prisma db pull",
     "db:push": "dotenv -e .env.production -- prisma db push",
-    "dev": "NODE_ENV=development tsx watch --clear-screen=false src/index.ts | pino-pretty",
+    "dev": "dotenv -e .env.development tsx watch --clear-screen=false src/index.ts | pino-pretty",
     "lint:fix": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
     "migrate:dev": "dotenv -e .env.development -- prisma migrate dev --name init",
     "postinstall": "prisma generate",
     "prettier:fix": "prettier './src/**/*.{js,jsx,ts,tsx}' --write",
-    "start": "pnpm build && NODE_ENV=production node dist/index.js"
+    "start": "pnpm build && dotenv -e .env.production node dist/index.js"
   },
   "tsup": {
     "clean": true,
