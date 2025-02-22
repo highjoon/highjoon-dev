@@ -6,6 +6,8 @@ import Pagination from '@/components/pagination/Pagination';
 import { POSTS_PER_PAGE } from '@/constants/post';
 import { ROUTES } from '@/constants/routes';
 
+export const dynamic = 'force-dynamic';
+
 interface Params {
   params: { id: string };
 }

@@ -6,6 +6,8 @@ import TagPosts from '@/components/tagPosts/TagPosts';
 import { POSTS_PER_PAGE } from '@/constants/post';
 import { ROUTES } from '@/constants/routes';
 
+export const dynamic = 'force-dynamic';
+
 interface Params {
   params: {
     slug: [string, string];

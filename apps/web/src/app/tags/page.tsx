@@ -7,6 +7,8 @@ import { ROUTES } from '@/constants/routes';
 import countTags from '@/utils/countTags';
 import getAllTagsFromPosts from '@/utils/getAllTagsFromPosts';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata() {
   return {
     title: 'Tags | highjoon-dev',

@@ -6,6 +6,8 @@ import Comments from '@/components/comments/Comments';
 import PageContent from '@/components/pageContent/PageContent';
 import getBlogPost from '@/utils/getBlogPost';
 
+export const dynamic = 'force-dynamic';
+
 type Params = {
   params: { slug: Post['slug'] };
 };
