@@ -15,7 +15,7 @@ export async function generateMetadata() {
 
 export default async function Page() {
   const postList = await getPostList();
-  const allTags = await getAllTagsFromPosts({ postList: postList.responseObject });
+  const allTags = getAllTagsFromPosts({ postList: postList.responseObject });
   const tagWithCount = countTags(allTags);
 
   return (

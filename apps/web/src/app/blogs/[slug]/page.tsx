@@ -1,7 +1,7 @@
 import { type Metadata } from 'next';
 import { type Post } from '@highjoon-dev/types';
 
-import { getPost, getPostList } from '@/apis/post';
+import { getPost } from '@/apis/post';
 import Comments from '@/components/comments/Comments';
 import PageContent from '@/components/pageContent/PageContent';
 import getBlogPost from '@/utils/getBlogPost';
@@ -9,16 +9,6 @@ import getBlogPost from '@/utils/getBlogPost';
 type Params = {
   params: { slug: Post['slug'] };
 };
-
-export async function generateStaticParams() {
-  const postList = await getPostList();
-
-  const paths = postList.responseObject.map((post) => ({
-    slug: post.slug,
-  }));
-
-  return paths;
-}
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const post = await getPost(params.slug);

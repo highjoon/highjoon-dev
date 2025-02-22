@@ -150,9 +150,6 @@ importers:
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
-      dotenv:
-        specifier: ^16.4.7
-        version: 16.4.7
       framer-motion:
         specifier: ^11.0.28
         version: 11.18.2(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -238,6 +235,9 @@ importers:
       critters:
         specifier: ^0.0.22
         version: 0.0.22
+      dotenv-cli:
+        specifier: ^8.0.0
+        version: 8.0.0
       eslint-config-next:
         specifier: ^14.2.2
         version: 14.2.23(eslint@8.57.1)(typescript@5.4.5)

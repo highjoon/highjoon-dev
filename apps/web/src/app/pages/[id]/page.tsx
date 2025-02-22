@@ -16,14 +16,6 @@ export async function generateMetadata({ params: { id } }: Params) {
   };
 }
 
-export async function generateStaticParams() {
-  const postList = await getPostList();
-  const postsPerPage = new Array(Math.ceil(postList.responseObject.length / POSTS_PER_PAGE)).keys();
-  const params = [...postsPerPage].map((index) => ({ id: `${index + 1}` }));
-
-  return params;
-}
-
 export default async function Page({ params }: Params) {
   const postList = await getPostList();
   const currentPage = Number(params.id);
