@@ -1,7 +1,8 @@
-import { type POSTS_FILE_NAME } from '@/constants/blogPosts';
+import { type Post } from '@highjoon-dev/types';
+
 import { ROUTES } from '@/constants/routes';
 
-const createPostPath = (slug: POSTS_FILE_NAME) => {
+const createPostPath = (slug: Post['slug']) => {
   return ROUTES.BLOGS + `/${slug}`;
 };
 

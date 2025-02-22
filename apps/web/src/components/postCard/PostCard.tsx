@@ -3,9 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { Badge, Card, Flex, Group, Image, Text } from '@mantine/core';
+import { type Post } from '@highjoon-dev/types';
+import dayjs from 'dayjs';
 
 import { ROUTES } from '@/constants/routes';
-import { type Post } from '@/types/post';
 import createPostPath from '@/utils/createPostPath';
 
 import styles from './PostCard.module.scss';
@@ -18,10 +19,10 @@ const PostCard = ({ post }: Props) => {
   return (
     <li className={styles.card}>
       <Card shadow="sm" padding="lg" radius="md" withBorder h="100%" style={{ gap: 20 }}>
-        <Link href={createPostPath(post.fileName)}>
+        <Link href={createPostPath(post.slug)}>
           <Group>
             <Card.Section className={styles.content}>
-              <Image src={post.bannerImg} alt={post.title} className={styles.image} />
+              <Image src={post.bannerImageUrl} alt={post.title} className={styles.image} />
             </Card.Section>
             <Group gap={10}>
               <Flex className={styles.title} w="100%" h={50} align="center">
@@ -32,9 +33,11 @@ const PostCard = ({ post }: Props) => {
                   {post.description}
                 </Text>
               </Flex>
-              <Text size="sm" c="dimmed">
-                {post.date}
-              </Text>
+              {!!post.createdAt && (
+                <Text size="sm" c="dimmed">
+                  {dayjs(post.createdAt).format('YYYY-MM-DD')}
+                </Text>
+              )}
             </Group>
           </Group>
         </Link>

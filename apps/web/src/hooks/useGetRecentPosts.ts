@@ -1,5 +1,6 @@
-import { posts } from '@/constants/posts';
-import { type Post } from '@/types/post';
+import { type Post } from '@highjoon-dev/types';
+
+import { getPostList } from '@/apis/post';
 import sortPostsByDate from '@/utils/sortPostsByDate';
 
 const splitArray = (array: Post[]) => {
@@ -14,8 +15,9 @@ const splitArray = (array: Post[]) => {
   return result;
 };
 
-const useGetRecentPosts = () => {
-  const sortedPostsByDate = sortPostsByDate(posts).slice(0, 9);
+const useGetRecentPosts = async () => {
+  const postList = await getPostList();
+  const sortedPostsByDate = sortPostsByDate(postList.responseObject).slice(0, 9);
   const splittedPosts = splitArray(sortedPostsByDate);
 
   return {

@@ -1,4 +1,4 @@
-import { POSTS_PER_PAGE } from '@/constants/blogPosts';
+import { POSTS_PER_PAGE } from '@/constants/post';
 
 const calculateTagPageCount = (numberOfTags: number) => {
   const pageCount = Math.ceil(numberOfTags / POSTS_PER_PAGE);
