@@ -50,8 +50,6 @@ class PostService {
 
       return ServiceResponse.success<Post[]>('게시물이 생성되었습니다.', posts, StatusCodes.CREATED);
     } catch (error) {
-      console.log(error);
-
       return handleInternalError(error, 'createManyPosts Error');
     }
   }
@@ -63,6 +61,16 @@ class PostService {
       return ServiceResponse.success<Post>('게시물이 수정되었습니다.', post, StatusCodes.OK);
     } catch (error) {
       return handleInternalError(error, 'updatePost Error');
+    }
+  }
+
+  public async increaseViewCount(slug: Post['slug']) {
+    try {
+      const result = await prisma.post.update({ where: { slug }, data: { viewCount: { increment: 1 } } });
+
+      return ServiceResponse.success<Post>('조회수가 증가되었습니다.', result, StatusCodes.OK);
+    } catch (error) {
+      return handleInternalError(error, 'increaseViewCount Error');
     }
   }
 }
