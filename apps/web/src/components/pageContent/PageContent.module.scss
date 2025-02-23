@@ -21,3 +21,15 @@
     margin-bottom: rem(20px);
   }
 }
+
+.view-count {
+  margin-bottom: rem(20px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    margin-bottom: rem(10px);
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    margin-bottom: rem(5px);
+  }
+}

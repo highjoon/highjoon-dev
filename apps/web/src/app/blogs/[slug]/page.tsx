@@ -22,11 +22,11 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Params) {
-  const { frontMatter, content } = await getBlogPost(params);
+  const { post, frontMatter, content } = await getBlogPost(params);
 
   return (
     <>
-      <PageContent frontMatter={frontMatter} content={content} />
+      <PageContent frontMatter={frontMatter} content={content} viewCount={post.viewCount || 0} />
       <Comments />
     </>
   );
