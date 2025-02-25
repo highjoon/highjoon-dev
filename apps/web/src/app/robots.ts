@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://highjoon-dev.vercel.app/sitemap.xml',
+    sitemap: 'https://highjoon-dev.com/sitemap.xml',
   };
 }

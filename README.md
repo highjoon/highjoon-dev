@@ -1,6 +1,6 @@
 # highjoon-dev
 
-> https://highjoon-dev.vercel.app/
+> https://highjoon-dev.com/
 
 ## formerly
 

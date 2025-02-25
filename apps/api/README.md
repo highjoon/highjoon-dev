@@ -9,4 +9,5 @@
 - prisma
 - supabase
 - aws
+  - lightsail
   - cloudfront
