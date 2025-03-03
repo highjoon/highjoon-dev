@@ -5,7 +5,7 @@ import { Flex, Text } from '@mantine/core';
 import { type Post } from '@highjoon-dev/types';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
-import { increaseViewCount } from '@/apis/post';
+import { increaseViewCountAction } from '@/actions/post';
 
 type Props = {
   slug: Post['slug'];
@@ -20,7 +20,7 @@ const ViewCount = ({ viewCount, slug }: Props) => {
       return;
     }
 
-    increaseViewCount(slug);
+    increaseViewCountAction(slug);
     isFirstRender.current = true;
   }, [slug]);
 
