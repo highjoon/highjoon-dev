@@ -1,34 +1,35 @@
 import React from 'react';
 import Image from 'next/image';
-import { Box, Flex, Group, Text, Title } from '@mantine/core';
-import { MdOutlineRemoveRedEye } from 'react-icons/md';
+import { Box, Flex, Group, Title } from '@mantine/core';
+import { type Post } from '@highjoon-dev/types';
 
 import { MdxComponents } from '@/components/mdxComponents/MdxComponents';
 import MDXContent from '@/components/mdxContent/MDXContent';
-import { type FrontMatter } from '@/types/post';
+import ViewCount from '@/components/viewCount/ViewCount';
 
 import styles from './PageContent.module.scss';
 
-type Props = { frontMatter: FrontMatter; content: string; viewCount: number };
+type Props = {
+  title: Post['title'];
+  bannerImageUrl: Post['bannerImageUrl'];
+  content: string;
+  viewCount: Post['viewCount'];
+  slug: Post['slug'];
+};
 
-const PageContent = ({ frontMatter, content, viewCount }: Props) => {
+const PageContent = ({ title, bannerImageUrl, content, viewCount, slug }: Props) => {
   return (
     <Flex direction="column" w="100%" pos="relative" mb={20}>
       <Title order={1} className={styles.title}>
-        {frontMatter.title}
+        {title}
       </Title>
 
       <Group className={styles['view-count']} gap="lg" align="center" justify="center" ml="auto">
-        <Flex justify="center" gap={10}>
-          <MdOutlineRemoveRedEye size={23} />
-          <Text component="span" h={25}>
-            {viewCount.toLocaleString()}
-          </Text>
-        </Flex>
+        <ViewCount viewCount={viewCount} slug={slug} />
       </Group>
 
       <Box className={styles.banner} pos="relative" w="100%">
-        <Image src={frontMatter.bannerImg} fill alt="content-logo" priority />
+        <Image src={bannerImageUrl} fill alt="content-logo" priority />
       </Box>
 
       <Flex id="page-content" direction="column">
