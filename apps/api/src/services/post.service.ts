@@ -14,14 +14,7 @@ class PostService {
         return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
       }
 
-      /** @TODO tags 파싱 확인 */
-      const parsedPosts = posts.map((post) => ({
-        ...post,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        tags: JSON.parse(post.tags as any),
-      }));
-
-      return ServiceResponse.success<Post[]>('게시물을 찾았습니다.', parsedPosts, StatusCodes.OK);
+      return ServiceResponse.success<Post[]>('게시물을 찾았습니다.', posts, StatusCodes.OK);
     } catch (error) {
       return handleInternalError(error, 'findAllPosts Error');
     }
