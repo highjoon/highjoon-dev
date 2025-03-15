@@ -24,7 +24,7 @@ const PageContent = ({ title, bannerImageUrl, content, viewCount, slug }: Props)
         {title}
       </Title>
 
-      <Group className={styles['view-count']} gap="lg" align="center" justify="center" ml="auto">
+      <Group className={styles['view-count']} gap="lg" align="center">
         <ViewCount viewCount={viewCount} slug={slug} />
       </Group>
 
