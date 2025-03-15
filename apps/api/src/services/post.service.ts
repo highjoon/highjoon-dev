@@ -3,6 +3,9 @@ import { StatusCodes } from 'http-status-codes';
 
 import prisma from '@/client';
 import { ServiceResponse } from '@/models/servicesResponse';
+import { postViewLogService } from '@/services/postViewLog.service';
+import { postViewStatsService } from '@/services/postViewStats.service';
+import { getTodayMidnight } from '@/utils/getTomorrowMidnight';
 import { handleInternalError } from '@/utils/handleInternalError';
 
 class PostService {
@@ -64,11 +67,20 @@ class PostService {
     }
   }
 
-  public async increaseViewCount(slug: Post['slug']) {
+  public async increaseViewCount(slug: Post['slug'], ip: string) {
     try {
-      const result = await prisma.post.update({ where: { slug }, data: { viewCount: { increment: 1 } } });
+      const today = getTodayMidnight();
 
-      return ServiceResponse.success<Post>('조회수가 증가되었습니다.', result, StatusCodes.OK);
+      const viewStats = await postViewStatsService.findOrCreateTodayStats(slug, today);
+      const isFirstViewToday = await postViewLogService.logView(viewStats.postId, ip, today);
+
+      if (isFirstViewToday) {
+        const updatedPost = await prisma.post.update({ where: { slug }, data: { viewCount: { increment: 1 } } });
+
+        return ServiceResponse.success('조회수가 증가되었습니다.', updatedPost, StatusCodes.OK);
+      }
+
+      return ServiceResponse.success('오늘 이미 조회된 게시물입니다.', null, StatusCodes.OK);
     } catch (error) {
       return handleInternalError(error, 'increaseViewCount Error');
     }

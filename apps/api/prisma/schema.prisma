@@ -9,19 +9,42 @@ datasource db {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model Post {
-  id             String    @id @default(cuid())
-  slug           String    @unique
+  id             String          @id @default(cuid())
+  slug           String          @unique
   title          String
   description    String
   contentUrl     String
   bannerImageUrl String
-  publishedAt    DateTime  @db.Timestamptz(6)
+  publishedAt    DateTime        @db.Timestamptz(6)
   category       String?
-  createdAt      DateTime? @default(now()) @db.Timestamptz(6)
-  updatedAt      DateTime? @updatedAt @db.Timestamptz(6)
-  viewCount      Int?      @default(0)
-  likeCount      Int?      @default(0)
-  tags           String[]  @default([])
+  createdAt      DateTime?       @default(now()) @db.Timestamptz(6)
+  updatedAt      DateTime?       @updatedAt @db.Timestamptz(6)
+  viewCount      Int?            @default(0)
+  likeCount      Int?            @default(0)
+  tags           String[]        @default([])
+  viewStats      PostViewStats[]
 
   @@index([publishedAt])
+  PostViewLog PostViewLog[]
+}
+
+model PostViewStats {
+  id        String   @id @default(cuid())
+  postId    String
+  date      DateTime @db.Date
+  viewCount Int      @default(0)
+  expiredAt DateTime @db.Timestamptz(6)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, date])
+}
+
+model PostViewLog {
+  id        String   @id @default(cuid())
+  postId    String
+  ip        String
+  date      DateTime @db.Date
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, ip, date])
 }

@@ -72,7 +72,8 @@ class PostController {
       return;
     }
 
-    const response = await postService.increaseViewCount(slug);
+    const ip = req.headers['x-forwarded-for']?.toString().split(',')[0]?.trim() || req.ip || '';
+    const response = await postService.increaseViewCount(slug, ip);
 
     handleServiceResponse(response, res);
   };
