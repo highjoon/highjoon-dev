@@ -3,8 +3,8 @@ import { StatusCodes } from 'http-status-codes';
 
 import prisma from '@/client';
 import { ServiceResponse } from '@/models/servicesResponse';
-import { postViewLogService } from '@/services/postViewLog.service';
-import { postViewStatsService } from '@/services/postViewStats.service';
+import { postViewLogService } from '@/services/post/postViewLog.service';
+import { postViewStatsService } from '@/services/post/postViewStats.service';
 import { getTodayMidnight } from '@/utils/getTomorrowMidnight';
 import { handleInternalError } from '@/utils/handleInternalError';
 

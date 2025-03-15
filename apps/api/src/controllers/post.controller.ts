@@ -2,7 +2,7 @@ import { type Request, type Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
 import { ServiceResponse } from '@/models/servicesResponse';
-import { postService } from '@/services/post.service';
+import { postService } from '@/services/post/post.service';
 import { handleServiceResponse } from '@/utils/httpHandlers';
 
 class PostController {
