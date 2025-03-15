@@ -13,3 +13,10 @@ export const getPost = async (slug: string) => {
 
   return data;
 };
+
+export const increaseViewCount = async (slug: string) => {
+  try {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${slug}/view`, { method: 'PUT' });
+    // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
+  } catch (error) {}
+};

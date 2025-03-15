@@ -10,4 +10,5 @@ postRoutes.get('/', postController.getAllPosts);
 postRoutes.get('/:slug', postController.getPost);
 postRoutes.post('/', validateRequest({ body: createPostSchema }), postController.createPost);
 postRoutes.post('/many', validateRequest({ body: createManyPostsSchema }), postController.createManyPosts);
+postRoutes.put('/:slug/view', postController.increaseViewCount);
 postRoutes.put('/:id', validateRequest({ body: updatePostSchema }), postController.updatePost);
