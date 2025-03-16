@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { Button, Flex } from '@mantine/core';
 
+import { getRecentPosts } from '@/actions/post';
 import BlogPosts from '@/components/blogPosts/BlogPosts';
 import FeaturedPost from '@/components/featuredPost/FeaturedPost';
 import { ROUTES } from '@/constants/routes';
-import useGetRecentPosts from '@/hooks/useGetRecentPosts';
 
 export default async function HomePage() {
-  const { recentPosts } = await useGetRecentPosts();
+  const recentPosts = await getRecentPosts();
   const flattenedPosts = recentPosts.flatMap((posts) => posts);
 
   return (
