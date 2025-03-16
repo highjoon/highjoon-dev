@@ -33,9 +33,9 @@ const PostCard = ({ post }: Props) => {
                   {post.description}
                 </Text>
               </Flex>
-              {!!post.createdAt && (
+              {!!post.publishedAt && (
                 <Text size="sm" c="dimmed">
-                  {dayjs(post.createdAt).format('YYYY-MM-DD')}
+                  {dayjs(post.publishedAt).format('YYYY-MM-DD')}
                 </Text>
               )}
             </Group>

@@ -11,7 +11,7 @@ import { handleInternalError } from '@/utils/handleInternalError';
 class PostService {
   async findAllPosts(): Promise<ServiceResponse<Nullable<Post[]>>> {
     try {
-      const posts = await prisma.post.findMany();
+      const posts = await prisma.post.findMany({ orderBy: { publishedAt: 'desc' } });
 
       if (posts.length === 0) {
         return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
