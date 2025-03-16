@@ -36,18 +36,18 @@
     "websockets",
     "zustand"
   ],
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.nodePath": "node_modules",
-  "prettier.prettierPath": "node_modules/prettier",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.sort-json": "explicit",
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.sort-json": "explicit"
   },
-  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "editor.formatOnSave": true,
+  "eslint.nodePath": "node_modules",
   "eslint.workingDirectories": [
     { "pattern": "apps/**/*" },
     { "pattern": "packages/**/*" }
-  ]
+  ],
+  "prettier.prettierPath": "node_modules/prettier",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

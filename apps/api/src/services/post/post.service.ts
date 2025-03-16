@@ -69,18 +69,25 @@ class PostService {
 
   public async increaseViewCount(slug: Post['slug'], ip: string) {
     try {
-      const today = getTodayMidnight();
+      const post = await prisma.post.findUnique({ where: { slug } });
 
-      const viewStats = await postViewStatsService.findOrCreateTodayStats(slug, today);
-      const isFirstViewToday = await postViewLogService.logView(viewStats.postId, ip, today);
-
-      if (isFirstViewToday) {
-        const updatedPost = await prisma.post.update({ where: { slug }, data: { viewCount: { increment: 1 } } });
-
-        return ServiceResponse.success('조회수가 증가되었습니다.', updatedPost, StatusCodes.OK);
+      if (!post) {
+        return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
       }
 
-      return ServiceResponse.success('오늘 이미 조회된 게시물입니다.', null, StatusCodes.OK);
+      const today = getTodayMidnight();
+
+      const isFirstViewToday = await postViewLogService.logView(post.id, ip, today);
+
+      if (!isFirstViewToday) {
+        return ServiceResponse.success('오늘 이미 조회된 게시물입니다.', null, StatusCodes.OK);
+      }
+
+      const updatedPost = await prisma.post.update({ where: { slug }, data: { viewCount: { increment: 1 } } });
+
+      await postViewStatsService.findOrCreateTodayStats(post.id, today);
+
+      return ServiceResponse.success('조회수가 증가되었습니다.', updatedPost, StatusCodes.OK);
     } catch (error) {
       return handleInternalError(error, 'increaseViewCount Error');
     }

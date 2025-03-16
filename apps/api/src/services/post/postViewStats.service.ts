@@ -1,26 +1,17 @@
+import { type Post } from '@highjoon-dev/types';
+
 import prisma from '@/client';
-import { getTomorrowMidnight } from '@/utils/getTomorrowMidnight';
 
+/**
+ * 게시물 조회 통계 서비스
+ * - 게시물의 하루치 조회수를 기록하고 통계를 제공
+ */
 class PostViewStatsService {
-  public async findOrCreateTodayStats(slug: string, date: Date) {
-    const existingView = await prisma.postViewStats.findFirst({
-      where: { post: { slug }, date },
-    });
-
-    if (existingView) {
-      return existingView;
-    }
-
-    const post = await prisma.post.findUnique({ where: { slug } });
-
-    if (!post) {
-      throw new Error('게시물이 존재하지 않습니다.');
-    }
-
-    const expiredAt = getTomorrowMidnight();
-
-    return await prisma.postViewStats.create({
-      data: { postId: post.id, viewCount: 1, date, expiredAt },
+  public async findOrCreateTodayStats(postId: Post['id'], date: Date) {
+    return await prisma.postViewStats.upsert({
+      where: { postId_date: { postId, date } },
+      update: { viewCount: { increment: 1 } },
+      create: { postId, date, viewCount: 1 },
     });
   }
 }

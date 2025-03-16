@@ -1,17 +1,33 @@
 import prisma from '@/client';
+import { getTomorrowMidnight } from '@/utils/getTomorrowMidnight';
 
+/**
+ * 게시물 조회 로그 서비스
+ * - IP 기반의 게시물 조회 로그를 기록
+ */
 class PostViewLogService {
-  public async logView(postId: string, ip: string, date: Date): Promise<boolean> {
+  public async hasViewed(postId: string, ip: string, date: Date): Promise<boolean> {
     const existingLog = await prisma.postViewLog.findFirst({
       where: { postId, ip, date },
     });
 
-    // 이미 조회한 경우
-    if (!!existingLog) {
+    return !!existingLog;
+  }
+
+  public async createLog(postId: string, ip: string, date: Date): Promise<void> {
+    const expiredAt = getTomorrowMidnight();
+
+    await prisma.postViewLog.create({ data: { postId, ip, date, expiredAt } });
+  }
+
+  public async logView(postId: string, ip: string, date: Date): Promise<boolean> {
+    const hasViewed = await this.hasViewed(postId, ip, date);
+
+    if (hasViewed) {
       return false;
     }
 
-    await prisma.postViewLog.create({ data: { postId, ip, date } });
+    await this.createLog(postId, ip, date);
 
     // 오늘 첫 조회
     return true;

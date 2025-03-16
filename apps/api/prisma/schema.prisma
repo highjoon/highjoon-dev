@@ -33,7 +33,6 @@ model PostViewStats {
   postId    String
   date      DateTime @db.Date
   viewCount Int      @default(0)
-  expiredAt DateTime @db.Timestamptz(6)
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@unique([postId, date])
@@ -44,6 +43,7 @@ model PostViewLog {
   postId    String
   ip        String
   date      DateTime @db.Date
+  expiredAt DateTime @db.Timestamptz(6)
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@unique([postId, ip, date])

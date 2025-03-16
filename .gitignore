@@ -36,3 +36,12 @@ yarn-error.log*
 next-env.d.ts
 
 .turbo
+
+# Supabase
+.branches
+.temp
+
+# dotenvx
+.env.keys
+.env.local
+.env.*.local
