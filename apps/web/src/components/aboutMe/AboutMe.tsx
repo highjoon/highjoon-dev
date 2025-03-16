@@ -17,16 +17,9 @@ const AboutMe = () => {
         <Flex direction="column" gap={20}>
           <Title order={2}>윤상준</Title>
           <Flex direction="column" gap={5}>
-            <Text className={styles.introduction}>2년차 웹 프론트엔드 개발자입니다.</Text>
-            <Text className={styles.introduction}>
-              고객이 있어야 회사가 있다고 믿고 있으며 고객 경험 향상에 기여하려고 노력합니다.
-            </Text>
-            <Text className={styles.introduction}>
-              변경과 확장에 유연하게 대응할 수 있는 컴포넌트를 설계하기 위해 고민합니다.
-            </Text>
-            <Text className={styles.introduction}>
-              제품의 디테일한 요소를 챙기는 것을 좋아하며 더 나은 제품을 만들기 위해 적극적으로 아이디어를 제시합니다.
-            </Text>
+            <Text className={styles.introduction}>3년차 웹 프론트엔드 개발자입니다.</Text>
+            <Text className={styles.introduction}>고객 가치 창출과 제품, 팀, 개인의 성장을 고민합니다.</Text>
+            <Text className={styles.introduction}>기술적 기여를 통해 의미 있는 제품 개발에 앞장서고 있습니다.</Text>
           </Flex>
         </Flex>
         <Divider />
@@ -37,39 +30,45 @@ const AboutMe = () => {
                 (주) 모비두
               </Text>
               <Text size="md">Frontend Developer</Text>
-              <Text className={styles['career-term']} size="sm">
+              <Text className={styles.term} size="sm">
                 2023. 01 ~ 재직중
               </Text>
             </Flex>
             <List className={styles['career-wrapper']}>
               <List.Item>
-                <Text size="md">광고 마케팅 플랫폼 개발</Text>
+                <Text size="md">쇼킷</Text>
+                <Text className={styles.term} size="sm">
+                  2024. 04 ~ 2024.11
+                </Text>
                 <Text className={styles['career-description']} size="sm">
-                  라이브 방송의 광고 캠페인 신청, 운영, 결과 리포트 확인이 가능한 플랫폼 개발
+                  LLM 기반의 AI 숏폼 추출 및 영상, 자막 편집 서비스
                 </Text>
               </List.Item>
               <List.Item>
-                <Text size="md">디자인 시스템 구축</Text>
+                <Text size="md">소스애드 어드민</Text>
+                <Text className={styles.term} size="sm">
+                  2023. 12 ~ 진행 중
+                </Text>
                 <Text className={styles['career-description']} size="sm">
-                  디자인 시스템 컴포넌트 개발 및 라이브러리 배포
+                  라이브 방송의 광고 신청 및 관리, 광고 집행 결과 리포트, 대시보드 등의 기능 제공 플랫폼
                 </Text>
               </List.Item>
               <List.Item>
-                <Text size="md">어드민 UI 개선</Text>
+                <Text size="md">모비두 디자인 시스템 (mds)</Text>
+                <Text className={styles.term} size="sm">
+                  2023. 09 ~ 2024.03
+                </Text>
                 <Text className={styles['career-description']} size="sm">
-                  통합 어드민의 UI 톤 앤 매너를 개선
+                  디자인 토큰 기반의 디자인 시스템 구축 및 사내 라이브러리 배포
                 </Text>
               </List.Item>
               <List.Item>
-                <Text size="md">라이브 방송 운영 CMS 개발</Text>
-                <Text className={styles['career-description']} size="sm">
-                  라이브 방송의 구매인증 이벤트, 인서트 이미지 및 동영상 송출 기능 개발
+                <Text size="md">소스라이브 플레이어</Text>
+                <Text className={styles.term} size="sm">
+                  2023. 01 ~ 진행 중
                 </Text>
-              </List.Item>
-              <List.Item>
-                <Text size="md">라이브 플레이어 개발</Text>
                 <Text className={styles['career-description']} size="sm">
-                  라이브 방송 플레이어 개발 및 유지보수
+                  라이브커머스 스트리밍 플레이어
                 </Text>
               </List.Item>
             </List>
@@ -80,7 +79,7 @@ const AboutMe = () => {
                 (주) 노트하우
               </Text>
               <Text size="md">Frontend Developer</Text>
-              <Text className={styles['career-term']} size="sm">
+              <Text className={styles.term} size="sm">
                 2022. 10 ~ 2022. 11
               </Text>
             </Flex>
