@@ -23,6 +23,7 @@ model Post {
   likeCount      Int?            @default(0)
   tags           String[]        @default([])
   viewStats      PostViewStats[]
+  isFeatured     Boolean         @default(false)
 
   @@index([publishedAt])
   PostViewLog PostViewLog[]

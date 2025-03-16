@@ -26,6 +26,12 @@ class PostController {
     handleServiceResponse(postsResponse, res);
   };
 
+  public getFeaturedPost = async (req: Request, res: Response) => {
+    const postResponse = await postService.findFeaturedPost();
+
+    handleServiceResponse(postResponse, res);
+  };
+
   public createPost = async (req: Request, res: Response) => {
     const postResponse = await postService.createPost(req.body);
 

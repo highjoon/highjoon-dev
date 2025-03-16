@@ -13,7 +13,7 @@ export default async function HomePage() {
   return (
     <Flex direction="column" gap={100}>
       <Flex direction="column" gap={30}>
-        <FeaturedPost recentPosts={recentPosts} />
+        <FeaturedPost />
         <BlogPosts title="LATEST POSTS" posts={flattenedPosts} />
       </Flex>
       <Link href={`${ROUTES.PAGES}/1`} style={{ margin: '0 auto' }}>

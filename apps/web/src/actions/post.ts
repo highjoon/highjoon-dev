@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { type Post } from '@highjoon-dev/types';
 
-import { getPostList, increaseViewCount } from '@/apis/post';
+import { getFeaturedPostApi, getPostList, increaseViewCount } from '@/apis/post';
 import sortPostsByDate from '@/utils/sortPostsByDate';
 
 export const increaseViewCountAction = async (slug: Post['slug']) => {
@@ -29,4 +29,10 @@ export const getRecentPosts = async () => {
   const splittedPosts = splitArray(sortedPostsByDate);
 
   return splittedPosts;
+};
+
+export const getFeaturedPost = async () => {
+  const featuredPost = await getFeaturedPostApi();
+
+  return featuredPost?.responseObject;
 };

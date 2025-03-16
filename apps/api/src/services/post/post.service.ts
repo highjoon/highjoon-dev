@@ -37,6 +37,23 @@ class PostService {
     }
   }
 
+  async findFeaturedPost(): Promise<ServiceResponse<Nullable<Post>>> {
+    try {
+      const post = await prisma.post.findFirst({
+        where: { isFeatured: true },
+        orderBy: { publishedAt: 'desc' },
+      });
+
+      if (!post) {
+        return ServiceResponse.failure('추천 게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
+      }
+
+      return ServiceResponse.success<Post>('추천 게시물을 찾았습니다.', post, StatusCodes.OK);
+    } catch (error) {
+      return handleInternalError(error, 'findFeaturedPost Error');
+    }
+  }
+
   async createPost(data: Post): Promise<ServiceResponse<Nullable<Post>>> {
     try {
       const post = await prisma.post.create({ data });
