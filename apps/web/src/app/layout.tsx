@@ -35,6 +35,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'highjoon' }],
   creator: 'highjoon',
   publisher: 'highjoon',
+  appleWebApp: true,
   icons: {
     icon: '/favicon/apple-icon.png',
     shortcut: '/favicon/apple-icon.png',
@@ -60,6 +61,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="ko" suppressHydrationWarning>
       <head>
         <ColorSchemeScript defaultColorScheme="auto" />
+        <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad.png" />
+        <link rel="apple-touch-icon" sizes="167x167" href="touch-icon-ipad-retina.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="touch-icon-iphone-retina.png" />
       </head>
       <body className={classnames(pretendard.className)} suppressHydrationWarning>
         <Provider>
