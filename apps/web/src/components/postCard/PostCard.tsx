@@ -2,11 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Badge, Card, Flex, Group, Image, Text } from '@mantine/core';
+import { Card, Flex, Group, Image, Text } from '@mantine/core';
 import { type Post } from '@highjoon-dev/types';
 import dayjs from 'dayjs';
 
-import { ROUTES } from '@/constants/routes';
 import createPostPath from '@/utils/createPostPath';
 
 import styles from './PostCard.module.scss';
@@ -41,13 +40,13 @@ const PostCard = ({ post }: Props) => {
             </Group>
           </Group>
         </Link>
-        <Flex className={styles['hashtag-list']} gap={5}>
+        {/* <Flex className={styles['hashtag-list']} gap={5}>
           {post.tags.map((tag) => (
             <Link key={tag} href={`${ROUTES.TAGS}/${tag}/1`}>
               <Badge className={styles.hashtag}>#{tag}</Badge>
             </Link>
           ))}
-        </Flex>
+        </Flex> */}
       </Card>
     </li>
   );

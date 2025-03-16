@@ -2,10 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Badge, Card, Flex, Text } from '@mantine/core';
+import { Card, Flex, Text } from '@mantine/core';
 import { type Post } from '@highjoon-dev/types';
 import dayjs from 'dayjs';
-import { v4 as uuid } from 'uuid';
 
 import styles from './FeaturedPostCard.module.scss';
 
@@ -29,13 +28,13 @@ const FeaturedPostCard = ({ post }: Props) => {
         <Text size="sm" c="dimmed">
           {dayjs(post.publishedAt).format('YYYY-MM-DD')}
         </Text>
-        <Flex className={styles['hashtag-list']} gap={5}>
+        {/* <Flex className={styles['hashtag-list']} gap={5}>
           {post.tags.map((tag) => (
             <Badge key={uuid() + tag} className={styles.hashtag}>
               #{tag}
             </Badge>
           ))}
-        </Flex>
+        </Flex> */}
       </Card>
     </>
   );
