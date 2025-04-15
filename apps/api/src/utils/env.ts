@@ -13,4 +13,5 @@ export const env = cleanEnv(process.env, {
   GITHUB_CLIENT_ID: str(),
   GITHUB_CLIENT_SECRET: str(),
   JWT_SECRET: str(),
+  ADMIN_GITHUB_ID: num(),
 });

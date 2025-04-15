@@ -1,6 +1,8 @@
-import { StatusCodes } from 'http-status-codes';
+import { v4 as uuid } from 'uuid';
 
 import { ServiceResponse } from '@/models/servicesResponse';
+import { userService } from '@/services/user/user.service';
+import { type GithubUserData } from '@/types/user';
 import { env } from '@/utils/env';
 import { signToken } from '@/utils/jwt';
 
@@ -24,9 +26,20 @@ class AuthService {
   public generateAccessToken = async (code: string) => {
     const githubAccessToken = await this.getGithubAccessToken(code);
     const githubUserData = await this.getGithubUserData(githubAccessToken);
-    const accessToken = signToken({ userId: githubUserData.id });
 
-    return ServiceResponse.success('성공했습니다.', { accessToken }, StatusCodes.OK);
+    const isAdmin = githubUserData.id === env.ADMIN_GITHUB_ID;
+
+    const userData = await userService.findOrCreateUser({
+      id: uuid(),
+      name: githubUserData.name,
+      homeUrl: githubUserData.html_url,
+      avatarUrl: githubUserData.avatar_url,
+      role: isAdmin ? 'ADMIN' : 'USER',
+    });
+
+    const accessToken = signToken({ userId: userData.id, role: userData.role });
+
+    return ServiceResponse.success('성공했습니다.', { accessToken });
   };
 
   private getGithubAccessToken = async (code: string) => {
@@ -64,7 +77,7 @@ class AuthService {
           Authorization: `token ${accessToken}`,
         },
       });
-      const userData = await userDataResponse.json();
+      const userData: GithubUserData = await userDataResponse.json();
 
       if (!userData) {
         throw new Error('User data not found');
