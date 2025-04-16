@@ -23,7 +23,7 @@ jobs:
 
       # 프로젝트 의존성 설치
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       # 빌드
       - name: Build
