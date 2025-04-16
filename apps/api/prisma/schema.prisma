@@ -21,7 +21,6 @@ model Post {
   updatedAt      DateTime?       @updatedAt @db.Timestamptz(6)
   viewCount      Int?            @default(0)
   likeCount      Int?            @default(0)
-  postTags       PostTag[]
   viewLogs       PostViewLog[]
   viewStats      PostViewStats[]
   isFeatured     Boolean         @default(false)
@@ -49,21 +48,16 @@ model PostViewLog {
   @@unique([postId, ip, date])
 }
 
-model PostTag {
-  postId String
-  tagId  String
-  post   Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
-  tag    Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
 
-  @@id([postId, tagId])
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  avatarUrl String
+  homeUrl   String
+  role      Role     @default(USER)
 }
 
-model Tag {
-  id        String @id @default(cuid())
-  name      String
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt DateTime @updatedAt @db.Timestamptz(6)
-  postTags  PostTag[]
-
-  @@index([name])
+enum Role {
+  USER
+  ADMIN
 }
