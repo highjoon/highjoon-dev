@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@prisma/client": "6.3.1",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
@@ -34,6 +35,7 @@
     "dev": "dotenv -e .env.development tsx watch --clear-screen=false src/index.ts | pino-pretty",
     "lint:fix": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
     "prettier:fix": "prettier './src/**/*.{js,jsx,ts,tsx}' --write",
+    "prisma": "prisma/schema.prisma",
     "start": "pnpm build && dotenv -e .env.production node dist/index.js"
   },
   "tsup": {

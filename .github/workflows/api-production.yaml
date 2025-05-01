@@ -98,6 +98,16 @@ jobs:
             cd /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api
             pnpm install
 
+      - name: Run prisma generate on Lightsail
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
+          username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
+          key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
+          script: |
+            cd /home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api
+            pnpm exec prisma generate --schema=./prisma/schema.prisma
+
       # PM2 프로세스 재시작
       - name: Restart PM2 process
         uses: appleboy/ssh-action@master
