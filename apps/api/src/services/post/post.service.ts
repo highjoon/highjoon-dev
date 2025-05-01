@@ -1,7 +1,7 @@
-import { type Nullable, type Post } from '@highjoon-dev/types';
+import { type Post, prisma } from '@highjoon-dev/prisma';
+import { type Nullable } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
-import prisma from '@/client';
 import { ServiceResponse } from '@/models/servicesResponse';
 import { postViewLogService } from '@/services/post/postViewLog.service';
 import { postViewStatsService } from '@/services/post/postViewStats.service';

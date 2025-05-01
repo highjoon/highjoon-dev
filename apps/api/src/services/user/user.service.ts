@@ -1,4 +1,5 @@
-import prisma from '@/client';
+import { prisma } from '@highjoon-dev/prisma';
+
 import { type UserData } from '@/types/user';
 
 class UserService {

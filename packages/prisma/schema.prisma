@@ -21,9 +21,11 @@ model Post {
   updatedAt      DateTime?       @updatedAt @db.Timestamptz(6)
   viewCount      Int?            @default(0)
   likeCount      Int?            @default(0)
+  isFeatured     Boolean         @default(false)
+  PostLike       PostLike[]
   viewLogs       PostViewLog[]
   viewStats      PostViewStats[]
-  isFeatured     Boolean         @default(false)
+
   @@index([publishedAt])
 }
 
@@ -48,13 +50,25 @@ model PostViewLog {
   @@unique([postId, ip, date])
 }
 
-
 model User {
-  id        String   @id @default(cuid())
+  id        String     @id @default(cuid())
   name      String
   avatarUrl String
   homeUrl   String
-  role      Role     @default(USER)
+  role      Role       @default(USER)
+  PostLike  PostLike[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model PostLike {
+  id        String   @id
+  postId    String
+  userId    String
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId])
 }
 
 enum Role {

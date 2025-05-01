@@ -1,4 +1,5 @@
-import prisma from '@/client';
+import { prisma } from '@highjoon-dev/prisma';
+
 import { getTomorrowMidnight } from '@/utils/getTomorrowMidnight';
 
 /**

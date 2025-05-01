@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@prisma/client": "6.3.1",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
@@ -23,7 +22,6 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@types/uuid": "^9.0.8",
     "pino-pretty": "^13.0.0",
-    "prisma": "^6.3.1",
     "tsup": "^8.3.6",
     "tsx": "^4.19.2",
     "typescript": "5.4.5"
@@ -33,14 +31,8 @@
   "private": true,
   "scripts": {
     "build": "tsup",
-    "db:pull": "dotenv -e .env.production -- prisma db pull",
-    "db:pull-dev": "dotenv -e .env.development -- prisma db pull",
-    "db:push": "dotenv -e .env.production -- prisma db push",
-    "db:push-dev": "dotenv -e .env.development -- prisma db push",
     "dev": "dotenv -e .env.development tsx watch --clear-screen=false src/index.ts | pino-pretty",
     "lint:fix": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
-    "migrate:dev": "dotenv -e .env.development -- prisma migrate dev --name init",
-    "postinstall": "prisma generate",
     "prettier:fix": "prettier './src/**/*.{js,jsx,ts,tsx}' --write",
     "start": "pnpm build && dotenv -e .env.production node dist/index.js"
   },
