@@ -23,6 +23,7 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@types/uuid": "^9.0.8",
     "pino-pretty": "^13.0.0",
+    "prisma": "^6.3.1",
     "tsup": "^8.3.6",
     "tsx": "^4.19.2",
     "typescript": "5.4.5"
