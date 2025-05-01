@@ -1,6 +1,4 @@
-import { type Post } from '@highjoon-dev/types';
-
-import prisma from '@/client';
+import { type Post, prisma } from '@highjoon-dev/prisma';
 
 /**
  * 게시물 조회 통계 서비스

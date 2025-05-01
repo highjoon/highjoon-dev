@@ -7,7 +7,6 @@ import errorHandler from '@/middlewares/errorHandler';
 import requestLogger from '@/middlewares/requestLogger';
 import { authRoutes } from '@/routes/auth.routes';
 import { postRoutes } from '@/routes/post.routes';
-import { tagRoutes } from '@/routes/tag.routes';
 import { corsOptions } from '@/utils/corsOptions';
 
 const logger = pino({ name: 'server start' });
@@ -26,7 +25,6 @@ app.use(requestLogger);
 
 // Routes
 app.use('/post', postRoutes);
-app.use('/tag', tagRoutes);
 app.use('/auth', authRoutes);
 
 // Error handlers
