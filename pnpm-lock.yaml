@@ -14,6 +14,9 @@ importers:
       '@highjoon-dev/prettier-config':
         specifier: workspace:*
         version: link:packages/config/prettier
+      '@highjoon-dev/prisma':
+        specifier: workspace:*
+        version: link:packages/prisma
       '@highjoon-dev/types':
         specifier: workspace:*
         version: link:packages/types
@@ -35,9 +38,6 @@ importers:
 
   apps/api:
     dependencies:
-      '@prisma/client':
-        specifier: 6.3.1
-        version: 6.3.1(prisma@6.3.1(typescript@5.4.5))(typescript@5.4.5)
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -99,9 +99,6 @@ importers:
       pino-pretty:
         specifier: ^13.0.0
         version: 13.0.0
-      prisma:
-        specifier: ^6.3.1
-        version: 6.3.1(typescript@5.4.5)
       tsup:
         specifier: ^8.3.6
         version: 8.3.6(@swc/core@1.10.16(@swc/helpers@0.5.5))(jiti@1.21.7)(postcss@8.4.38)(tsx@4.19.2)(typescript@5.4.5)(yaml@2.7.0)
@@ -114,6 +111,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@highjoon-dev/prisma':
+        specifier: workspace:*
+        version: link:../../packages/prisma
       '@mantine/code-highlight':
         specifier: ^7.8.1
         version: 7.16.2(@mantine/core@7.16.2(@mantine/hooks@7.16.2(react@18.2.0))(@types/react@18.2.77)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(@mantine/hooks@7.16.2(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -309,6 +309,22 @@ importers:
         version: 4.1.4(@typescript-eslint/eslint-plugin@8.22.0(@typescript-eslint/parser@8.22.0(eslint@8.57.1)(typescript@5.4.5))(eslint@8.57.1)(typescript@5.4.5))(eslint@8.57.1)
 
   packages/config/prettier: {}
+
+  packages/prisma:
+    dependencies:
+      '@prisma/client':
+        specifier: 6.3.1
+        version: 6.3.1(prisma@6.3.1(typescript@5.4.5))(typescript@5.4.5)
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.4.7
+      dotenv-cli:
+        specifier: ^8.0.0
+        version: 8.0.0
+    devDependencies:
+      prisma:
+        specifier: ^6.3.1
+        version: 6.3.1(typescript@5.4.5)
 
   packages/types: {}
 

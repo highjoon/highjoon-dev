@@ -4,6 +4,7 @@
   "devDependencies": {
     "@highjoon-dev/eslint-config": "workspace:*",
     "@highjoon-dev/prettier-config": "workspace:*",
+    "@highjoon-dev/prisma": "workspace:*",
     "@highjoon-dev/types": "workspace:*",
     "eslint": "^8.57.1",
     "husky": "^9.0.11",
@@ -42,6 +43,7 @@
     "prepare": "husky",
     "prettier-config": "pnpm -F @highjoon-dev/prettier-config",
     "prettier:fix": "pnpm -r run prettier:fix",
+    "prisma": "pnpm -F @highjoon-dev/prisma",
     "prune": "pnpm prune",
     "test": "turbo run test",
     "test:coverage": "pnpm -r run test --coverage",

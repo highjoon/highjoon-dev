@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "@prisma/client": "6.3.1",
+    "dotenv": "^16.4.7",
+    "dotenv-cli": "^8.0.0"
+  },
+  "description": "",
+  "devDependencies": {
+    "prisma": "^6.3.1"
+  },
+  "main": "index.ts",
+  "name": "@highjoon-dev/prisma",
+  "scripts": {
+    "deploy": "prisma migrate deploy",
+    "generate": "prisma generate",
+    "migrate": "dotenv -e .env.production -- prisma migrate dev --name init",
+    "migrate-dev": "dotenv -e .env.development -- prisma migrate dev --name init",
+    "pull": "dotenv -e .env.production -- prisma db pull",
+    "pull-dev": "dotenv -e .env.development -- prisma db pull",
+    "push": "dotenv -e .env.production -- prisma db push",
+    "push-dev": "dotenv -e .env.development -- prisma db push"
+  },
+  "version": "1.0.0"
+}
