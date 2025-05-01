@@ -83,8 +83,8 @@ jobs:
           host: ${{ secrets.AWS_LIGHTSAIL_HOST }}
           username: ${{ secrets.AWS_LIGHTSAIL_USER_NAME }}
           key: ${{ secrets.AWS_LIGHTSAIL_SSH_KEY }}
-          source: ./packages/prisma
-          target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api"
+          source: ./packages/prisma/*
+          target: "/home/${{ secrets.AWS_LIGHTSAIL_USER_NAME }}/apps/api/prisma"
 
       # 의존성 설치
       - name: Install Dependencies on Lightsail
