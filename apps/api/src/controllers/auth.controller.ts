@@ -23,12 +23,8 @@ class AuthController {
       return;
     }
 
-    try {
-      const result = await authService.generateAccessToken(code as string);
-      handleServiceResponse(ServiceResponse.success('성공했습니다', result), res);
-    } catch (error) {
-      handleServiceResponse(ServiceResponse.failure('실패했습니다', error, StatusCodes.INTERNAL_SERVER_ERROR), res);
-    }
+    const result = await authService.generateAccessToken(code as string);
+    handleServiceResponse(result, res);
   };
 }
 

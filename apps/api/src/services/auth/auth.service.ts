@@ -1,9 +1,10 @@
+import { type GithubUserData } from '@highjoon-dev/types';
 import { v4 as uuid } from 'uuid';
 
 import { ServiceResponse } from '@/models/servicesResponse';
 import { userService } from '@/services/user/user.service';
-import { type GithubUserData } from '@/types/user';
 import { env } from '@/utils/env';
+import { handleInternalError } from '@/utils/handleInternalError';
 import { signToken } from '@/utils/jwt';
 
 class AuthService {
@@ -24,22 +25,26 @@ class AuthService {
   };
 
   public generateAccessToken = async (code: string) => {
-    const githubAccessToken = await this.getGithubAccessToken(code);
-    const githubUserData = await this.getGithubUserData(githubAccessToken);
+    try {
+      const githubAccessToken = await this.getGithubAccessToken(code);
+      const githubUserData = await this.getGithubUserData(githubAccessToken);
 
-    const isAdmin = githubUserData.id === env.ADMIN_GITHUB_ID;
+      const isAdmin = githubUserData.id === env.ADMIN_GITHUB_ID;
 
-    const userData = await userService.findOrCreateUser({
-      id: uuid(),
-      name: githubUserData.name,
-      homeUrl: githubUserData.html_url,
-      avatarUrl: githubUserData.avatar_url,
-      role: isAdmin ? 'ADMIN' : 'USER',
-    });
+      const userData = await userService.findOrCreateUser({
+        id: uuid(),
+        name: githubUserData.name,
+        homeUrl: githubUserData.html_url,
+        avatarUrl: githubUserData.avatar_url,
+        role: isAdmin ? 'ADMIN' : 'USER',
+      });
 
-    const accessToken = signToken({ userId: userData.id, role: userData.role });
+      const accessToken = signToken({ userId: userData.id, role: userData.role });
 
-    return ServiceResponse.success('성공했습니다.', { accessToken });
+      return ServiceResponse.success('성공했습니다.', { accessToken });
+    } catch (error) {
+      return handleInternalError(error, 'generateAccessToken Error');
+    }
   };
 
   private getGithubAccessToken = async (code: string) => {
