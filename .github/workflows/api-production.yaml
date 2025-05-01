@@ -5,6 +5,7 @@ on:
     branches:
       - master
     paths:
+      - "pnpm-lock.yaml"
       - "apps/api/**"
       - ".github/workflows/api-production.yaml"
 
