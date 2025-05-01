@@ -10,7 +10,6 @@ import styles from './NavMenuLink.module.scss';
 const links = [
   { link: ROUTES.HOME, label: 'HOME' },
   { link: ROUTES.PAGES + '/1', label: 'POSTS' },
-  // { link: ROUTES.TAGS, label: 'TAGS' },
   { link: ROUTES.ABOUT, label: 'ABOUT' },
 ];
 

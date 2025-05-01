@@ -1,7 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { type Post } from '@highjoon-dev/types';
+import { type Post } from '@highjoon-dev/prisma';
 
 import { getFeaturedPostApi, getPostList, increaseViewCount } from '@/apis/post';
 import sortPostsByDate from '@/utils/sortPostsByDate';

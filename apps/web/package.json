@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@highjoon-dev/prisma": "workspace:*",
     "@mantine/code-highlight": "^7.8.1",
     "@mantine/core": "^7.7.2",
     "@mantine/hooks": "^7.7.2",

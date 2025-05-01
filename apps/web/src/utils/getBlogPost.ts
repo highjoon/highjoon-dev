@@ -1,4 +1,4 @@
-import { type Post } from '@highjoon-dev/types';
+import { type Post } from '@highjoon-dev/prisma';
 import matter from 'gray-matter';
 
 import { getPost } from '@/apis/post';

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { type Post } from '@highjoon-dev/types';
+import { type Post } from '@highjoon-dev/prisma';
 
 import { getPostList } from '@/apis/post';
 
