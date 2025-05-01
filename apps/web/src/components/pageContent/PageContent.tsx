@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Box, Flex, Group, Title } from '@mantine/core';
-import { type Post } from '@highjoon-dev/types';
+import { type Post } from '@highjoon-dev/prisma';
 
 import { MdxComponents } from '@/components/mdxComponents/MdxComponents';
 import MDXContent from '@/components/mdxContent/MDXContent';

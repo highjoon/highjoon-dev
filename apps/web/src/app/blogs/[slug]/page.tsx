@@ -1,5 +1,5 @@
 import { type Metadata } from 'next';
-import { type Post } from '@highjoon-dev/types';
+import { type Post } from '@highjoon-dev/prisma';
 
 import { getPost } from '@/apis/post';
 import Comments from '@/components/comments/Comments';

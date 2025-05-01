@@ -1,4 +1,4 @@
-import { type Post } from '@highjoon-dev/types';
+import { type Post } from '@highjoon-dev/prisma';
 
 const sortPostsByDate = (posts: Post[]): Post[] => {
   const sortedPosts = [...posts];

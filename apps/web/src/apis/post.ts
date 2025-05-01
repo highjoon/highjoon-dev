@@ -1,4 +1,5 @@
-import { type Post, type ServiceResponseInterface } from '@highjoon-dev/types';
+import { type Post } from '@highjoon-dev/prisma';
+import { type ServiceResponseInterface } from '@highjoon-dev/types';
 
 export const getPostList = async () => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post`, { cache: 'no-store' });

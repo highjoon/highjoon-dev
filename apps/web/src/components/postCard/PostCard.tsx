@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card, Flex, Group, Image, Text } from '@mantine/core';
-import { type Post } from '@highjoon-dev/types';
+import { type Post } from '@highjoon-dev/prisma';
 import dayjs from 'dayjs';
 
 import createPostPath from '@/utils/createPostPath';

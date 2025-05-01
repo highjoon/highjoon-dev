@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Title } from '@mantine/core';
-import { type Post } from '@highjoon-dev/types';
+import { type Post } from '@highjoon-dev/prisma';
 
 import PostCard from '@/components/postCard/PostCard';
 

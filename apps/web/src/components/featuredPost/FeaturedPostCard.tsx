@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Card, Flex, Text } from '@mantine/core';
-import { type Post } from '@highjoon-dev/types';
+import { type Post } from '@highjoon-dev/prisma';
 import dayjs from 'dayjs';
 
 import styles from './FeaturedPostCard.module.scss';

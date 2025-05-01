@@ -2,7 +2,7 @@
 
 import React, { useLayoutEffect, useRef } from 'react';
 import { Flex, Text } from '@mantine/core';
-import { type Post } from '@highjoon-dev/types';
+import { type Post } from '@highjoon-dev/prisma';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
 import { increaseViewCountAction } from '@/actions/post';
