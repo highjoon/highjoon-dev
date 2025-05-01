@@ -61,7 +61,7 @@ model User {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model PostLike {
-  id        String   @id
+  id        String   @id @default(cuid())
   postId    String
   userId    String
   createdAt DateTime @default(now()) @db.Timestamptz(6)
