@@ -1,6 +1,5 @@
 import { prisma } from '@highjoon-dev/prisma';
-
-import { type UserData } from '@/types/user';
+import { type UserData } from '@highjoon-dev/types';
 
 class UserService {
   public async findOrCreateUser(userData: UserData) {
