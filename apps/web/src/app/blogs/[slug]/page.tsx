@@ -31,6 +31,8 @@ export default async function Page({ params }: Params) {
         bannerImageUrl={post.bannerImageUrl}
         content={content}
         viewCount={post.viewCount || 0}
+        likeCount={post.likeCount || 0}
+        postId={post.id}
         slug={post.slug}
       />
       <Comments />

@@ -65,3 +65,10 @@ export type TokenData = {
   exp: number;
   iat: number;
 };
+
+export type LikedPost = {
+  createdAt: Date;
+  id: string;
+  postId: string;
+  userId: string;
+};
