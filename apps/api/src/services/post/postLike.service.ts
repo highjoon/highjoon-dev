@@ -9,6 +9,12 @@ import { handleInternalError } from '@/utils/handleInternalError';
 class PostLikeService {
   async likePost(userId: UserData['id'], postId: Post['id']) {
     try {
+      const postLikeCount = await prisma.postLike.count({ where: { userId, postId } });
+
+      if (postLikeCount > 0) {
+        return ServiceResponse.failure('이미 좋아요를 눌렀습니다.', null, StatusCodes.BAD_REQUEST);
+      }
+
       await prisma.$transaction([
         prisma.postLike.create({ data: { userId, postId } }),
         prisma.post.update({ where: { id: postId }, data: { likeCount: { increment: 1 } } }),

@@ -5,9 +5,9 @@ import { ServiceResponse } from '@/models/servicesResponse';
 import { handleInternalError } from '@/utils/handleInternalError';
 
 class UserService {
-  public async findOrCreateUser(userData: UserData) {
+  public async findOrCreateUser(userData: User) {
     try {
-      const existingUser = await prisma.user.findFirst({ where: { id: userData.id } });
+      const existingUser = await prisma.user.findFirst({ where: { githubId: userData.githubId } });
 
       if (existingUser) {
         return existingUser;

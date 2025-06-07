@@ -8,7 +8,7 @@ import { handleInternalError } from '@/utils/handleInternalError';
 import { signToken } from '@/utils/jwt';
 
 class AuthService {
-  getGithubAuthUrl = (returnUrl?: string) => {
+  public getGithubAuthUrl = (returnUrl?: string) => {
     const config = {
       client_id: env.GITHUB_CLIENT_ID,
       scope: 'read:user',
@@ -30,9 +30,9 @@ class AuthService {
       const githubUserData = await this.getGithubUserData(githubAccessToken);
 
       const isAdmin = githubUserData.id === env.ADMIN_GITHUB_ID;
-
       const userData = await userService.findOrCreateUser({
         id: uuid(),
+        githubId: githubUserData.id,
         name: githubUserData.name,
         homeUrl: githubUserData.html_url,
         avatarUrl: githubUserData.avatar_url,
