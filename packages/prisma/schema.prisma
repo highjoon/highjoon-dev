@@ -52,6 +52,7 @@ model PostViewLog {
 
 model User {
   id        String     @id @default(cuid())
+  githubId  Int        
   name      String
   avatarUrl String
   homeUrl   String
