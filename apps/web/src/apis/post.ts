@@ -1,5 +1,5 @@
 import { type Post } from '@highjoon-dev/prisma';
-import { type ServiceResponseInterface } from '@highjoon-dev/types';
+import { type ServiceResponseInterface, type UserData } from '@highjoon-dev/types';
 
 export const getPostList = async () => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post`, { cache: 'no-store' });
@@ -18,8 +18,7 @@ export const getPost = async (slug: string) => {
 export const increaseViewCount = async (slug: string) => {
   try {
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${slug}/view`, { method: 'PUT' });
-    // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
-  } catch (error) {}
+  } catch {}
 };
 
 export const getFeaturedPostApi = async () => {
@@ -28,6 +27,20 @@ export const getFeaturedPostApi = async () => {
     const data: ServiceResponseInterface<Post> = await response.json();
 
     return data;
-    // eslint-disable-next-line unused-imports/no-unused-vars, @typescript-eslint/no-unused-vars
-  } catch (error) {}
+  } catch {}
+};
+
+export const likePostApi = async (postId: Post['id'], userId: UserData['id'], token?: string) => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${postId}/like`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId }),
+    });
+
+    return response.json();
+  } catch {}
 };

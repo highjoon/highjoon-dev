@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { ServiceResponse } from '@/models/servicesResponse';
 import { postService } from '@/services/post/post.service';
+import { postLikeService } from '@/services/post/postLike.service';
 import { handleServiceResponse } from '@/utils/httpHandlers';
 
 class PostController {
@@ -83,6 +84,27 @@ class PostController {
 
     handleServiceResponse(response, res);
   };
+
+  public async likePost(req: Request, res: Response) {
+    const { postId } = req.params;
+    const { userId } = req.body;
+
+    if (!postId) {
+      handleServiceResponse(ServiceResponse.failure('유효하지 않은 게시물입니다.', null, StatusCodes.BAD_REQUEST), res);
+
+      return;
+    }
+
+    if (!userId) {
+      handleServiceResponse(ServiceResponse.failure('유효하지 않은 사용자입니다.', null, StatusCodes.BAD_REQUEST), res);
+
+      return;
+    }
+
+    const response = await postLikeService.likePost(userId, postId);
+
+    handleServiceResponse(response, res);
+  }
 }
 
 export const postController = new PostController();

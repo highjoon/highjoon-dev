@@ -19,3 +19,4 @@ postRoutes.post(
 );
 postRoutes.put('/:slug/view', postController.increaseViewCount);
 postRoutes.put('/:id', validateRequest({ body: updatePostSchema }), postController.updatePost);
+postRoutes.post('/:postId/like', authenticate, postController.likePost);

@@ -1,4 +1,4 @@
-import { type Nullable } from '@highjoon-dev/types';
+import { type Nullable } from "@highjoon-dev/types";
 
 export type GithubUserData = {
   login: string;
@@ -49,12 +49,26 @@ export type GithubUserData = {
   };
 };
 
-export type UserRole = 'USER' | 'ADMIN';
+export type UserRole = "USER" | "ADMIN";
 
 export type UserData = {
   id: string;
-  name: GithubUserData['name'];
-  homeUrl: GithubUserData['html_url'];
-  avatarUrl: GithubUserData['avatar_url'];
+  name: GithubUserData["name"];
+  homeUrl: GithubUserData["html_url"];
+  avatarUrl: GithubUserData["avatar_url"];
   role: UserRole;
+};
+
+export type TokenData = {
+  userId: string;
+  role: UserRole;
+  exp: number;
+  iat: number;
+};
+
+export type LikedPost = {
+  createdAt: Date;
+  id: string;
+  postId: string;
+  userId: string;
 };
