@@ -17,7 +17,7 @@ class AuthService {
     const url = new URL('https://github.com/login/oauth/authorize');
     url.search = new URLSearchParams(config).toString();
 
-    if (!!returnUrl) {
+    if (returnUrl) {
       url.searchParams.append('state', returnUrl);
     }
 

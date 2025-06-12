@@ -11,7 +11,9 @@ export const githubLoginApi = async (returnUrl: string) => {
     const data: ServiceResponseInterface<string> = await response.json();
 
     return data.responseObject;
-  } catch {}
+  } catch {
+    /* empty */
+  }
 };
 
 export const githubLoginCallbackApi = async (code: string) => {
@@ -26,5 +28,7 @@ export const githubLoginCallbackApi = async (code: string) => {
     const data: ServiceResponseInterface<{ accessToken: string }> = await response.json();
 
     return data.responseObject.accessToken;
-  } catch {}
+  } catch {
+    /* empty */
+  }
 };

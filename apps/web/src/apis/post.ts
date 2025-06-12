@@ -18,7 +18,9 @@ export const getPost = async (slug: string) => {
 export const increaseViewCount = async (slug: string) => {
   try {
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${slug}/view`, { method: 'PUT' });
-  } catch {}
+  } catch {
+    /* empty */
+  }
 };
 
 export const getFeaturedPostApi = async () => {
@@ -27,7 +29,9 @@ export const getFeaturedPostApi = async () => {
     const data: ServiceResponseInterface<Post> = await response.json();
 
     return data;
-  } catch {}
+  } catch {
+    /* empty */
+  }
 };
 
 export const likePostApi = async (postId: Post['id'], userId: UserData['id'], token?: string) => {
@@ -42,5 +46,7 @@ export const likePostApi = async (postId: Post['id'], userId: UserData['id'], to
     });
 
     return response.json();
-  } catch {}
+  } catch {
+    /* empty */
+  }
 };

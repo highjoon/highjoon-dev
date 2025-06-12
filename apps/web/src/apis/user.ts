@@ -15,5 +15,7 @@ export const getLikedPostsApi = async (userId: string) => {
     const data: ServiceResponseInterface<LikedPost[]> = await response.json();
 
     return data;
-  } catch {}
+  } catch {
+    /* empty */
+  }
 };
