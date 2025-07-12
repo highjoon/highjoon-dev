@@ -1,10 +1,13 @@
+import { useRouter } from 'next/navigation';
 import { Nullable } from '@highjoon-dev/types';
-import { getCookie } from 'cookies-next/client';
+import { deleteCookie, getCookie } from 'cookies-next/client';
 
 import { githubLoginApi } from '@/apis/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants';
 
 export const useSignIn = () => {
+  const router = useRouter();
+
   const accessToken = getCookie(ACCESS_TOKEN_KEY) as Nullable<string>;
 
   const isSignedIn = Boolean(accessToken);
@@ -20,8 +23,13 @@ export const useSignIn = () => {
       return;
     }
 
-    window.location.replace(loginUrl);
+    router.replace(loginUrl);
   };
 
-  return { isSignedIn, accessToken, signIn };
+  const signOut = () => {
+    deleteCookie(ACCESS_TOKEN_KEY);
+    router.refresh();
+  };
+
+  return { isSignedIn, accessToken, signIn, signOut };
 };

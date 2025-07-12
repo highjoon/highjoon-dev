@@ -5,6 +5,7 @@ import { Button, Flex, Textarea } from '@mantine/core';
 import { Post } from '@highjoon-dev/prisma';
 
 import RequiredSignIn from '@/components/comments/RequiredSignIn';
+import SignOutButton from '@/components/comments/SignOutButton';
 import { useCommentInput } from '@/hooks/useCommentInput';
 import { useSignIn } from '@/hooks/useSignIn';
 
@@ -47,7 +48,8 @@ const CommentInput = ({ postId, refetch }: Props) => {
           }}
           disabled={!isSignedIn}
         />
-        <Flex ml="auto">
+        <Flex justify="space-between">
+          {isSignedIn && <SignOutButton />}
           <Button onClick={handleSubmit} disabled={!comment || !isSignedIn}>
             등록
           </Button>
