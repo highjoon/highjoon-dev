@@ -1,15 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Flex, Textarea } from '@mantine/core';
 import { Post } from '@highjoon-dev/prisma';
-import { TokenData } from '@highjoon-dev/types';
-import { getCookie } from 'cookies-next/client';
-import jwt from 'jsonwebtoken';
 
-import { createComment } from '@/actions/comment';
-import { githubLoginApi } from '@/apis/auth';
-import { ACCESS_TOKEN_KEY } from '@/constants';
+import { useCommentInput } from '@/hooks/useCommentInput';
 
 type Props = {
   postId: Post['id'];
@@ -17,32 +12,7 @@ type Props = {
 };
 
 const CommentInput = ({ postId, slug }: Props) => {
-  const [comment, setComment] = useState('');
-
-  const handleSubmit = async () => {
-    if (!comment.trim()) {
-      return;
-    }
-
-    const accessToken = getCookie(ACCESS_TOKEN_KEY);
-
-    if (!accessToken) {
-      const loginUrl = await githubLoginApi(window.location.href);
-
-      if (!loginUrl) {
-        return;
-      }
-
-      window.location.replace(loginUrl);
-
-      return;
-    }
-
-    const { userId } = jwt.decode(accessToken) as TokenData;
-
-    await createComment(postId, userId, comment, slug);
-    setComment('');
-  };
+  const { comment, handleChangeComment, submitComment } = useCommentInput(postId, slug);
 
   return (
     <Flex
@@ -57,7 +27,7 @@ const CommentInput = ({ postId, slug }: Props) => {
         <Textarea
           placeholder="댓글을 입력해주세요."
           value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          onChange={handleChangeComment}
           styles={{
             input: {
               height: '100px',
@@ -65,7 +35,7 @@ const CommentInput = ({ postId, slug }: Props) => {
           }}
         />
         <Flex ml="auto">
-          <Button onClick={handleSubmit} disabled={!comment}>
+          <Button onClick={submitComment} disabled={!comment}>
             등록
           </Button>
         </Flex>
