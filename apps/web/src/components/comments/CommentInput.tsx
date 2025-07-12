@@ -8,11 +8,16 @@ import { useCommentInput } from '@/hooks/useCommentInput';
 
 type Props = {
   postId: Post['id'];
-  slug: Post['slug'];
+  refetch: () => void;
 };
 
-const CommentInput = ({ postId, slug }: Props) => {
-  const { comment, handleChangeComment, submitComment } = useCommentInput(postId, slug);
+const CommentInput = ({ postId, refetch }: Props) => {
+  const { comment, handleChangeComment, submitComment } = useCommentInput(postId);
+
+  const handleSubmit = async () => {
+    await submitComment();
+    refetch();
+  };
 
   return (
     <Flex
@@ -35,7 +40,7 @@ const CommentInput = ({ postId, slug }: Props) => {
           }}
         />
         <Flex ml="auto">
-          <Button onClick={submitComment} disabled={!comment}>
+          <Button onClick={handleSubmit} disabled={!comment}>
             등록
           </Button>
         </Flex>

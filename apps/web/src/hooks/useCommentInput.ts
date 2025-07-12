@@ -5,7 +5,7 @@ import { createComment } from '@/actions/comment';
 import { useSignIn } from '@/hooks/useSignIn';
 import { decodeToken } from '@/utils/decodeToken';
 
-export const useCommentInput = (postId: Post['id'], slug: Post['slug']) => {
+export const useCommentInput = (postId: Post['id']) => {
   const [comment, setComment] = useState('');
 
   const { isSignedIn, accessToken, signIn } = useSignIn();
@@ -26,9 +26,9 @@ export const useCommentInput = (postId: Post['id'], slug: Post['slug']) => {
     }
 
     const { userId } = decodeToken(accessToken);
-    await createComment(postId, userId, comment, slug);
+    await createComment(postId, userId, comment);
     setComment('');
-  }, [accessToken, comment, isSignedIn, postId, signIn, slug]);
+  }, [accessToken, comment, isSignedIn, postId, signIn]);
 
   return {
     comment,

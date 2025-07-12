@@ -1,20 +1,24 @@
+'use client';
+
 import React from 'react';
 import { Flex } from '@mantine/core';
 import { Post } from '@highjoon-dev/prisma';
 
 import CommentInput from '@/components/comments/CommentInput';
 import Comments from '@/components/comments/Comments';
+import { useGetComments } from '@/hooks/api/useGetComments';
 
 type Props = {
   postId: Post['id'];
-  slug: Post['slug'];
 };
 
-const CommentSection = ({ postId, slug }: Props) => {
+const CommentSection = ({ postId }: Props) => {
+  const { comments, isLoading, refetch } = useGetComments(postId);
+
   return (
     <Flex w="100%" direction="column" gap="xl">
-      <CommentInput postId={postId} slug={slug} />
-      <Comments postId={postId} />
+      <CommentInput postId={postId} refetch={refetch} />
+      <Comments comments={comments} isLoading={isLoading} />
     </Flex>
   );
 };

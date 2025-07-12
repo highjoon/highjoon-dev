@@ -37,7 +37,7 @@ export default async function Page({ params }: Params) {
       />
       <Group justify="center" align="center" mt={20} mb={20}>
         <LikeButton postId={post.id} likeCount={post.likeCount} />
-        <CommentSection postId={post.id} slug={post.slug} />
+        <CommentSection postId={post.id} />
       </Group>
     </>
   );
