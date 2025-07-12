@@ -21,6 +21,20 @@ class UserService {
     }
   }
 
+  public async findUserById(userId: User['id']) {
+    try {
+      const user = await prisma.user.findUnique({ where: { id: userId } });
+
+      if (!user) {
+        return ServiceResponse.failure('사용자를 찾을 수 없습니다.', null);
+      }
+
+      return ServiceResponse.success<User>('사용자 조회에 성공했습니다.', user);
+    } catch (error) {
+      return handleInternalError(error, 'findUserById Error');
+    }
+  }
+
   public async findLikedPostsByUserId(userId: User['id']) {
     try {
       const likedPosts = await prisma.postLike.findMany({

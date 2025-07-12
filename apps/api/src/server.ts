@@ -6,6 +6,7 @@ import { pino } from 'pino';
 import errorHandler from '@/middlewares/errorHandler';
 import requestLogger from '@/middlewares/requestLogger';
 import { authRoutes } from '@/routes/auth.routes';
+import commentRoutes from '@/routes/comment.routes';
 import { postRoutes } from '@/routes/post.routes';
 import { userRoutes } from '@/routes/user.routes';
 import { corsOptions } from '@/utils/corsOptions';
@@ -28,6 +29,7 @@ app.use(requestLogger);
 app.use('/post', postRoutes);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
+app.use('/comment', commentRoutes);
 
 // Error handlers
 app.use(errorHandler());
