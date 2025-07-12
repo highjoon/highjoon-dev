@@ -4,7 +4,9 @@ import React from 'react';
 import { Button, Flex, Textarea } from '@mantine/core';
 import { Post } from '@highjoon-dev/prisma';
 
+import RequiredSignIn from '@/components/comments/RequiredSignIn';
 import { useCommentInput } from '@/hooks/useCommentInput';
+import { useSignIn } from '@/hooks/useSignIn';
 
 type Props = {
   postId: Post['id'];
@@ -12,12 +14,17 @@ type Props = {
 };
 
 const CommentInput = ({ postId, refetch }: Props) => {
+  const { isSignedIn } = useSignIn();
   const { comment, handleChangeComment, submitComment } = useCommentInput(postId);
 
   const handleSubmit = async () => {
     await submitComment();
     refetch();
   };
+
+  if (!isSignedIn) {
+    return <RequiredSignIn />;
+  }
 
   return (
     <Flex
@@ -38,9 +45,10 @@ const CommentInput = ({ postId, refetch }: Props) => {
               height: '100px',
             },
           }}
+          disabled={!isSignedIn}
         />
         <Flex ml="auto">
-          <Button onClick={handleSubmit} disabled={!comment}>
+          <Button onClick={handleSubmit} disabled={!comment || !isSignedIn}>
             등록
           </Button>
         </Flex>

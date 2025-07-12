@@ -7,6 +7,7 @@ import { BiLike } from 'react-icons/bi';
 
 import { useGetLikedPosts } from '@/hooks/api/useGetLikedPosts';
 import { useLikePost } from '@/hooks/useLikePost';
+import { useSignIn } from '@/hooks/useSignIn';
 
 type Props = {
   postId: Post['id'];
@@ -14,6 +15,7 @@ type Props = {
 };
 
 const LikeButton = ({ postId, likeCount }: Props) => {
+  const { isSignedIn } = useSignIn();
   const { likedPost, isLoading } = useGetLikedPosts();
   const { isLiked, likePost } = useLikePost({ likedPost, postId });
 
@@ -23,7 +25,7 @@ const LikeButton = ({ postId, likeCount }: Props) => {
         variant="default"
         size="sm"
         onClick={likePost}
-        disabled={isLiked}
+        disabled={isLiked || !isSignedIn}
         loading={isLoading}
         leftSection={<BiLike size={20} />}>
         <Text fw="bold">{likeCount}</Text>
