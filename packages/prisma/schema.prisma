@@ -25,6 +25,7 @@ model Post {
   PostLike       PostLike[]
   viewLogs       PostViewLog[]
   viewStats      PostViewStats[]
+  comments       Comment[]
 
   @@index([publishedAt])
 }
@@ -58,6 +59,7 @@ model User {
   homeUrl   String
   role      Role       @default(USER)
   PostLike  PostLike[]
+  comments  Comment[]
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -70,6 +72,20 @@ model PostLike {
   User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([postId, userId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  postId    String
+  userId    String
+  content   String
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
+  @@index([userId])
 }
 
 enum Role {
