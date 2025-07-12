@@ -3,7 +3,7 @@ name: Api - Production Deployment
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - "pnpm-lock.yaml"
       - "apps/api/**"
