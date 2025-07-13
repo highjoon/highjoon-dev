@@ -38,3 +38,32 @@ export const createCommentApi = async (postId: string, userId: string, content: 
     /* empty */
   }
 };
+
+export const updateCommentApi = async (commentId: string, content: string) => {
+  try {
+    const response = await fetchServer(`${process.env.NEXT_PUBLIC_API_URL}/comment/${commentId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ content }),
+    });
+
+    const data: ServiceResponseInterface<Comment> = await response.json();
+
+    return data;
+  } catch {
+    /* empty */
+  }
+};
+
+export const deleteCommentApi = async (commentId: string) => {
+  try {
+    const response = await fetchServer(`${process.env.NEXT_PUBLIC_API_URL}/comment/${commentId}`, {
+      method: 'DELETE',
+    });
+
+    const data: ServiceResponseInterface<null> = await response.json();
+
+    return data;
+  } catch {
+    /* empty */
+  }
+};

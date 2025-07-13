@@ -9,9 +9,10 @@ import Comment from '@/components/comments/Comment';
 type Props = {
   comments: CommentWithUser[];
   isLoading: boolean;
+  refetch: () => Promise<void>;
 };
 
-const Comments = ({ comments, isLoading }: Props) => {
+const Comments = ({ comments, isLoading, refetch }: Props) => {
   if (isLoading) {
     return (
       <Flex justify="center" align="center" style={{ height: '100px' }}>
@@ -27,7 +28,7 @@ const Comments = ({ comments, isLoading }: Props) => {
       </Text>
 
       <Flex direction="column" gap="lg">
-        {comments?.map((comment) => <Comment key={comment.id} comment={comment} />)}
+        {comments?.map((comment) => <Comment key={comment.id} comment={comment} refetch={refetch} />)}
       </Flex>
     </Flex>
   );

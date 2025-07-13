@@ -1,10 +1,8 @@
 import { type Metadata } from 'next';
-import { Group } from '@mantine/core';
 import { type Post } from '@highjoon-dev/prisma';
 
 import { getPost } from '@/apis/post';
-import CommentSection from '@/components/comments/CommentSection';
-import LikeButton from '@/components/pageContent/LikeButton';
+import LikeCommentsSection from '@/components/pageContent/LikeCommentsSection';
 import PageContent from '@/components/pageContent/PageContent';
 import getBlogPost from '@/utils/getBlogPost';
 
@@ -35,10 +33,8 @@ export default async function Page({ params }: Params) {
         viewCount={post.viewCount || 0}
         slug={post.slug}
       />
-      <Group justify="center" align="center" mt={20} mb={20}>
-        <LikeButton postId={post.id} likeCount={post.likeCount} />
-        <CommentSection postId={post.id} />
-      </Group>
+
+      <LikeCommentsSection post={post} />
     </>
   );
 }

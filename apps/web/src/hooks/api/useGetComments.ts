@@ -12,8 +12,8 @@ export const useGetComments = (postId: string) => {
     setComments(response || []);
   }, [postId]);
 
-  const refetchComments = useCallback(() => {
-    fetchComments();
+  const refetchComments = useCallback(async () => {
+    await fetchComments();
   }, [fetchComments]);
 
   useEffect(() => {

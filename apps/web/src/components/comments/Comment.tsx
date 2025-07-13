@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Avatar, Box, Group, Paper, Text } from '@mantine/core';
 import { CommentWithUser } from '@highjoon-dev/types';
 import dayjs from 'dayjs';
 
+import CommentEditArea from '@/components/comments/CommentEditArea';
+import CommentOptions from '@/components/comments/CommentOptions';
+
 import styles from './Comment.module.scss';
 
 type Props = {
   comment: CommentWithUser;
+  refetch: () => Promise<void>;
 };
 
-const Comment = ({ comment }: Props) => {
+const Comment = ({ comment, refetch }: Props) => {
+  const [isEditMode, setIsEditMode] = useState(false);
+
   return (
     <Paper withBorder radius="md" p="md">
       <Link href={comment.user.homeUrl!} target="_blank">
@@ -24,9 +30,26 @@ const Comment = ({ comment }: Props) => {
           </Box>
         </Group>
       </Link>
-      <Text className={styles.root} pl={54} pt="sm" size="sm">
-        {comment.content}
-      </Text>
+      {isEditMode ? (
+        <CommentEditArea
+          commentId={comment.id}
+          content={comment.content}
+          onUpdate={() => setIsEditMode(false)}
+          refetch={refetch}
+        />
+      ) : (
+        <Text className={styles.root} pl={54} pt="sm" size="sm">
+          {comment.content}
+        </Text>
+      )}
+
+      <CommentOptions
+        commentId={comment.id}
+        creatorId={comment.userId}
+        isEditMode={isEditMode}
+        refetch={refetch}
+        toggleEditMode={setIsEditMode}
+      />
     </Paper>
   );
 };
