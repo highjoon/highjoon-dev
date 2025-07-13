@@ -33,6 +33,29 @@ class CommentService {
       return handleInternalError(error, 'findCommentsByPost Error');
     }
   };
+
+  public updateComment = async (commentId: string, content: string): Promise<ServiceResponse<Nullable<Comment>>> => {
+    try {
+      const updatedComment = await prisma.comment.update({
+        where: { id: commentId },
+        data: { content },
+      });
+
+      return ServiceResponse.success<Comment>('댓글이 수정되었습니다.', updatedComment, StatusCodes.OK);
+    } catch (error) {
+      return handleInternalError(error, 'updateComment Error');
+    }
+  };
+
+  public deleteComment = async (commentId: string): Promise<ServiceResponse<null>> => {
+    try {
+      await prisma.comment.delete({ where: { id: commentId } });
+
+      return ServiceResponse.success<null>('댓글이 삭제되었습니다.', null, StatusCodes.NO_CONTENT);
+    } catch (error) {
+      return handleInternalError(error, 'deleteComment Error');
+    }
+  };
 }
 
 export const commentService = new CommentService();
