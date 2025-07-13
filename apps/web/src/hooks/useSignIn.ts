@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Nullable } from '@highjoon-dev/types';
 import { deleteCookie, getCookie } from 'cookies-next/client';
@@ -10,7 +11,7 @@ export const useSignIn = () => {
 
   const accessToken = getCookie(ACCESS_TOKEN_KEY) as Nullable<string>;
 
-  const isSignedIn = Boolean(accessToken);
+  const [isSignedIn, setIsSignedIn] = useState<boolean>();
 
   const signIn = async () => {
     if (isSignedIn) {
@@ -30,6 +31,10 @@ export const useSignIn = () => {
     deleteCookie(ACCESS_TOKEN_KEY);
     router.refresh();
   };
+
+  useEffect(() => {
+    setIsSignedIn(Boolean(accessToken));
+  }, [accessToken]);
 
   return { isSignedIn, accessToken, signIn, signOut };
 };
