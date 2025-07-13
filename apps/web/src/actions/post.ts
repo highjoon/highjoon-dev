@@ -10,7 +10,7 @@ import sortPostsByDate from '@/utils/sortPostsByDate';
 
 export const increaseViewCountAction = async (slug: Post['slug']) => {
   await increaseViewCount(slug);
-  revalidatePath(`/post/${slug}`);
+  revalidatePath(`/blogs/${slug}`);
 };
 
 export const getRecentPosts = async () => {
