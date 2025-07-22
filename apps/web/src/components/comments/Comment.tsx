@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
-import { Avatar, Box, Group, Paper, Text } from '@mantine/core';
+import { Anchor, Avatar, Box, Group, Paper, Text } from '@mantine/core';
 import { CommentWithUser } from '@highjoon-dev/types';
 import dayjs from 'dayjs';
 
@@ -19,7 +18,7 @@ const Comment = ({ comment, refetch }: Props) => {
 
   return (
     <Paper withBorder radius="md" p="md">
-      <Link href={comment.user.homeUrl!} target="_blank">
+      <Anchor href={comment.user.homeUrl!} target="_blank" display="flex" w="fit-content">
         <Group>
           <Avatar src={comment.user.avatarUrl} alt={comment.user.name} radius="xl" />
           <Box>
@@ -29,7 +28,7 @@ const Comment = ({ comment, refetch }: Props) => {
             </Text>
           </Box>
         </Group>
-      </Link>
+      </Anchor>
       {isEditMode ? (
         <CommentEditArea
           commentId={comment.id}
@@ -38,7 +37,7 @@ const Comment = ({ comment, refetch }: Props) => {
           refetch={refetch}
         />
       ) : (
-        <Text className={styles.root} pl={54} pt="sm" size="sm">
+        <Text className={styles.root} pl={54} py="sm" size="sm">
           {comment.content}
         </Text>
       )}

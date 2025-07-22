@@ -30,14 +30,14 @@ const CommentOptions = ({ commentId, isEditMode, creatorId, refetch, toggleEditM
 
   return (
     <Group justify="flex-end">
-      <Group gap="md">
+      <Group gap="xs">
         {isSameUser && (
           <>
-            <ActionIcon variant="subtle" color="gray" disabled={!isSignedIn}>
-              <CiEdit size={20} color="var(--mantine-color-blue-6)" onClick={() => toggleEditMode(!isEditMode)} />
+            <ActionIcon size="lg" variant="subtle" color="gray" disabled={!isSignedIn}>
+              <CiEdit size="100%" color="var(--mantine-color-blue-6)" onClick={() => toggleEditMode(!isEditMode)} />
             </ActionIcon>
-            <ActionIcon variant="subtle" color="gray" disabled={!isSignedIn}>
-              <CiTrash size={20} color="var(--mantine-color-gray-6)" onClick={handleDeleteComment} />
+            <ActionIcon size="lg" variant="subtle" color="gray" disabled={!isSignedIn}>
+              <CiTrash size="100%" color="var(--mantine-color-gray-6)" onClick={handleDeleteComment} />
             </ActionIcon>
           </>
         )}
