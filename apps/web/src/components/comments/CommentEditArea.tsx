@@ -40,7 +40,7 @@ const CommentEditArea = ({ commentId, content, onUpdate, refetch }: Props) => {
       value={editContent}
       onChange={(e) => setEditContent(e.currentTarget.value)}
       pl={54}
-      pt="sm"
+      py="sm"
       rightSection={
         <Button
           variant="default"

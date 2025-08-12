@@ -1,20 +1,40 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Anchor, Avatar, Box, Group, Paper, Text } from '@mantine/core';
 import { CommentWithUser } from '@highjoon-dev/types';
 import dayjs from 'dayjs';
 
+import { getRepliesApi } from '@/apis/comment';
 import CommentEditArea from '@/components/comments/CommentEditArea';
 import CommentOptions from '@/components/comments/CommentOptions';
+import Reply from '@/components/comments/Reply';
 
 import styles from './Comment.module.scss';
 
 type Props = {
   comment: CommentWithUser;
+  postId: string;
   refetch: () => Promise<void>;
 };
 
-const Comment = ({ comment, refetch }: Props) => {
+const Comment = ({ comment, postId, refetch }: Props) => {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [replies, setReplies] = useState<CommentWithUser[]>([]);
+
+  const loadReplies = useCallback(async () => {
+    try {
+      const repliesData = await getRepliesApi(comment.id);
+
+      if (repliesData) {
+        setReplies(repliesData);
+      }
+    } catch (error) {
+      console.error('대댓글을 불러오는 중 오류가 발생했습니다:', error);
+    }
+  }, [comment.id]);
+
+  useEffect(() => {
+    loadReplies();
+  }, [comment.id, loadReplies]);
 
   return (
     <Paper withBorder radius="md" p="md">
@@ -44,11 +64,28 @@ const Comment = ({ comment, refetch }: Props) => {
 
       <CommentOptions
         commentId={comment.id}
+        postId={postId}
         creatorId={comment.userId}
         isEditMode={isEditMode}
         refetch={refetch}
         toggleEditMode={setIsEditMode}
+        onReplyCreated={loadReplies}
       />
+
+      {replies.length > 0 && (
+        <Box mt="md">
+          {replies.map((reply) => (
+            <Reply
+              key={reply.id}
+              reply={reply}
+              postId={postId}
+              refetch={refetch}
+              onReplyUpdated={loadReplies}
+              parentCommentId={comment.id}
+            />
+          ))}
+        </Box>
+      )}
     </Paper>
   );
 };

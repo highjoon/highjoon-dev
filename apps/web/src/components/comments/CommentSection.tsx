@@ -18,7 +18,7 @@ const CommentSection = ({ postId }: Props) => {
   return (
     <Flex w="100%" direction="column" gap="xl">
       <CommentInput postId={postId} refetch={refetch} />
-      <Comments comments={comments} isLoading={isLoading} refetch={refetch} />
+      <Comments postId={postId} comments={comments} isLoading={isLoading} refetch={refetch} />
     </Flex>
   );
 };
