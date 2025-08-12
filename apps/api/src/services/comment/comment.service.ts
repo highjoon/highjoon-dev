@@ -72,7 +72,10 @@ class CommentService {
   public findCommentsByPost = async (postId: string): Promise<ServiceResponse<Nullable<CommentWithUser[]>>> => {
     try {
       const comments = await prisma.comment.findMany({
-        where: { postId },
+        where: {
+          postId,
+          parentId: null, // 대댓글은 제외하고 최상위 댓글만 가져오기
+        },
         orderBy: { createdAt: 'desc' },
         include: {
           user: {
