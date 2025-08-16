@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Button, Flex, Textarea } from '@mantine/core';
+import { Button, Flex, Loader, Textarea } from '@mantine/core';
 import { Post } from '@highjoon-dev/prisma';
 
 import RequiredSignIn from '@/components/comments/RequiredSignIn';
@@ -23,7 +23,39 @@ const CommentInput = ({ postId, refetch }: Props) => {
     refetch();
   };
 
-  if (!isSignedIn) {
+  // 로딩 상태 처리
+  if (isSignedIn === undefined) {
+    return (
+      <Flex
+        w="100%"
+        direction="column"
+        p="xs"
+        style={{
+          border: '1px solid #e0e0e0',
+          borderRadius: '4px',
+        }}>
+        <Flex direction="column" gap="sm">
+          <Flex
+            style={{
+              height: '100px',
+              border: '1px solid #e0e0e0',
+              borderRadius: '4px',
+              backgroundColor: '#f8f9fa',
+            }}
+            align="center"
+            justify="center">
+            <Loader size="sm" />
+          </Flex>
+          <Flex justify="space-between">
+            <div style={{ width: '80px' }} />
+            <Button disabled>등록</Button>
+          </Flex>
+        </Flex>
+      </Flex>
+    );
+  }
+
+  if (isSignedIn === false) {
     return <RequiredSignIn />;
   }
 
