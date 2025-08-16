@@ -33,7 +33,7 @@ class AuthService {
       const userData = await userService.findOrCreateUser({
         id: uuid(),
         githubId: githubUserData.id,
-        name: githubUserData.name,
+        name: githubUserData.name || githubUserData.login,
         homeUrl: githubUserData.html_url,
         avatarUrl: githubUserData.avatar_url,
         role: isAdmin ? 'ADMIN' : 'USER',
