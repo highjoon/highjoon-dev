@@ -1,6 +1,6 @@
 'use server';
 
-import { createCommentApi, deleteCommentApi, updateCommentApi } from '@/apis/comment';
+import { createCommentApi, deleteCommentApi, deleteReplyApi, updateCommentApi } from '@/apis/comment';
 
 export const createComment = async (postId: string, userId: string, content: string) => {
   const data = await createCommentApi(postId, userId, content);
@@ -16,6 +16,12 @@ export const updateCommentAction = async (commentId: string, content: string) =>
 
 export const deleteCommentAction = async (commentId: string) => {
   const data = await deleteCommentApi(commentId);
+
+  return data;
+};
+
+export const deleteReplyAction = async (replyId: string) => {
+  const data = await deleteReplyApi(replyId);
 
   return data;
 };

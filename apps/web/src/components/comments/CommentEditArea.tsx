@@ -30,6 +30,8 @@ const CommentEditArea = ({ commentId, content, onUpdate, refetch }: Props) => {
       await updateComment(commentId, trimmedContent);
       await refetch();
       onUpdate();
+    } catch {
+      /** empty */
     } finally {
       setIsLoading(false);
     }

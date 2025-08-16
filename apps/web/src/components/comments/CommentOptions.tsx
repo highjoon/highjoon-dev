@@ -5,6 +5,7 @@ import { ActionIcon, Button, Flex, Group } from '@mantine/core';
 import { Comment } from '@highjoon-dev/prisma';
 import { CiEdit, CiTrash } from 'react-icons/ci';
 
+import { deleteReplyAction } from '@/actions/comment';
 import { createReplyApi } from '@/apis/comment';
 import ReplyInput from '@/components/comments/ReplyInput';
 import { useDeleteComment } from '@/hooks/api/useDeleteComment';
@@ -19,8 +20,8 @@ type Props = {
   refetch: () => void;
   toggleEditMode: (isEditMode: boolean) => void;
   onReplyCreated?: () => Promise<void>;
-  isReply?: boolean;
-  parentCommentId?: string;
+  onReplyDeleted?: () => Promise<void>;
+  depth?: number;
 };
 
 const CommentOptions = ({
@@ -31,8 +32,8 @@ const CommentOptions = ({
   refetch,
   toggleEditMode,
   onReplyCreated,
-  isReply = false,
-  parentCommentId,
+  onReplyDeleted,
+  depth = 0,
 }: Props) => {
   const { isSignedIn, accessToken } = useSignIn();
   const { deleteComment } = useDeleteComment();
@@ -45,24 +46,36 @@ const CommentOptions = ({
 
     const userId = decodeToken(accessToken).userId;
 
-    // 대댓글에 답글을 다는 경우, 최상위 댓글의 ID를 parentId로 사용
-    const actualParentId = isReply && parentCommentId ? parentCommentId : commentId;
+    const actualParentId = commentId;
 
-    console.log(postId, userId, content, actualParentId);
     await createReplyApi(postId, userId, content, actualParentId);
 
     // 대댓글 생성 후 콜백 함수 호출
-    if (onReplyCreated) {
-      await onReplyCreated();
-    }
+    await onReplyCreated?.();
 
     refetch();
     setIsReplyMode(false);
   };
 
   const handleDeleteComment = async () => {
-    await deleteComment(commentId);
-    refetch();
+    try {
+      if (depth === 0) {
+        // 최상위 댓글인 경우
+
+        await deleteComment(commentId);
+        refetch();
+      } else {
+        // 대댓글인 경우
+
+        await deleteReplyAction(commentId);
+        // 대댓글 삭제 후 콜백 함수를 먼저 호출 (중첩 답글 목록 새로고침)
+        await onReplyDeleted?.();
+
+        refetch();
+      }
+    } catch (error) {
+      console.error('댓글 삭제 중 오류가 발생했습니다:', error);
+    }
   };
 
   if (!isSignedIn) {
@@ -72,16 +85,21 @@ const CommentOptions = ({
   return (
     <Group justify="flex-end">
       <Group w="100%" gap="xs" justify="space-between">
-        <Button size="xs" variant="default" onClick={() => setIsReplyMode((v) => !v)}>
-          답글달기
-        </Button>
+        {/* 3단계까지만 답글 달기 허용 */}
+        {depth < 3 ? (
+          <Button size="xs" variant="default" onClick={() => setIsReplyMode((v) => !v)}>
+            답글달기
+          </Button>
+        ) : (
+          <div />
+        )}
         {isSameUser && (
           <Flex gap="xs">
             <ActionIcon size="md" variant="subtle" color="gray" disabled={!isSignedIn}>
               <CiEdit size="100%" color="var(--mantine-color-blue-6)" onClick={() => toggleEditMode(!isEditMode)} />
             </ActionIcon>
             <ActionIcon size="md" variant="subtle" color="gray" disabled={!isSignedIn}>
-              <CiTrash size="100%" color="var(--mantine-color-gray-6)" onClick={handleDeleteComment} />
+              <CiTrash size="100%" color="var(--mantine-color-gray-6)" onClick={() => handleDeleteComment()} />
             </ActionIcon>
           </Flex>
         )}

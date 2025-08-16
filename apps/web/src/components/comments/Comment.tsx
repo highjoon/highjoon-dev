@@ -32,6 +32,11 @@ const Comment = ({ comment, postId, refetch }: Props) => {
     }
   }, [comment.id]);
 
+  // 대댓글 삭제/업데이트 후 상태를 즉시 업데이트하는 함수
+  const handleReplyUpdated = useCallback(async () => {
+    await loadReplies();
+  }, [loadReplies]);
+
   useEffect(() => {
     loadReplies();
   }, [comment.id, loadReplies]);
@@ -54,7 +59,10 @@ const Comment = ({ comment, postId, refetch }: Props) => {
           commentId={comment.id}
           content={comment.content}
           onUpdate={() => setIsEditMode(false)}
-          refetch={refetch}
+          refetch={async () => {
+            await refetch();
+            await loadReplies();
+          }}
         />
       ) : (
         <Text className={styles.root} pl={54} py="sm" size="sm">
@@ -70,6 +78,7 @@ const Comment = ({ comment, postId, refetch }: Props) => {
         refetch={refetch}
         toggleEditMode={setIsEditMode}
         onReplyCreated={loadReplies}
+        onReplyDeleted={loadReplies}
       />
 
       {replies.length > 0 && (
@@ -79,9 +88,10 @@ const Comment = ({ comment, postId, refetch }: Props) => {
               key={reply.id}
               reply={reply}
               postId={postId}
-              refetch={refetch}
-              onReplyUpdated={loadReplies}
+              depth={reply.depth || 1}
               parentCommentId={comment.id}
+              refetch={refetch}
+              onReplyUpdated={handleReplyUpdated}
             />
           ))}
         </Box>
