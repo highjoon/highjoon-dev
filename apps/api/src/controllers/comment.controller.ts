@@ -172,10 +172,10 @@ class CommentController {
   };
 
   public updateReply = async (req: Request, res: Response) => {
-    const { replyId } = req.params;
+    const { commentId } = req.params;
     const { content } = req.body;
 
-    if (!replyId) {
+    if (!commentId) {
       handleServiceResponse(
         ServiceResponse.failure('replyId가 존재하지 않습니다.', null, StatusCodes.BAD_REQUEST),
         res,
@@ -193,24 +193,24 @@ class CommentController {
       return;
     }
 
-    const result = await commentService.updateReply(replyId, content);
+    const result = await commentService.updateReply(commentId, content);
 
     handleServiceResponse(result, res);
   };
 
   public deleteReply = async (req: Request, res: Response) => {
-    const { replyId } = req.params;
+    const { commentId } = req.params;
 
-    if (!replyId) {
+    if (!commentId) {
       handleServiceResponse(
-        ServiceResponse.failure('replyId가 존재하지 않습니다.', null, StatusCodes.BAD_REQUEST),
+        ServiceResponse.failure('commentId가 존재하지 않습니다.', null, StatusCodes.BAD_REQUEST),
         res,
       );
 
       return;
     }
 
-    const result = await commentService.deleteReply(replyId);
+    const result = await commentService.deleteReply(commentId);
 
     handleServiceResponse(result, res);
   };
