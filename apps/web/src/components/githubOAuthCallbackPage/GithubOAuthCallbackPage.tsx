@@ -1,20 +1,23 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { setCookie } from 'cookies-next/client';
+import { getCookie, setCookie } from 'cookies-next/client';
 
 import { githubLoginCallbackApi } from '@/apis/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants';
+import { ROUTES } from '@/constants/routes';
 
 const GithubOAuthCallbackPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const handleGithubCallback = useCallback(async () => {
-    const code = searchParams.get('code');
-    const state = searchParams.get('state');
+  const isInitialized = useRef(false);
 
+  const code = searchParams.get('code');
+  const state = searchParams.get('state');
+
+  const handleGithubCallback = useCallback(async () => {
     if (!code || !state) {
       return;
     }
@@ -22,11 +25,23 @@ const GithubOAuthCallbackPage = () => {
     const accessToken = await githubLoginCallbackApi(code);
     setCookie(ACCESS_TOKEN_KEY, accessToken);
     router.replace(state);
-  }, [router, searchParams]);
+  }, [code, router, state]);
 
   useEffect(() => {
-    handleGithubCallback();
-  }, [handleGithubCallback]);
+    if (!isInitialized.current) {
+      isInitialized.current = true;
+
+      return;
+    }
+
+    const accessToken = getCookie(ACCESS_TOKEN_KEY);
+
+    if (accessToken) {
+      router.replace(state || ROUTES.HOME);
+    } else {
+      handleGithubCallback();
+    }
+  }, [handleGithubCallback, router, searchParams, state]);
 
   return null;
 };
