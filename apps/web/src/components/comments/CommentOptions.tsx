@@ -4,7 +4,7 @@ import React from 'react';
 import { ActionIcon, Button, Flex, Group } from '@mantine/core';
 import { Comment } from '@highjoon-dev/prisma';
 import { overlay } from 'overlay-kit';
-import { CiEdit, CiTrash } from 'react-icons/ci';
+import { CiEdit, CiTrash, CiWarning } from 'react-icons/ci';
 
 import { deleteReplyAction } from '@/actions/comment';
 import { createReplyApi } from '@/apis/comment';
@@ -62,6 +62,7 @@ const CommentOptions = ({
   const handleDeleteComment = async () => {
     const result = await overlay.openAsync<boolean>(({ isOpen, close }) => (
       <ConfirmModal
+        icon={<CiWarning size={20} color="var(--mantine-color-red-6)" />}
         opened={isOpen}
         onClose={() => close(false)}
         onConfirm={() => close(true)}

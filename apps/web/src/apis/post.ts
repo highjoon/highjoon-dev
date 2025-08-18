@@ -50,3 +50,20 @@ export const likePostApi = async (postId: Post['id'], userId: UserData['id'], to
     /* empty */
   }
 };
+
+export const unlikePostApi = async (postId: Post['id'], userId: UserData['id'], token?: string) => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${postId}/unlike`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId }),
+    });
+
+    return response.json();
+  } catch {
+    /* empty */
+  }
+};

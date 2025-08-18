@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
+import { Post } from '@highjoon-dev/prisma';
 import { type LikedPost, type TokenData } from '@highjoon-dev/types';
 import { getCookie } from 'cookies-next/client';
 import jwt from 'jsonwebtoken';
 
-import { likePost } from '@/actions/post';
+import { likePostAction, unlikePostAction } from '@/actions/post';
 import { githubLoginApi } from '@/apis/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants';
 
 type Args = {
   likedPost: LikedPost[];
-  postId: string;
+  postId: Post['id'];
+  slug: Post['slug'];
 };
 
-export const useLikePost = ({ likedPost, postId }: Args) => {
+export const useLikePost = ({ likedPost, postId, slug }: Args) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLikePost = async () => {
@@ -32,8 +34,21 @@ export const useLikePost = ({ likedPost, postId }: Args) => {
 
     const { userId } = jwt.decode(accessToken) as TokenData;
 
-    await likePost(postId, userId);
+    await likePostAction(postId, userId, slug);
     setIsLiked(true);
+  };
+
+  const handleUnlikePost = async () => {
+    const accessToken = getCookie(ACCESS_TOKEN_KEY);
+
+    if (!accessToken) {
+      return;
+    }
+
+    const { userId } = jwt.decode(accessToken) as TokenData;
+
+    await unlikePostAction(postId, userId, slug);
+    setIsLiked(false);
   };
 
   useEffect(() => {
@@ -44,5 +59,6 @@ export const useLikePost = ({ likedPost, postId }: Args) => {
   return {
     isLiked,
     likePost: handleLikePost,
+    unlikePost: handleUnlikePost,
   };
 };

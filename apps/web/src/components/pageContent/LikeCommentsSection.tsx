@@ -12,7 +12,7 @@ type Props = {
 const LikeCommentsSection = ({ post }: Props) => {
   return (
     <Group justify="center" align="center" mt={20} mb={20}>
-      <LikeButton postId={post.id} likeCount={post.likeCount} />
+      <LikeButton postId={post.id} likeCount={post.likeCount} slug={post.slug} />
       <CommentSection postId={post.id} />
     </Group>
   );

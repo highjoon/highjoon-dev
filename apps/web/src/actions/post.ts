@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { type Post } from '@highjoon-dev/prisma';
 
-import { getFeaturedPostApi, getPostList, increaseViewCount, likePostApi } from '@/apis/post';
+import { getFeaturedPostApi, getPostList, increaseViewCount, likePostApi, unlikePostApi } from '@/apis/post';
 import { ACCESS_TOKEN_KEY } from '@/constants';
 import sortPostsByDate from '@/utils/sortPostsByDate';
 
@@ -39,8 +39,14 @@ export const getFeaturedPost = async () => {
   return featuredPost?.responseObject;
 };
 
-export const likePost = async (postId: Post['id'], userId: string) => {
+export const likePostAction = async (postId: Post['id'], userId: string, slug: Post['slug']) => {
   const accessToken = cookies().get(ACCESS_TOKEN_KEY)?.value;
   await likePostApi(postId, userId, accessToken);
-  revalidatePath(`/post/${postId}`);
+  revalidatePath(`/blogs/${slug}`);
+};
+
+export const unlikePostAction = async (postId: Post['id'], userId: string, slug: Post['slug']) => {
+  const accessToken = cookies().get(ACCESS_TOKEN_KEY)?.value;
+  await unlikePostApi(postId, userId, accessToken);
+  revalidatePath(`/blogs/${slug}`);
 };

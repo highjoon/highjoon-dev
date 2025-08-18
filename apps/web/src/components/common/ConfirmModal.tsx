@@ -16,6 +16,8 @@ type Props = {
   cancelText?: string;
   confirmColor?: string;
   isLoading?: boolean;
+  icon?: React.ReactNode;
+  iconColor?: string;
 };
 
 export default function ConfirmModal({
@@ -28,6 +30,7 @@ export default function ConfirmModal({
   cancelText = '취소',
   confirmColor,
   isLoading = false,
+  icon = <CiWarning size={20} color="var(--mantine-color-orange-6)" />,
 }: Props) {
   const handleConfirm = () => {
     onConfirm();
@@ -40,7 +43,7 @@ export default function ConfirmModal({
       onClose={onClose}
       title={
         <Group gap="xs">
-          <CiWarning size={20} color="var(--mantine-color-orange-6)" />
+          <div>{icon}</div>
           <Title order={4}>{title}</Title>
         </Group>
       }
