@@ -9,6 +9,7 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
     mdxRs: true,
+    optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
   },
   sassOptions: {
     prependData: `@import "./src/styles/_mantine.scss";`,

@@ -8,6 +8,7 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import plaintext from 'highlight.js/lib/languages/plaintext';
 import typescript from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/vbscript-html';
+import { OverlayProvider } from 'overlay-kit';
 
 import '@mantine/core/styles.css';
 import '@/styles/_components.scss';
@@ -29,7 +30,7 @@ const Provider = ({ children }: PropsWithChildren) => {
 
   return (
     <MantineProvider theme={theme} defaultColorScheme="auto">
-      {children}
+      <OverlayProvider>{children}</OverlayProvider>
     </MantineProvider>
   );
 };

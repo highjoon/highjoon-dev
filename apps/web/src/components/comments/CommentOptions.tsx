@@ -3,11 +3,13 @@
 import React from 'react';
 import { ActionIcon, Button, Flex, Group } from '@mantine/core';
 import { Comment } from '@highjoon-dev/prisma';
+import { overlay } from 'overlay-kit';
 import { CiEdit, CiTrash } from 'react-icons/ci';
 
 import { deleteReplyAction } from '@/actions/comment';
 import { createReplyApi } from '@/apis/comment';
 import ReplyInput from '@/components/comments/ReplyInput';
+import ConfirmModal from '@/components/common/ConfirmModal';
 import { useDeleteComment } from '@/hooks/api/useDeleteComment';
 import { useSignIn } from '@/hooks/useSignIn';
 import { decodeToken } from '@/utils/decodeToken';
@@ -58,19 +60,33 @@ const CommentOptions = ({
   };
 
   const handleDeleteComment = async () => {
+    const result = await overlay.openAsync<boolean>(({ isOpen, close }) => (
+      <ConfirmModal
+        opened={isOpen}
+        onClose={() => close(false)}
+        onConfirm={() => close(true)}
+        title="댓글 삭제"
+        message="정말로 이 댓글을 삭제하시겠습니까? 삭제된 댓글은 복구할 수 없습니다."
+        confirmText="삭제"
+        cancelText="취소"
+        confirmColor="red"
+      />
+    ));
+
+    if (!result) {
+      return;
+    }
+
     try {
       if (depth === 0) {
         // 최상위 댓글인 경우
-
         await deleteComment(commentId);
         refetch();
       } else {
         // 대댓글인 경우
-
         await deleteReplyAction(commentId);
         // 대댓글 삭제 후 콜백 함수를 먼저 호출 (중첩 답글 목록 새로고침)
         await onReplyDeleted?.();
-
         refetch();
       }
     } catch (error) {
