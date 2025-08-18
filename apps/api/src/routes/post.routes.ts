@@ -18,5 +18,5 @@ postRoutes.post(
   postController.createManyPosts,
 );
 postRoutes.put('/:slug/view', postController.increaseViewCount);
-postRoutes.put('/:id', validateRequest({ body: updatePostSchema }), postController.updatePost);
+postRoutes.put('/:id', authenticate, validateRequest({ body: updatePostSchema }), postController.updatePost);
 postRoutes.post('/:postId/like', authenticate, postController.likePost);

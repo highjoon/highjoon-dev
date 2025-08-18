@@ -6,8 +6,9 @@ import { commentService } from '@/services/comment/comment.service';
 import { handleServiceResponse } from '@/utils/httpHandlers';
 
 class CommentController {
-  public createComment = async (req: Request, res: Response) => {
-    const result = await commentService.createComment(req.body);
+  public createComment = async (req: Request & { userId?: string }, res: Response) => {
+    const data = { ...req.body, userId: req.userId };
+    const result = await commentService.createComment(data);
 
     handleServiceResponse(result, res);
   };
