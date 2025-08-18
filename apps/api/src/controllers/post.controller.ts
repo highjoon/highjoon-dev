@@ -105,6 +105,27 @@ class PostController {
 
     handleServiceResponse(response, res);
   }
+
+  public async unlikePost(req: Request, res: Response) {
+    const { postId } = req.params;
+    const { userId } = req.body;
+
+    if (!postId) {
+      handleServiceResponse(ServiceResponse.failure('유효하지 않은 게시물입니다.', null, StatusCodes.BAD_REQUEST), res);
+
+      return;
+    }
+
+    if (!userId) {
+      handleServiceResponse(ServiceResponse.failure('유효하지 않은 사용자입니다.', null, StatusCodes.BAD_REQUEST), res);
+
+      return;
+    }
+
+    const response = await postLikeService.unlikePost(userId, postId);
+
+    handleServiceResponse(response, res);
+  }
 }
 
 export const postController = new PostController();

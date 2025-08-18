@@ -31,6 +31,31 @@ class PostLikeService {
       return handleInternalError(error, 'likePost Error');
     }
   }
+
+  async unlikePost(userId: UserData['id'], postId: Post['id']) {
+    try {
+      const postLikeCount = await prisma.postLike.count({ where: { userId, postId } });
+
+      if (postLikeCount === 0) {
+        return ServiceResponse.failure('좋아요를 누르지 않았습니다.', null, StatusCodes.BAD_REQUEST);
+      }
+
+      await prisma.$transaction([
+        prisma.postLike.delete({ where: { postId_userId: { postId, userId } } }),
+        prisma.post.update({ where: { id: postId }, data: { likeCount: { decrement: 1 } } }),
+      ]);
+
+      return ServiceResponse.success('게시물의 좋아요가 취소되었습니다.', null);
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+          return ServiceResponse.failure('좋아요를 누르지 않았습니다.', null, StatusCodes.BAD_REQUEST);
+        }
+      }
+
+      return handleInternalError(error, 'unlikePost Error');
+    }
+  }
 }
 
 export const postLikeService = new PostLikeService();
