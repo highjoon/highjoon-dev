@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 블로그 포스트 URL들
     const blogPostUrls = posts.map((post) => ({
       url: `${baseUrl}${ROUTES.BLOGS}/${post.slug}`,
-      lastModified: new Date(post.publishedAt || post.updatedAt || currentDate),
+      lastModified: new Date(post.updatedAt || post.publishedAt || currentDate),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));
@@ -50,7 +50,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     }));
 
-    return [...staticPages, ...blogPostUrls, ...paginationUrls];
+    // 모든 URL을 우선순위별로 정렬
+    const allUrls = [...staticPages, ...blogPostUrls, ...paginationUrls];
+
+    // 우선순위가 높은 순서대로 정렬 (1.0 -> 0.8 -> 0.7 -> 0.6)
+    return allUrls.sort((a, b) => (b.priority || 0) - (a.priority || 0));
   } catch (error) {
     console.error('Sitemap 생성 중 오류 발생:', error);
     // 오류 발생 시 기본 페이지만 반환
