@@ -19,6 +19,25 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return {
     title: `${post.responseObject.title} | highjoon-dev`,
     description: post.responseObject.description,
+    openGraph: {
+      title: `${post.responseObject.title} | highjoon-dev`,
+      description: post.responseObject.description,
+      type: 'article',
+      url: `https://highjoon-dev.com/blogs/${params.slug}`,
+      images: [post.responseObject.bannerImageUrl],
+      publishedTime: post.responseObject.publishedAt.toISOString(),
+      modifiedTime: (post.responseObject.updatedAt || post.responseObject.publishedAt).toISOString(),
+      authors: ['highjoon'],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${post.responseObject.title} | highjoon-dev`,
+      description: post.responseObject.description,
+      images: [post.responseObject.bannerImageUrl],
+    },
+    alternates: {
+      canonical: `https://highjoon-dev.com/blogs/${params.slug}`,
+    },
   };
 }
 

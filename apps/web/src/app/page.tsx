@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { type Metadata } from 'next';
 import Link from 'next/link';
 import { Button, Flex } from '@mantine/core';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -11,6 +12,22 @@ import LatestPostsErrorFallback from '@/components/latestPosts/LatestPostsErrorF
 import LatestPostsSkeleton from '@/components/latestPosts/LatestPostsSkeleton';
 import HomePageSchema from '@/components/structuredData/HomePageSchema';
 import { ROUTES } from '@/constants/routes';
+
+export const metadata: Metadata = {
+  title: 'highjoon-dev',
+  description: "highjoon's dev-log",
+  keywords: ['highjoon', 'highjoon-dev', 'React', 'Next.js', 'TypeScript'],
+  openGraph: {
+    title: 'highjoon-dev',
+    description: "highjoon's dev-log",
+    type: 'website',
+    url: 'https://highjoon-dev.com',
+    images: ['https://highjoon-dev.com/images/img-profile.png'],
+  },
+  alternates: {
+    canonical: 'https://highjoon-dev.com',
+  },
+};
 
 export default function HomePage() {
   return (

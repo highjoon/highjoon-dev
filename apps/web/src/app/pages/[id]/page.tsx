@@ -16,6 +16,16 @@ interface Params {
 export async function generateMetadata({ params: { id } }: Params) {
   return {
     title: `Posts ${id} | highjoon-dev`,
+    description: `highjoon's dev-log ${id} 페이지`,
+    openGraph: {
+      title: `Posts ${id} | highjoon-dev`,
+      description: `highjoon's dev-log ${id} 페이지`,
+      type: 'website',
+      url: `https://highjoon-dev.com/pages/${id}`,
+    },
+    alternates: {
+      canonical: `https://highjoon-dev.com/pages/${id}`,
+    },
   };
 }
 
