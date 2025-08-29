@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getCookie, setCookie } from 'cookies-next/client';
 
@@ -12,13 +12,13 @@ const GithubOAuthCallbackPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const isInitialized = useRef(false);
-
   const code = searchParams.get('code');
   const state = searchParams.get('state');
 
   const handleGithubCallback = useCallback(async () => {
     if (!code || !state) {
+      router.replace(ROUTES.HOME);
+
       return;
     }
 
@@ -28,12 +28,6 @@ const GithubOAuthCallbackPage = () => {
   }, [code, router, state]);
 
   useEffect(() => {
-    if (!isInitialized.current) {
-      isInitialized.current = true;
-
-      return;
-    }
-
     const accessToken = getCookie(ACCESS_TOKEN_KEY);
 
     if (accessToken) {
