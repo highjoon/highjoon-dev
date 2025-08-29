@@ -4,6 +4,7 @@ import { type Post } from '@highjoon-dev/prisma';
 import { getPost } from '@/apis/post';
 import LikeCommentsSection from '@/components/pageContent/LikeCommentsSection';
 import PageContent from '@/components/pageContent/PageContent';
+import BlogPostSchema from '@/components/structuredData/BlogPostSchema';
 import getBlogPost from '@/utils/getBlogPost';
 
 export const dynamic = 'force-dynamic';
@@ -26,6 +27,7 @@ export default async function Page({ params }: Params) {
 
   return (
     <>
+      <BlogPostSchema post={post} />
       <PageContent
         title={post.title}
         bannerImageUrl={post.bannerImageUrl}

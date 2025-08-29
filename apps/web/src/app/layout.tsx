@@ -11,6 +11,7 @@ import Footer from '@/components/footer/Footer';
 import GoogleAdsense from '@/components/googleAdsense/GoogleAdsense';
 import Header from '@/components/header/Header';
 import Provider from '@/components/provider/Provider';
+import WebsiteSchema from '@/components/structuredData/WebsiteSchema';
 
 import styles from './layout.module.scss';
 
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
             </main>
           </div>
         </Provider>
+        <WebsiteSchema />
         <Script src={`https://www.googletagmanager.com/gtag/js?id=G-XW8LXFXK6N`} strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`

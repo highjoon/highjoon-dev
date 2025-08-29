@@ -3,6 +3,7 @@ import { Flex } from '@mantine/core';
 import { getPostList } from '@/apis/post';
 import BlogPosts from '@/components/blogPosts/BlogPosts';
 import Pagination from '@/components/pagination/Pagination';
+import BlogListSchema from '@/components/structuredData/BlogListSchema';
 import { POSTS_PER_PAGE } from '@/constants/post';
 import { ROUTES } from '@/constants/routes';
 
@@ -25,9 +26,12 @@ export default async function Page({ params }: Params) {
   const blogPosts = postList.responseObject.slice((currentPage - 1) * 9, 9 * currentPage);
 
   return (
-    <Flex direction="column" gap={100}>
-      <BlogPosts posts={blogPosts} />
-      <Pagination currentPage={currentPage} totalPage={totalPage} routerPath={`${ROUTES.PAGES}`} />
-    </Flex>
+    <>
+      <BlogListSchema posts={blogPosts} pageNumber={currentPage} />
+      <Flex direction="column" gap={100}>
+        <BlogPosts posts={blogPosts} />
+        <Pagination currentPage={currentPage} totalPage={totalPage} routerPath={`${ROUTES.PAGES}`} />
+      </Flex>
+    </>
   );
 }

@@ -9,26 +9,30 @@ import FeaturedPostSkeleton from '@/components/featuredPost/FeaturedPostSkeleton
 import LatestPosts from '@/components/latestPosts/LatestPosts';
 import LatestPostsErrorFallback from '@/components/latestPosts/LatestPostsErrorFallback';
 import LatestPostsSkeleton from '@/components/latestPosts/LatestPostsSkeleton';
+import HomePageSchema from '@/components/structuredData/HomePageSchema';
 import { ROUTES } from '@/constants/routes';
 
 export default function HomePage() {
   return (
-    <Flex direction="column" gap={100}>
-      <Flex direction="column" gap={30}>
-        <ErrorBoundary fallback={<FeaturedPostErrorFallback />}>
-          <Suspense fallback={<FeaturedPostSkeleton />}>
-            <FeaturedPost />
-          </Suspense>
-        </ErrorBoundary>
-        <ErrorBoundary fallback={<LatestPostsErrorFallback />}>
-          <Suspense fallback={<LatestPostsSkeleton />}>
-            <LatestPosts />
-          </Suspense>
-        </ErrorBoundary>
+    <>
+      <HomePageSchema />
+      <Flex direction="column" gap={100}>
+        <Flex direction="column" gap={30}>
+          <ErrorBoundary fallback={<FeaturedPostErrorFallback />}>
+            <Suspense fallback={<FeaturedPostSkeleton />}>
+              <FeaturedPost />
+            </Suspense>
+          </ErrorBoundary>
+          <ErrorBoundary fallback={<LatestPostsErrorFallback />}>
+            <Suspense fallback={<LatestPostsSkeleton />}>
+              <LatestPosts />
+            </Suspense>
+          </ErrorBoundary>
+        </Flex>
+        <Link href={`${ROUTES.PAGES}/1`} style={{ margin: '0 auto' }}>
+          <Button variant="default">게시물 전체 보기</Button>
+        </Link>
       </Flex>
-      <Link href={`${ROUTES.PAGES}/1`} style={{ margin: '0 auto' }}>
-        <Button variant="default">게시물 전체 보기</Button>
-      </Link>
-    </Flex>
+    </>
   );
 }
