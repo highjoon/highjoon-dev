@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       type: 'article',
       url: `https://highjoon-dev.com/blogs/${params.slug}`,
       images: [post.responseObject.bannerImageUrl],
-      publishedTime: post.responseObject.publishedAt.toISOString(),
-      modifiedTime: (post.responseObject.updatedAt || post.responseObject.publishedAt).toISOString(),
+      publishedTime: post.responseObject.publishedAt.toString(),
+      modifiedTime: post.responseObject.updatedAt?.toString() || post.responseObject.publishedAt.toString(),
       authors: ['highjoon'],
     },
     twitter: {
