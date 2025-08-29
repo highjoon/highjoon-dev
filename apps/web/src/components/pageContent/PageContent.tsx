@@ -29,7 +29,13 @@ const PageContent = ({ title, bannerImageUrl, content, viewCount, slug }: Props)
       </Group>
 
       <Box className={styles.banner} pos="relative" w="100%">
-        <Image src={bannerImageUrl} fill alt="content-logo" priority />
+        <Image
+          src={bannerImageUrl}
+          fill
+          alt={`${title} 배너 이미지`}
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+        />
       </Box>
 
       <Flex id="page-content" direction="column">

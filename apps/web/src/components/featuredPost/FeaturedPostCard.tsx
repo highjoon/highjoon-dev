@@ -16,7 +16,13 @@ const FeaturedPostCard = ({ post }: Props) => {
   return (
     <>
       <Card.Section>
-        <Image src={post.bannerImageUrl} fill alt={post.title} priority />
+        <Image
+          src={post.bannerImageUrl}
+          fill
+          alt={`${post.title} 피처드 포스트 이미지`}
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+        />
       </Card.Section>
       <Card className={styles.info} shadow="md" radius="md" withBorder pos="absolute" bottom={-90}>
         <Text fw={500}>{post.title}</Text>

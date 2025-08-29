@@ -21,7 +21,12 @@ const PostCard = ({ post }: Props) => {
         <Link href={createPostPath(post.slug)}>
           <Group>
             <Card.Section className={styles.content}>
-              <Image src={post.bannerImageUrl} alt={post.title} className={styles.image} />
+              <Image
+                src={post.bannerImageUrl}
+                alt={`${post.title} 썸네일 이미지`}
+                className={styles.image}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
             </Card.Section>
             <Group gap={10}>
               <Flex className={styles.title} w="100%" h={50} align="center">
@@ -40,13 +45,6 @@ const PostCard = ({ post }: Props) => {
             </Group>
           </Group>
         </Link>
-        {/* <Flex className={styles['hashtag-list']} gap={5}>
-          {post.tags.map((tag) => (
-            <Link key={tag} href={`${ROUTES.TAGS}/${tag}/1`}>
-              <Badge className={styles.hashtag}>#{tag}</Badge>
-            </Link>
-          ))}
-        </Flex> */}
       </Card>
     </li>
   );
