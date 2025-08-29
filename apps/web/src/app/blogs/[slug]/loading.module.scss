@@ -1,0 +1,35 @@
+.banner {
+  height: rem(500px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    height: rem(300px);
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    height: rem(200px);
+  }
+}
+
+.title {
+  margin-bottom: rem(40px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    margin-bottom: rem(30px);
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    margin-bottom: rem(20px);
+  }
+}
+
+.view-count {
+  margin-bottom: rem(20px);
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    margin-bottom: rem(10px);
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    margin-bottom: rem(5px);
+  }
+}
