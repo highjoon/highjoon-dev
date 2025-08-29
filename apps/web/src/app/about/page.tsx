@@ -3,22 +3,20 @@ import { Flex, Title } from '@mantine/core';
 
 import AboutMe from '@/components/aboutMe/AboutMe';
 
-export async function generateMetadata(): Promise<Metadata> {
-  return {
+export const metadata: Metadata = {
+  title: 'About | highjoon-dev',
+  description: 'About highjoon',
+  keywords: ['프론트엔드', 'React', 'Next.js', 'TypeScript', 'highjoon'],
+  openGraph: {
     title: 'About | highjoon-dev',
     description: 'About highjoon',
-    keywords: ['프론트엔드', 'React', 'Next.js', 'TypeScript', 'highjoon'],
-    openGraph: {
-      title: 'About | highjoon-dev',
-      description: 'About highjoon',
-      type: 'website',
-      url: 'https://highjoon-dev.com/about',
-    },
-    alternates: {
-      canonical: 'https://highjoon-dev.com/about',
-    },
-  };
-}
+    type: 'website',
+    url: 'https://highjoon-dev.com/about',
+  },
+  alternates: {
+    canonical: 'https://highjoon-dev.com/about',
+  },
+};
 
 export default function Page() {
   return (

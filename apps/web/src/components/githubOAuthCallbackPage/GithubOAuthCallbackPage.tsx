@@ -1,43 +1,33 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { getCookie, setCookie } from 'cookies-next/client';
+import { Container, Group, Loader, Paper, Stack, Text } from '@mantine/core';
 
-import { githubLoginCallbackApi } from '@/apis/auth';
-import { ACCESS_TOKEN_KEY } from '@/constants';
-import { ROUTES } from '@/constants/routes';
+import { useGithubOAuthCallback } from '@/hooks/useGithubOAuthCallback';
 
 const GithubOAuthCallbackPage = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  useGithubOAuthCallback();
 
-  const code = searchParams.get('code');
-  const state = searchParams.get('state');
+  return (
+    <Container size="xs" py="xl">
+      <Paper shadow="sm" p="xl" radius="md" withBorder>
+        <Stack align="center" gap="lg">
+          <Group>
+            <Text size="xl" fw={600}>
+              GitHub 로그인
+            </Text>
+          </Group>
 
-  const handleGithubCallback = useCallback(async () => {
-    if (!code || !state) {
-      router.replace(ROUTES.HOME);
+          <Loader size="lg" variant="dots" />
 
-      return;
-    }
-
-    const accessToken = await githubLoginCallbackApi(code);
-    setCookie(ACCESS_TOKEN_KEY, accessToken);
-    router.replace(state);
-  }, [code, router, state]);
-
-  useEffect(() => {
-    const accessToken = getCookie(ACCESS_TOKEN_KEY);
-
-    if (accessToken) {
-      router.replace(state || ROUTES.HOME);
-    } else {
-      handleGithubCallback();
-    }
-  }, [handleGithubCallback, router, searchParams, state]);
-
-  return null;
+          <Text size="sm" c="dimmed" ta="center">
+            GitHub 계정으로 로그인 중입니다...
+            <br />
+            잠시만 기다려주세요.
+          </Text>
+        </Stack>
+      </Paper>
+    </Container>
+  );
 };
 
 export default GithubOAuthCallbackPage;

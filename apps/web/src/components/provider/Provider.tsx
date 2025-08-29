@@ -2,6 +2,7 @@
 
 import { type PropsWithChildren, useEffect } from 'react';
 import { createTheme, MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 import hljs from 'highlight.js';
 import css from 'highlight.js/lib/languages/css';
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -12,6 +13,7 @@ import { OverlayProvider } from 'overlay-kit';
 
 import '@mantine/core/styles.css';
 import '@/styles/_components.scss';
+import '@mantine/notifications/styles.css';
 import 'highlight.js/styles/github-dark.css';
 
 const theme = createTheme({
@@ -30,6 +32,7 @@ const Provider = ({ children }: PropsWithChildren) => {
 
   return (
     <MantineProvider theme={theme} defaultColorScheme="auto">
+      <Notifications />
       <OverlayProvider>{children}</OverlayProvider>
     </MantineProvider>
   );
