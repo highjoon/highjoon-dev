@@ -26,7 +26,7 @@ export default async function Page({ params }: Params) {
 
   return (
     <Flex direction="column" gap={100}>
-      <BlogPosts title="POSTS" posts={blogPosts} />
+      <BlogPosts posts={blogPosts} />
       <Pagination currentPage={currentPage} totalPage={totalPage} routerPath={`${ROUTES.PAGES}`} />
     </Flex>
   );

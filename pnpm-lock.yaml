@@ -228,6 +228,9 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      react-error-boundary:
+        specifier: ^6.0.0
+        version: 6.0.0(react@18.2.0)
       react-icons:
         specifier: ^5.5.0
         version: 5.5.0(react@18.2.0)
@@ -4814,6 +4817,11 @@ packages:
   react-error-boundary@3.1.4:
     resolution: {integrity: sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA==}
     engines: {node: '>=10', npm: '>=6'}
+    peerDependencies:
+      react: '>=16.13.1'
+
+  react-error-boundary@6.0.0:
+    resolution: {integrity: sha512-gdlJjD7NWr0IfkPlaREN2d9uUZUlksrfOx7SX62VRerwXbMY6ftGCIZua1VG1aXFNOimhISsTq+Owp725b9SiA==}
     peerDependencies:
       react: '>=16.13.1'
 
@@ -10931,6 +10939,11 @@ snapshots:
       scheduler: 0.23.2
 
   react-error-boundary@3.1.4(react@18.2.0):
+    dependencies:
+      '@babel/runtime': 7.27.1
+      react: 18.2.0
+
+  react-error-boundary@6.0.0(react@18.2.0):
     dependencies:
       '@babel/runtime': 7.27.1
       react: 18.2.0

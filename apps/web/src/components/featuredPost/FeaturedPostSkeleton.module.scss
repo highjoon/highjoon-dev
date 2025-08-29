@@ -1,0 +1,34 @@
+.banner {
+  overflow: unset !important;
+  margin-bottom: rem(100px);
+}
+
+.banner-image {
+  height: rem(400px);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    height: rem(300px);
+  }
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    height: rem(200px);
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}
+
+.info {
+  gap: rem(10px);
+  left: rem(50px);
+  width: rem(600px);
+  min-height: rem(100px);
+
+  @media (max-width: $mantine-breakpoint-xs) {
+    width: 100%;
+    left: rem(0px);
+    min-height: rem(50px);
+  }
+}

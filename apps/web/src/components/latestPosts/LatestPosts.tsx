@@ -1,20 +1,19 @@
 import React from 'react';
 import { Flex, Title } from '@mantine/core';
-import { type Post } from '@highjoon-dev/prisma';
 
+import { getRecentPosts } from '@/actions/post';
 import PostCard from '@/components/postCard/PostCard';
 
-import styles from './BlogPosts.module.scss';
+import styles from './LatestPosts.module.scss';
 
-type Props = {
-  posts: Post[];
-};
+export default async function LatestPosts() {
+  const recentPosts = await getRecentPosts();
+  const posts = recentPosts.flatMap((posts) => posts);
 
-export default function BlogPosts({ posts }: Props) {
   return (
     <Flex direction="column" gap={30}>
       <Title component="h1" order={3}>
-        POSTS
+        LATEST POSTS
       </Title>
       <ul className={styles['card-list']}>
         {posts.map((post) => (
