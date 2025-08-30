@@ -5,9 +5,7 @@ import { deleteCommentAction } from '@/actions/comment';
 
 export const useDeleteComment = () => {
   const deleteComment = useCallback(async (commentId: Comment['id']) => {
-    const response = await deleteCommentAction(commentId);
-
-    return response?.data;
+    await deleteCommentAction(commentId);
   }, []);
 
   return { deleteComment };

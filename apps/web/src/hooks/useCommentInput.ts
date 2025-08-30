@@ -1,7 +1,7 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 import { Post } from '@highjoon-dev/prisma';
 
-import { createComment } from '@/actions/comment';
+import { createCommentAction } from '@/actions/comment';
 import { useSignIn } from '@/hooks/useSignIn';
 import { decodeToken } from '@/utils/decodeToken';
 
@@ -26,7 +26,7 @@ export const useCommentInput = (postId: Post['id']) => {
     }
 
     const { userId } = decodeToken(accessToken);
-    await createComment(postId, userId, comment);
+    await createCommentAction(postId, userId, comment);
     setComment('');
   }, [accessToken, comment, isSignedIn, postId, signIn]);
 

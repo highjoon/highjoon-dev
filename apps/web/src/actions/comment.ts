@@ -3,26 +3,18 @@
 import { serverApi } from '@/apis/apiClient/serverApi';
 import { commentApi } from '@/apis/comment';
 
-export const createComment = async (postId: string, userId: string, content: string) => {
-  const data = await commentApi(serverApi).create({ postId, userId, content });
-
-  return data;
+export const createCommentAction = async (postId: string, userId: string, content: string) => {
+  await commentApi(serverApi).create({ postId, userId, content });
 };
 
 export const updateCommentAction = async (commentId: string, content: string) => {
-  const data = await commentApi(serverApi).update({ commentId, content });
-
-  return data;
+  await commentApi(serverApi).update({ commentId, content });
 };
 
 export const deleteCommentAction = async (commentId: string) => {
-  const data = await commentApi(serverApi).delete({ commentId });
-
-  return data;
+  await commentApi(serverApi).delete({ commentId });
 };
 
 export const deleteReplyAction = async (replyId: string) => {
-  const data = await commentApi(serverApi).deleteReply({ replyId });
-
-  return data;
+  await commentApi(serverApi).deleteReply({ replyId });
 };

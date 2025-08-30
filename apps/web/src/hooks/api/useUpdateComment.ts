@@ -5,9 +5,7 @@ import { updateCommentAction } from '@/actions/comment';
 
 export const useUpdateComment = () => {
   const updateComment = useCallback(async (commentId: Comment['id'], content: Comment['content']) => {
-    const response = await updateCommentAction(commentId, content);
-
-    return response?.data;
+    await updateCommentAction(commentId, content);
   }, []);
 
   return { updateComment };
