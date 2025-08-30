@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
+import { notifications } from '@mantine/notifications';
 import { Post } from '@highjoon-dev/prisma';
 import { type LikedPost, type TokenData } from '@highjoon-dev/types';
 import { getCookie } from 'cookies-next/client';
 import jwt from 'jsonwebtoken';
 
 import { likePostAction, unlikePostAction } from '@/actions/post';
-import { githubLoginApi } from '@/apis/auth';
+import { clientApi } from '@/apis/apiClient/clientApi';
+import { authApi } from '@/apis/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants';
 
 type Args = {
@@ -20,35 +22,64 @@ export const useLikePost = ({ likedPost, postId, slug }: Args) => {
   const handleLikePost = async () => {
     const accessToken = getCookie(ACCESS_TOKEN_KEY);
 
-    if (!accessToken) {
-      const loginUrl = await githubLoginApi(window.location.href);
+    try {
+      if (!accessToken) {
+        const response = await authApi(clientApi).githubLogin({ returnUrl: window.location.href });
+        const loginUrl = response.data;
 
-      if (!loginUrl) {
+        if (!loginUrl) {
+          notifications.show({
+            title: '좋아요 누르기에 실패했습니다.',
+            message: '잠시 후 다시 시도해주세요.',
+            color: 'red',
+          });
+
+          return;
+        }
+
+        window.location.replace(loginUrl);
+
         return;
       }
 
-      window.location.replace(loginUrl);
+      const { userId } = jwt.decode(accessToken) as TokenData;
 
-      return;
+      await likePostAction(postId, userId, slug);
+      setIsLiked(true);
+    } catch {
+      notifications.show({
+        title: '좋아요 누르기에 실패했습니다.',
+        message: '잠시 후 다시 시도해주세요.',
+        color: 'red',
+      });
     }
-
-    const { userId } = jwt.decode(accessToken) as TokenData;
-
-    await likePostAction(postId, userId, slug);
-    setIsLiked(true);
   };
 
   const handleUnlikePost = async () => {
     const accessToken = getCookie(ACCESS_TOKEN_KEY);
 
     if (!accessToken) {
+      notifications.show({
+        title: '좋아요 취소에 실패했습니다.',
+        message: '잠시 후 다시 시도해주세요.',
+        color: 'red',
+      });
+
       return;
     }
 
-    const { userId } = jwt.decode(accessToken) as TokenData;
+    try {
+      const { userId } = jwt.decode(accessToken) as TokenData;
 
-    await unlikePostAction(postId, userId, slug);
-    setIsLiked(false);
+      await unlikePostAction(postId, userId, slug);
+      setIsLiked(false);
+    } catch {
+      notifications.show({
+        title: '좋아요 취소에 실패했습니다.',
+        message: '잠시 후 다시 시도해주세요.',
+        color: 'red',
+      });
+    }
   };
 
   useEffect(() => {

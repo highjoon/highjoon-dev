@@ -3,7 +3,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { notifications } from '@mantine/notifications';
 import { getCookie, setCookie } from 'cookies-next/client';
 
-import { githubLoginCallbackApi } from '@/apis/auth';
+import { clientApi } from '@/apis/apiClient/clientApi';
+import { authApi } from '@/apis/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants';
 import { ROUTES } from '@/constants/routes';
 
@@ -30,7 +31,8 @@ export function useGithubOAuthCallback() {
     }
 
     try {
-      const accessToken = await githubLoginCallbackApi(code);
+      const response = await authApi(clientApi).githubLoginCallback({ code });
+      const accessToken = response.data;
       setCookie(ACCESS_TOKEN_KEY, accessToken);
       router.replace(state);
     } catch {

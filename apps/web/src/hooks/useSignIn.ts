@@ -3,8 +3,10 @@ import { useRouter } from 'next/navigation';
 import { Nullable } from '@highjoon-dev/types';
 import { deleteCookie, getCookie } from 'cookies-next/client';
 
-import { githubLoginApi } from '@/apis/auth';
+import { clientApi } from '@/apis/apiClient/clientApi';
+import { authApi } from '@/apis/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants';
+import { ROUTES } from '@/constants/routes';
 
 export const useSignIn = () => {
   const router = useRouter();
@@ -18,9 +20,12 @@ export const useSignIn = () => {
       return;
     }
 
-    const loginUrl = await githubLoginApi(window.location.href);
+    const response = await authApi(clientApi).githubLogin({ returnUrl: window.location.href });
+    const loginUrl = response.data;
 
     if (!loginUrl) {
+      router.replace(ROUTES.HOME);
+
       return;
     }
 
