@@ -1,69 +1,21 @@
 import { type Post } from '@highjoon-dev/prisma';
-import { type ServiceResponseInterface, type UserData } from '@highjoon-dev/types';
+import { type ServiceResponseInterface } from '@highjoon-dev/types';
 
-export const getPostList = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post`, { cache: 'no-store' });
-  const data: ServiceResponseInterface<Post[]> = await response.json();
+import { ApiClient } from '@/types/apiClient';
 
-  return data;
-};
-
-export const getPost = async (slug: string) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${slug}`, { cache: 'no-store' });
-  const data: ServiceResponseInterface<Post> = await response.json();
-
-  return data;
-};
-
-export const increaseViewCount = async (slug: string) => {
-  try {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${slug}/view`, { method: 'PUT' });
-  } catch {
-    /* empty */
-  }
-};
-
-export const getFeaturedPostApi = async () => {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/featured`, { cache: 'no-store' });
-    const data: ServiceResponseInterface<Post> = await response.json();
-
-    return data;
-  } catch {
-    /* empty */
-  }
-};
-
-export const likePostApi = async (postId: Post['id'], userId: UserData['id'], token?: string) => {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${postId}/like`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ userId }),
-    });
-
-    return response.json();
-  } catch {
-    /* empty */
-  }
-};
-
-export const unlikePostApi = async (postId: Post['id'], userId: UserData['id'], token?: string) => {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/post/${postId}/unlike`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ userId }),
-    });
-
-    return response.json();
-  } catch {
-    /* empty */
-  }
+export const postApi = (api: ApiClient) => {
+  return {
+    getAll: () => api.get<ServiceResponseInterface<Post[]>>('/post', { cache: 'no-store' }),
+    get: (slug: string) => api.get<ServiceResponseInterface<Post>>(`/post/${slug}`, { cache: 'no-store' }),
+    create: (post: Post) => api.post<ServiceResponseInterface<Post>>('/post', { json: post }),
+    update: (slug: string, post: Post) => api.put<ServiceResponseInterface<Post>>(`/post/${slug}`, { json: post }),
+    delete: (slug: string) => api.del<ServiceResponseInterface<Post>>(`/post/${slug}`),
+    increaseViewCount: (slug: string) =>
+      api.put<ServiceResponseInterface<Post>>(`/post/${slug}/view`, { cache: 'no-store' }),
+    like: (postId: string, userId: string) =>
+      api.post<ServiceResponseInterface<Post>>(`/post/${postId}/like`, { json: { userId } }),
+    unlike: (postId: string, userId: string) =>
+      api.post<ServiceResponseInterface<Post>>(`/post/${postId}/unlike`, { json: { userId } }),
+    getFeatured: () => api.get<ServiceResponseInterface<Post>>(`/post/featured`, { cache: 'no-store' }),
+  };
 };

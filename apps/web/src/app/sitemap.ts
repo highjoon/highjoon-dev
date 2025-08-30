@@ -1,6 +1,7 @@
 import { type MetadataRoute } from 'next';
 
-import { getPostList } from '@/apis/post';
+import { clientApi } from '@/apis/apiClient/clientApi';
+import { postApi } from '@/apis/post';
 import { POSTS_PER_PAGE } from '@/constants/post';
 import { ROUTES } from '@/constants/routes';
 
@@ -30,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     // 블로그 포스트 목록 가져오기
-    const postListResponse = await getPostList();
+    const postListResponse = await postApi(clientApi).getAll();
     const posts = postListResponse.data || [];
 
     // 블로그 포스트 URL들

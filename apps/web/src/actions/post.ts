@@ -1,15 +1,14 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
 import { type Post } from '@highjoon-dev/prisma';
 
-import { getFeaturedPostApi, getPostList, increaseViewCount, likePostApi, unlikePostApi } from '@/apis/post';
-import { ACCESS_TOKEN_KEY } from '@/constants';
+import { serverApi } from '@/apis/apiClient/serverApi';
+import { postApi } from '@/apis/post';
 import sortPostsByDate from '@/utils/sortPostsByDate';
 
 export const increaseViewCountAction = async (slug: Post['slug']) => {
-  await increaseViewCount(slug);
+  await postApi(serverApi).increaseViewCount(slug);
   revalidatePath(`/blogs/${slug}`);
 };
 
@@ -26,7 +25,7 @@ export const getRecentPosts = async () => {
     return result;
   };
 
-  const postList = await getPostList();
+  const postList = await postApi(serverApi).getAll();
   const sortedPostsByDate = sortPostsByDate(postList.data).slice(0, 9);
   const splittedPosts = splitArray(sortedPostsByDate);
 
@@ -34,19 +33,17 @@ export const getRecentPosts = async () => {
 };
 
 export const getFeaturedPost = async () => {
-  const featuredPost = await getFeaturedPostApi();
+  const featuredPost = await postApi(serverApi).getFeatured();
 
   return featuredPost?.data;
 };
 
 export const likePostAction = async (postId: Post['id'], userId: string, slug: Post['slug']) => {
-  const accessToken = cookies().get(ACCESS_TOKEN_KEY)?.value;
-  await likePostApi(postId, userId, accessToken);
+  await postApi(serverApi).like(postId, userId);
   revalidatePath(`/blogs/${slug}`);
 };
 
 export const unlikePostAction = async (postId: Post['id'], userId: string, slug: Post['slug']) => {
-  const accessToken = cookies().get(ACCESS_TOKEN_KEY)?.value;
-  await unlikePostApi(postId, userId, accessToken);
+  await postApi(serverApi).unlike(postId, userId);
   revalidatePath(`/blogs/${slug}`);
 };

@@ -1,6 +1,7 @@
 import { Flex } from '@mantine/core';
 
-import { getPostList } from '@/apis/post';
+import { serverApi } from '@/apis/apiClient/serverApi';
+import { postApi } from '@/apis/post';
 import BlogPosts from '@/components/blogPosts/BlogPosts';
 import Pagination from '@/components/pagination/Pagination';
 import BlogListSchema from '@/components/structuredData/BlogListSchema';
@@ -30,7 +31,7 @@ export async function generateMetadata({ params: { id } }: Params) {
 }
 
 export default async function Page({ params }: Params) {
-  const postList = await getPostList();
+  const postList = await postApi(serverApi).getAll();
   const currentPage = Number(params.id);
   const totalPage = Math.ceil(postList.data.length / POSTS_PER_PAGE);
   const blogPosts = postList.data.slice((currentPage - 1) * 9, 9 * currentPage);

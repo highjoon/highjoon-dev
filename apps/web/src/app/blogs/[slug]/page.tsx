@@ -1,11 +1,12 @@
 import { type Metadata } from 'next';
 import { type Post } from '@highjoon-dev/prisma';
+import matter from 'gray-matter';
 
-import { getPost } from '@/apis/post';
+import { serverApi } from '@/apis/apiClient/serverApi';
+import { postApi } from '@/apis/post';
 import LikeCommentsSection from '@/components/pageContent/LikeCommentsSection';
 import PageContent from '@/components/pageContent/PageContent';
 import BlogPostSchema from '@/components/structuredData/BlogPostSchema';
-import getBlogPost from '@/utils/getBlogPost';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,7 +15,7 @@ type Params = {
 };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const post = await getPost(params.slug);
+  const post = await postApi(serverApi).get(params.slug);
 
   return {
     title: `${post.data.title} | highjoon-dev`,
@@ -42,7 +43,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Params) {
-  const { post, content } = await getBlogPost(params);
+  const response = await postApi(serverApi).get(params.slug);
+  const post = response.data;
+  const contentUrl = await fetch(post.contentUrl).then((res) => res.text());
+  const { content } = matter(contentUrl);
 
   return (
     <>
