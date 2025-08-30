@@ -2,14 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 import { Card, Flex } from '@mantine/core';
 
-import { getFeaturedPost } from '@/actions/post';
+import { serverApi } from '@/apis/apiClient/serverApi';
+import { postApi } from '@/apis/post';
 import FeaturedPostCard from '@/components/featuredPost/FeaturedPostCard';
 import createPostPath from '@/utils/createPostPath';
 
 import styles from './FeaturedPost.module.scss';
 
 const FeaturedPost = async () => {
-  const featuredPost = await getFeaturedPost();
+  const response = await postApi(serverApi).getFeatured();
+  const featuredPost = response.data;
 
   if (!featuredPost) {
     return null;

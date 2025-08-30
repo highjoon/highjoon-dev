@@ -15,7 +15,7 @@ type Params = {
 };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const post = await postApi(serverApi).get(params.slug);
+  const post = await postApi(serverApi).get(params);
 
   return {
     title: `${post.data.title} | highjoon-dev`,
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Params) {
-  const response = await postApi(serverApi).get(params.slug);
+  const response = await postApi(serverApi).get(params);
   const post = response.data;
   const contentUrl = await fetch(post.contentUrl).then((res) => res.text());
   const { content } = matter(contentUrl);

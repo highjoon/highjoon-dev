@@ -1,14 +1,19 @@
 import React from 'react';
 import { Flex, Title } from '@mantine/core';
 
-import { getRecentPosts } from '@/actions/post';
+import { serverApi } from '@/apis/apiClient/serverApi';
+import { postApi } from '@/apis/post';
 import PostCard from '@/components/postCard/PostCard';
+import { chunkPostsIntoGroups } from '@/utils/chunkArrayIntoGroups';
+import sortPostsByDate from '@/utils/sortPostsByDate';
 
 import styles from './LatestPosts.module.scss';
 
 export default async function LatestPosts() {
-  const recentPosts = await getRecentPosts();
-  const posts = recentPosts.flatMap((posts) => posts);
+  const postList = await postApi(serverApi).getAll();
+  const sortedPostsByDate = sortPostsByDate(postList.data).slice(0, 9);
+  const postsByGroups = chunkPostsIntoGroups(sortedPostsByDate);
+  const recentPosts = postsByGroups.flatMap((posts) => posts);
 
   return (
     <Flex direction="column" gap={30}>
@@ -16,7 +21,7 @@ export default async function LatestPosts() {
         LATEST POSTS
       </Title>
       <ul className={styles['card-list']}>
-        {posts.map((post) => (
+        {recentPosts.map((post) => (
           <PostCard key={post.title} post={post} />
         ))}
       </ul>
