@@ -3,7 +3,8 @@ import { Anchor, Avatar, Box, Group, Paper, Text } from '@mantine/core';
 import { CommentWithUser } from '@highjoon-dev/types';
 import dayjs from 'dayjs';
 
-import { getRepliesApi } from '@/apis/comment';
+import { clientApi } from '@/apis/apiClient/clientApi';
+import { commentApi } from '@/apis/comment';
 import CommentEditArea from '@/components/comments/CommentEditArea';
 import CommentOptions from '@/components/comments/CommentOptions';
 
@@ -24,10 +25,10 @@ const Reply = ({ reply, postId, depth, parentCommentId, refetch, onReplyUpdated 
 
   const loadNestedReplies = useCallback(async () => {
     try {
-      const nestedRepliesData = await getRepliesApi(reply.id);
+      const nestedRepliesData = await commentApi(clientApi).getReplies({ parentId: reply.id });
 
       if (nestedRepliesData) {
-        setNestedReplies(nestedRepliesData);
+        setNestedReplies(nestedRepliesData.data || []);
       }
     } catch (error) {
       console.error('중첩 답글을 불러오는 중 오류가 발생했습니다:', error);

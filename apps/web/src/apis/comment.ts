@@ -1,132 +1,42 @@
-'use server';
-
 import { Comment } from '@highjoon-dev/prisma';
 import { CommentWithUser, ServiceResponseInterface } from '@highjoon-dev/types';
 
-import { fetchClient } from '@/apis/apiClient/fetchClient';
-import { fetchServer } from '@/apis/apiClient/fetchServer';
+import { ApiClient } from '@/types/apiClient';
+import { CommentApiRequest } from '@/types/comment';
 
-export const getCommentsApi = async (postId: string) => {
-  try {
-    const response = await fetchClient(`${process.env.NEXT_PUBLIC_API_URL}/comment/${postId}`, {
-      cache: 'no-store',
-    });
-
-    const data: ServiceResponseInterface<CommentWithUser[]> = await response.json();
-
-    return data.responseObject;
-  } catch {
-    /* empty */
-  }
-};
-
-export const createCommentApi = async (postId: string, userId: string, content: string) => {
-  try {
-    const response = await fetchServer(`${process.env.NEXT_PUBLIC_API_URL}/comment`, {
-      method: 'POST',
-      body: JSON.stringify({
-        postId,
-        userId,
-        content,
+export const commentApi = (api: ApiClient) => {
+  return {
+    /* 댓글 조회 */
+    get: (params: CommentApiRequest['get']) =>
+      api.get<ServiceResponseInterface<CommentWithUser[]>>(`/comment/${params.postId}`, { cache: 'no-store' }),
+    /* 댓글 생성 */
+    create: (params: CommentApiRequest['create']) =>
+      api.post<ServiceResponseInterface<Comment>>('/comment', { json: params }),
+    /* 댓글 수정 */
+    update: (params: CommentApiRequest['update']) =>
+      api.put<ServiceResponseInterface<Comment>>(`/comment/${params.commentId}`, {
+        json: { content: params.content },
       }),
-    });
-
-    const data: ServiceResponseInterface<Comment> = await response.json();
-
-    return data;
-  } catch {
-    /* empty */
-  }
-};
-
-export const updateCommentApi = async (commentId: string, content: string) => {
-  try {
-    const response = await fetchServer(`${process.env.NEXT_PUBLIC_API_URL}/comment/${commentId}`, {
-      method: 'PUT',
-      body: JSON.stringify({ content }),
-    });
-
-    const data: ServiceResponseInterface<Comment> = await response.json();
-
-    return data;
-  } catch {
-    /* empty */
-  }
-};
-
-export const deleteCommentApi = async (commentId: string) => {
-  try {
-    const response = await fetchServer(`${process.env.NEXT_PUBLIC_API_URL}/comment/${commentId}`, {
-      method: 'DELETE',
-    });
-
-    const data: ServiceResponseInterface<null> = await response.json();
-
-    return data;
-  } catch {
-    /* empty */
-  }
-};
-
-/** 대댓글 생성 */
-export const createReplyApi = async (postId: string, userId: string, content: string, parentId: string) => {
-  try {
-    const response = await fetchServer(`${process.env.NEXT_PUBLIC_API_URL}/comment/reply`, {
-      method: 'POST',
-      body: JSON.stringify({
-        postId,
-        userId,
-        content,
-        parentId,
+    /* 댓글 삭제 */
+    delete: (params: CommentApiRequest['delete']) =>
+      api.del<ServiceResponseInterface<null>>(`/comment/${params.commentId}`),
+    /* 대댓글 조회 */
+    getReplies: (params: CommentApiRequest['getReplies']) =>
+      api.get<ServiceResponseInterface<CommentWithUser[]>>(`/comment/replies/${params.parentId}`, {
+        cache: 'no-store',
       }),
-    });
-
-    const data: ServiceResponseInterface<Comment> = await response.json();
-
-    return data;
-  } catch {
-    /* empty */
-  }
-};
-
-/** 특정 댓글의 대댓글 조회 */
-export const getRepliesApi = async (parentId: string) => {
-  try {
-    const response = await fetchClient(`${process.env.NEXT_PUBLIC_API_URL}/comment/replies/${parentId}`, {
-      cache: 'no-store',
-    });
-
-    const data: ServiceResponseInterface<CommentWithUser[]> = await response.json();
-
-    return data.responseObject;
-  } catch {
-    /* empty */
-  }
-};
-
-/** 대댓글 수정 */
-export const updateReplyApi = async (replyId: string, content: string) => {
-  try {
-    const response = await fetchServer(`${process.env.NEXT_PUBLIC_API_URL}/comment/reply/${replyId}`, {
-      method: 'PUT',
-      body: JSON.stringify({ content }),
-    });
-
-    const data: ServiceResponseInterface<Comment> = await response.json();
-
-    return data;
-  } catch {
-    /* empty */
-  }
-};
-
-/** 대댓글 삭제 */
-export const deleteReplyApi = async (replyId: string) => {
-  try {
-    await fetchServer(`${process.env.NEXT_PUBLIC_API_URL}/comment/reply/${replyId}`, {
-      method: 'DELETE',
-    });
-  } catch {
-    /* empty */
-  }
+    /* 대댓글 생성 */
+    createReply: (params: CommentApiRequest['createReply']) =>
+      api.post<ServiceResponseInterface<Comment>>('/comment/reply', {
+        json: params,
+      }),
+    /* 대댓글 수정 */
+    updateReply: (params: CommentApiRequest['updateReply']) =>
+      api.put<ServiceResponseInterface<Comment>>(`/comment/reply/${params.replyId}`, {
+        json: { content: params.content },
+      }),
+    /* 대댓글 삭제 */
+    deleteReply: (params: CommentApiRequest['deleteReply']) =>
+      api.del<ServiceResponseInterface<null>>(`/comment/reply/${params.replyId}`),
+  } as const;
 };

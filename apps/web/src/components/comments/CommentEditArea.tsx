@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Textarea } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { Comment } from '@highjoon-dev/prisma';
 
 import { useUpdateComment } from '@/hooks/api/useUpdateComment';
@@ -31,7 +32,11 @@ const CommentEditArea = ({ commentId, content, onUpdate, refetch }: Props) => {
       await refetch();
       onUpdate();
     } catch {
-      /** empty */
+      notifications.show({
+        title: '오류가 발생했습니다.',
+        message: '댓글을 수정하는 중 오류가 발생했습니다.',
+        color: 'red',
+      });
     } finally {
       setIsLoading(false);
     }

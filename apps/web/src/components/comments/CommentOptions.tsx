@@ -7,7 +7,8 @@ import { overlay } from 'overlay-kit';
 import { CiEdit, CiTrash, CiWarning } from 'react-icons/ci';
 
 import { deleteReplyAction } from '@/actions/comment';
-import { createReplyApi } from '@/apis/comment';
+import { clientApi } from '@/apis/apiClient/clientApi';
+import { commentApi } from '@/apis/comment';
 import ReplyInput from '@/components/comments/ReplyInput';
 import ConfirmModal from '@/components/common/ConfirmModal';
 import { useDeleteComment } from '@/hooks/api/useDeleteComment';
@@ -50,7 +51,7 @@ const CommentOptions = ({
 
     const actualParentId = commentId;
 
-    await createReplyApi(postId, userId, content, actualParentId);
+    await commentApi(clientApi).createReply({ postId, userId, content, parentId: actualParentId });
 
     // 대댓글 생성 후 콜백 함수 호출
     await onReplyCreated?.();
