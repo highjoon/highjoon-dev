@@ -17,23 +17,23 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const post = await getPost(params.slug);
 
   return {
-    title: `${post.responseObject.title} | highjoon-dev`,
-    description: post.responseObject.description,
+    title: `${post.data.title} | highjoon-dev`,
+    description: post.data.description,
     openGraph: {
-      title: `${post.responseObject.title} | highjoon-dev`,
-      description: post.responseObject.description,
+      title: `${post.data.title} | highjoon-dev`,
+      description: post.data.description,
       type: 'article',
       url: `https://highjoon-dev.com/blogs/${params.slug}`,
-      images: [post.responseObject.bannerImageUrl],
-      publishedTime: post.responseObject.publishedAt.toString(),
-      modifiedTime: post.responseObject.updatedAt?.toString() || post.responseObject.publishedAt.toString(),
+      images: [post.data.bannerImageUrl],
+      publishedTime: post.data.publishedAt.toString(),
+      modifiedTime: post.data.updatedAt?.toString() || post.data.publishedAt.toString(),
       authors: ['highjoon'],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${post.responseObject.title} | highjoon-dev`,
-      description: post.responseObject.description,
-      images: [post.responseObject.bannerImageUrl],
+      title: `${post.data.title} | highjoon-dev`,
+      description: post.data.description,
+      images: [post.data.bannerImageUrl],
     },
     alternates: {
       canonical: `https://highjoon-dev.com/blogs/${params.slug}`,

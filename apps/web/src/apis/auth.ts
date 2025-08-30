@@ -10,7 +10,7 @@ export const githubLoginApi = async (returnUrl: string) => {
     });
     const data: ServiceResponseInterface<string> = await response.json();
 
-    return data.responseObject;
+    return data.data;
   } catch {
     /* empty */
   }
@@ -27,7 +27,7 @@ export const githubLoginCallbackApi = async (code: string) => {
 
     const data: ServiceResponseInterface<{ accessToken: string }> = await response.json();
 
-    return data.responseObject.accessToken;
+    return data.data.accessToken;
   } catch {
     /* empty */
   }

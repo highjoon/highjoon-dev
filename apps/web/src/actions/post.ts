@@ -27,7 +27,7 @@ export const getRecentPosts = async () => {
   };
 
   const postList = await getPostList();
-  const sortedPostsByDate = sortPostsByDate(postList.responseObject).slice(0, 9);
+  const sortedPostsByDate = sortPostsByDate(postList.data).slice(0, 9);
   const splittedPosts = splitArray(sortedPostsByDate);
 
   return splittedPosts;
@@ -36,7 +36,7 @@ export const getRecentPosts = async () => {
 export const getFeaturedPost = async () => {
   const featuredPost = await getFeaturedPostApi();
 
-  return featuredPost?.responseObject;
+  return featuredPost?.data;
 };
 
 export const likePostAction = async (postId: Post['id'], userId: string, slug: Post['slug']) => {

@@ -8,7 +8,7 @@ export const useGetPostList = () => {
 
   const getPostListHandler = useCallback(async () => {
     const postList = await getPostList();
-    setPosts(postList.responseObject);
+    setPosts(postList.data);
   }, []);
 
   useEffect(() => {

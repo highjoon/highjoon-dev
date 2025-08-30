@@ -32,8 +32,8 @@ export async function generateMetadata({ params: { id } }: Params) {
 export default async function Page({ params }: Params) {
   const postList = await getPostList();
   const currentPage = Number(params.id);
-  const totalPage = Math.ceil(postList.responseObject.length / POSTS_PER_PAGE);
-  const blogPosts = postList.responseObject.slice((currentPage - 1) * 9, 9 * currentPage);
+  const totalPage = Math.ceil(postList.data.length / POSTS_PER_PAGE);
+  const blogPosts = postList.data.slice((currentPage - 1) * 9, 9 * currentPage);
 
   return (
     <>

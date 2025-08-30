@@ -29,13 +29,13 @@ export const useGetLikedPosts = () => {
 
     const response = await getLikedPostsApi(userId);
 
-    if (!response || !response.responseObject || response.responseObject.length === 0) {
+    if (!response || !response.data || response.data.length === 0) {
       setIsLoading(false);
 
       return;
     }
 
-    setLikedPost(response.responseObject);
+    setLikedPost(response.data);
     setIsLoading(false);
   }, []);
 

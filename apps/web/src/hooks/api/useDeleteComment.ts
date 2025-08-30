@@ -7,7 +7,7 @@ export const useDeleteComment = () => {
   const deleteComment = useCallback(async (commentId: Comment['id']) => {
     const response = await deleteCommentAction(commentId);
 
-    return response?.responseObject;
+    return response?.data;
   }, []);
 
   return { deleteComment };
