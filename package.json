@@ -60,6 +60,7 @@
     "test": "turbo run test",
     "test:coverage": "pnpm -r run test --coverage",
     "type-check": "pnpm -r run type-check",
+    "ui": "pnpm -F @highjoon-dev/ui",
     "update": "pnpm update",
     "web": "pnpm -F @highjoon-dev/web"
   },

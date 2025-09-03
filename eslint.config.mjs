@@ -1,4 +1,5 @@
-// eslint.config.mjs
+import storybook from "eslint-plugin-storybook";
+
 import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
 import tsParser from "@typescript-eslint/parser";
@@ -24,11 +25,8 @@ export default [
       "./eslint.config.mjs",
     ],
   },
-
   // 2) JS built-in recommended rules
-  js.configs.recommended,
-
-  // 3) TypeScript + Prettier base
+  js.configs.recommended, // 3) TypeScript + Prettier base
   ...compat.extends(
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
@@ -40,7 +38,6 @@ export default [
       "@typescript-eslint/no-use-before-define": "off",
     },
   },
-
   // 4) import-sort / unused-imports / unicorn for all code files
   {
     files: ["**/*.{js,jsx,ts,tsx}"],
@@ -78,9 +75,7 @@ export default [
       "@next/next/no-html-link-for-pages": "off",
     },
   },
-
   // 5) Next.js rules for apps/web ONLY
-  //    create-next-app 기본 방식 그대로
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     files: ["apps/web/**/*.{js,jsx,ts,tsx}"],
@@ -93,7 +88,6 @@ export default [
       "@next/next/no-html-link-for-pages": "off",
     },
   },
-
   // 6) API server overrides (apps/api)
   {
     files: ["apps/api/**/*.ts"],
@@ -103,4 +97,5 @@ export default [
       "import/no-anonymous-default-export": "off",
     },
   },
+  ...storybook.configs["flat/recommended"],
 ];

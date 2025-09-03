@@ -45,3 +45,6 @@ next-env.d.ts
 .env.keys
 .env.local
 .env.*.local
+
+*storybook.log
+storybook-static
