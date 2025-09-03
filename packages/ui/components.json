@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "aliases": {
+    "components": "@highjoon-dev/ui/components",
+    "hooks": "@highjoon-dev/ui/hooks",
+    "lib": "@highjoon-dev/ui/lib",
+    "ui": "@highjoon-dev/ui/components",
+    "utils": "@highjoon-dev/ui/lib/utils"
+  },
+  "iconLibrary": "lucide",
+  "rsc": true,
+  "style": "new-york",
+  "tailwind": {
+    "baseColor": "neutral",
+    "config": "",
+    "css": "src/styles/globals.css",
+    "cssVariables": true
+  },
+  "tsx": true
+}

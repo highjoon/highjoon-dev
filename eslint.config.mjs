@@ -15,7 +15,9 @@ export default [
       "node_modules/**",
       "apps/web/.next/**",
       "apps/api/dist/**",
-      "packages/**",
+      "packages/config/**",
+      "packages/prisma/**",
+      "packages/types/**",
       "coverage/**",
       "**/*.{config.js,config.cjs}",
       "**/*/.prettierrc.js",
@@ -82,6 +84,11 @@ export default [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     files: ["apps/web/**/*.{js,jsx,ts,tsx}"],
+    settings: {
+      next: {
+        rootDir: "apps/web",
+      },
+    },
     rules: {
       "@next/next/no-html-link-for-pages": "off",
     },
