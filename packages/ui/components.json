@@ -1,11 +1,11 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
   "aliases": {
-    "components": "@highjoon-dev/ui/components",
-    "hooks": "@highjoon-dev/ui/hooks",
-    "lib": "@highjoon-dev/ui/lib",
-    "ui": "@highjoon-dev/ui/components",
-    "utils": "@highjoon-dev/ui/lib/utils"
+    "components": "@/components",
+    "hooks": "@/hooks",
+    "lib": "@/lib",
+    "ui": "@/components",
+    "utils": "@/lib/utils"
   },
   "iconLibrary": "lucide",
   "rsc": true,

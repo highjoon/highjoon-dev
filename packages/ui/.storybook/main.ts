@@ -29,6 +29,15 @@ const config: StorybookConfig = {
       },
     };
 
+    // Path alias 설정 추가
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve?.alias,
+        '@': join(process.cwd(), 'packages/ui/src'),
+      },
+    };
+
     return config;
   },
 };

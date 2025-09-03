@@ -33,7 +33,7 @@
     "vitest": "^3.2.4"
   },
   "exports": {
-    "./components/*": "./src/components/*.tsx",
+    "./components/*": "./src/components/**/*.tsx",
     "./globals.css": "./src/styles/globals.css",
     "./hooks/*": "./src/hooks/*.ts",
     "./lib/*": "./src/lib/*.ts",
