@@ -30,11 +30,15 @@ const config: StorybookConfig = {
     };
 
     // Path alias 설정 추가
+    const srcPath = join(__dirname, '../src');
     config.resolve = {
       ...config.resolve,
       alias: {
         ...config.resolve?.alias,
-        '@': join(process.cwd(), 'packages/ui/src'),
+        '@': srcPath,
+        '@highjoon-dev/ui': srcPath,
+        '@highjoon-dev/ui/lib': join(srcPath, 'lib'),
+        '@highjoon-dev/ui/components': join(srcPath, 'components'),
       },
     };
 
