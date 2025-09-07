@@ -1,7 +1,6 @@
 import React from 'react';
+import { cn } from '@highjoon-dev/ui/lib/utils';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-
-import { cn } from '@/lib/utils';
 
 import {
   NavigationMenu,
