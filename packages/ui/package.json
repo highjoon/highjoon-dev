@@ -28,6 +28,7 @@
     "@radix-ui/react-toggle-group": "^1.1.11",
     "@radix-ui/react-tooltip": "^1.2.8",
     "class-variance-authority": "^0.7.1",
+    "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
@@ -73,6 +74,8 @@
     "./globals.css": "./src/styles/globals.css",
     "./hooks/*": "./src/hooks/*.ts",
     "./lib/*": "./src/lib/*.ts",
+    "./lib/classnames": "./src/lib/classnames.ts",
+    "./lib/icons": "./src/lib/icons.ts",
     "./postcss.config": "./postcss.config.mjs"
   },
   "name": "@highjoon-dev/ui",

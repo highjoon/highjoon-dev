@@ -3,9 +3,9 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Script from 'next/script';
 import { ColorSchemeScript } from '@mantine/core';
+import classnames from '@highjoon-dev/ui/lib/classnames';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import classnames from 'classnames';
 
 import Footer from '@/components/footer/Footer';
 import GoogleAdsense from '@/components/googleAdsense/GoogleAdsense';

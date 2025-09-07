@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import classNames from 'classnames';
+import { classNames } from '@highjoon-dev/ui/lib/classnames';
 
 import { ROUTES } from '@/constants/routes';
 
