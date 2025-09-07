@@ -1,7 +1,10 @@
-module.exports = {
+import baseConfig from '@highjoon-dev/ui/postcss.config';
+
+/** @type {import('postcss-load-config').Config} */
+const config = {
+  ...baseConfig,
   plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
+    ...baseConfig.plugins,
     'postcss-preset-mantine': {},
     'postcss-simple-vars': {
       variables: {
@@ -12,5 +15,8 @@ module.exports = {
         'mantine-breakpoint-xl': '88em',
       },
     },
+    autoprefixer: {},
   },
 };
+
+export default config;
