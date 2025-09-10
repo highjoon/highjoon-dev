@@ -6,7 +6,7 @@ import BlogPosts from '@/components/blogPosts/BlogPosts';
 import Pagination from '@/components/pagination/Pagination';
 import BlogListSchema from '@/components/structuredData/BlogListSchema';
 import { POSTS_PER_PAGE } from '@/constants/post';
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/shared/routes';
 
 export const dynamic = 'force-dynamic';
 

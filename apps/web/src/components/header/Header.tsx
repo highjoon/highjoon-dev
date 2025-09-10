@@ -9,7 +9,7 @@ import NavMenuLink from '@/components/navMenuLink/NavMenuLink';
 import SearchBar from '@/components/searchBar/SearchBar';
 import SideDrawer from '@/components/sideDrawer/SideDrawer';
 import ThemeSwitch from '@/components/themeSwitch/ThemeSwitch';
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/shared/routes';
 
 import styles from './Header.module.scss';
 

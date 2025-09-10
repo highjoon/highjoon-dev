@@ -1,6 +1,6 @@
 import { type Post } from '@highjoon-dev/prisma';
 
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/shared/routes';
 
 const createPostPath = (slug: Post['slug']) => {
   return ROUTES.BLOGS + `/${slug}`;

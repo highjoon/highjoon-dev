@@ -6,7 +6,7 @@ import { deleteCookie, getCookie } from 'cookies-next/client';
 import { clientApi } from '@/apis/apiClient/clientApi';
 import { authApi } from '@/apis/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants';
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/shared/routes';
 
 export const useSignIn = () => {
   const router = useRouter();

@@ -3,7 +3,7 @@ import { type MetadataRoute } from 'next';
 import { clientApi } from '@/apis/apiClient/clientApi';
 import { postApi } from '@/apis/post';
 import { POSTS_PER_PAGE } from '@/constants/post';
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/shared/routes';
 
 /**
  * 동적 sitemap 생성

@@ -11,7 +11,7 @@ import LatestPosts from '@/components/latestPosts/LatestPosts';
 import LatestPostsErrorFallback from '@/components/latestPosts/LatestPostsErrorFallback';
 import LatestPostsSkeleton from '@/components/latestPosts/LatestPostsSkeleton';
 import HomePageSchema from '@/components/structuredData/HomePageSchema';
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/shared/routes';
 
 export const metadata: Metadata = {
   title: 'highjoon-dev',

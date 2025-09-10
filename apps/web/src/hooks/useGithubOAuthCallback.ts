@@ -6,7 +6,7 @@ import { getCookie, setCookie } from 'cookies-next/client';
 import { clientApi } from '@/apis/apiClient/clientApi';
 import { authApi } from '@/apis/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants';
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/shared/routes';
 
 /**
  * GitHub OAuth 콜백 처리를 담당하는 훅

@@ -2,7 +2,7 @@ import { type Metadata } from 'next';
 import Link from 'next/link';
 import { Button, Container, Group, Text, Title } from '@mantine/core';
 
-import { ROUTES } from '@/constants/routes';
+import { ROUTES } from '@/shared/routes';
 
 import styles from './not-found.module.scss';
 
