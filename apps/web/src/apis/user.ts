@@ -1,6 +1,6 @@
 import { type LikedPost, type ServiceResponseInterface } from '@highjoon-dev/types';
 
-import { ApiClient } from '@/types/apiClient';
+import type { ApiClient } from '@/shared/api';
 
 export const userApi = (api: ApiClient) => {
   return {

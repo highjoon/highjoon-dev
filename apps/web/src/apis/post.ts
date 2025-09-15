@@ -1,7 +1,7 @@
 import { type Post } from '@highjoon-dev/prisma';
 import { type ServiceResponseInterface } from '@highjoon-dev/types';
 
-import { ApiClient } from '@/types/apiClient';
+import type { ApiClient } from '@/shared/api';
 
 import { PostApiRequest } from './../types/post';
 

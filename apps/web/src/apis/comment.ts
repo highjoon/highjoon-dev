@@ -1,7 +1,7 @@
 import { Comment } from '@highjoon-dev/prisma';
 import { CommentWithUser, ServiceResponseInterface } from '@highjoon-dev/types';
 
-import { ApiClient } from '@/types/apiClient';
+import type { ApiClient } from '@/shared/api';
 import { CommentApiRequest } from '@/types/comment';
 
 export const commentApi = (api: ApiClient) => {
