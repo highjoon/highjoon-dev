@@ -3,9 +3,9 @@ import { type LikedPost, type TokenData } from '@highjoon-dev/types';
 import { getCookie } from 'cookies-next/client';
 import jwt from 'jsonwebtoken';
 
-import { clientApi } from '@/apis/apiClient/clientApi';
 import { userApi } from '@/apis/user';
 import { ACCESS_TOKEN_KEY } from '@/constants';
+import { clientApi } from '@/shared/api';
 
 export const useGetLikedPosts = () => {
   const [isLoading, setIsLoading] = useState(true);

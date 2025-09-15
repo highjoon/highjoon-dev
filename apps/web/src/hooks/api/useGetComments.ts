@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { CommentWithUser } from '@highjoon-dev/types';
 
-import { clientApi } from '@/apis/apiClient/clientApi';
 import { commentApi } from '@/apis/comment';
+import { clientApi } from '@/shared/api';
 
 export const useGetComments = (postId: string) => {
   const [isLoading, setIsLoading] = useState(true);

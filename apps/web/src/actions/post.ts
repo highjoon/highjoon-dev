@@ -3,8 +3,8 @@
 import { revalidatePath } from 'next/cache';
 import { type Post } from '@highjoon-dev/prisma';
 
-import { serverApi } from '@/apis/apiClient/serverApi';
 import { postApi } from '@/apis/post';
+import { serverApi } from '@/shared/api';
 
 export const increaseViewCountAction = async (slug: Post['slug']) => {
   await postApi(serverApi).increaseViewCount({ slug });

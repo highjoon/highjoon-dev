@@ -2,11 +2,11 @@ import { type Metadata } from 'next';
 import { type Post } from '@highjoon-dev/prisma';
 import matter from 'gray-matter';
 
-import { serverApi } from '@/apis/apiClient/serverApi';
 import { postApi } from '@/apis/post';
 import LikeCommentsSection from '@/components/pageContent/LikeCommentsSection';
 import PageContent from '@/components/pageContent/PageContent';
 import BlogPostSchema from '@/components/structuredData/BlogPostSchema';
+import { serverApi } from '@/shared/api';
 
 export const dynamic = 'force-dynamic';
 

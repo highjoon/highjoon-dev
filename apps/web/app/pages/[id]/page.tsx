@@ -1,11 +1,11 @@
 import { Flex } from '@mantine/core';
 
-import { serverApi } from '@/apis/apiClient/serverApi';
 import { postApi } from '@/apis/post';
 import BlogPosts from '@/components/blogPosts/BlogPosts';
 import Pagination from '@/components/pagination/Pagination';
 import BlogListSchema from '@/components/structuredData/BlogListSchema';
 import { POSTS_PER_PAGE } from '@/constants/post';
+import { serverApi } from '@/shared/api';
 import { ROUTES } from '@/shared/routes';
 
 export const dynamic = 'force-dynamic';

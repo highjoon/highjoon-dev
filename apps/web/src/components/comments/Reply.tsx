@@ -3,10 +3,10 @@ import { Anchor, Avatar, Box, Group, Paper, Text } from '@mantine/core';
 import { CommentWithUser } from '@highjoon-dev/types';
 import dayjs from 'dayjs';
 
-import { clientApi } from '@/apis/apiClient/clientApi';
 import { commentApi } from '@/apis/comment';
 import CommentEditArea from '@/components/comments/CommentEditArea';
 import CommentOptions from '@/components/comments/CommentOptions';
+import { clientApi } from '@/shared/api';
 
 import styles from './Comment.module.scss';
 

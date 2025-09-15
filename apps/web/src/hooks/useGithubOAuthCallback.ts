@@ -3,9 +3,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { notifications } from '@mantine/notifications';
 import { getCookie, setCookie } from 'cookies-next/client';
 
-import { clientApi } from '@/apis/apiClient/clientApi';
 import { authApi } from '@/apis/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants';
+import { clientApi } from '@/shared/api';
 import { ROUTES } from '@/shared/routes';
 
 /**

@@ -7,12 +7,12 @@ import { overlay } from 'overlay-kit';
 import { CiEdit, CiTrash, CiWarning } from 'react-icons/ci';
 
 import { deleteReplyAction } from '@/actions/comment';
-import { clientApi } from '@/apis/apiClient/clientApi';
 import { commentApi } from '@/apis/comment';
 import ReplyInput from '@/components/comments/ReplyInput';
 import ConfirmModal from '@/components/common/ConfirmModal';
 import { useDeleteComment } from '@/hooks/api/useDeleteComment';
 import { useSignIn } from '@/hooks/useSignIn';
+import { clientApi } from '@/shared/api';
 import { decodeToken } from '@/utils/decodeToken';
 
 type Props = {

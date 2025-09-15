@@ -1,9 +1,9 @@
 import React from 'react';
 import { Flex, Title } from '@mantine/core';
 
-import { serverApi } from '@/apis/apiClient/serverApi';
 import { postApi } from '@/apis/post';
 import PostCard from '@/components/postCard/PostCard';
+import { serverApi } from '@/shared/api';
 import { chunkPostsIntoGroups } from '@/utils/chunkArrayIntoGroups';
 import sortPostsByDate from '@/utils/sortPostsByDate';
 

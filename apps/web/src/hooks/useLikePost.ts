@@ -6,9 +6,9 @@ import { getCookie } from 'cookies-next/client';
 import jwt from 'jsonwebtoken';
 
 import { likePostAction, unlikePostAction } from '@/actions/post';
-import { clientApi } from '@/apis/apiClient/clientApi';
 import { authApi } from '@/apis/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants';
+import { clientApi } from '@/shared/api';
 
 type Args = {
   likedPost: LikedPost[];

@@ -2,9 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import { Card, Flex } from '@mantine/core';
 
-import { serverApi } from '@/apis/apiClient/serverApi';
 import { postApi } from '@/apis/post';
 import FeaturedPostCard from '@/components/featuredPost/FeaturedPostCard';
+import { serverApi } from '@/shared/api';
 import createPostPath from '@/utils/createPostPath';
 
 import styles from './FeaturedPost.module.scss';
