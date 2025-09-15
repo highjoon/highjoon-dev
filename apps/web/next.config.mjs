@@ -12,7 +12,7 @@ const nextConfig = {
     optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
   },
   sassOptions: {
-    prependData: `@import "./src/styles/_mantine.scss";`,
+    prependData: `@import "./src/app/styles/_mantine.scss";`,
   },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'dngjtjyrczhgx.cloudfront.net' }],

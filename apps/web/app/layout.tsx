@@ -16,7 +16,7 @@ import WebsiteSchema from '@/components/structuredData/WebsiteSchema';
 import styles from './layout.module.scss';
 
 import '@highjoon-dev/ui/globals.css';
-import '@/styles/globals.css';
+import '@/app/styles/globals.css';
 import '@mantine/spotlight/styles.css';
 
 export const metadata: Metadata = {

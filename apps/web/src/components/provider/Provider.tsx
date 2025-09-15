@@ -12,7 +12,7 @@ import html from 'highlight.js/lib/languages/vbscript-html';
 import { OverlayProvider } from 'overlay-kit';
 
 import '@mantine/core/styles.css';
-import '@/styles/_components.scss';
+import '@/app/styles/_components.scss';
 import '@mantine/notifications/styles.css';
 import 'highlight.js/styles/github-dark.css';
 
