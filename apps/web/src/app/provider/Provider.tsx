@@ -15,13 +15,16 @@ import '@mantine/core/styles.css';
 import '@/app/styles/_components.scss';
 import '@mantine/notifications/styles.css';
 import 'highlight.js/styles/github-dark.css';
+import '@highjoon-dev/ui/globals.css';
+import '@/app/styles/globals.css';
+import '@mantine/spotlight/styles.css';
 
 const theme = createTheme({
   primaryColor: 'indigo',
   autoContrast: true,
 });
 
-const Provider = ({ children }: PropsWithChildren) => {
+export const Provider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     hljs.registerLanguage('javascript', javascript);
     hljs.registerLanguage('typescript', typescript);
@@ -37,5 +40,3 @@ const Provider = ({ children }: PropsWithChildren) => {
     </MantineProvider>
   );
 };
-
-export default Provider;

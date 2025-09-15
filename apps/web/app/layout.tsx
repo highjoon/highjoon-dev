@@ -7,17 +7,13 @@ import classnames from '@highjoon-dev/ui/lib/classnames';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
+import { Provider } from '@/app/provider';
 import Footer from '@/components/footer/Footer';
 import GoogleAdsense from '@/components/googleAdsense/GoogleAdsense';
 import Header from '@/components/header/Header';
-import Provider from '@/components/provider/Provider';
 import WebsiteSchema from '@/components/structuredData/WebsiteSchema';
 
 import styles from './layout.module.scss';
-
-import '@highjoon-dev/ui/globals.css';
-import '@/app/styles/globals.css';
-import '@mantine/spotlight/styles.css';
 
 export const metadata: Metadata = {
   title: 'highjoon-dev',
