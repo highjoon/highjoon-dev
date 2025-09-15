@@ -1,7 +1,7 @@
 'use server';
 
 import { commentApi } from '@/apis/comment';
-import { serverApi } from '@/shared/api';
+import { serverApi } from '@/shared/api/apiClient/serverApi';
 
 export const createCommentAction = async (postId: string, userId: string, content: string) => {
   await commentApi(serverApi).create({ postId, userId, content });

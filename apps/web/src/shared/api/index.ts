@@ -6,5 +6,4 @@
 
 export { createApiClient } from './apiClient';
 export { clientApi } from './apiClient/clientApi';
-export { serverApi } from './apiClient/serverApi';
 export type { ApiClient, ApiClientError, ApiClientInit, Ctx } from './types';

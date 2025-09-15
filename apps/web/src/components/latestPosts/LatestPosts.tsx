@@ -3,7 +3,7 @@ import { Flex, Title } from '@mantine/core';
 
 import { postApi } from '@/apis/post';
 import PostCard from '@/components/postCard/PostCard';
-import { serverApi } from '@/shared/api';
+import { serverApi } from '@/shared/api/apiClient/serverApi';
 import { chunkPostsIntoGroups } from '@/utils/chunkArrayIntoGroups';
 import sortPostsByDate from '@/utils/sortPostsByDate';
 

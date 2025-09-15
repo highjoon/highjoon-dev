@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { type Post } from '@highjoon-dev/prisma';
 
 import { postApi } from '@/apis/post';
-import { serverApi } from '@/shared/api';
+import { serverApi } from '@/shared/api/apiClient/serverApi';
 
 export const increaseViewCountAction = async (slug: Post['slug']) => {
   await postApi(serverApi).increaseViewCount({ slug });

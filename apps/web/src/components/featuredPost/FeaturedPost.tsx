@@ -4,7 +4,7 @@ import { Card, Flex } from '@mantine/core';
 
 import { postApi } from '@/apis/post';
 import FeaturedPostCard from '@/components/featuredPost/FeaturedPostCard';
-import { serverApi } from '@/shared/api';
+import { serverApi } from '@/shared/api/apiClient/serverApi';
 import createPostPath from '@/utils/createPostPath';
 
 import styles from './FeaturedPost.module.scss';

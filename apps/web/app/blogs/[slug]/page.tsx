@@ -6,7 +6,7 @@ import { postApi } from '@/apis/post';
 import LikeCommentsSection from '@/components/pageContent/LikeCommentsSection';
 import PageContent from '@/components/pageContent/PageContent';
 import BlogPostSchema from '@/components/structuredData/BlogPostSchema';
-import { serverApi } from '@/shared/api';
+import { serverApi } from '@/shared/api/apiClient/serverApi';
 
 export const dynamic = 'force-dynamic';
 
