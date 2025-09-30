@@ -1,0 +1,13 @@
+.career-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: rem(20px);
+}
+
+.term {
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-gray-5));
+}
+
+.career-description {
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-gray-3));
+}
