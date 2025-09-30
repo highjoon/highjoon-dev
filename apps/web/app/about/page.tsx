@@ -1,7 +1,6 @@
 import { type Metadata } from 'next';
-import { Flex, Title } from '@mantine/core';
 
-import AboutMe from '@/components/aboutMe/AboutMe';
+import AboutPage from '@/page/about/ui/AboutPage';
 
 export const metadata: Metadata = {
   title: 'About | highjoon-dev',
@@ -19,12 +18,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <Flex direction="column" gap={100}>
-      <Title component="h1" order={1}>
-        About
-      </Title>
-      <AboutMe />
-    </Flex>
-  );
+  return <AboutPage />;
 }
