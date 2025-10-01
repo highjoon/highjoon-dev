@@ -11,7 +11,7 @@ import GoogleAdsense from '@/components/googleAdsense/GoogleAdsense';
 import WebsiteSchema from '@/components/structuredData/WebsiteSchema';
 import { generateRootMetadata } from '@/shared/model/metadata';
 import GlobalLayout from '@/shared/ui/GlobalLayout';
-import Header from '@/shared/ui/Header';
+import Header from '@/widgets/ui/Header';
 
 export const metadata = generateRootMetadata();
 

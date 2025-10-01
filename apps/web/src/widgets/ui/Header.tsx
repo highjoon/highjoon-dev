@@ -5,11 +5,11 @@ import Link from 'next/link';
 import { Avatar, Burger, em, Flex, Group, Text } from '@mantine/core';
 import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 
-import NavMenuLink from '@/components/navMenuLink/NavMenuLink';
-import SearchBar from '@/components/searchBar/SearchBar';
-import SideDrawer from '@/components/sideDrawer/SideDrawer';
 import { ROUTES } from '@/shared/routes';
-import ThemeSwitch from '@/shared/ui/ThemeSwitch';
+import NavMenuLink from '@/widgets/ui/NavMenuLink';
+import SearchBar from '@/widgets/ui/SearchBar';
+import SideDrawer from '@/widgets/ui/SideDrawer';
+import ThemeSwitch from '@/widgets/ui/ThemeSwitch';
 
 import styles from './Header.module.scss';
 

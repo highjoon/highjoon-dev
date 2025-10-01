@@ -1,8 +1,8 @@
 import React from 'react';
 import { Divider, Drawer, Flex } from '@mantine/core';
 
-import NavMenuLink from '@/components/navMenuLink/NavMenuLink';
-import SearchBar from '@/components/searchBar/SearchBar';
+import NavMenuLink from '@/widgets/ui/NavMenuLink';
+import SearchBar from '@/widgets/ui/SearchBar';
 
 type Props = { opened: boolean; onClose: () => void };
 
