@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { Divider, Flex, Text, Title } from '@mantine/core';
 
 import ProfileImage from '@/../public/images/img-profile.png';
-import { CareerList } from '@/page/about/ui/CareerList';
+import { CareerList } from '@/entities/about/ui/CareerList';
 
 import styles from './AboutPage.module.scss';
 
