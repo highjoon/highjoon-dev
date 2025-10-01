@@ -5,7 +5,7 @@ import { Avatar, em, Flex, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { AiFillGithub, AiFillLinkedin, AiFillMail } from 'react-icons/ai';
 
-import { LINKS } from '@/constants/links';
+import { LINKS } from '@/shared/model/links';
 
 import styles from './Footer.module.scss';
 
@@ -43,7 +43,7 @@ const Footer = () => {
               highjoon-dev
             </Text>
             <Text component="p" className={styles.text}>
-              highjoon 2023. All Rights Reserved.
+              highjoon {new Date().getFullYear()}. All Rights Reserved.
             </Text>
           </Flex>
         </Flex>

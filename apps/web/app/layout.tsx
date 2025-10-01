@@ -7,13 +7,11 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { Provider } from '@/app/provider';
-import Footer from '@/components/footer/Footer';
 import GoogleAdsense from '@/components/googleAdsense/GoogleAdsense';
-import Header from '@/components/header/Header';
 import WebsiteSchema from '@/components/structuredData/WebsiteSchema';
 import { generateRootMetadata } from '@/shared/model/metadata';
-
-import styles from './layout.module.scss';
+import GlobalLayout from '@/shared/ui/GlobalLayout';
+import Header from '@/shared/ui/Header';
 
 export const metadata = generateRootMetadata();
 
@@ -30,12 +28,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body className={classnames(pretendard.className)} suppressHydrationWarning>
         <Provider>
           <Header />
-          <div className={styles.root}>
-            <main className={styles.main}>
-              <section className={styles.container}>{children}</section>
-              <Footer />
-            </main>
-          </div>
+          <GlobalLayout>{children}</GlobalLayout>
         </Provider>
         <WebsiteSchema />
         <Script src={`https://www.googletagmanager.com/gtag/js?id=G-XW8LXFXK6N`} strategy="afterInteractive" />
