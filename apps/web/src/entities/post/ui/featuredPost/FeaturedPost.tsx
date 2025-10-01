@@ -2,16 +2,15 @@ import React from 'react';
 import Link from 'next/link';
 import { Card, Flex } from '@mantine/core';
 
-import { postApi } from '@/apis/post';
-import FeaturedPostCard from '@/components/featuredPost/FeaturedPostCard';
+import { getFeaturedPost } from '@/entities/post/api/getFeaturedPost';
+import FeaturedPostCard from '@/entities/post/ui/featuredPost/FeaturedPostCard';
 import { serverApi } from '@/shared/api/apiClient/serverApi';
 import createPostPath from '@/utils/createPostPath';
 
 import styles from './FeaturedPost.module.scss';
 
-const FeaturedPost = async () => {
-  const response = await postApi(serverApi).getFeatured();
-  const featuredPost = response.data;
+export default async function FeaturedPost() {
+  const featuredPost = await getFeaturedPost(serverApi);
 
   if (!featuredPost) {
     return null;
@@ -26,6 +25,4 @@ const FeaturedPost = async () => {
       </Link>
     </Card>
   );
-};
-
-export default FeaturedPost;
+}
