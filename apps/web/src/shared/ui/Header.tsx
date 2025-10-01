@@ -8,8 +8,8 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import NavMenuLink from '@/components/navMenuLink/NavMenuLink';
 import SearchBar from '@/components/searchBar/SearchBar';
 import SideDrawer from '@/components/sideDrawer/SideDrawer';
-import ThemeSwitch from '@/components/themeSwitch/ThemeSwitch';
 import { ROUTES } from '@/shared/routes';
+import ThemeSwitch from '@/shared/ui/ThemeSwitch';
 
 import styles from './Header.module.scss';
 
