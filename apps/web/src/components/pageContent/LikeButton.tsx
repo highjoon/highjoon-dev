@@ -7,10 +7,10 @@ import { overlay } from 'overlay-kit';
 import { BiLike } from 'react-icons/bi';
 import { CiWarning } from 'react-icons/ci';
 
-import ConfirmModal from '@/components/common/ConfirmModal';
 import { useGetLikedPosts } from '@/hooks/api/useGetLikedPosts';
 import { useLikePost } from '@/hooks/useLikePost';
 import { useSignIn } from '@/hooks/useSignIn';
+import ConfirmModal from '@/shared/ui/ConfirmModal';
 
 type Props = {
   postId: Post['id'];
