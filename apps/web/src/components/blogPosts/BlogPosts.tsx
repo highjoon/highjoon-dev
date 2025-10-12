@@ -13,7 +13,7 @@ type Props = {
 export default function BlogPosts({ posts }: Props) {
   return (
     <Flex direction="column" gap={30}>
-      <Title component="h1" order={3}>
+      <Title component="h1" order={1}>
         POSTS
       </Title>
       <ul className={styles['card-list']}>

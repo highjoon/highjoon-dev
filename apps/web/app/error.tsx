@@ -1,12 +1,12 @@
 'use client';
 
-import ErrorPage from '@/page/error/ui/ErrorPage';
+import GlobalErrorPage from '@/page/error/ui/ErrorPage';
 
 type Props = {
   error: Error;
   reset: () => void;
 };
 
-export default function GlobalErrorPage({ error, reset }: Props) {
-  return <ErrorPage error={error} reset={reset} />;
+export default function Page({ error, reset }: Props) {
+  return <GlobalErrorPage error={error} reset={reset} />;
 }
