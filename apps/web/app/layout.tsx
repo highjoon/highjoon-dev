@@ -1,14 +1,9 @@
 import { type PropsWithChildren } from 'react';
 import localFont from 'next/font/local';
-import Script from 'next/script';
 import { ColorSchemeScript } from '@mantine/core';
 import classnames from '@highjoon-dev/ui/lib/classnames';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { Provider } from '@/app/provider';
-import GoogleAdsense from '@/components/googleAdsense/GoogleAdsense';
-import WebsiteSchema from '@/components/structuredData/WebsiteSchema';
+import { Provider } from '@/app/provider/Provider';
 import { generateRootMetadata } from '@/shared/model/metadata';
 import GlobalLayout from '@/shared/ui/GlobalLayout';
 import Header from '@/widgets/ui/Header';
@@ -30,19 +25,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <Header />
           <GlobalLayout>{children}</GlobalLayout>
         </Provider>
-        <WebsiteSchema />
-        <Script src={`https://www.googletagmanager.com/gtag/js?id=G-XW8LXFXK6N`} strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-XW8LXFXK6N');
-        `}
-        </Script>
-        <Analytics />
-        <SpeedInsights />
-        <GoogleAdsense />
       </body>
     </html>
   );

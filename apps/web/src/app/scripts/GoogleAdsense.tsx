@@ -1,7 +1,7 @@
 import React from 'react';
 import Script from 'next/script';
 
-const GoogleAdsense = () => {
+export default function GoogleAdsense() {
   if (process.env.NODE_ENV !== 'production') {
     return null;
   }
@@ -14,6 +14,4 @@ const GoogleAdsense = () => {
       strategy="afterInteractive"
     />
   );
-};
-
-export default GoogleAdsense;
+}
