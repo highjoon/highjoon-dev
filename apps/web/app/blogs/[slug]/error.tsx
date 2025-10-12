@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button, ButtonGroup, Container, Text, Title } from '@mantine/core';
 
-import { ROUTES } from '@/shared/routes';
+import { ROUTES } from '@/shared/routes/routes';
 
 import styles from '../../not-found.module.scss';
 

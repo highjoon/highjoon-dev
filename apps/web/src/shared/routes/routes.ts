@@ -4,7 +4,7 @@
  *
  * @example
  * ```ts
- * import { ROUTES } from '@/shared/routes';
+ * import { ROUTES } from '@/shared/routes/routes';
  *
  * // 사용 예시
  * router.push(ROUTES.BLOGS);

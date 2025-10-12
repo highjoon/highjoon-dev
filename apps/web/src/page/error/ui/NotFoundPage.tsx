@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button, Container, Group, Text, Title } from '@mantine/core';
 
-import { ROUTES } from '@/shared/routes';
+import { ROUTES } from '@/shared/routes/routes';
 
 import styles from './NotFoundPage.module.scss';
 
