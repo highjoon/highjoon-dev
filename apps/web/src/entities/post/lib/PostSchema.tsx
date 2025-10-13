@@ -9,7 +9,7 @@ type Props = {
  * 블로그 포스트를 위한 구조화된 데이터 (JSON-LD)
  * 검색 엔진이 콘텐츠를 더 잘 이해할 수 있도록 도움
  */
-export default function BlogPostSchema({ post }: Props) {
+export default function PostSchema({ post }: Props) {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -40,7 +40,5 @@ export default function BlogPostSchema({ post }: Props) {
   // XSS 방지를 위해 HTML 태그 이스케이프
   const sanitizedData = JSON.stringify(structuredData).replace(/</g, '\\u003c');
 
-  return (
-    <Script id="blog-post-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: sanitizedData }} />
-  );
+  return <Script id="post-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: sanitizedData }} />;
 }

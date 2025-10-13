@@ -2,9 +2,9 @@ import { type Post } from '@highjoon-dev/prisma';
 
 import LikeCommentsSection from '@/components/pageContent/LikeCommentsSection';
 import PageContent from '@/components/pageContent/PageContent';
-import BlogPostSchema from '@/components/structuredData/BlogPostSchema';
 import { getPost } from '@/entities/post/api/getPost';
 import { getPostContent } from '@/entities/post/api/getPostContent';
+import PostSchema from '@/entities/post/lib/PostSchema';
 import { generateBlogsMetadata } from '@/page/blogs/model/metadata';
 import { serverApi } from '@/shared/api/apiClient/serverApi';
 
@@ -22,7 +22,7 @@ export default async function Page({ params }: Params) {
 
   return (
     <>
-      <BlogPostSchema post={post} />
+      <PostSchema post={post} />
       <PageContent
         title={post.title}
         bannerImageUrl={post.bannerImageUrl}
