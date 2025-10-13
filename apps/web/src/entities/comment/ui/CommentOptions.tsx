@@ -8,7 +8,7 @@ import { CiEdit, CiTrash, CiWarning } from 'react-icons/ci';
 
 import { deleteReplyAction } from '@/actions/comment';
 import { commentApi } from '@/apis/comment';
-import ReplyInput from '@/components/comments/ReplyInput';
+import ReplyInput from '@/entities/comment/ui/ReplyInput';
 import { useDeleteComment } from '@/hooks/api/useDeleteComment';
 import { useSignIn } from '@/hooks/useSignIn';
 import { clientApi } from '@/shared/api';
@@ -27,7 +27,7 @@ type Props = {
   depth?: number;
 };
 
-const CommentOptions = ({
+export default function CommentOptions({
   commentId,
   postId,
   isEditMode,
@@ -37,7 +37,7 @@ const CommentOptions = ({
   onReplyCreated,
   onReplyDeleted,
   depth = 0,
-}: Props) => {
+}: Props) {
   const { isSignedIn, accessToken } = useSignIn();
   const { deleteComment } = useDeleteComment();
   const [isReplyMode, setIsReplyMode] = React.useState(false);
@@ -125,6 +125,4 @@ const CommentOptions = ({
       {isReplyMode && <ReplyInput onSubmit={handleSubmitReply} onCancel={() => setIsReplyMode(false)} />}
     </Group>
   );
-};
-
-export default CommentOptions;
+}

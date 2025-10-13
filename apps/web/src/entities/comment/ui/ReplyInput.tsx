@@ -6,7 +6,7 @@ type Props = {
   onCancel: () => void;
 };
 
-const ReplyInput = ({ onSubmit, onCancel }: Props) => {
+export default function ReplyInput({ onSubmit, onCancel }: Props) {
   const [content, setContent] = useState('');
 
   const handleSubmit = async () => {
@@ -38,6 +38,4 @@ const ReplyInput = ({ onSubmit, onCancel }: Props) => {
       </Group>
     </Flex>
   );
-};
-
-export default ReplyInput;
+}

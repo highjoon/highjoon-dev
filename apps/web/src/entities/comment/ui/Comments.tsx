@@ -4,7 +4,7 @@ import React from 'react';
 import { Flex, Loader, Text } from '@mantine/core';
 import { CommentWithUser } from '@highjoon-dev/types';
 
-import Comment from '@/components/comments/Comment';
+import Comment from '@/entities/comment/ui/Comment';
 
 type Props = {
   comments: CommentWithUser[];
@@ -13,7 +13,7 @@ type Props = {
   refetch: () => Promise<void>;
 };
 
-const Comments = ({ comments, postId, isLoading, refetch }: Props) => {
+export default function Comments({ comments, postId, isLoading, refetch }: Props) {
   if (isLoading) {
     return (
       <Flex justify="center" align="center" style={{ height: '100px' }}>
@@ -30,6 +30,4 @@ const Comments = ({ comments, postId, isLoading, refetch }: Props) => {
       {comments?.map((comment) => <Comment key={comment.id} comment={comment} postId={postId} refetch={refetch} />)}
     </>
   );
-};
-
-export default Comments;
+}

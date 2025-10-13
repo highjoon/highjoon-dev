@@ -4,9 +4,9 @@ import { CommentWithUser } from '@highjoon-dev/types';
 import dayjs from 'dayjs';
 
 import { commentApi } from '@/apis/comment';
-import CommentEditArea from '@/components/comments/CommentEditArea';
-import CommentOptions from '@/components/comments/CommentOptions';
-import Reply from '@/components/comments/Reply';
+import CommentEditArea from '@/entities/comment/ui/CommentEditArea';
+import CommentOptions from '@/entities/comment/ui/CommentOptions';
+import Reply from '@/entities/comment/ui/Reply';
 import { clientApi } from '@/shared/api';
 
 import styles from './Comment.module.scss';
@@ -17,7 +17,7 @@ type Props = {
   refetch: () => Promise<void>;
 };
 
-const Comment = ({ comment, postId, refetch }: Props) => {
+export default function Comment({ comment, postId, refetch }: Props) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [replies, setReplies] = useState<CommentWithUser[]>([]);
 
@@ -99,6 +99,4 @@ const Comment = ({ comment, postId, refetch }: Props) => {
       )}
     </Paper>
   );
-};
-
-export default Comment;
+}

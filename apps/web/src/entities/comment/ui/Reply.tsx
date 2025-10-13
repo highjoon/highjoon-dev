@@ -4,8 +4,8 @@ import { CommentWithUser } from '@highjoon-dev/types';
 import dayjs from 'dayjs';
 
 import { commentApi } from '@/apis/comment';
-import CommentEditArea from '@/components/comments/CommentEditArea';
-import CommentOptions from '@/components/comments/CommentOptions';
+import CommentEditArea from '@/entities/comment/ui/CommentEditArea';
+import CommentOptions from '@/entities/comment/ui/CommentOptions';
 import { clientApi } from '@/shared/api';
 
 import styles from './Comment.module.scss';
@@ -19,7 +19,7 @@ type Props = {
   onReplyUpdated?: () => Promise<void>;
 };
 
-const Reply = ({ reply, postId, depth, parentCommentId, refetch, onReplyUpdated }: Props) => {
+export default function Reply({ reply, postId, depth, parentCommentId, refetch, onReplyUpdated }: Props) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [nestedReplies, setNestedReplies] = useState<CommentWithUser[]>([]);
 
@@ -113,6 +113,4 @@ const Reply = ({ reply, postId, depth, parentCommentId, refetch, onReplyUpdated 
       )}
     </>
   );
-};
-
-export default Reply;
+}

@@ -3,21 +3,21 @@ import Image from 'next/image';
 import { Box, Flex, Group, Title } from '@mantine/core';
 import { type Post } from '@highjoon-dev/prisma';
 
-import { MdxComponents } from '@/components/mdxComponents/MdxComponents';
-import MDXContent from '@/components/mdxContent/MDXContent';
-import ViewCount from '@/components/viewCount/ViewCount';
+import { MdxComponents } from '@/entities/post/lib/mdx/MdxComponents';
+import MDXContent from '@/entities/post/lib/mdx/MDXContent';
+import ViewCount from '@/entities/post/ui/ViewCount';
 
-import styles from './PageContent.module.scss';
+import styles from './PostContent.module.scss';
 
-type Props = {
+interface Props {
   title: Post['title'];
   bannerImageUrl: Post['bannerImageUrl'];
   content: string;
   viewCount: Post['viewCount'];
   slug: Post['slug'];
-};
+}
 
-const PageContent = ({ title, bannerImageUrl, content, viewCount, slug }: Props) => {
+export default function PostContent({ title, bannerImageUrl, content, viewCount, slug }: Props) {
   return (
     <Flex direction="column" w="100%" pos="relative" mb={20}>
       <Title order={1} className={styles.title}>
@@ -43,6 +43,4 @@ const PageContent = ({ title, bannerImageUrl, content, viewCount, slug }: Props)
       </Flex>
     </Flex>
   );
-};
-
-export default PageContent;
+}

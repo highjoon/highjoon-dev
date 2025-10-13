@@ -12,7 +12,7 @@ type Props = {
   refetch: () => Promise<void>;
 };
 
-const CommentEditArea = ({ commentId, content, onUpdate, refetch }: Props) => {
+export default function CommentEditArea({ commentId, content, onUpdate, refetch }: Props) {
   const [editContent, setEditContent] = useState(content);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,6 +61,4 @@ const CommentEditArea = ({ commentId, content, onUpdate, refetch }: Props) => {
       rightSectionWidth={100}
     />
   );
-};
-
-export default CommentEditArea;
+}

@@ -13,8 +13,6 @@ const options: SerializeOptions = {
   },
 };
 
-const MDXContent = ({ ...props }: MDXRemoteProps) => {
+export default function MDXContent({ ...props }: MDXRemoteProps) {
   return <MDXRemote {...props} options={options} />;
-};
-
-export default MDXContent;
+}

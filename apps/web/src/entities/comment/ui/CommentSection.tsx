@@ -4,15 +4,15 @@ import React from 'react';
 import { Flex } from '@mantine/core';
 import { Post } from '@highjoon-dev/prisma';
 
-import CommentInput from '@/components/comments/CommentInput';
-import Comments from '@/components/comments/Comments';
+import CommentInput from '@/entities/comment/ui/CommentInput';
+import Comments from '@/entities/comment/ui/Comments';
 import { useGetComments } from '@/hooks/api/useGetComments';
 
 type Props = {
   postId: Post['id'];
 };
 
-const CommentSection = ({ postId }: Props) => {
+export default function CommentSection({ postId }: Props) {
   const { comments, isLoading, refetch } = useGetComments(postId);
 
   return (
@@ -21,6 +21,4 @@ const CommentSection = ({ postId }: Props) => {
       <Comments postId={postId} comments={comments} isLoading={isLoading} refetch={refetch} />
     </Flex>
   );
-};
-
-export default CommentSection;
+}

@@ -18,7 +18,7 @@ type Props = {
   slug: string;
 };
 
-const LikeButton = ({ postId, likeCount, slug }: Props) => {
+export default function LikeButton({ postId, likeCount, slug }: Props) {
   const { isSignedIn } = useSignIn();
   const { likedPost, isLoading } = useGetLikedPosts();
   const { isLiked, likePost, unlikePost } = useLikePost({ likedPost, postId, slug });
@@ -67,6 +67,4 @@ const LikeButton = ({ postId, likeCount, slug }: Props) => {
       </Button>
     </Tooltip>
   );
-};
-
-export default LikeButton;
+}

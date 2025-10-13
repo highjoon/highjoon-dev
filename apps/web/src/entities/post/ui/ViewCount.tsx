@@ -12,7 +12,7 @@ type Props = {
   viewCount: Post['viewCount'];
 };
 
-const ViewCount = ({ viewCount, slug }: Props) => {
+export default function ViewCount({ viewCount, slug }: Props) {
   const isFirstRender = useRef(false);
 
   useLayoutEffect(() => {
@@ -32,6 +32,4 @@ const ViewCount = ({ viewCount, slug }: Props) => {
       </Text>
     </Flex>
   );
-};
-
-export default ViewCount;
+}

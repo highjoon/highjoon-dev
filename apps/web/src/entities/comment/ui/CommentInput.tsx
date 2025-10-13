@@ -14,7 +14,7 @@ type Props = {
   refetch: () => void;
 };
 
-const CommentInput = ({ postId, refetch }: Props) => {
+export default function CommentInput({ postId, refetch }: Props) {
   const { isSignedIn } = useSignIn();
   const { comment, handleChangeComment, submitComment } = useCommentInput(postId);
 
@@ -89,6 +89,4 @@ const CommentInput = ({ postId, refetch }: Props) => {
       </Flex>
     </Flex>
   );
-};
-
-export default CommentInput;
+}
