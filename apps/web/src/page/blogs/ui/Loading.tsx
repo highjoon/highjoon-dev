@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex, Group, Skeleton } from '@mantine/core';
 
-import styles from './loading.module.scss';
+import styles from './Loading.module.scss';
 
 export default function Loading() {
   return (
