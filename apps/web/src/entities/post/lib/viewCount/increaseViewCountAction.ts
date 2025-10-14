@@ -2,8 +2,8 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { increaseViewCountApi } from '@/features/api/increaseViewCountApi';
-import { IncreaseViewCountDto } from '@/features/api/increaseViewCountDto';
+import { increaseViewCountApi } from '@/entities/post/api/increaseViewCountApi';
+import { IncreaseViewCountDto } from '@/entities/post/api/increaseViewCountApi/dto';
 import { serverApi } from '@/shared/api/apiClient/serverApi';
 
 export const increaseViewCountAction = async (params: IncreaseViewCountDto) => {

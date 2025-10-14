@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Flex, Text } from '@mantine/core';
 import { type Post } from '@highjoon-dev/prisma';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
-import { increaseViewCountAction } from '@/features/increaseViewCount/lib/increaseViewCountAction';
+import { useIncreaseViewCount } from '@/entities/post/lib/viewCount/useIncreaseViewCount';
 
 type Props = {
   slug: Post['slug'];
@@ -13,16 +13,7 @@ type Props = {
 };
 
 export default function ViewCount({ viewCount, slug }: Props) {
-  const isFirstRender = useRef(false);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      return;
-    }
-
-    increaseViewCountAction({ slug });
-    isFirstRender.current = true;
-  }, [slug]);
+  useIncreaseViewCount({ slug });
 
   return (
     <Flex justify="center" gap={10}>
