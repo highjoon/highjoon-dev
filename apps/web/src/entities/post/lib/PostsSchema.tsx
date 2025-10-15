@@ -10,7 +10,7 @@ type Props = {
  * 블로그 포스트 목록을 위한 구조화된 데이터 (JSON-LD)
  * 검색 엔진이 블로그 목록 페이지를 이해할 수 있도록 도움
  */
-export default function BlogListSchema({ posts, pageNumber = 1 }: Props) {
+export default function PostsSchema({ posts, pageNumber = 1 }: Props) {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
