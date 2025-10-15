@@ -7,8 +7,8 @@ import { useMediaQuery } from '@mantine/hooks';
 import { Spotlight, spotlight, type SpotlightActionData } from '@mantine/spotlight';
 import { BsSearch } from 'react-icons/bs';
 
+import { useGetPosts } from '@/entities/post/api/getAllPostsApi/useGetPosts';
 import { createPostPath } from '@/entities/post/lib/post';
-import { useGetPostList } from '@/hooks/api/useGetPostList';
 
 import styles from './SearchBar.module.scss';
 
@@ -21,7 +21,7 @@ const SearchBar = ({ visibleFrom, onClickPost = noop }: Props) => {
 
   const router = useRouter();
 
-  const posts = useGetPostList();
+  const posts = useGetPosts();
 
   const actions: SpotlightActionData[] = posts.map((post) => {
     return {

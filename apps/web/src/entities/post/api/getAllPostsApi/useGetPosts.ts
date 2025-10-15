@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from 'react';
 import { type Post } from '@highjoon-dev/prisma';
 
-import { postApi } from '@/apis/post';
+import { getAllPostsApi } from '@/entities/post/api/getAllPostsApi';
 import { clientApi } from '@/shared/api';
 
-export const useGetPostList = () => {
+export const useGetPosts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   const getPostListHandler = useCallback(async () => {
-    const postList = await postApi(clientApi).getAll();
-    setPosts(postList.data);
+    const posts = await getAllPostsApi(clientApi);
+    setPosts(posts);
   }, []);
 
   useEffect(() => {

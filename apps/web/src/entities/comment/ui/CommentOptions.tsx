@@ -8,8 +8,8 @@ import { CiEdit, CiTrash, CiWarning } from 'react-icons/ci';
 
 import { deleteReplyAction } from '@/actions/comment';
 import { commentApi } from '@/apis/comment';
+import { useDeleteComment } from '@/entities/comment/api/deleteCommentApi/useDeleteComment';
 import ReplyInput from '@/entities/comment/ui/ReplyInput';
-import { useDeleteComment } from '@/hooks/api/useDeleteComment';
 import { useSignIn } from '@/hooks/useSignIn';
 import { clientApi } from '@/shared/api';
 import ConfirmModal from '@/shared/ui/ConfirmModal';

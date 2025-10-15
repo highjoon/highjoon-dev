@@ -4,9 +4,9 @@ import React from 'react';
 import { Flex } from '@mantine/core';
 import { Post } from '@highjoon-dev/prisma';
 
+import { useGetComments } from '@/entities/comment/api/getCommentsApi/useGetComments';
 import CommentInput from '@/entities/comment/ui/CommentInput';
 import Comments from '@/entities/comment/ui/Comments';
-import { useGetComments } from '@/hooks/api/useGetComments';
 
 type Props = {
   postId: Post['id'];

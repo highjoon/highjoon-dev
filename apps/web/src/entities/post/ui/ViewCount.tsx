@@ -5,7 +5,7 @@ import { Flex, Text } from '@mantine/core';
 import { type Post } from '@highjoon-dev/prisma';
 import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
-import { useIncreaseViewCount } from '@/entities/post/lib/viewCount/useIncreaseViewCount';
+import { useIncreaseViewCount } from '@/entities/post/api/increaseViewCountApi/useIncreaseViewCount';
 
 type Props = {
   slug: Post['slug'];

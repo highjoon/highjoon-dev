@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Post } from '@highjoon-dev/prisma';
 
-import { increaseViewCountAction } from '@/entities/post/lib/viewCount/increaseViewCountAction';
+import { increaseViewCountAction } from '@/entities/post/api/increaseViewCountApi/increaseViewCountAction';
 
 interface Args {
   slug: Post['slug'];

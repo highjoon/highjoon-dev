@@ -3,7 +3,7 @@ import { Button, Textarea } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { Comment } from '@highjoon-dev/prisma';
 
-import { useUpdateComment } from '@/hooks/api/useUpdateComment';
+import { useUpdateComment } from '@/entities/comment/api/updateCommentApi/useUpdateComment';
 
 type Props = {
   commentId: Comment['id'];
@@ -28,7 +28,7 @@ export default function CommentEditArea({ commentId, content, onUpdate, refetch 
     setIsLoading(true);
 
     try {
-      await updateComment(commentId, trimmedContent);
+      await updateComment({ commentId, content: trimmedContent });
       await refetch();
       onUpdate();
     } catch {
