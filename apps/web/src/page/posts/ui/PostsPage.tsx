@@ -2,12 +2,12 @@ import React from 'react';
 import { Flex } from '@mantine/core';
 
 import { postApi } from '@/apis/post';
-import Pagination from '@/components/pagination/Pagination';
 import { POSTS_PER_PAGE } from '@/entities/post/lib/post';
 import PostsSchema from '@/entities/post/lib/PostsSchema';
 import PostsSection from '@/page/posts/ui/PostsSection';
 import { serverApi } from '@/shared/api/apiClient/serverApi';
 import { ROUTES } from '@/shared/routes/routes';
+import Pagination from '@/widgets/ui/Pagination';
 
 interface Props {
   params: { id: string };
