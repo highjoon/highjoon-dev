@@ -1,7 +1,13 @@
 import { postApi } from '@/apis/post';
-import { IncreaseViewCountDto } from '@/entities/post/api/increaseViewCountApi/dto';
+import { IncreaseViewCountRequestDto } from '@/entities/post/api/increaseViewCountApi/dto';
 import { ApiClient } from '@/shared/api';
 
-export const increaseViewCountApi = async (api: ApiClient, params: IncreaseViewCountDto) => {
+/**
+ * 게시물 조회수 증가
+ * @param api ApiClient
+ * @param params IncreaseViewCountRequestDto
+ * @returns 게시물 조회수 증가
+ */
+export const increaseViewCountApi = async (api: ApiClient, params: IncreaseViewCountRequestDto) => {
   await postApi(api).increaseViewCount(params);
 };

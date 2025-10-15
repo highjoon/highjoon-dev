@@ -1,8 +1,8 @@
 import React from 'react';
 import { Post } from '@highjoon-dev/prisma';
 
-import { getPost } from '@/entities/post/api/getPost';
-import { getPostContent } from '@/entities/post/api/getPostContent';
+import { getPostApi } from '@/entities/post/api/getPostApi';
+import { getPostContentApi } from '@/entities/post/api/getPostContentApi';
 import PostSchema from '@/entities/post/lib/PostSchema';
 import LikeCommentsSection from '@/entities/post/ui/LikeCommentsSection';
 import PostContent from '@/entities/post/ui/PostContent';
@@ -15,8 +15,8 @@ interface Props {
 }
 
 export default async function PostPage({ params }: Props) {
-  const post = await getPost(serverApi, params);
-  const content = await getPostContent({ contentUrl: post.contentUrl });
+  const post = await getPostApi(serverApi, params);
+  const content = await getPostContentApi({ contentUrl: post.contentUrl });
 
   return (
     <>

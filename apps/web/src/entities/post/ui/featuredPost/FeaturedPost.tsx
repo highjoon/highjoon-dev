@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Card, Flex } from '@mantine/core';
 
-import { getFeaturedPost } from '@/entities/post/api/getFeaturedPost';
+import { getFeaturedPostApi } from '@/entities/post/api/getFeaturedPostApi';
 import FeaturedPostCard from '@/entities/post/ui/featuredPost/FeaturedPostCard';
 import { serverApi } from '@/shared/api/apiClient/serverApi';
 import createPostPath from '@/utils/createPostPath';
@@ -10,7 +10,7 @@ import createPostPath from '@/utils/createPostPath';
 import styles from './FeaturedPost.module.scss';
 
 export default async function FeaturedPost() {
-  const featuredPost = await getFeaturedPost(serverApi);
+  const featuredPost = await getFeaturedPostApi(serverApi);
 
   if (!featuredPost) {
     return null;

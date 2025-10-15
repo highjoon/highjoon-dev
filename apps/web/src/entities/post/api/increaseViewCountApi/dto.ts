@@ -1,5 +1,5 @@
 import { Post } from '@highjoon-dev/prisma';
 
-export interface IncreaseViewCountDto {
+export interface IncreaseViewCountRequestDto {
   slug: Post['slug'];
 }
