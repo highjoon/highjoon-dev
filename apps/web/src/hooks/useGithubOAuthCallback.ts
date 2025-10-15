@@ -32,7 +32,7 @@ export function useGithubOAuthCallback() {
 
     try {
       const response = await authApi(clientApi).githubLoginCallback({ code });
-      const accessToken = response.data;
+      const { accessToken } = response.data;
       setCookie(ACCESS_TOKEN_KEY, accessToken);
       router.replace(state);
     } catch {

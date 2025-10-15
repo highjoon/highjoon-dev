@@ -10,6 +10,6 @@ export const authApi = (api: ApiClient) => {
       api.get<ServiceResponseInterface<string>>(`/auth/github?returnUrl=${params.returnUrl}`),
     /** 깃허브 로그인 콜백 */
     githubLoginCallback: (params: AuthApiRequest['githubLoginCallback']) =>
-      api.get<ServiceResponseInterface<string>>(`/auth/github/callback?code=${params.code}`),
+      api.get<ServiceResponseInterface<{ accessToken: string }>>(`/auth/github/callback?code=${params.code}`),
   } as const;
 };
