@@ -1,7 +1,7 @@
 import { type MetadataRoute } from 'next';
 
 import { postApi } from '@/apis/post';
-import { POSTS_PER_PAGE } from '@/constants/post';
+import { POSTS_PER_PAGE } from '@/entities/post/lib/post';
 import { clientApi } from '@/shared/api';
 import { ROUTES } from '@/shared/routes/routes';
 

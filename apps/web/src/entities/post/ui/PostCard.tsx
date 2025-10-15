@@ -6,7 +6,7 @@ import { Card, Flex, Group, Image, Text } from '@mantine/core';
 import { type Post } from '@highjoon-dev/prisma';
 import dayjs from 'dayjs';
 
-import createPostPath from '@/utils/createPostPath';
+import { createPostPath } from '@/entities/post/lib/post';
 
 import styles from './PostCard.module.scss';
 
@@ -14,7 +14,7 @@ type Props = {
   post: Post;
 };
 
-const PostCard = ({ post }: Props) => {
+export default function PostCard({ post }: Props) {
   return (
     <li className={styles.card}>
       <Card shadow="sm" padding="lg" radius="md" withBorder h="100%" style={{ gap: 20 }}>
@@ -48,6 +48,4 @@ const PostCard = ({ post }: Props) => {
       </Card>
     </li>
   );
-};
-
-export default PostCard;
+}

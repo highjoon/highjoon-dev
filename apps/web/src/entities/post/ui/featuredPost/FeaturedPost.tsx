@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { Card, Flex } from '@mantine/core';
 
 import { getFeaturedPostApi } from '@/entities/post/api/getFeaturedPostApi';
+import { createPostPath } from '@/entities/post/lib/post';
 import FeaturedPostCard from '@/entities/post/ui/featuredPost/FeaturedPostCard';
 import { serverApi } from '@/shared/api/apiClient/serverApi';
-import createPostPath from '@/utils/createPostPath';
 
 import styles from './FeaturedPost.module.scss';
 

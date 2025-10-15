@@ -7,8 +7,8 @@ import { useMediaQuery } from '@mantine/hooks';
 import { Spotlight, spotlight, type SpotlightActionData } from '@mantine/spotlight';
 import { BsSearch } from 'react-icons/bs';
 
+import { createPostPath } from '@/entities/post/lib/post';
 import { useGetPostList } from '@/hooks/api/useGetPostList';
-import createPostPath from '@/utils/createPostPath';
 
 import styles from './SearchBar.module.scss';
 
