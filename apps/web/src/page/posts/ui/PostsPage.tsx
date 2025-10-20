@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex } from '@mantine/core';
 
-import { postApi } from '@/apis/post';
+import { getAllPostsApi } from '@/entities/post/api/getAllPostsApi';
 import { POSTS_PER_PAGE } from '@/entities/post/lib/post';
 import PostsSchema from '@/entities/post/lib/PostsSchema';
 import PostsSection from '@/page/posts/ui/PostsSection';
@@ -14,10 +14,10 @@ interface Props {
 }
 
 export default async function PostsPage({ params }: Props) {
-  const postList = await postApi(serverApi).getAll();
+  const postList = await getAllPostsApi(serverApi);
   const currentPage = Number(params.id);
-  const totalPage = Math.ceil(postList.data.length / POSTS_PER_PAGE);
-  const blogPosts = postList.data.slice((currentPage - 1) * POSTS_PER_PAGE, POSTS_PER_PAGE * currentPage);
+  const totalPage = Math.ceil(postList.length / POSTS_PER_PAGE);
+  const blogPosts = postList.slice((currentPage - 1) * POSTS_PER_PAGE, POSTS_PER_PAGE * currentPage);
 
   return (
     <>

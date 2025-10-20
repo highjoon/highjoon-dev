@@ -5,9 +5,10 @@ import { type LikedPost, type TokenData } from '@highjoon-dev/types';
 import { getCookie } from 'cookies-next/client';
 import jwt from 'jsonwebtoken';
 
-import { likePostAction, unlikePostAction } from '@/actions/post';
 import { authApi } from '@/apis/auth';
 import { ACCESS_TOKEN_KEY } from '@/constants';
+import { likePostAction } from '@/entities/like/api/likePostApi/likePostAction';
+import { unlikePostAction } from '@/entities/like/api/unlikePostApi/unlikePostAction';
 import { clientApi } from '@/shared/api';
 
 type Args = {
