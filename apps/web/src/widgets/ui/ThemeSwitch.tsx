@@ -11,7 +11,7 @@ import {
 } from '@mantine/core';
 import { BsMoonFill, BsSunFill } from 'react-icons/bs';
 
-import { THEME } from '@/constants/theme';
+import { THEME } from '@/shared/model/theme';
 
 type Props = { visibleFrom?: BoxProps['visibleFrom'] };
 

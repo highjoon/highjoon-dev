@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@mantine/core';
 
-import { useSignIn } from '@/hooks/useSignIn';
+import { useSignIn } from '@/entities/auth/lib/useSignIn';
 
 const SignOutButton = () => {
   const { signOut } = useSignIn();

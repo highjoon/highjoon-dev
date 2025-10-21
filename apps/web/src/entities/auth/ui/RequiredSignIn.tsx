@@ -2,7 +2,7 @@ import React from 'react';
 import { ActionIcon, Flex, Text } from '@mantine/core';
 import { BsGithub } from 'react-icons/bs';
 
-import { useSignIn } from '@/hooks/useSignIn';
+import { useSignIn } from '@/entities/auth/lib/useSignIn';
 
 const RequiredSignIn = () => {
   const { signIn } = useSignIn();

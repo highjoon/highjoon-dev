@@ -6,13 +6,13 @@ import { Comment } from '@highjoon-dev/prisma';
 import { overlay } from 'overlay-kit';
 import { CiEdit, CiTrash, CiWarning } from 'react-icons/ci';
 
+import { useSignIn } from '@/entities/auth/lib/useSignIn';
 import { createReplyAction } from '@/entities/comment/api/createReplyApi/createReplyAction';
 import { useDeleteComment } from '@/entities/comment/api/deleteCommentApi/useDeleteComment';
 import { deleteReplyAction } from '@/entities/comment/api/deleteReplyApi/deleteReplyAction';
 import ReplyInput from '@/entities/comment/ui/ReplyInput';
-import { useSignIn } from '@/hooks/useSignIn';
+import { decodeToken } from '@/shared/lib/decodeToken';
 import ConfirmModal from '@/shared/ui/ConfirmModal';
-import { decodeToken } from '@/utils/decodeToken';
 
 type Props = {
   commentId: Comment['id'];

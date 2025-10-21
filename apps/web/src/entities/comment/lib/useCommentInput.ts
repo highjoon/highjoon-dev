@@ -1,9 +1,9 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 import { Post } from '@highjoon-dev/prisma';
 
+import { useSignIn } from '@/entities/auth/lib/useSignIn';
 import { createCommentAction } from '@/entities/comment/api/createCommentApi/createCommentAction';
-import { useSignIn } from '@/hooks/useSignIn';
-import { decodeToken } from '@/utils/decodeToken';
+import { decodeToken } from '@/shared/lib/decodeToken';
 
 export const useCommentInput = (postId: Post['id']) => {
   const [comment, setComment] = useState('');

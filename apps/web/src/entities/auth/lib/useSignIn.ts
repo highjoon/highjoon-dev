@@ -3,9 +3,8 @@ import { useRouter } from 'next/navigation';
 import { Nullable } from '@highjoon-dev/types';
 import { deleteCookie, getCookie } from 'cookies-next/client';
 
-import { authApi } from '@/apis/auth';
-import { ACCESS_TOKEN_KEY } from '@/constants';
-import { clientApi } from '@/shared/api';
+import { githubLoginAction } from '@/entities/auth/api/githubLoginApi/githubLoginAction';
+import { ACCESS_TOKEN_KEY } from '@/entities/auth/lib/constants';
 import { ROUTES } from '@/shared/routes/routes';
 
 export const useSignIn = () => {
@@ -20,8 +19,8 @@ export const useSignIn = () => {
       return;
     }
 
-    const response = await authApi(clientApi).githubLogin({ returnUrl: window.location.href });
-    const loginUrl = response.data;
+    const response = await githubLoginAction({ returnUrl: window.location.href });
+    const loginUrl = response;
 
     if (!loginUrl) {
       router.replace(ROUTES.HOME);

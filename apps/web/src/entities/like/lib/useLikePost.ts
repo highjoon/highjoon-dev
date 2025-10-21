@@ -5,11 +5,10 @@ import { type LikedPost, type TokenData } from '@highjoon-dev/types';
 import { getCookie } from 'cookies-next/client';
 import jwt from 'jsonwebtoken';
 
-import { authApi } from '@/apis/auth';
-import { ACCESS_TOKEN_KEY } from '@/constants';
+import { githubLoginAction } from '@/entities/auth/api/githubLoginApi/githubLoginAction';
+import { ACCESS_TOKEN_KEY } from '@/entities/auth/lib/constants';
 import { likePostAction } from '@/entities/like/api/likePostApi/likePostAction';
 import { unlikePostAction } from '@/entities/like/api/unlikePostApi/unlikePostAction';
-import { clientApi } from '@/shared/api';
 
 type Args = {
   likedPost: LikedPost[];
@@ -25,8 +24,8 @@ export const useLikePost = ({ likedPost, postId, slug }: Args) => {
 
     try {
       if (!accessToken) {
-        const response = await authApi(clientApi).githubLogin({ returnUrl: window.location.href });
-        const loginUrl = response.data;
+        const response = await githubLoginAction({ returnUrl: window.location.href });
+        const loginUrl = response;
 
         if (!loginUrl) {
           notifications.show({

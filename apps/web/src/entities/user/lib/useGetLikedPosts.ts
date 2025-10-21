@@ -3,8 +3,8 @@ import { type LikedPost, type TokenData } from '@highjoon-dev/types';
 import { getCookie } from 'cookies-next/client';
 import jwt from 'jsonwebtoken';
 
-import { userApi } from '@/apis/user';
-import { ACCESS_TOKEN_KEY } from '@/constants';
+import { ACCESS_TOKEN_KEY } from '@/entities/auth/lib/constants';
+import { getLikedPostsApi } from '@/entities/user/api/getLikedPostsApi';
 import { clientApi } from '@/shared/api';
 
 export const useGetLikedPosts = () => {
@@ -29,13 +29,13 @@ export const useGetLikedPosts = () => {
     const userId = decodedToken.userId;
 
     try {
-      const response = await userApi(clientApi).getLikedPosts(userId);
+      const response = await getLikedPostsApi(clientApi, { userId });
 
-      if (!response || !response.data || response.data.length === 0) {
+      if (!response || response.length === 0) {
         return;
       }
 
-      setLikedPost(response.data);
+      setLikedPost(response);
     } finally {
       setIsLoading(false);
     }

@@ -4,10 +4,10 @@ import React from 'react';
 import { Button, Flex, Loader, Textarea } from '@mantine/core';
 import { Post } from '@highjoon-dev/prisma';
 
-import RequiredSignIn from '@/components/comments/RequiredSignIn';
-import SignOutButton from '@/components/comments/SignOutButton';
-import { useCommentInput } from '@/hooks/useCommentInput';
-import { useSignIn } from '@/hooks/useSignIn';
+import { useSignIn } from '@/entities/auth/lib/useSignIn';
+import RequiredSignIn from '@/entities/auth/ui/RequiredSignIn';
+import SignOutButton from '@/entities/auth/ui/SignOutButton';
+import { useCommentInput } from '@/entities/comment/lib/useCommentInput';
 
 type Props = {
   postId: Post['id'];

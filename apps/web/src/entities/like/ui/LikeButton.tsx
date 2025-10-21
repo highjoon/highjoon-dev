@@ -7,9 +7,9 @@ import { overlay } from 'overlay-kit';
 import { BiLike } from 'react-icons/bi';
 import { CiWarning } from 'react-icons/ci';
 
+import { useSignIn } from '@/entities/auth/lib/useSignIn';
 import { useLikePost } from '@/entities/like/lib/useLikePost';
-import { useGetLikedPosts } from '@/hooks/api/useGetLikedPosts';
-import { useSignIn } from '@/hooks/useSignIn';
+import { useGetLikedPosts } from '@/entities/user/lib/useGetLikedPosts';
 import ConfirmModal from '@/shared/ui/ConfirmModal';
 
 type Props = {
