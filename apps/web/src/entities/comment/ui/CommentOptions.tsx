@@ -6,12 +6,11 @@ import { Comment } from '@highjoon-dev/prisma';
 import { overlay } from 'overlay-kit';
 import { CiEdit, CiTrash, CiWarning } from 'react-icons/ci';
 
-import { deleteReplyAction } from '@/actions/comment';
-import { commentApi } from '@/apis/comment';
+import { createReplyAction } from '@/entities/comment/api/createReplyApi/createReplyAction';
 import { useDeleteComment } from '@/entities/comment/api/deleteCommentApi/useDeleteComment';
+import { deleteReplyAction } from '@/entities/comment/api/deleteReplyApi/deleteReplyAction';
 import ReplyInput from '@/entities/comment/ui/ReplyInput';
 import { useSignIn } from '@/hooks/useSignIn';
-import { clientApi } from '@/shared/api';
 import ConfirmModal from '@/shared/ui/ConfirmModal';
 import { decodeToken } from '@/utils/decodeToken';
 
@@ -51,7 +50,7 @@ export default function CommentOptions({
 
     const actualParentId = commentId;
 
-    await commentApi(clientApi).createReply({ postId, userId, content, parentId: actualParentId });
+    await createReplyAction({ postId, userId, content, parentId: actualParentId });
 
     // 대댓글 생성 후 콜백 함수 호출
     await onReplyCreated?.();
@@ -86,7 +85,7 @@ export default function CommentOptions({
         refetch();
       } else {
         // 대댓글인 경우
-        await deleteReplyAction(commentId);
+        await deleteReplyAction({ replyId: commentId });
         // 대댓글 삭제 후 콜백 함수를 먼저 호출 (중첩 답글 목록 새로고침)
         await onReplyDeleted?.();
         refetch();

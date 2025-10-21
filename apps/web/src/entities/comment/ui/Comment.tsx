@@ -3,11 +3,10 @@ import { Anchor, Avatar, Box, Group, Paper, Text } from '@mantine/core';
 import { CommentWithUser } from '@highjoon-dev/types';
 import dayjs from 'dayjs';
 
-import { commentApi } from '@/apis/comment';
+import { getRepliesAction } from '@/entities/comment/api/getRepliesApi/getRepliesAction';
 import CommentEditArea from '@/entities/comment/ui/CommentEditArea';
 import CommentOptions from '@/entities/comment/ui/CommentOptions';
 import Reply from '@/entities/comment/ui/Reply';
-import { clientApi } from '@/shared/api';
 
 import styles from './Comment.module.scss';
 
@@ -23,10 +22,10 @@ export default function Comment({ comment, postId, refetch }: Props) {
 
   const loadReplies = useCallback(async () => {
     try {
-      const repliesData = await commentApi(clientApi).getReplies({ parentId: comment.id });
+      const repliesData = await getRepliesAction({ parentId: comment.id });
 
       if (repliesData) {
-        setReplies(repliesData.data || []);
+        setReplies(repliesData || []);
       }
     } catch (error) {
       console.error('대댓글을 불러오는 중 오류가 발생했습니다:', error);
