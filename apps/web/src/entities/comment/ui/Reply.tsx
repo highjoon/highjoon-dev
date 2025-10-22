@@ -4,8 +4,8 @@ import { CommentWithUser } from '@highjoon-dev/types';
 import dayjs from 'dayjs';
 
 import { getRepliesAction } from '@/entities/comment/api/getRepliesApi/getRepliesAction';
-import CommentEditArea from '@/entities/comment/ui/CommentEditArea';
-import CommentOptions from '@/entities/comment/ui/CommentOptions';
+import CommentEditArea from '@/features/editComment/ui/CommentEditArea';
+import CommentOptions from '@/features/manageComment/ui/CommentOptions';
 
 import styles from './Comment.module.scss';
 

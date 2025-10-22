@@ -2,9 +2,9 @@ import React from 'react';
 import { Flex } from '@mantine/core';
 
 import HomePageSchema from '@/page/home/model/HomePageSchema';
-import FeaturedPostSection from '@/page/home/ui/FeaturedPostSection';
-import LatestPostsSection from '@/page/home/ui/LatestPostsSection';
 import ViewAllPostsButton from '@/page/home/ui/ViewAllPostsButton';
+import FeaturedPostSection from '@/widgets/featuredPostSection/ui/FeaturedPostSection';
+import LatestPostsSection from '@/widgets/latestPostsSection/ui/LatestPostsSection';
 
 export default function HomePage() {
   return (

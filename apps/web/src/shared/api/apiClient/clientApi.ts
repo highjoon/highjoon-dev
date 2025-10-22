@@ -1,6 +1,6 @@
 import { getCookie } from 'cookies-next/client';
 
-import { ACCESS_TOKEN_KEY } from '@/entities/auth/lib/constants';
+import { ACCESS_TOKEN_KEY } from '@/features/auth/model/constants';
 
 import { createApiClient } from './index';
 

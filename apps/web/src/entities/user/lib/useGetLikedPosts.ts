@@ -3,8 +3,8 @@ import { type LikedPost, type TokenData } from '@highjoon-dev/types';
 import { getCookie } from 'cookies-next/client';
 import jwt from 'jsonwebtoken';
 
-import { ACCESS_TOKEN_KEY } from '@/entities/auth/lib/constants';
 import { getLikedPostsApi } from '@/entities/user/api/getLikedPostsApi';
+import { ACCESS_TOKEN_KEY } from '@/features/auth/model/constants';
 import { clientApi } from '@/shared/api';
 
 export const useGetLikedPosts = () => {

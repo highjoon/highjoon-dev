@@ -2,7 +2,7 @@
 
 import { Container, Group, Loader, Paper, Stack, Text } from '@mantine/core';
 
-import { useGithubOAuthCallback } from '@/entities/auth/lib/useGithubOAuthCallback';
+import { useGithubOAuthCallback } from '@/features/auth/model/useGithubOAuthCallback';
 
 const GithubOAuthCallbackPage = () => {
   useGithubOAuthCallback();

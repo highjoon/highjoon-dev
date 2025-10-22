@@ -4,9 +4,9 @@ import { Post } from '@highjoon-dev/prisma';
 import { getPostApi } from '@/entities/post/api/getPostApi';
 import { getPostContentApi } from '@/entities/post/api/getPostContentApi';
 import PostSchema from '@/entities/post/lib/PostSchema';
-import LikeCommentsSection from '@/entities/post/ui/LikeCommentsSection';
 import PostContent from '@/entities/post/ui/PostContent';
 import { serverApi } from '@/shared/api/apiClient/serverApi';
+import LikeCommentsSection from '@/widgets/likeCommentsSection/ui/LikeCommentsSection';
 
 interface Props {
   params: {
