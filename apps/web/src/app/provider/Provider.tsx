@@ -19,7 +19,6 @@ import '@mantine/core/styles.css';
 import '@/app/styles/_components.scss';
 import '@mantine/notifications/styles.css';
 import 'highlight.js/styles/github-dark.css';
-import '@highjoon-dev/ui/globals.css';
 import '@/app/styles/globals.css';
 import '@mantine/spotlight/styles.css';
 
