@@ -1,73 +1,58 @@
 'use client';
 
 import Link from 'next/link';
-import { Avatar, em, Flex, Text } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
-import { AiFillGithub, AiFillLinkedin, AiFillMail } from 'react-icons/ai';
+import { Avatar, AvatarFallback, AvatarImage } from '@highjoon-dev/ui/components/Avatar';
 
-import { LINKS } from '@/shared/model/links';
-
-import styles from './Footer.module.scss';
+import { ROUTES } from '@/shared/routes/routes';
+import { footerSections, footerSocialLinks } from '@/widgets/model/footer';
 
 const Footer = () => {
-  const isMobile = useMediaQuery(`(max-width: ${em(576)})`);
-  const isTablet = useMediaQuery(`(min-width: ${em(576)}) and (max-width: ${em(768)})`);
-
   return (
-    <Flex component="footer" className={styles.footer} w="100%" justify="center">
-      <Flex className={styles.container} align="center" justify="space-between" gap={10} w="100%">
-        <Flex align="center" gap={10}>
-          <Avatar
-            src="/images/img-profile.png"
-            bg="grey"
-            alt="img-profile"
-            size={isMobile ? 'sm' : 'md'}
-            visibleFrom="xs"
-          />
-          <Flex direction="column" justify="center">
-            <Text
-              className={styles['profile-wrapper']}
-              component="div"
-              tt="uppercase"
-              fw={900}
-              fz={isMobile ? 'h5' : isTablet ? 'h4' : 'h3'}
-              variant="gradient"
-              gradient={{ from: 'indigo', to: 'grape', deg: 100 }}>
-              <Avatar
-                src="/images/img-profile.png"
-                bg="grey"
-                alt="img-profile"
-                size={isMobile ? 'sm' : 'md'}
-                hiddenFrom="xs"
-              />
-              highjoon-dev
-            </Text>
-            <Text component="p" className={styles.text}>
-              highjoon {new Date().getFullYear()}. All Rights Reserved.
-            </Text>
-          </Flex>
-        </Flex>
-        <Flex className={styles['info-wrapper']} component="ul" align="center" gap={10} c="gray.7">
-          <li>
-            <Link href={LINKS.GITHUB} target="_blank">
-              <AiFillGithub className={styles.icon} />
-            </Link>
-          </li>
-          <li>|</li>
-          <li>
-            <Link href={LINKS.LINKED_IN} target="_blank">
-              <AiFillLinkedin className={styles.icon} />
-            </Link>
-          </li>
-          <li>|</li>
-          <li>
-            <Link href={LINKS.MAIL_TO} target="_blank">
-              <AiFillMail className={styles.icon} />
-            </Link>
-          </li>
-        </Flex>
-      </Flex>
-    </Flex>
+    <footer className="w-full mt-16 border-t bg-muted/50 border-border">
+      <div className="container max-w-6xl px-4 py-16 mx-auto md:px-6">
+        <div className="flex flex-col justify-between w-full gap-10 lg:flex-row lg:items-start lg:text-left">
+          <div className="flex flex-col justify-between w-full gap-6 lg:items-start">
+            {/* Logo */}
+            <div className="flex items-center gap-3 lg:justify-start">
+              <Link href={ROUTES.HOME}>
+                <Avatar className="w-8 h-8">
+                  <AvatarImage src="/images/img-profile.png" alt="profile" />
+                  <AvatarFallback>HJ</AvatarFallback>
+                </Avatar>
+              </Link>
+              <h2 className="text-xl font-semibold text-transparent bg-gradient-to-r from-slate-600 to-slate-900 dark:from-slate-300 dark:to-slate-100 bg-clip-text">
+                highjoon-dev
+              </h2>
+            </div>
+            <ul className="flex items-center space-x-6 text-muted-foreground">
+              {footerSocialLinks.map((social) => (
+                <li key={social.label} className="font-medium transition-colors hover:text-primary">
+                  <Link href={social.href} target="_blank" aria-label={social.label}>
+                    {social.icon}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="grid w-full gap-6 md:grid-cols-1 lg:gap-20">
+            {footerSections.map((section) => (
+              <div key={section.title} className="lg:text-right">
+                <h3 className="mb-4 font-bold">{section.title}</h3>
+                <ul className="space-y-3 text-sm text-muted-foreground">
+                  {section.links.map((link) => (
+                    <li key={link.name} className="font-medium transition-colors hover:text-primary">
+                      <Link href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined}>
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 };
 
