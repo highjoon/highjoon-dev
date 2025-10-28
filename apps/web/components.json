@@ -11,7 +11,7 @@
   "rsc": true,
   "style": "new-york",
   "tailwind": {
-    "baseColor": "neutral",
+    "baseColor": "slate",
     "config": "",
     "css": "../../packages/ui/src/styles/globals.css",
     "cssVariables": true

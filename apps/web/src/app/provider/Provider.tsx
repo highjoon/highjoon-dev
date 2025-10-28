@@ -1,6 +1,7 @@
 'use client';
 
 import { type PropsWithChildren, useEffect } from 'react';
+import { ThemeProvider } from 'next-themes';
 import { createTheme, MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import hljs from 'highlight.js';
@@ -10,6 +11,7 @@ import plaintext from 'highlight.js/lib/languages/plaintext';
 import typescript from 'highlight.js/lib/languages/typescript';
 import html from 'highlight.js/lib/languages/vbscript-html';
 import { OverlayProvider } from 'overlay-kit';
+import { Toaster } from 'sonner';
 
 import AppScripts from '@/app/scripts/AppScripts';
 
@@ -37,10 +39,13 @@ export const Provider = ({ children }: PropsWithChildren) => {
 
   return (
     <>
-      <MantineProvider theme={theme} defaultColorScheme="auto">
-        <Notifications />
-        <OverlayProvider>{children}</OverlayProvider>
-      </MantineProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <MantineProvider theme={theme} defaultColorScheme="auto">
+          <Notifications />
+          <OverlayProvider>{children}</OverlayProvider>
+        </MantineProvider>
+        <Toaster />
+      </ThemeProvider>
 
       <AppScripts />
     </>
