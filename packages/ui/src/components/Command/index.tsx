@@ -1,11 +1,16 @@
 'use client';
 
 import * as React from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@highjoon-dev/ui/components/Dialog';
 import { cn } from '@highjoon-dev/ui/lib/utils';
 import { Command as CommandPrimitive } from 'cmdk';
 import { SearchIcon } from 'lucide-react';
-
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/Dialog';
 
 function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
   return (

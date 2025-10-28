@@ -1,55 +1,67 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { Avatar, Burger, em, Flex, Group, Text } from '@mantine/core';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { Avatar, AvatarFallback, AvatarImage } from '@highjoon-dev/ui/components/Avatar';
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from '@highjoon-dev/ui/components/NavigationMenu';
 
 import { ROUTES } from '@/shared/routes/routes';
-import NavMenuLink from '@/widgets/ui/NavMenuLink';
+import { navigationItems } from '@/widgets/model/navigation';
+import MobileMenu from '@/widgets/ui/MobileMenu';
 import SearchBar from '@/widgets/ui/SearchBar';
-import SideDrawer from '@/widgets/ui/SideDrawer';
 import ThemeSwitch from '@/widgets/ui/ThemeSwitch';
 
-import styles from './Header.module.scss';
+export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-const Header = () => {
-  const [opened, { toggle, close }] = useDisclosure(false);
-  const isMobile = useMediaQuery(`(max-width: ${em(576)})`);
-  const isTablet = useMediaQuery(`(min-width: ${em(576)}) and (max-width: ${em(768)})`);
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <>
-      <Flex component="header" className={styles.header} justify="center">
-        <Flex className={styles.inner} justify="space-between" align="center">
-          <Group className={styles.title}>
-            <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="md" />
-            <Link className={styles['home-link']} href={ROUTES.HOME}>
-              <Flex align="center" gap={10}>
-                <Avatar src="/images/img-profile.png" bg="grey" alt="img-profile" size={isMobile ? 'sm' : 'md'} />
-                <Text
-                  tt="uppercase"
-                  fw={900}
-                  fz={isMobile ? 'h4' : isTablet ? 'h3' : 'h2'}
-                  variant="gradient"
-                  gradient={{ from: 'indigo', to: 'grape', deg: 100 }}>
-                  highjoon-dev
-                </Text>
-              </Flex>
-            </Link>
-          </Group>
-          <Group>
-            <Group ml={50} gap={5} visibleFrom="md">
-              <NavMenuLink opened={opened} close={close} />
-            </Group>
-            <SearchBar visibleFrom="md" />
-            <ThemeSwitch />
-          </Group>
-        </Flex>
-      </Flex>
-      <SideDrawer opened={opened} onClose={close} />
-    </>
-  );
-};
+    <section className="py-4 border-b bg-background border-border">
+      <div className="container max-w-6xl px-4 mx-auto">
+        <nav className="flex items-center justify-between">
+          {/* Logo */}
+          <Link href={ROUTES.HOME} className="flex items-center gap-3 group">
+            <Avatar className="w-8 h-8">
+              <AvatarImage src="/images/img-profile.png" alt="profile" />
+              <AvatarFallback>HJ</AvatarFallback>
+            </Avatar>
+            <span className="text-lg font-semibold tracking-tighter text-transparent bg-gradient-to-r from-slate-600 to-slate-900 dark:from-slate-300 dark:to-slate-100 bg-clip-text group-hover:from-slate-700 group-hover:to-slate-900 dark:group-hover:from-slate-200 dark:group-hover:to-slate-50">
+              highjoon-dev
+            </span>
+          </Link>
 
-export default Header;
+          {/* Desktop Navigation */}
+          <NavigationMenu className="hidden lg:block">
+            <NavigationMenuList>
+              {navigationItems.map((item) => (
+                <NavigationMenuItem key={item.title}>
+                  <NavigationMenuLink href={item.href} className={navigationMenuTriggerStyle()}>
+                    {item.title}
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
+
+          {/* Desktop Actions */}
+          <div className="items-center hidden gap-4 lg:flex">
+            <SearchBar />
+            <ThemeSwitch />
+          </div>
+
+          {/* Mobile Menu */}
+          <MobileMenu isOpen={mobileMenuOpen} onOpenChange={setMobileMenuOpen} onClose={closeMobileMenu} />
+        </nav>
+      </div>
+    </section>
+  );
+}

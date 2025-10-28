@@ -1,58 +1,27 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import {
-  type BoxProps,
-  rem,
-  Switch,
-  useComputedColorScheme,
-  useMantineColorScheme,
-  useMantineTheme,
-} from '@mantine/core';
-import { BsMoonFill, BsSunFill } from 'react-icons/bs';
+import { useTheme } from 'next-themes';
+import { Button } from '@highjoon-dev/ui/components/Button';
+import { Moon, Sun } from 'lucide-react';
 
-import { THEME } from '@/shared/model/theme';
-
-type Props = { visibleFrom?: BoxProps['visibleFrom'] };
-
-const ThemeSwitch = ({ visibleFrom }: Props) => {
-  const mantineTheme = useMantineTheme();
-  const { setColorScheme } = useMantineColorScheme({ keepTransitions: true });
-  const computedColorScheme = useComputedColorScheme(THEME.LIGHT);
-
+const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false);
-
-  const handleSwitchTheme = () => {
-    setColorScheme(computedColorScheme === THEME.DARK ? THEME.LIGHT : THEME.DARK);
-  };
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) {
-    return (
-      <Switch
-        size="md"
-        color="dark.4"
-        onLabel={<BsSunFill style={{ width: rem(13), height: rem(13) }} color={mantineTheme.colors.yellow[4]} />}
-        offLabel={<BsMoonFill style={{ width: rem(13), height: rem(13) }} color={mantineTheme.white} />}
-        disabled
-        visibleFrom={visibleFrom}
-      />
-    );
+    return <div className="border rounded-md w-9 h-9 border-border bg-muted animate-pulse" />;
   }
 
   return (
-    <Switch
-      size="md"
-      color="dark.4"
-      onLabel={<BsSunFill style={{ width: rem(13), height: rem(13) }} color={mantineTheme.colors.yellow[4]} />}
-      offLabel={<BsMoonFill style={{ width: rem(13), height: rem(13) }} color={mantineTheme.white} />}
-      checked={computedColorScheme === THEME.LIGHT}
-      onChange={handleSwitchTheme}
-      visibleFrom={visibleFrom}
-    />
+    <Button variant="outline" size="icon" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+      {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+      <span className="sr-only">테마 전환</span>
+    </Button>
   );
 };
 

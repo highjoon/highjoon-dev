@@ -1,66 +1,62 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { em, Group, type MantineSize, noop, UnstyledButton } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
-import { Spotlight, spotlight, type SpotlightActionData } from '@mantine/spotlight';
-import { BsSearch } from 'react-icons/bs';
+import { Button } from '@highjoon-dev/ui/components/Button';
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@highjoon-dev/ui/components/Command';
+import { Search } from 'lucide-react';
 
 import { useGetPosts } from '@/entities/post/api/getAllPostsApi/useGetPosts';
 import { createPostPath } from '@/entities/post/lib/post';
 
-import styles from './SearchBar.module.scss';
+type Props = { onClickPost?: () => void };
 
-type Props = { visibleFrom?: MantineSize; onClickPost?: () => void };
-
-const SearchBar = ({ visibleFrom, onClickPost = noop }: Props) => {
-  const isMobile = useMediaQuery(`(max-width: ${em(576)})`);
-  const isTablet = useMediaQuery(`(min-width: ${em(576)}) and (max-width: ${em(768)})`);
-  const isDesktop = !isMobile && !isTablet;
-
+const SearchBar = ({ onClickPost = () => {} }: Props) => {
+  const [open, setOpen] = useState(false);
   const router = useRouter();
-
   const posts = useGetPosts();
 
-  const actions: SpotlightActionData[] = posts.map((post) => {
-    return {
-      id: post.slug,
-      label: post.title,
-      description: post.description,
-      onClick: () => {
-        router.push(createPostPath(post.slug));
-        onClickPost();
-      },
-    };
-  });
+  const handleSelect = (postSlug: string) => {
+    router.push(createPostPath(postSlug));
+    setOpen(false);
+    onClickPost();
+  };
 
   return (
     <>
-      <UnstyledButton
-        className={styles['search-button']}
-        px="sm"
-        w={isDesktop ? 200 : '100%'}
-        h={34}
-        visibleFrom={visibleFrom}
-        c="gray.6"
-        onClick={spotlight.open}>
-        <Group>
-          <BsSearch className={styles['search-icon']} />
-          {!isTablet && '검색'}
-        </Group>
-      </UnstyledButton>
-      <Spotlight
-        size="xl"
-        actions={actions}
-        nothingFound="일치하는 게시물이 없습니다."
-        highlightQuery
-        scrollable
-        searchProps={{
-          leftSection: <BsSearch className={styles['search-icon']} />,
-          placeholder: '검색어를 입력해주세요.',
-        }}
-      />
+      <Button
+        variant="outline"
+        className="justify-start w-full lg:w-64 text-muted-foreground"
+        onClick={() => setOpen(true)}>
+        <Search className="w-4 h-4 mr-2" />
+        검색
+      </Button>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <Command>
+          <CommandInput placeholder="검색어를 입력해주세요..." />
+          <CommandList>
+            <CommandEmpty>일치하는 게시물이 없습니다.</CommandEmpty>
+            <CommandGroup heading="포스트">
+              {posts.map((post) => (
+                <CommandItem key={post.slug} value={post.title} onSelect={() => handleSelect(post.slug)}>
+                  <div className="flex flex-col">
+                    <span className="font-medium">{post.title}</span>
+                    <span className="text-sm text-muted-foreground">{post.description}</span>
+                  </div>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </CommandDialog>
     </>
   );
 };
