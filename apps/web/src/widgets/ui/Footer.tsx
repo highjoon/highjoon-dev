@@ -38,7 +38,7 @@ const Footer = () => {
             {footerSections.map((section) => (
               <div key={section.title} className="lg:text-right">
                 <h3 className="mb-4 font-bold">{section.title}</h3>
-                <ul className="space-y-3 text-sm text-muted-foreground">
+                <ul className="flex flex-col space-y-3 text-sm text-muted-foreground md:flex-row md:space-y-0 md:gap-4 lg:justify-end">
                   {section.links.map((link) => (
                     <li key={link.name} className="font-medium transition-colors hover:text-primary">
                       <Link href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined}>
