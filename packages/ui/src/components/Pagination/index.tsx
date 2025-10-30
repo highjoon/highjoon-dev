@@ -1,8 +1,7 @@
 import * as React from 'react';
+import { Button, buttonVariants } from '@highjoon-dev/ui/components/Button';
 import { cn } from '@highjoon-dev/ui/lib/utils';
 import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from 'lucide-react';
-
-import { Button, buttonVariants } from '@/components/Button';
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
   return (
@@ -50,12 +49,11 @@ function PaginationLink({ className, isActive, size = 'icon', ...props }: Pagina
 function PaginationPrevious({ className, ...props }: React.ComponentProps<typeof PaginationLink>) {
   return (
     <PaginationLink
-      aria-label="Go to previous page"
+      aria-label="이전 페이지로 이동"
       size="default"
       className={cn('gap-1 px-2.5 sm:pl-2.5', className)}
       {...props}>
       <ChevronLeftIcon />
-      <span className="hidden sm:block">Previous</span>
     </PaginationLink>
   );
 }
@@ -63,11 +61,10 @@ function PaginationPrevious({ className, ...props }: React.ComponentProps<typeof
 function PaginationNext({ className, ...props }: React.ComponentProps<typeof PaginationLink>) {
   return (
     <PaginationLink
-      aria-label="Go to next page"
+      aria-label="다음 페이지로 이동"
       size="default"
       className={cn('gap-1 px-2.5 sm:pr-2.5', className)}
       {...props}>
-      <span className="hidden sm:block">Next</span>
       <ChevronRightIcon />
     </PaginationLink>
   );
