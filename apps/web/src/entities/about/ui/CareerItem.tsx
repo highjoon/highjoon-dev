@@ -1,10 +1,7 @@
 import React from 'react';
-import { Flex, List, Text } from '@mantine/core';
 
 import { Career } from '@/entities/about/model/career';
 import { formatCareerDate } from '@/page/about/lib/date';
-
-import styles from './CareerItem.module.scss';
 
 type Props = {
   career: Career;
@@ -12,35 +9,49 @@ type Props = {
 
 const CareerItem = ({ career }: Props) => {
   return (
-    <Flex key={career.company} component="li" direction="column" gap={20}>
-      <Flex direction="column">
-        <Text component="span" fw="bold" size="md" c="indigo">
-          {career.company}
-        </Text>
-        <Text size="md">{career.position}</Text>
-        <Text className={styles.term} size="sm">
-          {formatCareerDate(career.startDate)}&nbsp;~&nbsp;
-          {career.endDate ? formatCareerDate(career.endDate) : '재직중'}
-        </Text>
-      </Flex>
+    <li className="flex flex-col gap-3">
+      <div className="flex flex-col">
+        <span className="text-base font-bold text-primary md:text-lg">{career.company}</span>
+        <span className="text-sm text-muted-foreground">{career.position}</span>
+        <span className="text-xs text-muted-foreground">
+          <time dateTime={new Date(career.startDate as unknown as string).toISOString()}>
+            {formatCareerDate(career.startDate)}
+          </time>
+          {' ~ '}
+          {career.endDate ? (
+            <time dateTime={new Date(career.endDate as unknown as string).toISOString()}>
+              {formatCareerDate(career.endDate)}
+            </time>
+          ) : (
+            '재직중'
+          )}
+        </span>
+      </div>
 
       {career.projects.length > 0 && (
-        <List className={styles['career-wrapper']}>
+        <ul className="mt-1 space-y-2">
           {career.projects.map((project) => (
-            <List.Item key={project.name}>
-              <Text size="md">{project.name}</Text>
-              <Text className={styles.term} size="sm">
-                {formatCareerDate(project.startDate)}&nbsp;~&nbsp;
-                {project.endDate ? formatCareerDate(project.endDate) : '진행 중'}
-              </Text>
-              <Text className={styles['career-description']} size="sm">
-                {project.description}
-              </Text>
-            </List.Item>
+            <li key={project.name} className="leading-relaxed">
+              <div className="font-medium text-foreground">{project.name}</div>
+              <div className="text-xs text-muted-foreground">
+                <time dateTime={new Date(project.startDate as unknown as string).toISOString()}>
+                  {formatCareerDate(project.startDate)}
+                </time>
+                {' ~ '}
+                {project.endDate ? (
+                  <time dateTime={new Date(project.endDate as unknown as string).toISOString()}>
+                    {formatCareerDate(project.endDate)}
+                  </time>
+                ) : (
+                  '진행 중'
+                )}
+              </div>
+              <p className="mt-1 text-sm text-muted-foreground">{project.description}</p>
+            </li>
           ))}
-        </List>
+        </ul>
       )}
-    </Flex>
+    </li>
   );
 };
 

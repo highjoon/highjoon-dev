@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@highjoon-dev/ui/components/Avatar';
-import { Button } from '@highjoon-dev/ui/components/Button';
+import { buttonVariants } from '@highjoon-dev/ui/components/Button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@highjoon-dev/ui/components/Sheet';
 import { MenuIcon } from 'lucide-react';
 
@@ -22,10 +22,12 @@ export default function MobileMenu({ isOpen, onOpenChange, onClose }: Props) {
   return (
     <Sheet open={isOpen} onOpenChange={onOpenChange}>
       <SheetTrigger asChild className="lg:hidden">
-        <Button variant="outline" size="icon">
+        <button
+          type="button"
+          className={`${buttonVariants({ variant: 'outline', size: 'icon' })} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none`}
+          aria-label="메뉴 열기">
           <MenuIcon className="w-4 h-4" />
-          <span className="sr-only">메뉴 열기</span>
-        </Button>
+        </button>
       </SheetTrigger>
       <SheetContent side="top" className="max-h-screen overflow-auto">
         <SheetHeader>
