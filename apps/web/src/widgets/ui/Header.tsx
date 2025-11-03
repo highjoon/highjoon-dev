@@ -25,7 +25,7 @@ export default function Header() {
   };
 
   return (
-    <section className="py-4 border-b bg-background border-border">
+    <section className="sticky top-0 z-50 py-4 border-b bg-background border-border min-h-[72px]">
       <div className="container max-w-6xl px-4 mx-auto">
         <nav className="flex items-center justify-between">
           {/* Logo */}
