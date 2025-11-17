@@ -2,7 +2,6 @@
 
 import { type PropsWithChildren, useEffect } from 'react';
 import { ThemeProvider } from 'next-themes';
-import { createTheme, MantineProvider } from '@mantine/core';
 import hljs from 'highlight.js';
 import css from 'highlight.js/lib/languages/css';
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -14,16 +13,8 @@ import { Toaster } from 'sonner';
 
 import AppScripts from '@/app/scripts/AppScripts';
 
-import '@mantine/core/styles.css';
-import '@/app/styles/_components.scss';
 import 'highlight.js/styles/github-dark.css';
 import '@/app/styles/globals.css';
-import '@mantine/spotlight/styles.css';
-
-const theme = createTheme({
-  primaryColor: 'indigo',
-  autoContrast: true,
-});
 
 export const Provider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
@@ -37,9 +28,7 @@ export const Provider = ({ children }: PropsWithChildren) => {
   return (
     <>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-        <MantineProvider theme={theme} defaultColorScheme="auto">
-          <OverlayProvider>{children}</OverlayProvider>
-        </MantineProvider>
+        <OverlayProvider>{children}</OverlayProvider>
         <Toaster />
       </ThemeProvider>
 

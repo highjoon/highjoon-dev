@@ -9,10 +9,6 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
     mdxRs: true,
-    optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
-  },
-  sassOptions: {
-    prependData: `@import "./src/app/styles/_mantine.scss";`,
   },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'dngjtjyrczhgx.cloudfront.net' }],

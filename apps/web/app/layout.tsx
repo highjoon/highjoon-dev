@@ -1,6 +1,5 @@
 import { type PropsWithChildren } from 'react';
 import localFont from 'next/font/local';
-import { ColorSchemeScript } from '@mantine/core';
 import classnames from '@highjoon-dev/ui/lib/classnames';
 
 import { Provider } from '@/app/provider/Provider';
@@ -14,7 +13,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko" suppressHydrationWarning>
       <head>
-        <ColorSchemeScript defaultColorScheme="auto" />
         <link rel="apple-touch-icon" href="touch-icon-iphone.png" />
         <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad.png" />
         <link rel="apple-touch-icon" sizes="167x167" href="touch-icon-ipad-retina.png" />
