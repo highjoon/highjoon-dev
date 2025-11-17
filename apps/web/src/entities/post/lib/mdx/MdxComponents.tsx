@@ -11,8 +11,8 @@ import {
 } from '@highjoon-dev/ui/components/Table';
 import { cn } from '@highjoon-dev/ui/lib/utils';
 import { type MergeComponents } from '@mdx-js/react/lib';
+import { Info } from 'lucide-react';
 import { type MDXComponents as MDXComponentsType } from 'mdx/types';
-import { RiInformationFill } from 'react-icons/ri';
 
 export const MdxComponents: MDXComponentsType | MergeComponents | null | undefined = {
   h1: (props) => <h1 {...props} className={cn('text-4xl font-bold mb-10 mt-10', props.className)} ref={props.ref} />,
@@ -89,7 +89,7 @@ export const MdxComponents: MDXComponentsType | MergeComponents | null | undefin
       )}
       ref={props.ref as React.Ref<HTMLQuoteElement>}>
       <div className="flex items-start gap-3">
-        <RiInformationFill className="w-5 h-5 mt-0.5 flex-shrink-0 text-primary" />
+        <Info className="w-5 h-5 mt-0.5 flex-shrink-0 text-primary" />
         <div className="flex-1">{props.children}</div>
       </div>
     </blockquote>

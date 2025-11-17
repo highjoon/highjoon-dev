@@ -4,9 +4,8 @@ import React from 'react';
 import { type Post } from '@highjoon-dev/prisma';
 import { Button } from '@highjoon-dev/ui/components/Button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@highjoon-dev/ui/components/Tooltip';
+import { AlertTriangle, ThumbsUp } from 'lucide-react';
 import { overlay } from 'overlay-kit';
-import { BiLike } from 'react-icons/bi';
-import { CiWarning } from 'react-icons/ci';
 
 import { useGetLikedPosts } from '@/entities/user/lib/useGetLikedPosts';
 import { useSignIn } from '@/features/auth/model/useSignIn';
@@ -27,7 +26,7 @@ export default function LikeButton({ postId, likeCount, slug }: Props) {
   const handleUnlikeClick = async () => {
     const result = await overlay.openAsync<boolean>(({ isOpen, close }) => (
       <ConfirmModal
-        icon={<CiWarning size={20} className="text-destructive" />}
+        icon={<AlertTriangle size={20} className="text-destructive" />}
         open={isOpen}
         onOpenChange={(open) => {
           if (!open) close(false);
@@ -66,7 +65,7 @@ export default function LikeButton({ postId, likeCount, slug }: Props) {
           onClick={handleLikeClick}
           disabled={!isSignedIn || isLoading}
           className="gap-2">
-          <BiLike size={20} />
+          <ThumbsUp size={20} />
           <span className="font-bold">{likeCount}</span>
         </Button>
       </TooltipTrigger>
