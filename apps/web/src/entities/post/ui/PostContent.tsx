@@ -1,13 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
-import { Box, Flex, Group, Title } from '@mantine/core';
 import { type Post } from '@highjoon-dev/prisma';
 
 import { MdxComponents } from '@/entities/post/lib/mdx/MdxComponents';
 import MDXContent from '@/entities/post/lib/mdx/MDXContent';
 import ViewCount from '@/entities/post/ui/ViewCount';
-
-import styles from './PostContent.module.scss';
 
 interface Props {
   title: Post['title'];
@@ -19,28 +16,29 @@ interface Props {
 
 export default function PostContent({ title, bannerImageUrl, content, viewCount, slug }: Props) {
   return (
-    <Flex direction="column" w="100%" pos="relative" mb={20}>
-      <Title order={1} className={styles.title}>
-        {title}
-      </Title>
+    <div className="relative flex flex-col w-full mb-5">
+      <h1 className="mb-10 text-3xl font-medium text-center sm:mb-8 sm:text-4xl md:mb-10 md:text-5xl">{title}</h1>
 
-      <Group className={styles['view-count']} gap="lg" align="center">
+      <div className="mb-5 flex items-center justify-center gap-4 sm:mb-2.5 md:mb-5">
         <ViewCount viewCount={viewCount} slug={slug} />
-      </Group>
+      </div>
 
-      <Box className={styles.banner} pos="relative" w="100%">
-        <Image
-          src={bannerImageUrl}
-          fill
-          alt={`${title} 배너 이미지`}
-          priority
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-        />
-      </Box>
+      <div className="relative w-full mb-5">
+        <div className="relative h-[200px] w-full overflow-hidden rounded-lg border sm:h-[300px] md:h-[500px]">
+          <Image
+            src={bannerImageUrl}
+            fill
+            alt={`${title} 배너 이미지`}
+            priority
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+          />
+        </div>
+      </div>
 
-      <Flex id="page-content" direction="column">
+      <div id="page-content" className="flex flex-col">
         <MDXContent source={content} components={MdxComponents} />
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 }

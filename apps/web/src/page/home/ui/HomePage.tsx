@@ -1,5 +1,4 @@
 import React from 'react';
-import { Flex } from '@mantine/core';
 
 import HomePageSchema from '@/page/home/model/HomePageSchema';
 import ViewAllPostsButton from '@/page/home/ui/ViewAllPostsButton';
@@ -10,13 +9,13 @@ export default function HomePage() {
   return (
     <>
       <HomePageSchema />
-      <Flex direction="column" gap={100}>
-        <Flex direction="column" gap={30}>
+      <div className="flex flex-col gap-16 py-4 md:py-8">
+        <div className="flex flex-col gap-10">
           <FeaturedPostSection />
           <LatestPostsSection />
-        </Flex>
+        </div>
         <ViewAllPostsButton />
-      </Flex>
+      </div>
     </>
   );
 }

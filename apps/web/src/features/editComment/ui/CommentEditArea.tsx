@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { Button, Textarea } from '@mantine/core';
-import { notifications } from '@mantine/notifications';
 import { Comment } from '@highjoon-dev/prisma';
+import { Button } from '@highjoon-dev/ui/components/Button';
+import { Textarea } from '@highjoon-dev/ui/components/Textarea';
+import { toast } from 'sonner';
 
 import { useUpdateComment } from '@/features/editComment/api/updateCommentApi/useUpdateComment';
 
-type Props = {
+interface Props {
   commentId: Comment['id'];
   content: Comment['content'];
   onUpdate: () => void;
   refetch: () => Promise<void>;
-};
+}
 
 export default function CommentEditArea({ commentId, content, onUpdate, refetch }: Props) {
   const [editContent, setEditContent] = useState(content);
@@ -32,10 +33,8 @@ export default function CommentEditArea({ commentId, content, onUpdate, refetch 
       await refetch();
       onUpdate();
     } catch {
-      notifications.show({
-        title: '오류가 발생했습니다.',
-        message: '댓글을 수정하는 중 오류가 발생했습니다.',
-        color: 'red',
+      toast.error('오류가 발생했습니다.', {
+        description: '댓글을 수정하는 중 오류가 발생했습니다.',
       });
     } finally {
       setIsLoading(false);
@@ -43,22 +42,13 @@ export default function CommentEditArea({ commentId, content, onUpdate, refetch 
   };
 
   return (
-    <Textarea
-      value={editContent}
-      onChange={(e) => setEditContent(e.currentTarget.value)}
-      pl={54}
-      py="sm"
-      rightSection={
-        <Button
-          variant="default"
-          size="sm"
-          onClick={handleUpdateComment}
-          disabled={!editContent.trim() || isLoading}
-          loading={isLoading}>
-          확인
+    <div className="flex flex-col gap-2">
+      <Textarea value={editContent} onChange={(e) => setEditContent(e.currentTarget.value)} className="min-h-[80px]" />
+      <div className="flex justify-end">
+        <Button size="sm" onClick={handleUpdateComment} disabled={!editContent.trim() || isLoading}>
+          {isLoading ? '수정 중...' : '확인'}
         </Button>
-      }
-      rightSectionWidth={100}
-    />
+      </div>
+    </div>
   );
 }

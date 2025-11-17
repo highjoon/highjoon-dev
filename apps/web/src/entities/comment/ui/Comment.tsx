@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Anchor, Avatar, Box, Group, Paper, Text } from '@mantine/core';
+import Link from 'next/link';
 import { CommentWithUser } from '@highjoon-dev/types';
+import { Avatar, AvatarFallback, AvatarImage } from '@highjoon-dev/ui/components/Avatar';
+import { Card, CardContent } from '@highjoon-dev/ui/components/Card';
 import dayjs from 'dayjs';
 
 import { getRepliesAction } from '@/entities/comment/api/getRepliesApi/getRepliesAction';
@@ -8,13 +10,11 @@ import Reply from '@/entities/comment/ui/Reply';
 import CommentEditArea from '@/features/editComment/ui/CommentEditArea';
 import CommentOptions from '@/features/manageComment/ui/CommentOptions';
 
-import styles from './Comment.module.scss';
-
-type Props = {
+interface Props {
   comment: CommentWithUser;
   postId: string;
   refetch: () => Promise<void>;
-};
+}
 
 export default function Comment({ comment, postId, refetch }: Props) {
   const [isEditMode, setIsEditMode] = useState(false);
@@ -42,60 +42,65 @@ export default function Comment({ comment, postId, refetch }: Props) {
   }, [comment.id, loadReplies]);
 
   return (
-    <Paper withBorder radius="md" p="md">
-      <Anchor href={comment.user.homeUrl!} target="_blank" display="flex" w="fit-content">
-        <Group>
-          <Avatar src={comment.user.avatarUrl} alt={comment.user.name} radius="xl" />
-          <Box>
-            <Text size="sm">{comment.user.name}</Text>
-            <Text size="xs" c="dimmed">
+    <Card className="p-4">
+      <CardContent className="flex flex-col gap-4 p-0">
+        <Link
+          href={comment.user.homeUrl!}
+          target="_blank"
+          className="flex items-center gap-3 transition-opacity w-fit hover:opacity-70">
+          <Avatar className="w-10 h-10">
+            <AvatarImage src={comment.user.avatarUrl} alt={comment.user.name} />
+            <AvatarFallback>{comment.user.name?.charAt(0) || 'U'}</AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="text-sm font-medium">{comment.user.name}</span>
+            <time className="text-xs text-muted-foreground">
               {dayjs(comment.createdAt).format('YYYY-MM-DD HH:mm:ss')}
-            </Text>
-          </Box>
-        </Group>
-      </Anchor>
-      {isEditMode ? (
-        <CommentEditArea
+            </time>
+          </div>
+        </Link>
+
+        {isEditMode ? (
+          <CommentEditArea
+            commentId={comment.id}
+            content={comment.content}
+            onUpdate={() => setIsEditMode(false)}
+            refetch={async () => {
+              await refetch();
+              await loadReplies();
+            }}
+          />
+        ) : (
+          <p className="text-sm leading-relaxed break-words whitespace-pre-wrap">{comment.content}</p>
+        )}
+
+        <CommentOptions
           commentId={comment.id}
-          content={comment.content}
-          onUpdate={() => setIsEditMode(false)}
-          refetch={async () => {
-            await refetch();
-            await loadReplies();
-          }}
+          postId={postId}
+          creatorId={comment.userId}
+          isEditMode={isEditMode}
+          refetch={refetch}
+          toggleEditMode={setIsEditMode}
+          onReplyCreated={loadReplies}
+          onReplyDeleted={loadReplies}
         />
-      ) : (
-        <Text className={styles.root} pl={54} py="sm" size="sm">
-          {comment.content}
-        </Text>
-      )}
 
-      <CommentOptions
-        commentId={comment.id}
-        postId={postId}
-        creatorId={comment.userId}
-        isEditMode={isEditMode}
-        refetch={refetch}
-        toggleEditMode={setIsEditMode}
-        onReplyCreated={loadReplies}
-        onReplyDeleted={loadReplies}
-      />
-
-      {replies.length > 0 && (
-        <Box mt="md">
-          {replies.map((reply) => (
-            <Reply
-              key={reply.id}
-              reply={reply}
-              postId={postId}
-              depth={reply.depth || 1}
-              parentCommentId={comment.id}
-              refetch={refetch}
-              onReplyUpdated={handleReplyUpdated}
-            />
-          ))}
-        </Box>
-      )}
-    </Paper>
+        {replies.length > 0 && (
+          <div className="mt-4 space-y-3">
+            {replies.map((reply) => (
+              <Reply
+                key={reply.id}
+                reply={reply}
+                postId={postId}
+                depth={reply.depth || 1}
+                parentCommentId={comment.id}
+                refetch={refetch}
+                onReplyUpdated={handleReplyUpdated}
+              />
+            ))}
+          </div>
+        )}
+      </CardContent>
+    </Card>
   );
 }

@@ -3,7 +3,6 @@ import { Button } from '@highjoon-dev/ui/components/Button';
 import { Separator } from '@highjoon-dev/ui/components/Separator';
 import { Github, Linkedin, Mail } from 'lucide-react';
 
-// ProfileImage import removed; using public path in AvatarImage
 import { CareerList } from '@/entities/about/ui/CareerList';
 import { LINKS } from '@/shared/model/links';
 

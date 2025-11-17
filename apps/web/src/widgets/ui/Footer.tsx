@@ -9,7 +9,7 @@ import { footerSections, footerSocialLinks } from '@/widgets/model/footer';
 const Footer = () => {
   return (
     <footer className="w-full mt-16 border-t bg-muted/50 border-border">
-      <div className="container max-w-6xl px-4 py-16 mx-auto md:px-6">
+      <div className="container max-w-6xl px-4 py-8 mx-auto md:px-6">
         <div className="flex flex-col justify-between w-full gap-10 lg:flex-row lg:items-start lg:text-left">
           <div className="flex flex-col justify-between w-full gap-6 lg:items-start">
             {/* Logo */}
@@ -27,9 +27,9 @@ const Footer = () => {
             <ul className="flex items-center space-x-6 text-muted-foreground">
               {footerSocialLinks.map((social) => (
                 <li key={social.label} className="font-medium transition-colors hover:text-primary">
-                  <Link href={social.href} target="_blank" aria-label={social.label}>
+                  <a href={social.href} target="_blank" aria-label={social.label}>
                     {social.icon}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

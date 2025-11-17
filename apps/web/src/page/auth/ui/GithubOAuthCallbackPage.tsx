@@ -1,6 +1,7 @@
 'use client';
 
-import { Container, Group, Loader, Paper, Stack, Text } from '@mantine/core';
+import { Card, CardContent } from '@highjoon-dev/ui/components/Card';
+import { Loader2 } from 'lucide-react';
 
 import { useGithubOAuthCallback } from '@/features/auth/model/useGithubOAuthCallback';
 
@@ -8,25 +9,21 @@ const GithubOAuthCallbackPage = () => {
   useGithubOAuthCallback();
 
   return (
-    <Container size="xs" py="xl">
-      <Paper shadow="sm" p="xl" radius="md" withBorder>
-        <Stack align="center" gap="lg">
-          <Group>
-            <Text size="xl" fw={600}>
-              GitHub 로그인
-            </Text>
-          </Group>
+    <div className="flex min-h-[calc(100vh-200px)] items-center justify-center py-16 px-4">
+      <Card className="w-full max-w-md p-8">
+        <CardContent className="flex flex-col items-center gap-6 p-0">
+          <h1 className="text-xl font-semibold">GitHub 로그인</h1>
 
-          <Loader size="lg" variant="dots" />
+          <Loader2 className="size-8 animate-spin text-primary" />
 
-          <Text size="sm" c="dimmed" ta="center">
+          <p className="text-sm text-center text-muted-foreground">
             GitHub 계정으로 로그인 중입니다...
             <br />
             잠시만 기다려주세요.
-          </Text>
-        </Stack>
-      </Paper>
-    </Container>
+          </p>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

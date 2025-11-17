@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { ActionIcon, Button, Flex, Group } from '@mantine/core';
 import { Comment } from '@highjoon-dev/prisma';
+import { Button } from '@highjoon-dev/ui/components/Button';
+import { AlertTriangle, Edit, Trash2 } from 'lucide-react';
 import { overlay } from 'overlay-kit';
-import { CiEdit, CiTrash, CiWarning } from 'react-icons/ci';
 
 import { useSignIn } from '@/features/auth/model/useSignIn';
 import { createReplyAction } from '@/features/createReply/api/createReplyApi/createReplyAction';
@@ -14,7 +14,7 @@ import { deleteReplyAction } from '@/features/deleteComment/api/deleteReplyApi/d
 import { decodeToken } from '@/shared/lib/decodeToken';
 import ConfirmModal from '@/shared/ui/ConfirmModal';
 
-type Props = {
+interface Props {
   commentId: Comment['id'];
   postId: string;
   isEditMode: boolean;
@@ -24,7 +24,7 @@ type Props = {
   onReplyCreated?: () => Promise<void>;
   onReplyDeleted?: () => Promise<void>;
   depth?: number;
-};
+}
 
 export default function CommentOptions({
   commentId,
@@ -62,15 +62,17 @@ export default function CommentOptions({
   const handleDeleteComment = async () => {
     const result = await overlay.openAsync<boolean>(({ isOpen, close }) => (
       <ConfirmModal
-        icon={<CiWarning size={20} color="var(--mantine-color-red-6)" />}
-        opened={isOpen}
-        onClose={() => close(false)}
+        icon={<AlertTriangle className="size-5 text-destructive" />}
+        open={isOpen}
+        onOpenChange={(open) => {
+          if (!open) close(false);
+        }}
         onConfirm={() => close(true)}
         title="댓글 삭제"
         message="정말로 이 댓글을 삭제하시겠습니까? 삭제된 댓글은 복구할 수 없습니다."
         confirmText="삭제"
         cancelText="취소"
-        confirmColor="red"
+        confirmColor="destructive"
       />
     ));
 
@@ -100,28 +102,30 @@ export default function CommentOptions({
   }
 
   return (
-    <Group justify="flex-end">
-      <Group w="100%" gap="xs" justify="space-between">
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center justify-between w-full gap-2">
         {/* 3단계까지만 답글 달기 허용 */}
         {depth < 3 ? (
-          <Button size="xs" variant="default" onClick={() => setIsReplyMode((v) => !v)}>
+          <Button size="sm" variant="ghost" onClick={() => setIsReplyMode((v) => !v)}>
             답글달기
           </Button>
         ) : (
           <div />
         )}
         {isSameUser && (
-          <Flex gap="xs">
-            <ActionIcon size="md" variant="subtle" color="gray" disabled={!isSignedIn}>
-              <CiEdit size="100%" color="var(--mantine-color-blue-6)" onClick={() => toggleEditMode(!isEditMode)} />
-            </ActionIcon>
-            <ActionIcon size="md" variant="subtle" color="gray" disabled={!isSignedIn}>
-              <CiTrash size="100%" color="var(--mantine-color-gray-6)" onClick={() => handleDeleteComment()} />
-            </ActionIcon>
-          </Flex>
+          <div className="flex items-center gap-1">
+            <Button size="sm" variant="ghost" onClick={() => toggleEditMode(!isEditMode)}>
+              <Edit className="mr-1 size-4" />
+              수정
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => handleDeleteComment()}>
+              <Trash2 className="mr-1 size-4" />
+              삭제
+            </Button>
+          </div>
         )}
-      </Group>
+      </div>
       {isReplyMode && <ReplyInput onSubmit={handleSubmitReply} onCancel={() => setIsReplyMode(false)} />}
-    </Group>
+    </div>
   );
 }

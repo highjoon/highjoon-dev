@@ -1,37 +1,35 @@
 import React from 'react';
-import { Box, Flex, Group, Skeleton } from '@mantine/core';
-
-import styles from './Loading.module.scss';
+import { Skeleton } from '@highjoon-dev/ui/components/Skeleton';
 
 export default function Loading() {
   return (
-    <Flex direction="column" w="100%" pos="relative" mb={20}>
+    <div className="relative mb-5 flex w-full flex-col">
       {/* 제목 스켈레톤 */}
-      <Skeleton height={48} width="80%" mb={40} className={styles.title} />
+      <Skeleton className="mb-10 h-12 w-4/5 sm:mb-8 md:mb-10" />
 
       {/* 조회수 스켈레톤 */}
-      <Group className={styles['view-count']} gap="lg" align="center">
-        <Skeleton height={20} width={100} />
-      </Group>
+      <div className="mb-5 flex items-center gap-4 sm:mb-2.5 md:mb-5">
+        <Skeleton className="h-5 w-24" />
+      </div>
 
       {/* 배너 이미지 스켈레톤 */}
-      <Box className={styles.banner} pos="relative" w="100%">
-        <Skeleton height="100%" width="100%" />
-      </Box>
+      <div className="relative mb-5 w-full">
+        <Skeleton className="h-[200px] w-full sm:h-[300px] md:h-[500px]" />
+      </div>
 
       {/* 콘텐츠 스켈레톤 */}
-      <Flex id="page-content" direction="column" mt={20}>
+      <div id="page-content" className="mt-5 flex flex-col">
         {/* 여러 줄의 콘텐츠 스켈레톤 */}
         {Array.from({ length: 8 }).map((_, index) => (
-          <Skeleton key={index} height={index % 3 === 0 ? 24 : 16} width={index % 3 === 0 ? '90%' : '100%'} mb={16} />
+          <Skeleton key={index} className={`mb-4 ${index % 3 === 0 ? 'h-6 w-[90%]' : 'h-4 w-full'}`} />
         ))}
-      </Flex>
+      </div>
 
       {/* 좋아요 및 댓글 섹션 스켈레톤 */}
-      <Group justify="center" align="center" mt={20} mb={20}>
-        <Skeleton height={40} width={120} />
-        <Skeleton height={40} width={120} />
-      </Group>
-    </Flex>
+      <div className="mb-5 mt-5 flex items-center justify-center gap-4">
+        <Skeleton className="h-10 w-[120px]" />
+        <Skeleton className="h-10 w-[120px]" />
+      </div>
+    </div>
   );
 }

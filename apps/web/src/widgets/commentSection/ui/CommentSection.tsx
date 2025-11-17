@@ -1,24 +1,23 @@
 'use client';
 
 import React from 'react';
-import { Flex } from '@mantine/core';
 import { Post } from '@highjoon-dev/prisma';
 
 import { useGetComments } from '@/entities/comment/api/getCommentsApi/useGetComments';
 import Comments from '@/entities/comment/ui/Comments';
 import CommentInput from '@/features/createComment/ui/CommentInput';
 
-type Props = {
+interface Props {
   postId: Post['id'];
-};
+}
 
 export default function CommentSection({ postId }: Props) {
   const { comments, isLoading, refetch } = useGetComments(postId);
 
   return (
-    <Flex w="100%" direction="column" gap="xl">
+    <div className="flex flex-col w-full gap-8">
       <CommentInput postId={postId} refetch={refetch} />
       <Comments postId={postId} comments={comments} isLoading={isLoading} refetch={refetch} />
-    </Flex>
+    </div>
   );
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Flex, Title } from '@mantine/core';
 
 import { getFeaturedPostApi } from '@/entities/post/api/getFeaturedPostApi';
 import PostCard from '@/entities/post/ui/PostCard';
@@ -9,13 +8,13 @@ export default async function FeaturedPost() {
   const featuredPost = await getFeaturedPostApi(serverApi);
 
   return (
-    <Flex direction="column" gap={30}>
-      <Title component="h2" order={2}>
-        FEATURED POST
-      </Title>
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+    <section className="flex flex-col gap-6" aria-labelledby="featured-post-title">
+      <h2 id="featured-post-title" className="text-xl font-semibold md:text-2xl">
+        Featured Post
+      </h2>
+      <ul className="p-0 m-0 list-none">
         <PostCard post={featuredPost} />
       </ul>
-    </Flex>
+    </section>
   );
 }

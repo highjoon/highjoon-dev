@@ -27,14 +27,16 @@ export default function LikeButton({ postId, likeCount, slug }: Props) {
     const result = await overlay.openAsync<boolean>(({ isOpen, close }) => (
       <ConfirmModal
         icon={<CiWarning size={20} color="var(--mantine-color-red-6)" />}
-        opened={isOpen}
-        onClose={() => close(false)}
+        open={isOpen}
+        onOpenChange={(open) => {
+          if (!open) close(false);
+        }}
         onConfirm={() => close(true)}
         title="좋아요 취소"
         message="좋아요를 취소하시겠습니까?"
         confirmText="취소"
         cancelText="아니오"
-        confirmColor="red"
+        confirmColor="destructive"
       />
     ));
 

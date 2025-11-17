@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Button, Flex, Group, Textarea } from '@mantine/core';
+import { Button } from '@highjoon-dev/ui/components/Button';
+import { Textarea } from '@highjoon-dev/ui/components/Textarea';
 
-type Props = {
+interface Props {
   onSubmit: (content: string) => Promise<void>;
   onCancel: () => void;
-};
+}
 
 export default function ReplyInput({ onSubmit, onCancel }: Props) {
   const [content, setContent] = useState('');
@@ -20,22 +21,22 @@ export default function ReplyInput({ onSubmit, onCancel }: Props) {
   };
 
   return (
-    <Flex w="100%" mt="xs" direction="column" gap="xs">
+    <div className="flex flex-col w-full gap-2 mt-2">
       <Textarea
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={(e) => setContent(e.currentTarget.value)}
         placeholder="답글을 입력하세요"
         rows={3}
-        style={{ width: '100%', resize: 'vertical' }}
+        className="resize-y"
       />
-      <Group gap="xs" justify="flex-end">
-        <Button size="xs" variant="light" onClick={onCancel}>
+      <div className="flex items-center justify-end gap-2">
+        <Button size="sm" variant="ghost" onClick={onCancel}>
           취소
         </Button>
-        <Button size="xs" variant="filled" onClick={handleSubmit} disabled={!content.trim()}>
+        <Button size="sm" onClick={handleSubmit} disabled={!content.trim()}>
           답글 등록
         </Button>
-      </Group>
-    </Flex>
+      </div>
+    </div>
   );
 }

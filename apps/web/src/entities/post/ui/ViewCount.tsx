@@ -1,26 +1,23 @@
 'use client';
 
 import React from 'react';
-import { Flex, Text } from '@mantine/core';
 import { type Post } from '@highjoon-dev/prisma';
-import { MdOutlineRemoveRedEye } from 'react-icons/md';
+import { Eye } from 'lucide-react';
 
 import { useIncreaseViewCount } from '@/entities/post/api/increaseViewCountApi/useIncreaseViewCount';
 
-type Props = {
+interface Props {
   slug: Post['slug'];
   viewCount: Post['viewCount'];
-};
+}
 
 export default function ViewCount({ viewCount, slug }: Props) {
   useIncreaseViewCount({ slug });
 
   return (
-    <Flex justify="center" gap={10}>
-      <MdOutlineRemoveRedEye size={23} />
-      <Text component="span" h={25}>
-        {viewCount?.toLocaleString()}
-      </Text>
-    </Flex>
+    <div className="flex items-center justify-center gap-2.5">
+      <Eye className="size-6 text-muted-foreground" />
+      <span className="text-sm text-muted-foreground">{viewCount?.toLocaleString()}</span>
+    </div>
   );
 }
