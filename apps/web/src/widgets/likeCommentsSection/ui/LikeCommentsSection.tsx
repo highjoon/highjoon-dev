@@ -1,5 +1,4 @@
 import React from 'react';
-import { Group } from '@mantine/core';
 import { Post } from '@highjoon-dev/prisma';
 
 import LikeButton from '@/features/likePost/ui/LikeButton';
@@ -11,9 +10,9 @@ type Props = {
 
 export default function LikeCommentsSection({ post }: Props) {
   return (
-    <Group justify="center" align="center" mt={20} mb={20}>
+    <div className="flex flex-col items-center justify-center gap-4 my-5">
       <LikeButton postId={post.id} likeCount={post.likeCount} slug={post.slug} />
       <CommentSection postId={post.id} />
-    </Group>
+    </div>
   );
 }

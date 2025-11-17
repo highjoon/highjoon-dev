@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Button, Text, Tooltip } from '@mantine/core';
 import { type Post } from '@highjoon-dev/prisma';
+import { Button } from '@highjoon-dev/ui/components/Button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@highjoon-dev/ui/components/Tooltip';
 import { overlay } from 'overlay-kit';
 import { BiLike } from 'react-icons/bi';
 import { CiWarning } from 'react-icons/ci';
@@ -26,7 +27,7 @@ export default function LikeButton({ postId, likeCount, slug }: Props) {
   const handleUnlikeClick = async () => {
     const result = await overlay.openAsync<boolean>(({ isOpen, close }) => (
       <ConfirmModal
-        icon={<CiWarning size={20} color="var(--mantine-color-red-6)" />}
+        icon={<CiWarning size={20} className="text-destructive" />}
         open={isOpen}
         onOpenChange={(open) => {
           if (!open) close(false);
@@ -57,16 +58,19 @@ export default function LikeButton({ postId, likeCount, slug }: Props) {
   };
 
   return (
-    <Tooltip label="좋아요를 눌러주세요!" withArrow hidden={isLiked}>
-      <Button
-        variant="default"
-        size="sm"
-        onClick={handleLikeClick}
-        disabled={!isSignedIn}
-        loading={isLoading}
-        leftSection={<BiLike size={20} />}>
-        <Text fw="bold">{likeCount}</Text>
-      </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant="default"
+          size="sm"
+          onClick={handleLikeClick}
+          disabled={!isSignedIn || isLoading}
+          className="gap-2">
+          <BiLike size={20} />
+          <span className="font-bold">{likeCount}</span>
+        </Button>
+      </TooltipTrigger>
+      {!isLiked && <TooltipContent>좋아요를 눌러주세요!</TooltipContent>}
     </Tooltip>
   );
 }

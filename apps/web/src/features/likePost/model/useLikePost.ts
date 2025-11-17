@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { notifications } from '@mantine/notifications';
 import { Post } from '@highjoon-dev/prisma';
 import { type LikedPost, type TokenData } from '@highjoon-dev/types';
 import { getCookie } from 'cookies-next/client';
 import jwt from 'jsonwebtoken';
+import { toast } from 'sonner';
 
 import { githubLoginAction } from '@/features/auth/api/githubLoginApi/githubLoginAction';
 import { ACCESS_TOKEN_KEY } from '@/features/auth/model/constants';
@@ -28,10 +28,8 @@ export const useLikePost = ({ likedPost, postId, slug }: Args) => {
         const loginUrl = response;
 
         if (!loginUrl) {
-          notifications.show({
-            title: '좋아요 누르기에 실패했습니다.',
-            message: '잠시 후 다시 시도해주세요.',
-            color: 'red',
+          toast.error('좋아요 누르기에 실패했습니다.', {
+            description: '잠시 후 다시 시도해주세요.',
           });
 
           return;
@@ -47,10 +45,8 @@ export const useLikePost = ({ likedPost, postId, slug }: Args) => {
       await likePostAction(postId, userId, slug);
       setIsLiked(true);
     } catch {
-      notifications.show({
-        title: '좋아요 누르기에 실패했습니다.',
-        message: '잠시 후 다시 시도해주세요.',
-        color: 'red',
+      toast.error('좋아요 누르기에 실패했습니다.', {
+        description: '잠시 후 다시 시도해주세요.',
       });
     }
   };
@@ -59,10 +55,8 @@ export const useLikePost = ({ likedPost, postId, slug }: Args) => {
     const accessToken = getCookie(ACCESS_TOKEN_KEY);
 
     if (!accessToken) {
-      notifications.show({
-        title: '좋아요 취소에 실패했습니다.',
-        message: '잠시 후 다시 시도해주세요.',
-        color: 'red',
+      toast.error('좋아요 취소에 실패했습니다.', {
+        description: '잠시 후 다시 시도해주세요.',
       });
 
       return;
@@ -74,10 +68,8 @@ export const useLikePost = ({ likedPost, postId, slug }: Args) => {
       await unlikePostAction(postId, userId, slug);
       setIsLiked(false);
     } catch {
-      notifications.show({
-        title: '좋아요 취소에 실패했습니다.',
-        message: '잠시 후 다시 시도해주세요.',
-        color: 'red',
+      toast.error('좋아요 취소에 실패했습니다.', {
+        description: '잠시 후 다시 시도해주세요.',
       });
     }
   };

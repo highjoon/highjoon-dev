@@ -3,7 +3,6 @@
 import { type PropsWithChildren, useEffect } from 'react';
 import { ThemeProvider } from 'next-themes';
 import { createTheme, MantineProvider } from '@mantine/core';
-import { Notifications } from '@mantine/notifications';
 import hljs from 'highlight.js';
 import css from 'highlight.js/lib/languages/css';
 import javascript from 'highlight.js/lib/languages/javascript';
@@ -17,7 +16,6 @@ import AppScripts from '@/app/scripts/AppScripts';
 
 import '@mantine/core/styles.css';
 import '@/app/styles/_components.scss';
-import '@mantine/notifications/styles.css';
 import 'highlight.js/styles/github-dark.css';
 import '@/app/styles/globals.css';
 import '@mantine/spotlight/styles.css';
@@ -40,7 +38,6 @@ export const Provider = ({ children }: PropsWithChildren) => {
     <>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         <MantineProvider theme={theme} defaultColorScheme="auto">
-          <Notifications />
           <OverlayProvider>{children}</OverlayProvider>
         </MantineProvider>
         <Toaster />

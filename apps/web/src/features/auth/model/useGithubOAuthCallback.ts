@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { notifications } from '@mantine/notifications';
 import { getCookie, setCookie } from 'cookies-next/client';
+import { toast } from 'sonner';
 
 import { githubLoginCallbackAction } from '@/features/auth/api/githubLoginCallbackApi/githubLoginCallbackAction';
 import { ACCESS_TOKEN_KEY } from '@/features/auth/model/constants';
@@ -20,10 +20,8 @@ export function useGithubOAuthCallback() {
 
   const handleGithubCallback = useCallback(async () => {
     if (!code || !state) {
-      notifications.show({
-        title: '로그인 실패',
-        message: '로그인에 필요한 정보가 누락되었습니다.',
-        color: 'red',
+      toast.error('로그인 실패', {
+        description: '로그인에 필요한 정보가 누락되었습니다.',
       });
       router.replace(ROUTES.HOME);
       return;
@@ -35,10 +33,8 @@ export function useGithubOAuthCallback() {
       setCookie(ACCESS_TOKEN_KEY, accessToken);
       router.replace(state);
     } catch {
-      notifications.show({
-        title: '로그인 실패',
-        message: '로그인 중 오류가 발생했습니다. 다시 시도해주세요.',
-        color: 'red',
+      toast.error('로그인 실패', {
+        description: '로그인 중 오류가 발생했습니다. 다시 시도해주세요.',
       });
       router.replace(ROUTES.HOME);
     }
