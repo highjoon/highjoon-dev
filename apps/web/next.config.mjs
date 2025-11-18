@@ -6,6 +6,10 @@ const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   // Optionally, add any other Next.js config below
   reactStrictMode: true,
+  eslint: {
+    // Disable Next.js ESLint since we're using the root eslint.config.mjs
+    ignoreDuringBuilds: true,
+  },
   experimental: {
     optimizeCss: true,
     mdxRs: true,

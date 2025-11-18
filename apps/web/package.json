@@ -27,7 +27,7 @@
     "remark-toc": "^9.0.0",
     "sharp": "^0.33.5",
     "sonner": "^2.0.7",
-    "typescript": "5.4.5"
+    "typescript": "^5.9.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.12",
@@ -57,7 +57,8 @@
   "scripts": {
     "build": "dotenv -e .env.production next build",
     "dev": "dotenv -e .env.development next dev",
-    "lint": "next lint",
+    "lint": "eslint .",
+    "prebuild": "pnpm lint",
     "prepare": "husky",
     "prettier:fix": "prettier './src/**/*.{ts,tsx}' --write",
     "start": "dotenv -e .env.production next start",
