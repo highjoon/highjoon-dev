@@ -11,7 +11,6 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   experimental: {
-    optimizeCss: true,
     mdxRs: true,
   },
   images: {
