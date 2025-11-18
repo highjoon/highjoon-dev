@@ -7,7 +7,9 @@ import { ApiClient } from '@/shared/api';
  * @returns 추천 게시물
  */
 export const getFeaturedPostApi = async (api: ApiClient) => {
-  const response = await api.get<GetFeaturedPostResponseDto>('/post/featured');
+  const response = await api.get<GetFeaturedPostResponseDto>('/post/featured', {
+    next: { revalidate: false, tags: ['featured-post'] },
+  });
 
   return response.data;
 };

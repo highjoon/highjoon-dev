@@ -8,7 +8,9 @@ import { GetPostContentRequestDto } from '@/entities/post/api/getPostContentApi/
  * @returns 게시물 콘텐츠
  */
 export const getPostContentApi = async (params: GetPostContentRequestDto) => {
-  const response = await fetch(params.contentUrl);
+  const response = await fetch(params.contentUrl, {
+    next: { revalidate: false, tags: ['post-content', params.contentUrl] },
+  });
   const textContent = await response.text();
   const { content } = matter(textContent);
 

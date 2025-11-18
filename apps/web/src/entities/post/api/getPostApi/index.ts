@@ -8,7 +8,9 @@ import { ApiClient } from '@/shared/api';
  * @returns 게시물
  */
 export const getPostApi = async (api: ApiClient, params: GetPostRequestDto) => {
-  const response = await api.get<GetPostResponseDto>(`/post/${params.slug}`);
+  const response = await api.get<GetPostResponseDto>(`/post/${params.slug}`, {
+    next: { revalidate: false, tags: ['post', params.slug] },
+  });
 
   return response.data;
 };

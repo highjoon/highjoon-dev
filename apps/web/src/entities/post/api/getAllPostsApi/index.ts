@@ -7,7 +7,7 @@ import { ApiClient } from '@/shared/api';
  * @returns 게시물 전체 조회
  */
 export const getAllPostsApi = async (api: ApiClient) => {
-  const response = await api.get<GetAllPostsResponseDto>('/post');
+  const response = await api.get<GetAllPostsResponseDto>('/post', { next: { revalidate: false, tags: ['all-posts'] } });
 
   return response.data;
 };
