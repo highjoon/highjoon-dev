@@ -19,8 +19,7 @@ export const postSchema = z.object({
   likeCount: z.number().default(0),
 });
 
+export const getPostSchema = postSchema.pick({ slug: true });
 export const createPostSchema = postSchema.omit({ id: true, createdAt: true, updatedAt: true });
-
 export const createManyPostsSchema = z.array(postSchema.omit({ id: true, createdAt: true, updatedAt: true }));
-
 export const updatePostSchema = postSchema.omit({ id: true, createdAt: true, updatedAt: true });

@@ -15,13 +15,6 @@ class PostController {
 
   public getPost = async (req: Request, res: Response) => {
     const slug = req.params.slug;
-
-    if (!slug) {
-      handleServiceResponse(ServiceResponse.failure('유효하지 않은 게시물입니다.', null, StatusCodes.BAD_REQUEST), res);
-
-      return;
-    }
-
     const postsResponse = await postService.findPost(slug);
 
     handleServiceResponse(postsResponse, res);
