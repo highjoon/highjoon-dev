@@ -1,9 +1,8 @@
 import { type Request, type Response } from 'express';
-import { StatusCodes } from 'http-status-codes';
 
-import { ServiceResponse } from '@/models/servicesResponse';
 import { postService } from '@/services/post/post.service';
 import { postLikeService } from '@/services/post/postLike.service';
+import { extractIp } from '@/utils/extractIp';
 import { handleServiceResponse } from '@/utils/httpHandlers';
 
 class PostController {
@@ -49,14 +48,8 @@ class PostController {
 
   public increaseViewCount = async (req: Request, res: Response) => {
     const slug = req.params.slug;
+    const ip = extractIp(req);
 
-    if (!slug) {
-      handleServiceResponse(ServiceResponse.failure('유효하지 않은 게시물입니다.', null, StatusCodes.BAD_REQUEST), res);
-
-      return;
-    }
-
-    const ip = req.headers['x-forwarded-for']?.toString().split(',')[0]?.trim() || req.ip || '';
     const response = await postService.increaseViewCount(slug, ip);
 
     handleServiceResponse(response, res);
@@ -66,18 +59,6 @@ class PostController {
     const { postId } = req.params;
     const { userId } = req.body;
 
-    if (!postId) {
-      handleServiceResponse(ServiceResponse.failure('유효하지 않은 게시물입니다.', null, StatusCodes.BAD_REQUEST), res);
-
-      return;
-    }
-
-    if (!userId) {
-      handleServiceResponse(ServiceResponse.failure('유효하지 않은 사용자입니다.', null, StatusCodes.BAD_REQUEST), res);
-
-      return;
-    }
-
     const response = await postLikeService.likePost(userId, postId);
 
     handleServiceResponse(response, res);
@@ -86,18 +67,6 @@ class PostController {
   public async unlikePost(req: Request, res: Response) {
     const { postId } = req.params;
     const { userId } = req.body;
-
-    if (!postId) {
-      handleServiceResponse(ServiceResponse.failure('유효하지 않은 게시물입니다.', null, StatusCodes.BAD_REQUEST), res);
-
-      return;
-    }
-
-    if (!userId) {
-      handleServiceResponse(ServiceResponse.failure('유효하지 않은 사용자입니다.', null, StatusCodes.BAD_REQUEST), res);
-
-      return;
-    }
 
     const response = await postLikeService.unlikePost(userId, postId);
 

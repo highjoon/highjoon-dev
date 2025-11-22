@@ -7,6 +7,11 @@ import {
   createManyPostsSchema,
   createPostSchema,
   getPostSchema,
+  increaseViewCountParamsSchema,
+  likePostBodySchema,
+  likePostParamsSchema,
+  unlikePostBodySchema,
+  unlikePostParamsSchema,
   updatePostParamsSchema,
   updatePostSchema,
 } from '@/schemas/post.schema';
@@ -23,12 +28,26 @@ postRoutes.post(
   validateRequest({ body: createManyPostsSchema }),
   postController.createManyPosts,
 );
-postRoutes.put('/:slug/view', postController.increaseViewCount);
+postRoutes.put(
+  '/:slug/view',
+  validateRequest({ params: increaseViewCountParamsSchema }),
+  postController.increaseViewCount,
+);
 postRoutes.put(
   '/:id',
   authenticate,
   validateRequest({ params: updatePostParamsSchema, body: updatePostSchema }),
   postController.updatePost,
 );
-postRoutes.post('/:postId/like', authenticate, postController.likePost);
-postRoutes.post('/:postId/unlike', authenticate, postController.unlikePost);
+postRoutes.post(
+  '/:postId/like',
+  authenticate,
+  validateRequest({ params: likePostParamsSchema, body: likePostBodySchema }),
+  postController.likePost,
+);
+postRoutes.post(
+  '/:postId/unlike',
+  authenticate,
+  validateRequest({ params: unlikePostParamsSchema, body: unlikePostBodySchema }),
+  postController.unlikePost,
+);
