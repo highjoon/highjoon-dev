@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ApiClient, ApiClientError, ApiClientInit, Ctx } from '../types';
+import { createApiError } from '../lib/createApiError';
+import { ApiClient, ApiClientInit, Ctx } from '../types';
 
 /**
  * API 클라이언트 생성
@@ -28,28 +29,19 @@ export const createApiClient = ({ getAccessToken, defaultHeaders }: Ctx): ApiCli
       next: init?.next,
       cache: init?.cache,
     });
+    const data = await response.json();
 
     if (!response.ok) {
-      let detail: unknown;
-      try {
-        detail = await response.json();
-      } catch {
-        /* empty */
-      }
-
-      const error = new Error(`[API] ${method} ${path} ${response.status}`) as ApiClientError;
-      error.status = response.status;
-      error.detail = detail;
-      throw error;
+      throw createApiError(data);
     }
 
     const contentType = response.headers.get('Content-Type') ?? '';
 
     if (contentType.startsWith('application/json')) {
-      return (await response.json()) as T;
+      return data as T;
     }
 
-    return (await response.text()) as T;
+    return data as T;
   };
 
   return {
