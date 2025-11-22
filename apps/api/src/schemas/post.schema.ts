@@ -23,3 +23,6 @@ export const getPostSchema = postSchema.pick({ slug: true });
 export const createPostSchema = postSchema.omit({ id: true, createdAt: true, updatedAt: true });
 export const createManyPostsSchema = z.array(postSchema.omit({ id: true, createdAt: true, updatedAt: true }));
 export const updatePostSchema = postSchema.omit({ id: true, createdAt: true, updatedAt: true });
+export const updatePostParamsSchema = z.object({
+  id: z.string().min(1, { message: '유효하지 않은 게시물 ID입니다.' }),
+});

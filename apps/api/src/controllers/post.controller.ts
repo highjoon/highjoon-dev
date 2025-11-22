@@ -39,24 +39,8 @@ class PostController {
   };
 
   public updatePost = async (req: Request, res: Response) => {
-    const id = req.params.id;
-
-    if (!id) {
-      handleServiceResponse(
-        ServiceResponse.failure('유효하지 않은 게시물 ID입니다.', null, StatusCodes.BAD_REQUEST),
-        res,
-      );
-
-      return;
-    }
-
+    const { id } = req.params;
     const data = req.body;
-
-    if (!data) {
-      handleServiceResponse(ServiceResponse.failure('유효하지 않은 데이터입니다.', null, StatusCodes.BAD_REQUEST), res);
-
-      return;
-    }
 
     const postResponse = await postService.updatePost({ id, data });
 
