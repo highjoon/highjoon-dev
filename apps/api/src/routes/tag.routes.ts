@@ -9,6 +9,7 @@ export const tagRoutes: Router = express.Router();
 
 tagRoutes.get('/', tagController.getAllTags);
 tagRoutes.get('/:id', validateRequest({ params: tagIdParamsSchema }), tagController.getTag);
+tagRoutes.get('/:id/posts', validateRequest({ params: tagIdParamsSchema }), tagController.getPostsByTag);
 tagRoutes.post('/', authenticate, validateRequest({ body: createTagSchema }), tagController.createTag);
 tagRoutes.put(
   '/:id',

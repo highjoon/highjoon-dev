@@ -47,6 +47,7 @@ class PostService {
       const post = await prisma.post.findFirst({
         where: { isFeatured: true },
         orderBy: { publishedAt: 'desc' },
+        include: { postTags: { include: { tag: true } } },
       });
 
       if (!post) {
