@@ -14,31 +14,59 @@ import { type MergeComponents } from '@mdx-js/react/lib';
 import { Info } from 'lucide-react';
 import { type MDXComponents as MDXComponentsType } from 'mdx/types';
 
+const createHeadingId = (text: string | React.ReactNode): string => {
+  const textContent = typeof text === 'string' ? text : String(text);
+  return textContent
+    .toLowerCase()
+    .replace(/[^\w\s\uAC00-\uD7A3-]/g, '')
+    .replace(/\s+/g, '-');
+};
+
 export const MdxComponents: MDXComponentsType | MergeComponents | null | undefined = {
-  h1: (props) => <h1 {...props} className={cn('text-4xl font-bold mb-10 mt-10', props.className)} ref={props.ref} />,
-  h2: (props) => (
-    <>
-      <Separator className="my-8 md:my-7 sm:my-5" />
-      <h2
+  h1: (props) => {
+    const id = createHeadingId(props.children);
+    return <h1 {...props} id={id} className={cn('text-4xl font-bold mb-10 mt-10', props.className)} ref={props.ref} />;
+  },
+  h2: (props) => {
+    const id = createHeadingId(props.children);
+    return (
+      <>
+        <Separator className="my-8 md:my-7 sm:my-5" />
+        <h2
+          {...props}
+          id={id}
+          className={cn('text-3xl font-semibold mb-8 md:text-2xl md:mb-3 sm:text-xl sm:mb-3', props.className)}
+          ref={props.ref}
+        />
+      </>
+    );
+  },
+  h3: (props) => {
+    const id = createHeadingId(props.children);
+    return (
+      <h3
         {...props}
-        className={cn('text-3xl font-semibold mb-8 md:text-2xl md:mb-3 sm:text-xl sm:mb-3', props.className)}
+        id={id}
+        className={cn(
+          'text-2xl font-semibold mt-5 mb-5 md:text-xl md:mt-3 md:mb-3 sm:text-lg sm:mt-3 sm:mb-3',
+          props.className,
+        )}
         ref={props.ref}
       />
-    </>
-  ),
-  h3: (props) => (
-    <h3
-      {...props}
-      className={cn(
-        'text-2xl font-semibold mt-5 mb-5 md:text-xl md:mt-3 md:mb-3 sm:text-lg sm:mt-3 sm:mb-3',
-        props.className,
-      )}
-      ref={props.ref}
-    />
-  ),
-  h4: (props) => <h4 {...props} className={cn('text-xl font-semibold my-3', props.className)} ref={props.ref} />,
-  h5: (props) => <h5 {...props} className={cn('text-lg font-semibold my-3', props.className)} ref={props.ref} />,
-  h6: (props) => <h6 {...props} className={cn('text-base font-semibold my-3', props.className)} ref={props.ref} />,
+    );
+  },
+  h4: (props) => {
+    const id = createHeadingId(props.children);
+    return <h4 {...props} id={id} className={cn('text-xl font-semibold my-3', props.className)} ref={props.ref} />;
+  },
+  h5: (props) => {
+    const id = createHeadingId(props.children);
+    return <h5 {...props} id={id} className={cn('text-lg font-semibold my-3', props.className)} ref={props.ref} />;
+  },
+  h6: (props) => {
+    const id = createHeadingId(props.children);
+    return <h6 {...props} id={id} className={cn('text-base font-semibold my-3', props.className)} ref={props.ref} />;
+  },
   p: (props) => (
     <p
       {...props}
