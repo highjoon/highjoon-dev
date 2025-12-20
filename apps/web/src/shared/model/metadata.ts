@@ -19,7 +19,13 @@ export const generateRootMetadata = (): Metadata => {
     authors: [{ name: 'highjoon' }],
     creator: 'highjoon',
     publisher: 'highjoon',
-    appleWebApp: true,
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: 'default',
+    },
+    other: {
+      'mobile-web-app-capable': 'yes',
+    },
     icons: {
       icon: '/favicon/apple-icon.png',
       shortcut: '/favicon/apple-icon.png',
