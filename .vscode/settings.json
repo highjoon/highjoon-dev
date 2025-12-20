@@ -52,5 +52,6 @@
   "prettier.prettierPath": "node_modules/prettier",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "prisma.pinToPrisma6": true
 }
