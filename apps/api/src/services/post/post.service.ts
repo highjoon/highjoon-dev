@@ -1,5 +1,5 @@
 import { type Post, prisma } from '@highjoon-dev/prisma';
-import { type Nullable } from '@highjoon-dev/types';
+import { type Nullable, type PaginationMeta } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
 import { ServiceResponse } from '@/models/servicesResponse';
@@ -11,18 +11,35 @@ import { getTodayMidnight } from '@/utils/getTomorrowMidnight';
 import { handleInternalError } from '@/utils/handleInternalError';
 
 class PostService {
-  async findAllPosts(): Promise<ServiceResponse<Nullable<Post[]>>> {
+  async findAllPosts(options?: {
+    skip?: number;
+    take?: number;
+  }): Promise<ServiceResponse<Nullable<{ posts: Post[]; meta: PaginationMeta }>>> {
     try {
-      const posts = await prisma.post.findMany({
-        orderBy: { publishedAt: 'desc' },
-        include: { postTags: { include: { tag: true } } },
-      });
+      const skip = options?.skip ?? 0;
+      const take = options?.take ?? 10;
 
-      if (posts.length === 0) {
+      const [posts, total] = await prisma.$transaction([
+        prisma.post.findMany({
+          orderBy: { publishedAt: 'desc' },
+          skip,
+          take,
+          include: { postTags: { include: { tag: true } } },
+        }),
+        prisma.post.count(),
+      ]);
+
+      if (posts.length === 0 && skip === 0) {
         return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
       }
 
-      return ServiceResponse.success<Post[]>('게시물을 찾았습니다.', posts, StatusCodes.OK);
+      const hasMore = skip + posts.length < total;
+
+      return ServiceResponse.success(
+        '게시물을 찾았습니다.',
+        { posts, meta: { total, skip, take, hasMore } },
+        StatusCodes.OK,
+      );
     } catch (error) {
       return handleInternalError(error, 'findAllPosts Error');
     }

@@ -7,7 +7,12 @@ import { handleServiceResponse } from '@/utils/httpHandlers';
 
 class PostController {
   public getAllPosts = async (req: Request, res: Response) => {
-    const postsResponse = await postService.findAllPosts();
+    const { skip, take, limit } = req.query;
+
+    const postsResponse = await postService.findAllPosts({
+      skip: skip ? Number(skip) : undefined,
+      take: limit ? Number(limit) : take ? Number(take) : undefined,
+    });
 
     handleServiceResponse(postsResponse, res);
   };

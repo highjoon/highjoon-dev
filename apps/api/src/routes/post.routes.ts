@@ -6,6 +6,7 @@ import { validateRequest } from '@/middlewares/validateRequest';
 import {
   createManyPostsSchema,
   createPostSchema,
+  getAllPostsQuerySchema,
   getPostSchema,
   increaseViewCountParamsSchema,
   likePostBodySchema,
@@ -18,7 +19,7 @@ import {
 
 export const postRoutes: Router = express.Router();
 
-postRoutes.get('/', postController.getAllPosts);
+postRoutes.get('/', validateRequest({ query: getAllPostsQuerySchema }), postController.getAllPosts);
 postRoutes.get('/featured', postController.getFeaturedPost);
 postRoutes.get('/:slug', validateRequest({ params: getPostSchema }), postController.getPost);
 postRoutes.post('/', authenticate, validateRequest({ body: createPostSchema }), postController.createPost);

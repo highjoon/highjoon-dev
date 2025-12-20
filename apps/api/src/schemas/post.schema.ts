@@ -31,3 +31,32 @@ export const unlikePostParamsSchema = z.object({
   postId: z.string().min(1, { message: '유효하지 않은 게시물입니다.' }),
 });
 export const unlikePostBodySchema = z.object({ userId: z.string().min(1, { message: '유효하지 않은 사용자입니다.' }) });
+
+// 게시물 목록 조회 쿼리 파라미터 스키마
+export const getAllPostsQuerySchema = z
+  .object({
+    skip: z
+      .string()
+      .optional()
+      .transform((value) => (value ? parseInt(value, 10) : 0)),
+    take: z
+      .string()
+      .optional()
+      .transform((value) => (value ? parseInt(value, 10) : undefined)),
+    limit: z
+      .string()
+      .optional()
+      .transform((value) => (value ? parseInt(value, 10) : undefined)),
+  })
+  .refine(
+    (data) => {
+      // skip은 0 이상이어야 함
+      if (data.skip !== undefined && data.skip < 0) return false;
+      // take는 1 이상이어야 함
+      if (data.take !== undefined && data.take < 1) return false;
+      // limit는 1 이상이어야 함
+      if (data.limit !== undefined && data.limit < 1) return false;
+      return true;
+    },
+    { message: 'skip은 0 이상, take와 limit는 1 이상이어야 합니다.' },
+  );
