@@ -8,6 +8,7 @@ import requestLogger from '@/middlewares/requestLogger';
 import { authRoutes } from '@/routes/auth.routes';
 import commentRoutes from '@/routes/comment.routes';
 import { postRoutes } from '@/routes/post.routes';
+import { tagRoutes } from '@/routes/tag.routes';
 import { userRoutes } from '@/routes/user.routes';
 import { corsOptions } from '@/utils/corsOptions';
 
@@ -30,6 +31,7 @@ app.use('/post', postRoutes);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/comment', commentRoutes);
+app.use('/tag', tagRoutes);
 
 // Error handlers
 app.use(errorHandler());
