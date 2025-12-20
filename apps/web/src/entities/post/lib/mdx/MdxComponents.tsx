@@ -97,7 +97,7 @@ export const MdxComponents: MDXComponentsType | MergeComponents | null | undefin
   a: (props) => (
     <a
       {...props}
-      className={cn('text-primary underline underline-offset-4 hover:text-primary/80', props.className)}
+      className={cn('text-primary no-underline hover:text-primary/80', props.className)}
       ref={props.ref as React.Ref<HTMLAnchorElement>}
     />
   ),
