@@ -12,9 +12,9 @@ export default async function FeaturedPost() {
       <h2 id="featured-post-title" className="text-xl font-semibold md:text-2xl">
         Featured Post
       </h2>
-      <ul className="p-0 m-0 list-none">
+      <div className="p-0 m-0 list-none">
         <PostCard post={featuredPost} />
-      </ul>
+      </div>
     </section>
   );
 }

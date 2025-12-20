@@ -30,7 +30,11 @@ export default async function PostsPage({ params }: Props) {
     <>
       <PostsSchema posts={blogPosts} pageNumber={currentPage} />
       <section className="py-2 md:py-4 lg:py-8">
-        <div className="container flex flex-col items-center gap-16">
+        <div className="container flex flex-col gap-8">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-3xl font-bold md:text-4xl">Posts</h1>
+            <p className="text-muted-foreground">총 {meta.total}개 게시물</p>
+          </div>
           <div className="grid gap-y-10 sm:grid-cols-12 sm:gap-y-12 md:gap-y-16 lg:gap-y-20">
             {blogPosts.map((post) => (
               <Card
