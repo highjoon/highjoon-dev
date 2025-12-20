@@ -21,7 +21,7 @@ export default function PostContent({ title, bannerImageUrl, content, viewCount,
     <div className="relative flex flex-col w-full mb-5">
       <h1 className="mb-10 text-3xl font-medium text-center sm:mb-8 sm:text-4xl md:mb-10 md:text-5xl">{title}</h1>
 
-      <TagBadgeList tags={postTags?.map((pt) => pt.tag) || []} variant="outline" className="justify-center mb-4" />
+      <TagBadgeList tags={postTags?.map((post) => post.tag) || []} variant="outline" className="justify-center mb-4" />
 
       <div className="mb-5 flex items-center justify-center gap-4 sm:mb-2.5 md:mb-5">
         <ViewCount viewCount={viewCount} slug={slug} />

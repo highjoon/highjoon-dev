@@ -41,7 +41,7 @@ export default function PostCard({ post }: Props) {
         <CardContent>
           <p className="text-muted-foreground line-clamp-2">{post.description}</p>
           <TagBadgeList
-            tags={post.postTags?.map((pt) => pt.tag) || []}
+            tags={post.postTags?.map((post) => post.tag) || []}
             variant="secondary"
             className="mt-3"
             onTagClick={(e) => e.stopPropagation()}

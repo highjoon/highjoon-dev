@@ -31,10 +31,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     // 블로그 포스트 목록 가져오기
-    const posts = await getAllPostsApi(clientApi);
+    const response = await getAllPostsApi(clientApi);
 
     // 블로그 포스트 URL들
-    const blogPostUrls = posts.map((post) => ({
+    const blogPostUrls = response.posts.map((post) => ({
       url: `${baseUrl}${ROUTES.BLOGS}/${post.slug}`,
       lastModified: new Date(post.updatedAt || post.publishedAt || currentDate),
       changeFrequency: 'monthly' as const,
@@ -42,7 +42,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
     // 페이지네이션 URL들 계산
-    const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+    const totalPages = Math.ceil(response.meta.total / POSTS_PER_PAGE);
     const paginationUrls = Array.from({ length: totalPages }, (_, index) => ({
       url: `${baseUrl}${ROUTES.PAGES}/${index + 1}`,
       lastModified: currentDate,

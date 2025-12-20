@@ -8,8 +8,8 @@ export const useGetPosts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   const getPostListHandler = useCallback(async () => {
-    const posts = await getAllPostsApi(clientApi);
-    setPosts(posts);
+    const response = await getAllPostsApi(clientApi);
+    setPosts(response.posts);
   }, []);
 
   useEffect(() => {
