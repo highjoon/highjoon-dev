@@ -3,15 +3,16 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { type Post } from '@highjoon-dev/prisma';
 import { Card, CardContent, CardFooter, CardHeader } from '@highjoon-dev/ui/components/Card';
 import dayjs from 'dayjs';
 import { ArrowRight } from 'lucide-react';
 
+import { PostWithTags } from '@/entities/post/api/getPostApi/dto';
 import { createPostPath } from '@/entities/post/lib/post';
+import TagBadgeList from '@/entities/tag/ui/TagBadgeList';
 
 interface Props {
-  post: Post;
+  post: PostWithTags;
 }
 
 export default function PostCard({ post }: Props) {
@@ -39,6 +40,12 @@ export default function PostCard({ post }: Props) {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground line-clamp-2">{post.description}</p>
+          <TagBadgeList
+            tags={post.postTags?.map((pt) => pt.tag) || []}
+            variant="secondary"
+            className="mt-3"
+            onTagClick={(e) => e.stopPropagation()}
+          />
         </CardContent>
         <CardFooter className="flex items-center justify-between">
           {!!post.publishedAt && (

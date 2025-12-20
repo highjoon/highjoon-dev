@@ -5,6 +5,7 @@ import { type Post } from '@highjoon-dev/prisma';
 import { MdxComponents } from '@/entities/post/lib/mdx/MdxComponents';
 import MDXContent from '@/entities/post/lib/mdx/MDXContent';
 import ViewCount from '@/entities/post/ui/ViewCount';
+import TagBadgeList from '@/entities/tag/ui/TagBadgeList';
 
 interface Props {
   title: Post['title'];
@@ -12,12 +13,15 @@ interface Props {
   content: string;
   viewCount: Post['viewCount'];
   slug: Post['slug'];
+  postTags?: Array<{ tag: { id: string; name: string } }>;
 }
 
-export default function PostContent({ title, bannerImageUrl, content, viewCount, slug }: Props) {
+export default function PostContent({ title, bannerImageUrl, content, viewCount, slug, postTags }: Props) {
   return (
     <div className="relative flex flex-col w-full mb-5">
       <h1 className="mb-10 text-3xl font-medium text-center sm:mb-8 sm:text-4xl md:mb-10 md:text-5xl">{title}</h1>
+
+      <TagBadgeList tags={postTags?.map((pt) => pt.tag) || []} variant="outline" className="justify-center mb-4" />
 
       <div className="mb-5 flex items-center justify-center gap-4 sm:mb-2.5 md:mb-5">
         <ViewCount viewCount={viewCount} slug={slug} />
