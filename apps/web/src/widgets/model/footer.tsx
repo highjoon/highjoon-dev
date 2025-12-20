@@ -25,6 +25,7 @@ export const footerSections: FooterSection[] = [
     links: [
       { name: 'Home', href: ROUTES.HOME },
       { name: 'Posts', href: `${ROUTES.PAGES}/1` },
+      { name: 'Tags', href: ROUTES.TAGS },
       { name: 'About', href: ROUTES.ABOUT },
     ],
   },

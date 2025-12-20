@@ -8,5 +8,6 @@ export interface NavigationItem {
 export const navigationItems: NavigationItem[] = [
   { title: 'HOME', href: ROUTES.HOME },
   { title: 'POSTS', href: `${ROUTES.PAGES}/1` },
+  { title: 'TAGS', href: ROUTES.TAGS },
   { title: 'ABOUT', href: ROUTES.ABOUT },
 ];
