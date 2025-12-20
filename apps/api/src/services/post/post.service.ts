@@ -5,13 +5,18 @@ import { StatusCodes } from 'http-status-codes';
 import { ServiceResponse } from '@/models/servicesResponse';
 import { postViewLogService } from '@/services/post/postViewLog.service';
 import { postViewStatsService } from '@/services/post/postViewStats.service';
+import { postTagService } from '@/services/tag/postTag.service';
+import { tagService } from '@/services/tag/tag.service';
 import { getTodayMidnight } from '@/utils/getTomorrowMidnight';
 import { handleInternalError } from '@/utils/handleInternalError';
 
 class PostService {
   async findAllPosts(): Promise<ServiceResponse<Nullable<Post[]>>> {
     try {
-      const posts = await prisma.post.findMany({ orderBy: { publishedAt: 'desc' } });
+      const posts = await prisma.post.findMany({
+        orderBy: { publishedAt: 'desc' },
+        include: { postTags: { include: { tag: true } } },
+      });
 
       if (posts.length === 0) {
         return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
@@ -25,7 +30,7 @@ class PostService {
 
   async findPost(slug: Post['slug']): Promise<ServiceResponse<Nullable<Post>>> {
     try {
-      const post = await prisma.post.findUnique({ where: { slug } });
+      const post = await prisma.post.findUnique({ where: { slug }, include: { postTags: { include: { tag: true } } } });
 
       if (!post) {
         return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
@@ -54,11 +59,28 @@ class PostService {
     }
   }
 
-  async createPost(data: Post): Promise<ServiceResponse<Nullable<Post>>> {
+  async createPost(data: Post & { tags?: string[] }): Promise<ServiceResponse<Nullable<Post>>> {
     try {
-      const post = await prisma.post.create({ data });
+      const { tags, ...postData } = data;
 
-      return ServiceResponse.success<Post>('게시물이 생성되었습니다.', post, StatusCodes.CREATED);
+      const result = await prisma.$transaction(async (transaction) => {
+        const post = await transaction.post.create({ data: postData });
+
+        if (tags && tags.length > 0) {
+          const tagRecords = await tagService.findOrCreateTags(tags);
+          await transaction.postTag.createMany({
+            data: tagRecords.map((tag) => ({ postId: post.id, tagId: tag.id })),
+            skipDuplicates: true,
+          });
+        }
+
+        return await transaction.post.findUnique({
+          where: { id: post.id },
+          include: { postTags: { include: { tag: true } } },
+        });
+      });
+
+      return ServiceResponse.success('게시물이 생성되었습니다.', result as Post, StatusCodes.CREATED);
     } catch (error) {
       return handleInternalError(error, 'createPost Error');
     }
@@ -74,11 +96,35 @@ class PostService {
     }
   }
 
-  async updatePost({ id, data }: { id: string; data: Post }): Promise<ServiceResponse<Nullable<Post>>> {
+  async updatePost({
+    id,
+    data,
+  }: {
+    id: string;
+    data: Post & { tags?: string[] };
+  }): Promise<ServiceResponse<Nullable<Post>>> {
     try {
-      const post = await prisma.post.update({ where: { id }, data });
+      const { tags, ...postData } = data;
 
-      return ServiceResponse.success<Post>('게시물이 수정되었습니다.', post, StatusCodes.OK);
+      const result = await prisma.$transaction(async (transaction) => {
+        await transaction.post.update({ where: { id }, data: postData });
+
+        if (tags !== undefined) {
+          if (tags.length > 0) {
+            const tagRecords = await tagService.findOrCreateTags(tags);
+            await postTagService.syncPostTags(
+              id,
+              tagRecords.map((tag) => tag.id),
+            );
+          } else {
+            await transaction.postTag.deleteMany({ where: { postId: id } });
+          }
+        }
+
+        return await transaction.post.findUnique({ where: { id }, include: { postTags: { include: { tag: true } } } });
+      });
+
+      return ServiceResponse.success('게시물이 수정되었습니다.', result as Post, StatusCodes.OK);
     } catch (error) {
       return handleInternalError(error, 'updatePost Error');
     }
