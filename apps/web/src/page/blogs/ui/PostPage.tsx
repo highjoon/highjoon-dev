@@ -27,6 +27,7 @@ export default async function PostPage({ params }: Props) {
         content={content}
         viewCount={post.viewCount || 0}
         slug={post.slug}
+        postTags={post.postTags}
       />
       <LikeCommentsSection post={post} />
     </>

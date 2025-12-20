@@ -4,8 +4,10 @@ import { Card } from '@highjoon-dev/ui/components/Card';
 import { ArrowRight } from 'lucide-react';
 
 import { getAllPostsApi } from '@/entities/post/api/getAllPostsApi';
+import { PostWithTags } from '@/entities/post/api/getPostApi/dto';
 import { createPostPath, POSTS_PER_PAGE } from '@/entities/post/lib/post';
 import PostsSchema from '@/entities/post/lib/PostsSchema';
+import TagBadgeList from '@/entities/tag/ui/TagBadgeList';
 import { serverApi } from '@/shared/api/apiClient/serverApi';
 import { ROUTES } from '@/shared/routes/routes';
 import Pagination from '@/widgets/ui/Pagination';
@@ -15,7 +17,7 @@ interface Props {
 }
 
 export default async function PostsPage({ params }: Props) {
-  const postList = await getAllPostsApi(serverApi);
+  const postList = (await getAllPostsApi(serverApi)) as PostWithTags[];
   const currentPage = Number(params.id);
   const totalPage = Math.ceil(postList.length / POSTS_PER_PAGE);
   const blogPosts = postList.slice((currentPage - 1) * POSTS_PER_PAGE, POSTS_PER_PAGE * currentPage);
@@ -53,6 +55,12 @@ export default async function PostsPage({ params }: Props) {
                       </a>
                     </h3>
                     <p className="mt-4 text-muted-foreground md:mt-5">{post.summary}</p>
+                    <TagBadgeList
+                      tags={blogPosts[mappedPosts.indexOf(post)].postTags?.map((pt) => pt.tag) || []}
+                      variant="secondary"
+                      showHash={false}
+                      className="mt-4"
+                    />
                     <div className="flex items-center mt-6 space-x-4 text-sm md:mt-8">
                       <span className="text-muted-foreground">{post.published}</span>
                     </div>
