@@ -29,7 +29,7 @@ export default [
   js.configs.recommended, // 3) TypeScript + Prettier base
   ...compat.extends(
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
   ),
   {
     files: ["**/*.{ts,tsx}"],
