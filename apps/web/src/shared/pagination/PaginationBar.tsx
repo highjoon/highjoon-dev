@@ -30,8 +30,6 @@ export default function PaginationBar({ current, total, siblingCount = 1, nav }:
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href="#"
-            size="default"
             className={isFirst ? DISABLED_PAGINATION_ITEM : undefined}
             onClick={(e) => {
               e.preventDefault();
@@ -45,8 +43,6 @@ export default function PaginationBar({ current, total, siblingCount = 1, nav }:
               <PaginationEllipsis />
             ) : (
               <PaginationLink
-                href="#"
-                size="icon"
                 isActive={item === current}
                 onClick={(e) => {
                   e.preventDefault();
@@ -59,8 +55,6 @@ export default function PaginationBar({ current, total, siblingCount = 1, nav }:
         ))}
         <PaginationItem>
           <PaginationNext
-            href="#"
-            size="default"
             className={isLast ? DISABLED_PAGINATION_ITEM : undefined}
             onClick={(e) => {
               e.preventDefault();
