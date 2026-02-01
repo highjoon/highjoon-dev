@@ -55,11 +55,45 @@ module.exports = {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+        vibrant: {
+          brand: '#6366f1',
+          'brand-light': '#eef2ff',
+          'brand-dark': '#4338ca',
+          tech: '#10b981',
+          design: '#8b5cf6',
+          life: '#f59e0b',
+          accent: '#f43f5e',
+          'bg-base': '#f8fafc',
+          'bg-card': '#ffffff',
+          'text-main': '#1e293b',
+          'text-muted': '#64748b',
+          'border-color': '#e2e8f0',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        vibrant: '1.25rem',
+        'vibrant-lg': '2.5rem',
+      },
+      boxShadow: {
+        vibrant: '0 10px 15px -3px rgba(99, 102, 241, 0.1), 0 4px 6px -4px rgba(99, 102, 241, 0.1)',
+      },
+      animation: {
+        'slide-up': 'slideUp 0.5s ease-out forwards',
+      },
+      keyframes: {
+        slideUp: {
+          from: {
+            opacity: '0',
+            transform: 'translateY(20px)',
+          },
+          to: {
+            opacity: '1',
+            transform: 'translateY(0)',
+          },
+        },
       },
     },
   },
