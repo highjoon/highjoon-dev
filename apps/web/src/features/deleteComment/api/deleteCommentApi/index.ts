@@ -4,7 +4,5 @@ import { DeleteCommentRequestDto, DeleteCommentResponseDto } from '@/features/de
 import { ApiClient } from '@/shared/api';
 
 export const deleteCommentApi = async (api: ApiClient, params: DeleteCommentRequestDto) => {
-  const response = await api.del<ServiceResponseInterface<DeleteCommentResponseDto>>(`/comment/${params.commentId}`);
-
-  return response.data;
+  await api.del<ServiceResponseInterface<DeleteCommentResponseDto>>(`/comment/${params.commentId}`);
 };

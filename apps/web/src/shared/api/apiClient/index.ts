@@ -29,6 +29,11 @@ export const createApiClient = ({ getAccessToken, defaultHeaders }: Ctx): ApiCli
       next: init?.next,
       cache: init?.cache,
     });
+
+    if (response.status < 200 || response.status === 204 || response.status === 205 || response.status === 304) {
+      return null as T;
+    }
+
     const data = await response.json();
 
     if (!response.ok) {

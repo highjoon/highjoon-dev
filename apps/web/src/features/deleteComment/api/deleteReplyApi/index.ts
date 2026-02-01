@@ -2,7 +2,5 @@ import { DeleteReplyRequestDto, DeleteReplyResponseDto } from '@/features/delete
 import { ApiClient } from '@/shared/api';
 
 export const deleteReplyApi = async (api: ApiClient, params: DeleteReplyRequestDto) => {
-  const response = await api.del<DeleteReplyResponseDto>(`/comment/reply/${params.replyId}`);
-
-  return response.data;
+  await api.del<DeleteReplyResponseDto>(`/comment/reply/${params.replyId}`);
 };
