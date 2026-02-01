@@ -1,49 +1,28 @@
 import React from 'react';
 import { Skeleton } from '@highjoon-dev/ui/components/Skeleton';
 
+import PostCardSkeleton from '@/entities/post/ui/PostCardSkeleton';
+import PageHeader from '@/shared/ui/layout/PageHeader';
+import PageSection from '@/shared/ui/layout/PageSection';
+import PostGrid from '@/shared/ui/layout/PostGrid';
+
 export default function Loading() {
   return (
-    <section className="py-2 md:py-4 lg:py-8">
-      <div className="container flex flex-col items-center gap-16">
-        <div className="grid w-full gap-y-10 sm:grid-cols-12 sm:gap-y-12 md:gap-y-16 lg:gap-y-20">
-          {Array.from({ length: 6 }).map((_, idx) => (
-            <div
-              key={idx}
-              className="order-last w-full py-6 sm:order-first sm:col-span-12 lg:col-span-10 lg:col-start-2">
-              <div className="grid gap-y-6 sm:grid-cols-10 sm:gap-x-5 sm:gap-y-0 md:items-center md:gap-x-8 lg:gap-x-12">
-                <div className="space-y-4 sm:col-span-5">
-                  <div className="flex flex-wrap gap-3 md:gap-5 lg:gap-6">
-                    <Skeleton className="w-16 h-4" />
-                    <Skeleton className="h-4 w-14" />
-                  </div>
-                  <Skeleton className="w-3/4 h-7" />
-                  <div className="space-y-2">
-                    <Skeleton className="w-full h-4" />
-                    <Skeleton className="w-5/6 h-4" />
-                  </div>
-                  <div className="flex items-center gap-4 pt-2">
-                    <Skeleton className="w-24 h-4" />
-                    <Skeleton className="w-16 h-4" />
-                    <Skeleton className="w-24 h-4" />
-                  </div>
-                </div>
+    <PageSection>
+      <PageHeader
+        label="Archive"
+        title="ALL POSTS"
+        description={
+          <span className="block w-full h-7 bg-accent animate-pulse rounded-md relative aspect-[4/3] overflow-hidden border-slate-200 dark:border-slate-800" />
+        }
+      />
+      <Skeleton />
 
-                <div className="order-first sm:order-last sm:col-span-5">
-                  <div className="aspect-[16/9] overflow-hidden rounded-lg border border-border">
-                    <Skeleton className="w-full h-full" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex justify-center w-full gap-2 mt-8">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <Skeleton key={i} className="h-9 w-9" />
-          ))}
-        </div>
-      </div>
-    </section>
+      <PostGrid>
+        {Array.from({ length: 9 }).map((_, index) => (
+          <PostCardSkeleton key={index} />
+        ))}
+      </PostGrid>
+    </PageSection>
   );
 }
