@@ -1,13 +1,20 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
+import { Tag } from 'lucide-react';
 
 import PostCard from '@/entities/post/ui/PostCard';
 import { getAllTagsApi } from '@/entities/tag/api/getAllTagsApi';
 import { getPostsByTagApi } from '@/entities/tag/api/getPostsByTagApi';
-import { findTagByName, POSTS_PER_TAG_PAGE } from '@/entities/tag/lib/tag';
+import { findTagByName, POSTS_PER_TAG_PAGE, sortTagsByPopularity } from '@/entities/tag/lib/tag';
 import { serverApi } from '@/shared/api/apiClient/serverApi';
 import { ROUTES } from '@/shared/routes/routes';
+import EmptyState from '@/shared/ui/layout/EmptyState';
+import PageHeader from '@/shared/ui/layout/PageHeader';
+import PageSection from '@/shared/ui/layout/PageSection';
+import PostGrid from '@/shared/ui/layout/PostGrid';
 import Pagination from '@/widgets/ui/Pagination';
+
+import TagPosts from './TagPosts';
 
 interface Props {
   params: { name: string; page: string };
@@ -19,6 +26,7 @@ export default async function TagDetailPage({ params }: Props) {
 
   // 태그 이름으로 태그 찾기
   const allTags = await getAllTagsApi(serverApi);
+  const sortedTags = sortTagsByPopularity(allTags);
   const tag = findTagByName(allTags, tagName);
 
   if (!tag) {
@@ -46,44 +54,55 @@ export default async function TagDetailPage({ params }: Props) {
   }
 
   return (
-    <section className="py-2 md:py-4 lg:py-8">
-      <div className="container flex flex-col gap-8">
-        {/* 헤더 */}
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex flex-col gap-1">
-              <div className="flex items-center gap-2">
-                <h1 className="text-3xl font-bold md:text-4xl">#{tag.name}</h1>
-              </div>
-              <p className="text-muted-foreground">총 {totalPosts}개 게시물</p>
-            </div>
-          </div>
-        </div>
+    <PageSection>
+      <PageHeader
+        label="Curated Topics"
+        title="TAGS"
+        description={
+          <>
+            총 <span className="text-indigo-600 dark:text-indigo-400">{allTags.length}개</span>의 태그가 있습니다.
+          </>
+        }
+      />
 
-        {/* 게시물 그리드 */}
-        {posts.length === 0 ? (
-          <div className="py-12 text-center">
-            <p className="text-muted-foreground">게시물이 존재하지 않습니다.</p>
-          </div>
-        ) : (
-          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
-          </ul>
-        )}
-
-        {/* 페이지네이션 */}
-        {totalPages > 1 && (
-          <div className="w-full mt-8">
-            <Pagination
-              currentPage={currentPage}
-              totalPage={totalPages}
-              routerPath={`${ROUTES.TAGS}/${encodeURIComponent(tagName)}`}
-            />
-          </div>
-        )}
+      {/* 태그 검색 & 클라우드 영역 */}
+      <div className="mb-14">
+        <TagPosts tags={sortedTags} selectedTag={tagName} />
       </div>
-    </section>
+
+      {/* Filtered Posts Header */}
+      <div className="flex items-end justify-between mb-8">
+        <h3 className="flex items-center gap-3 text-2xl font-black text-slate-900 dark:text-white">
+          <Tag className="text-indigo-600 dark:text-indigo-400" size={28} />
+          <span className="text-indigo-600 dark:text-indigo-400">#{tag.name}</span>
+          <span>관련 글</span>
+          <span className="px-2 py-1 ml-2 text-sm font-bold rounded-lg text-slate-400 bg-slate-100 dark:bg-slate-800">
+            {totalPosts}
+          </span>
+        </h3>
+      </div>
+
+      {/* 게시물 그리드 */}
+      {posts.length === 0 ? (
+        <EmptyState message="게시물이 존재하지 않습니다." />
+      ) : (
+        <PostGrid>
+          {posts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </PostGrid>
+      )}
+
+      {/* 페이지네이션 */}
+      {totalPages > 1 && (
+        <div className="w-full mt-8">
+          <Pagination
+            currentPage={currentPage}
+            totalPage={totalPages}
+            routerPath={`${ROUTES.TAGS}/${encodeURIComponent(tagName)}`}
+          />
+        </div>
+      )}
+    </PageSection>
   );
 }

@@ -14,7 +14,7 @@ export default function TagList({ tags }: Props) {
   }
 
   return (
-    <ul className="flex flex-wrap gap-2">
+    <ul className="flex flex-wrap justify-center max-w-4xl gap-4 mx-auto">
       {tags.map((tag) => (
         <li key={tag.id}>
           <TagCard tag={tag} />

@@ -3,6 +3,10 @@ import TagsPage from '@/page/tags/ui/TagsPage';
 
 export const metadata = generateTagsMetadata();
 
-export default function Page() {
-  return <TagsPage />;
+interface Props {
+  searchParams: Promise<{ page?: string }>;
+}
+
+export default function Page({ searchParams }: Props) {
+  return <TagsPage searchParams={searchParams} />;
 }
