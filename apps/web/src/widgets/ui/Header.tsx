@@ -1,67 +1,73 @@
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { Avatar, AvatarFallback, AvatarImage } from '@highjoon-dev/ui/components/Avatar';
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from '@highjoon-dev/ui/components/NavigationMenu';
+import React, { useEffect, useState } from 'react';
+import { Github } from 'lucide-react';
 
-import { ROUTES } from '@/shared/routes/routes';
+import ThemeToggle from '@/features/theme/ui/ThemeToggle';
+import { LINKS } from '@/shared/model/links';
+import Logo from '@/shared/ui/Logo';
+import Navigation from '@/shared/ui/Navigation';
 import { navigationItems } from '@/widgets/model/navigation';
-import MobileMenu from '@/widgets/ui/MobileMenu';
-import SearchBar from '@/widgets/ui/SearchBar';
-import ThemeSwitch from '@/widgets/ui/ThemeSwitch';
+
+import MobileMenu from './MobileMenu';
+import SearchBar from './SearchBar';
+import SearchDialog from './SearchDialog';
 
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
-  };
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
-    <section className="sticky top-0 z-50 py-4 border-b bg-background border-border min-h-[72px]">
-      <div className="container max-w-6xl px-4 mx-auto">
-        <nav className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href={ROUTES.HOME} className="flex items-center gap-3 group">
-            <Avatar className="w-8 h-8">
-              <AvatarImage src="/images/img-profile.png" alt="profile" />
-              <AvatarFallback>HJ</AvatarFallback>
-            </Avatar>
-            <span className="text-lg font-semibold tracking-tighter text-transparent bg-gradient-to-r from-slate-600 to-slate-900 dark:from-slate-300 dark:to-slate-100 bg-clip-text group-hover:from-slate-700 group-hover:to-slate-900 dark:group-hover:from-slate-200 dark:group-hover:to-slate-50">
-              highjoon-dev
-            </span>
-          </Link>
+    <header className="fixed top-0 z-50 w-full transition-colors border-b border-slate-300 bg-white/70 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/70">
+      <div className="px-6 mx-auto max-w-7xl">
+        <div className="flex items-center justify-between h-20">
+          <Logo />
 
-          {/* Desktop Navigation */}
-          <NavigationMenu className="hidden lg:block">
-            <NavigationMenuList>
-              {navigationItems.map((item) => (
-                <NavigationMenuItem key={item.title}>
-                  <NavigationMenuLink href={item.href} className={navigationMenuTriggerStyle()}>
-                    {item.title}
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+          <Navigation items={navigationItems} />
 
-          {/* Desktop Actions */}
-          <div className="items-center hidden gap-4 lg:flex">
-            <SearchBar />
-            <ThemeSwitch />
+          <div className="items-center hidden space-x-4 md:flex">
+            <SearchBar
+              onClick={() => {
+                setIsSearchOpen(true);
+                setIsMenuOpen(false);
+              }}
+            />
+
+            <ThemeToggle />
+
+            <div className="h-4 w-[1px] bg-slate-300 dark:bg-slate-800" />
+            <a
+              href={LINKS.GITHUB}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400">
+              <Github size={20} />
+            </a>
           </div>
 
-          {/* Mobile Menu */}
-          <MobileMenu isOpen={mobileMenuOpen} onOpenChange={setMobileMenuOpen} onClose={closeMobileMenu} />
-        </nav>
+          <MobileMenu
+            isOpen={isMenuOpen && !isSearchOpen}
+            onOpenChange={setIsMenuOpen}
+            navigationItems={navigationItems}
+            onSearchClick={() => {
+              setIsSearchOpen(true);
+              setIsMenuOpen(false);
+            }}
+          />
+        </div>
       </div>
-    </section>
+      <SearchDialog isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+    </header>
   );
 }

@@ -3,11 +3,7 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 import { LINKS } from '@/shared/model/links';
 import { ROUTES } from '@/shared/routes/routes';
 
-export interface FooterSection {
-  title: string;
-  links: Array<{ name: string; href: string }>;
-}
-
+export type FooterSection = Array<{ name: string; href: string }>;
 export interface FooterSocialLink {
   icon: React.ReactElement;
   href: string;
@@ -19,16 +15,11 @@ export interface FooterLegalLink {
   href: string;
 }
 
-export const footerSections: FooterSection[] = [
-  {
-    title: 'Content',
-    links: [
-      { name: 'Home', href: ROUTES.HOME },
-      { name: 'Posts', href: `${ROUTES.PAGES}/1` },
-      { name: 'Tags', href: ROUTES.TAGS },
-      { name: 'About', href: ROUTES.ABOUT },
-    ],
-  },
+export const footerSections: FooterSection = [
+  { name: 'Home', href: ROUTES.HOME },
+  { name: 'Posts', href: `${ROUTES.PAGES}/1` },
+  { name: 'Tags', href: ROUTES.TAGS },
+  { name: 'About', href: ROUTES.ABOUT },
 ];
 
 export const footerSocialLinks: FooterSocialLink[] = [

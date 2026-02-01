@@ -3,14 +3,19 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
-import { createNextRouterAdapter } from '@/shared/pagination/model/router.next.adapter';
+import {
+  createNextRouterAdapter,
+  createNextRouterAdapterWithSearchParams,
+} from '@/shared/pagination/model/router.next.adapter';
 import PaginationBar from '@/shared/pagination/PaginationBar';
 
-type Props = { currentPage: number; totalPage: number; routerPath: string };
+type Props = { currentPage: number; totalPage: number; routerPath: string; useSearchParams?: boolean };
 
-const Pagination = ({ currentPage, totalPage, routerPath }: Props) => {
+const Pagination = ({ currentPage, totalPage, routerPath, useSearchParams = false }: Props) => {
   const router = useRouter();
-  const nav = createNextRouterAdapter(router.push, routerPath);
+  const nav = useSearchParams
+    ? createNextRouterAdapterWithSearchParams(router.push, routerPath)
+    : createNextRouterAdapter(router.push, routerPath);
 
   return <PaginationBar current={currentPage} total={totalPage} nav={nav} />;
 };

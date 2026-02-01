@@ -1,55 +1,56 @@
-'use client';
-
+import Image from 'next/image';
 import Link from 'next/link';
-import { Avatar, AvatarFallback, AvatarImage } from '@highjoon-dev/ui/components/Avatar';
+import dayjs from 'dayjs';
 
-import { ROUTES } from '@/shared/routes/routes';
 import { footerSections, footerSocialLinks } from '@/widgets/model/footer';
 
 const Footer = () => {
   return (
-    <footer className="w-full mt-16 border-t bg-muted/50 border-border">
-      <div className="container max-w-6xl px-4 py-8 mx-auto md:px-6">
-        <div className="flex flex-col justify-between w-full gap-10 lg:flex-row lg:items-start lg:text-left">
-          <div className="flex flex-col justify-between w-full gap-6 lg:items-start">
-            {/* Logo */}
-            <div className="flex items-center gap-3 lg:justify-start">
-              <Link href={ROUTES.HOME}>
-                <Avatar className="w-8 h-8">
-                  <AvatarImage src="/images/img-profile.png" alt="profile" />
-                  <AvatarFallback>HJ</AvatarFallback>
-                </Avatar>
-              </Link>
-              <h2 className="text-xl font-semibold text-transparent bg-gradient-to-r from-slate-600 to-slate-900 dark:from-slate-300 dark:to-slate-100 bg-clip-text">
-                highjoon-dev
-              </h2>
+    <footer className="py-12 bg-white border-t border-slate-200 dark:bg-slate-950 dark:border-slate-800">
+      <div className="px-6 mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-12 mb-20 md:grid-cols-12">
+          <div className="md:col-span-8">
+            <div className="flex items-center mb-6">
+              <div className="relative flex items-center justify-center w-8 h-8 mr-3 overflow-hidden rounded-lg bg-slate-900 dark:bg-slate-800">
+                <Image src="/images/img-profile.png" width={24} height={24} alt="profile" className="object-cover" />
+              </div>
+              <span className="text-xl font-black tracking-tight text-slate-900 dark:text-slate-50">HIGHJOON-DEV</span>
             </div>
-            <ul className="flex items-center space-x-6 text-muted-foreground">
-              {footerSocialLinks.map((social) => (
-                <li key={social.label} className="font-medium transition-colors hover:text-primary">
-                  <a href={social.href} target="_blank" aria-label={social.label}>
-                    {social.icon}
-                  </a>
+            <div className="flex space-x-4">
+              {footerSocialLinks.map((links) => (
+                <a
+                  key={links.label}
+                  href={links.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 transition-all border rounded-xl bg-slate-50 text-slate-500 border-slate-200 hover:text-indigo-600 hover:bg-white hover:border-indigo-600 hover:shadow-md dark:bg-slate-900 dark:text-slate-400 dark:border-slate-700 dark:hover:text-indigo-400 dark:hover:bg-slate-800 dark:hover:border-indigo-400">
+                  {links.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="md:col-span-4">
+            <h4 className="font-bold text-slate-900 mb-6 uppercase tracking-widest text-[10px] dark:text-slate-50">
+              Navigate
+            </h4>
+            <ul className="grid grid-cols-2 text-sm font-bold tracking-wide gap-y-4 text-slate-600 dark:text-slate-400">
+              {footerSections.map((section) => (
+                <li key={section.name}>
+                  <Link
+                    href={section.href}
+                    className="transition-colors hover:text-indigo-600 dark:hover:text-indigo-400">
+                    {section.name}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="grid w-full gap-6 md:grid-cols-1 lg:gap-20">
-            {footerSections.map((section) => (
-              <div key={section.title} className="lg:text-right">
-                <h3 className="mb-4 font-bold">{section.title}</h3>
-                <ul className="flex flex-col space-y-3 text-sm text-muted-foreground md:flex-row md:space-y-0 md:gap-4 lg:justify-end">
-                  {section.links.map((link) => (
-                    <li key={link.name} className="font-medium transition-colors hover:text-primary">
-                      <Link href={link.href} target={link.href.startsWith('http') ? '_blank' : undefined}>
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+        </div>
+
+        <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold text-slate-500 uppercase tracking-widest dark:border-slate-800 dark:text-slate-400">
+          <p>© {dayjs().year()} HIGHJOON. ALL RIGHTS RESERVED.</p>
+          <p className="mt-4 md:mt-0">DESIGNED & CODED BY HIGHJOON</p>
         </div>
       </div>
     </footer>

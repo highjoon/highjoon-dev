@@ -5,7 +5,6 @@ import classnames from '@highjoon-dev/ui/lib/classnames';
 import { Provider } from '@/app/provider/Provider';
 import { generateRootMetadata } from '@/shared/model/metadata';
 import GlobalLayout from '@/shared/ui/GlobalLayout';
-import Header from '@/widgets/ui/Header';
 
 export const metadata = generateRootMetadata();
 
@@ -20,7 +19,6 @@ export default function RootLayout({ children }: PropsWithChildren) {
       </head>
       <body className={classnames(pretendard.className)} suppressHydrationWarning>
         <Provider>
-          <Header />
           <GlobalLayout>{children}</GlobalLayout>
         </Provider>
       </body>
