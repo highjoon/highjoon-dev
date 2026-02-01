@@ -25,17 +25,27 @@ const createHeadingId = (text: string | React.ReactNode): string => {
 export const MdxComponents: MDXComponentsType | MergeComponents | null | undefined = {
   h1: (props) => {
     const id = createHeadingId(props.children);
-    return <h1 {...props} id={id} className={cn('text-4xl font-bold mb-10 mt-10', props.className)} ref={props.ref} />;
+    return (
+      <h1
+        {...props}
+        id={id}
+        className={cn('text-4xl font-bold mb-10 mt-10 text-vibrant-text-main', props.className)}
+        ref={props.ref}
+      />
+    );
   },
   h2: (props) => {
     const id = createHeadingId(props.children);
     return (
       <>
-        <Separator className="my-8 md:my-7 sm:my-5" />
+        <Separator className="my-8 md:my-7 sm:my-5 bg-vibrant-border-color" />
         <h2
           {...props}
           id={id}
-          className={cn('text-3xl font-semibold mb-8 md:text-2xl md:mb-3 sm:text-xl sm:mb-3', props.className)}
+          className={cn(
+            'text-3xl font-bold mb-8 md:text-2xl md:mb-3 sm:text-xl sm:mb-3 text-vibrant-brand',
+            props.className,
+          )}
           ref={props.ref}
         />
       </>
@@ -48,7 +58,7 @@ export const MdxComponents: MDXComponentsType | MergeComponents | null | undefin
         {...props}
         id={id}
         className={cn(
-          'text-2xl font-semibold mt-5 mb-5 md:text-xl md:mt-3 md:mb-3 sm:text-lg sm:mt-3 sm:mb-3',
+          'text-2xl font-bold mt-5 mb-5 md:text-xl md:mt-3 md:mb-3 sm:text-lg sm:mt-3 sm:mb-3 text-vibrant-text-main',
           props.className,
         )}
         ref={props.ref}
@@ -57,27 +67,48 @@ export const MdxComponents: MDXComponentsType | MergeComponents | null | undefin
   },
   h4: (props) => {
     const id = createHeadingId(props.children);
-    return <h4 {...props} id={id} className={cn('text-xl font-semibold my-3', props.className)} ref={props.ref} />;
+    return (
+      <h4
+        {...props}
+        id={id}
+        className={cn('text-xl font-semibold my-3 text-vibrant-text-main', props.className)}
+        ref={props.ref}
+      />
+    );
   },
   h5: (props) => {
     const id = createHeadingId(props.children);
-    return <h5 {...props} id={id} className={cn('text-lg font-semibold my-3', props.className)} ref={props.ref} />;
+    return (
+      <h5
+        {...props}
+        id={id}
+        className={cn('text-lg font-semibold my-3 text-vibrant-text-main', props.className)}
+        ref={props.ref}
+      />
+    );
   },
   h6: (props) => {
     const id = createHeadingId(props.children);
-    return <h6 {...props} id={id} className={cn('text-base font-semibold my-3', props.className)} ref={props.ref} />;
+    return (
+      <h6
+        {...props}
+        id={id}
+        className={cn('text-base font-semibold my-3 text-vibrant-text-main', props.className)}
+        ref={props.ref}
+      />
+    );
   },
   p: (props) => (
     <p
       {...props}
-      className={cn('my-1 leading-7', props.className)}
+      className={cn('my-1 leading-7 text-vibrant-text-muted', props.className)}
       ref={props.ref as React.Ref<HTMLParagraphElement>}
     />
   ),
   span: (props) => (
     <span
       {...props}
-      className={cn('text-base leading-7', props.className)}
+      className={cn('text-base leading-7 text-vibrant-text-main', props.className)}
       ref={props.ref as React.Ref<HTMLSpanElement>}
     />
   ),
@@ -112,13 +143,13 @@ export const MdxComponents: MDXComponentsType | MergeComponents | null | undefin
     <blockquote
       {...props}
       className={cn(
-        'my-8 border-l-4 border-primary pl-5 pr-5 py-4 rounded-r-lg bg-muted/50 md:my-5 md:p-5',
+        'my-8 border-l-4 border-vibrant-brand pl-5 pr-5 py-4 rounded-r-lg bg-vibrant-brand-light/30 md:my-5 md:p-5',
         props.className,
       )}
       ref={props.ref as React.Ref<HTMLQuoteElement>}>
       <div className="flex items-start gap-3">
-        <Info className="w-5 h-5 mt-0.5 flex-shrink-0 text-primary" />
-        <div className="flex-1">{props.children}</div>
+        <Info className="w-5 h-5 mt-0.5 flex-shrink-0 text-vibrant-brand" />
+        <div className="flex-1 text-vibrant-text-main">{props.children}</div>
       </div>
     </blockquote>
   ),
@@ -126,7 +157,7 @@ export const MdxComponents: MDXComponentsType | MergeComponents | null | undefin
     <a
       {...props}
       className={cn(
-        'text-primary underline decoration-primary underline-offset-2 hover:text-primary hover:decoration-primary/70 transition-colors',
+        'text-vibrant-brand underline decoration-vibrant-brand underline-offset-2 hover:text-vibrant-brand-dark hover:decoration-vibrant-brand-dark/70 transition-colors',
         props.className,
       )}
       ref={props.ref as React.Ref<HTMLAnchorElement>}
@@ -135,7 +166,7 @@ export const MdxComponents: MDXComponentsType | MergeComponents | null | undefin
   strong: (props) => (
     <strong
       {...props}
-      className={cn('font-bold text-primary', props.className)}
+      className={cn('font-bold text-vibrant-brand', props.className)}
       ref={props.ref as React.Ref<HTMLElement>}
     />
   ),

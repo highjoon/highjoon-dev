@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@highjoon-dev/ui/components/Button';
 import {
   Sheet,
@@ -20,13 +20,35 @@ interface Props {
 
 export default function TableOfContentsModal({ headings }: Props) {
   const [open, setOpen] = useState(false);
+  const [activeId, setActiveId] = useState<string>('');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -80% 0px' },
+    );
+
+    headings.forEach((heading) => {
+      const element = document.querySelector(`#${CSS.escape(heading.id)}`);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [headings]);
 
   if (headings.length === 0) return null;
 
   const handleClick = (id: string) => {
     setOpen(false);
+    setActiveId(id);
     setTimeout(() => {
-      document.querySelector(`#${id}`)?.scrollIntoView({
+      document.querySelector(`#${CSS.escape(id)}`)?.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
@@ -60,12 +82,16 @@ export default function TableOfContentsModal({ headings }: Props) {
             <SheetDescription className="sr-only">Navigate to different sections of this post</SheetDescription>
           </SheetHeader>
           <nav className="mt-6">
-            <ul className="flex flex-col gap-2 text-sm list-none">
+            <ul className="flex flex-col gap-2 text-sm list-none border-l border-slate-200 dark:border-slate-800">
               {headings.map((heading) => (
-                <li key={heading.id} className={getPaddingClass(heading.level)}>
+                <li key={heading.id} className={`-ml-[1px] ${getPaddingClass(heading.level)}`}>
                   <button
                     onClick={() => handleClick(heading.id)}
-                    className="block w-full py-2 text-left transition-colors hover:text-foreground text-muted-foreground">
+                    className={`block w-full py-2 text-left transition-all border-l-2 ${
+                      activeId === heading.id
+                        ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400 font-bold'
+                        : 'border-transparent text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 font-medium'
+                    }`}>
                     {heading.text}
                   </button>
                 </li>

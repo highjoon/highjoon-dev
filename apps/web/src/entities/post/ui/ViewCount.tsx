@@ -15,9 +15,9 @@ export default function ViewCount({ viewCount, slug }: Props) {
   useIncreaseViewCount({ slug });
 
   return (
-    <div className="flex items-center justify-center gap-2.5">
-      <Eye className="size-6 text-muted-foreground" />
-      <span className="text-sm text-muted-foreground">{viewCount?.toLocaleString()}</span>
+    <div className="flex items-center gap-2.5 text-sm font-bold text-vibrant-text-muted">
+      <Eye className="size-5" />
+      <span>{viewCount?.toLocaleString()}</span>
     </div>
   );
 }
