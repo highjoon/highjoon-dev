@@ -21,12 +21,13 @@ class PostService {
 
       const [posts, total] = await prisma.$transaction([
         prisma.post.findMany({
+          where: { isHidden: false },
           orderBy: { publishedAt: 'desc' },
           skip,
           take,
           include: { postTags: { include: { tag: true } } },
         }),
-        prisma.post.count(),
+        prisma.post.count({ where: { isHidden: false } }),
       ]);
 
       if (posts.length === 0 && skip === 0) {
@@ -49,7 +50,7 @@ class PostService {
     try {
       const post = await prisma.post.findUnique({ where: { slug }, include: { postTags: { include: { tag: true } } } });
 
-      if (!post) {
+      if (!post || post.isHidden) {
         return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
       }
 
@@ -62,7 +63,7 @@ class PostService {
   async findFeaturedPost(): Promise<ServiceResponse<Nullable<Post>>> {
     try {
       const post = await prisma.post.findFirst({
-        where: { isFeatured: true },
+        where: { isFeatured: true, isHidden: false },
         orderBy: { publishedAt: 'desc' },
         include: { postTags: { include: { tag: true } } },
       });

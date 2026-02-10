@@ -17,6 +17,7 @@ export const postSchema = z.object({
   updatedAt: z.date().optional(),
   viewCount: z.number().default(0),
   likeCount: z.number().default(0),
+  isHidden: z.boolean().default(false),
 });
 
 export const getPostSchema = postSchema.pick({ slug: true });
