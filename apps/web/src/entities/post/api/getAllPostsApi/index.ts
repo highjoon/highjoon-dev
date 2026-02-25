@@ -16,7 +16,7 @@ export const getAllPostsApi = async (api: ApiClient, params?: GetAllPostsParams)
   const url = queryParams.toString() ? `/post?${queryParams.toString()}` : '/post';
 
   const response = await api.get<GetAllPostsResponseDto>(url, {
-    next: { revalidate: false, tags: ['all-posts'] },
+    next: { revalidate: 300, tags: ['all-posts'] },
   });
 
   return response.data;

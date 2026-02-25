@@ -8,7 +8,7 @@ import { ApiClient } from '@/shared/api';
  */
 export const getFeaturedPostApi = async (api: ApiClient) => {
   const response = await api.get<GetFeaturedPostResponseDto>('/post/featured', {
-    next: { revalidate: false, tags: ['featured-post'] },
+    next: { revalidate: 3600, tags: ['featured-post'] },
   });
 
   return response.data;

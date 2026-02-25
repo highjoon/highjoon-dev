@@ -28,7 +28,7 @@ class CommentService {
         return ServiceResponse.success<CommentWithUser[]>('대댓글이 없습니다.', [], StatusCodes.OK);
       }
 
-      const repliesWithDepth = await this.addDepthToReplies(replies, parentId);
+      const repliesWithDepth = this.addDepthToReplies(replies, parentId);
 
       return ServiceResponse.success<CommentWithUser[]>(
         '대댓글 조회에 성공했습니다.',
@@ -53,33 +53,21 @@ class CommentService {
     });
   };
 
-  /** 대댓글에 depth 정보를 추가 */
-  private addDepthToReplies = async (replies: CommentWithUser[], parentId: string): Promise<CommentWithUser[]> => {
+  /** 대댓글에 depth 정보를 추가 (DB 추가 쿼리 없이 메모리에서 계산) */
+  private addDepthToReplies = (replies: CommentWithUser[], parentId: string): CommentWithUser[] => {
+    const commentMap: Record<string, string | null> = {};
+    commentMap[parentId] = null;
+    replies.forEach((reply) => {
+      commentMap[reply.id] = reply.parentId;
+    });
+
     const replyIds = replies.map((reply) => reply.id);
-    const commentMap = await this.buildCommentMap(replyIds, parentId);
     const depthMap = calculateCommentDepths(replyIds, commentMap);
 
     return replies.map((reply) => ({
       ...reply,
       depth: depthMap[reply.id] || 0,
     }));
-  };
-
-  /** 댓글 ID와 parentId 매핑을 위한 Map 생성 */
-  private buildCommentMap = async (replyIds: string[], parentId: string): Promise<Record<string, string | null>> => {
-    const allRelatedComments = await prisma.comment.findMany({
-      where: {
-        OR: [{ id: { in: replyIds } }, { parentId: { in: replyIds } }, { id: parentId }],
-      },
-      select: { id: true, parentId: true },
-    });
-
-    const commentMap: Record<string, string | null> = {};
-    allRelatedComments.forEach((comment) => {
-      commentMap[comment.id] = comment.parentId;
-    });
-
-    return commentMap;
   };
 
   /** 대댓글 수정 */

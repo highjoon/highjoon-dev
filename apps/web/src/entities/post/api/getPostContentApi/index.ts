@@ -9,7 +9,7 @@ import { GetPostContentRequestDto } from '@/entities/post/api/getPostContentApi/
  */
 export const getPostContentApi = async (params: GetPostContentRequestDto) => {
   const response = await fetch(params.contentUrl, {
-    next: { revalidate: false, tags: ['post-content', params.contentUrl] },
+    next: { revalidate: 3600, tags: ['post-content', params.contentUrl] },
   });
   const textContent = await response.text();
   const { content } = matter(textContent);

@@ -30,8 +30,19 @@ class PostViewLogService {
 
     await this.createLog(postId, ip, date);
 
+    // 확률적으로 만료된 로그 정리 (약 1/100 요청마다)
+    if (Math.random() < 0.01) {
+      this.cleanupExpiredLogs().catch(() => {});
+    }
+
     // 오늘 첫 조회
     return true;
+  }
+
+  public async cleanupExpiredLogs(): Promise<void> {
+    await prisma.postViewLog.deleteMany({
+      where: { expiredAt: { lt: new Date() } },
+    });
   }
 }
 

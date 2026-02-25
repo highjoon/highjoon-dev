@@ -10,6 +10,10 @@ import { tagService } from '@/services/tag/tag.service';
 import { getTodayMidnight } from '@/utils/getTomorrowMidnight';
 import { handleInternalError } from '@/utils/handleInternalError';
 
+const postTagsSelect = {
+  postTags: { select: { tagId: true, tag: { select: { id: true, name: true } } } },
+} as const;
+
 class PostService {
   async findAllPosts(options?: {
     skip?: number;
@@ -25,7 +29,7 @@ class PostService {
           orderBy: { publishedAt: 'desc' },
           skip,
           take,
-          include: { postTags: { include: { tag: true } } },
+          include: postTagsSelect,
         }),
         prisma.post.count({ where: { isHidden: false } }),
       ]);
@@ -48,7 +52,7 @@ class PostService {
 
   async findPost(slug: Post['slug']): Promise<ServiceResponse<Nullable<Post>>> {
     try {
-      const post = await prisma.post.findUnique({ where: { slug }, include: { postTags: { include: { tag: true } } } });
+      const post = await prisma.post.findUnique({ where: { slug }, include: postTagsSelect });
 
       if (!post || post.isHidden) {
         return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
@@ -65,7 +69,7 @@ class PostService {
       const post = await prisma.post.findFirst({
         where: { isFeatured: true, isHidden: false },
         orderBy: { publishedAt: 'desc' },
-        include: { postTags: { include: { tag: true } } },
+        include: postTagsSelect,
       });
 
       if (!post) {

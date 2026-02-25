@@ -10,7 +10,7 @@ export const getPostsByTagApi = async (api: ApiClient, params: GetPostsByTagPara
   });
 
   const response = await api.get<GetPostsByTagResponseDto>(`/tag/${tagId}/posts?${queryParams}`, {
-    next: { revalidate: false, tags: [`tag-posts-${tagId}`] },
+    next: { revalidate: 300, tags: [`tag-posts-${tagId}`] },
   });
 
   return response.data;

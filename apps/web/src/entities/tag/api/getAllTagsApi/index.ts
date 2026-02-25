@@ -3,7 +3,7 @@ import { ApiClient } from '@/shared/api';
 
 export const getAllTagsApi = async (api: ApiClient) => {
   const response = await api.get<GetAllTagsResponseDto>('/tag', {
-    next: { revalidate: false, tags: ['all-tags'] },
+    next: { revalidate: 3600, tags: ['all-tags'] },
   });
   return response.data;
 };
