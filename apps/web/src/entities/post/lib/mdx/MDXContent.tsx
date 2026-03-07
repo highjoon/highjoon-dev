@@ -1,15 +1,16 @@
-import { type SerializeOptions } from 'next-mdx-remote/dist/types';
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
+
+type SerializeOptions = NonNullable<MDXRemoteProps['options']>;
 import rehypeHighlight from 'rehype-highlight';
+import rehypeMdxImportMedia from 'rehype-mdx-import-media';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import remarkMdxImages from 'remark-mdx-images';
 import remarkToc from 'remark-toc';
 
 const options: SerializeOptions = {
   mdxOptions: {
     remarkPlugins: [remarkToc, remarkGfm],
-    rehypePlugins: [remarkMdxImages, rehypeSlug, rehypeHighlight],
+    rehypePlugins: [rehypeMdxImportMedia, rehypeSlug, rehypeHighlight],
   },
 };
 
