@@ -1,12 +1,15 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { headers } from 'next/headers';
 
-import { increaseViewCountApi } from '@/entities/post/api/increaseViewCountApi';
-import { IncreaseViewCountRequestDto } from '@/entities/post/api/increaseViewCountApi/dto';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
+import { type IncreaseViewCountRequestDto } from '@/entities/post/api/increaseViewCountApi/dto';
+import { postService } from '@/shared/server/services/post.service';
 
 export const increaseViewCountAction = async (params: IncreaseViewCountRequestDto) => {
-  await increaseViewCountApi(serverApi, params);
+  const headersList = await headers();
+  const ip = headersList.get('x-forwarded-for')?.split(',')[0]?.trim() || '';
+
+  await postService.increaseViewCount(params.slug, ip);
   revalidatePath(`/blogs/${params.slug}`);
 };

@@ -1,10 +1,13 @@
 import React from 'react';
 
 import { getFeaturedPostApi } from '@/entities/post/api/getFeaturedPostApi';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
 
 export default async function FeaturedPost() {
-  const featuredPost = await getFeaturedPostApi(serverApi);
+  const featuredPost = await getFeaturedPostApi();
+
+  if (!featuredPost) {
+    return null;
+  }
 
   return (
     <section className="flex flex-col gap-8 mb-24" aria-labelledby="featured-post-title">

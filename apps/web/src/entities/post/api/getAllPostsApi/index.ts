@@ -1,23 +1,11 @@
-import { GetAllPostsParams, GetAllPostsResponseDto } from '@/entities/post/api/getAllPostsApi/dto';
-import { ApiClient } from '@/shared/api';
+import { type GetAllPostsParams, type PostsWithMeta } from '@/entities/post/api/getAllPostsApi/dto';
+import { postService } from '@/shared/server/services/post.service';
 
-/**
- * 게시물 전체 조회 (페이지네이션 지원)
- * @param api ApiClient
- * @param params 페이지네이션 파라미터 (선택적)
- * @returns 게시물 목록과 페이지네이션 메타데이터
- */
-export const getAllPostsApi = async (api: ApiClient, params?: GetAllPostsParams) => {
-  const queryParams = new URLSearchParams();
-  if (params?.skip !== undefined) queryParams.append('skip', params.skip.toString());
-  if (params?.take !== undefined) queryParams.append('take', params.take.toString());
-  if (params?.limit !== undefined) queryParams.append('limit', params.limit.toString());
-
-  const url = queryParams.toString() ? `/post?${queryParams.toString()}` : '/post';
-
-  const response = await api.get<GetAllPostsResponseDto>(url, {
-    next: { revalidate: 300, tags: ['all-posts'] },
+export const getAllPostsApi = async (params?: GetAllPostsParams): Promise<PostsWithMeta> => {
+  const response = await postService.findAllPosts({
+    skip: params?.skip,
+    take: params?.limit ?? params?.take,
   });
 
-  return response.data;
+  return response.data ?? { posts: [], meta: { total: 0, skip: 0, take: 10, hasMore: false } };
 };

@@ -2,14 +2,17 @@ import { Metadata } from 'next';
 import { Post } from '@highjoon-dev/prisma';
 
 import { getPostApi } from '@/entities/post/api/getPostApi';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
 
 type Params = {
   params: { slug: Post['slug'] };
 };
 
 export const generateBlogsMetadata = async ({ params }: Params): Promise<Metadata> => {
-  const post = await getPostApi(serverApi, params);
+  const post = await getPostApi(params);
+
+  if (!post) {
+    return { title: 'Not Found | highjoon-dev' };
+  }
 
   return {
     title: `${post.title} | highjoon-dev`,

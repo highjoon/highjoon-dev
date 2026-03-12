@@ -4,7 +4,6 @@ import { getAllPostsApi } from '@/entities/post/api/getAllPostsApi';
 import { POSTS_PER_PAGE } from '@/entities/post/lib/post';
 import PostsSchema from '@/entities/post/lib/PostsSchema';
 import PostCard from '@/entities/post/ui/PostCard';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
 import { ROUTES } from '@/shared/routes/routes';
 import PageHeader from '@/shared/ui/layout/PageHeader';
 import PageSection from '@/shared/ui/layout/PageSection';
@@ -17,7 +16,7 @@ interface Props {
 
 export default async function PostsPage({ params }: Props) {
   const currentPage = Number(params.id);
-  const { posts, meta } = await getAllPostsApi(serverApi, {
+  const { posts, meta } = await getAllPostsApi({
     skip: (currentPage - 1) * POSTS_PER_PAGE,
     take: POSTS_PER_PAGE,
   });

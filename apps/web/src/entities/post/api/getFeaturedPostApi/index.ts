@@ -1,15 +1,9 @@
-import { GetFeaturedPostResponseDto } from '@/entities/post/api/getFeaturedPostApi/dto';
-import { ApiClient } from '@/shared/api';
+import { type Post } from '@highjoon-dev/prisma';
 
-/**
- * 추천 게시물 조회
- * @param api ApiClient
- * @returns 추천 게시물
- */
-export const getFeaturedPostApi = async (api: ApiClient) => {
-  const response = await api.get<GetFeaturedPostResponseDto>('/post/featured', {
-    next: { revalidate: 3600, tags: ['featured-post'] },
-  });
+import { postService } from '@/shared/server/services/post.service';
 
-  return response.data;
+export const getFeaturedPostApi = async (): Promise<Post | null> => {
+  const response = await postService.findFeaturedPost();
+
+  return response.data ?? null;
 };
