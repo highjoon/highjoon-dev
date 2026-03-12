@@ -6,7 +6,6 @@ import PostCard from '@/entities/post/ui/PostCard';
 import { getAllTagsApi } from '@/entities/tag/api/getAllTagsApi';
 import { getPostsByTagApi } from '@/entities/tag/api/getPostsByTagApi';
 import { findTagByName, POSTS_PER_TAG_PAGE, sortTagsByPopularity } from '@/entities/tag/lib/tag';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
 import { ROUTES } from '@/shared/routes/routes';
 import EmptyState from '@/shared/ui/layout/EmptyState';
 import PageHeader from '@/shared/ui/layout/PageHeader';
@@ -25,7 +24,7 @@ export default async function TagDetailPage({ params }: Props) {
   const currentPage = Number(params.page);
 
   // 태그 이름으로 태그 찾기
-  const allTags = await getAllTagsApi(serverApi);
+  const allTags = await getAllTagsApi();
   const sortedTags = sortTagsByPopularity(allTags);
   const tag = findTagByName(allTags, tagName);
 
@@ -38,7 +37,7 @@ export default async function TagDetailPage({ params }: Props) {
   const take = POSTS_PER_TAG_PAGE;
 
   // 태그별 게시물 조회
-  const posts = await getPostsByTagApi(serverApi, {
+  const posts = await getPostsByTagApi({
     tagId: tag.id,
     skip,
     take,

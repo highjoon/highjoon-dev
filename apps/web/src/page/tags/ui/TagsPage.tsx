@@ -22,7 +22,7 @@ export default async function TagsPage({ searchParams }: Props) {
   const params = await searchParams;
   const currentPage = Number(params?.page) || 1;
 
-  const tags = await getAllTagsApi(serverApi);
+  const tags = await getAllTagsApi();
   const sortedTags = sortTagsByPopularity(tags);
 
   // 페이지네이션된 게시물 조회

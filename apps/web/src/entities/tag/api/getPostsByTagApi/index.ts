@@ -1,17 +1,12 @@
-import { GetPostsByTagParams, GetPostsByTagResponseDto } from '@/entities/tag/api/getPostsByTagApi/dto';
-import { ApiClient } from '@/shared/api';
+import { type Post } from '@highjoon-dev/prisma';
 
-export const getPostsByTagApi = async (api: ApiClient, params: GetPostsByTagParams) => {
+import { type GetPostsByTagParams } from '@/entities/tag/api/getPostsByTagApi/dto';
+import { postTagService } from '@/shared/server/services/postTag.service';
+
+export const getPostsByTagApi = async (params: GetPostsByTagParams): Promise<Post[]> => {
   const { tagId, skip = 0, take = 9 } = params;
 
-  const queryParams = new URLSearchParams({
-    skip: skip.toString(),
-    take: take.toString(),
-  });
+  const response = await postTagService.findPostsByTag(tagId, { skip, take });
 
-  const response = await api.get<GetPostsByTagResponseDto>(`/tag/${tagId}/posts?${queryParams}`, {
-    next: { revalidate: 300, tags: [`tag-posts-${tagId}`] },
-  });
-
-  return response.data;
+  return (response.data as Post[]) ?? [];
 };
