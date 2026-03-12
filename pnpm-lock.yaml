@@ -189,6 +189,9 @@ importers:
       highlight.js:
         specifier: ^11.11.1
         version: 11.11.1
+      http-status-codes:
+        specifier: ^2.3.0
+        version: 2.3.0
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
@@ -237,6 +240,12 @@ importers:
       typescript:
         specifier: ^5.9.0
         version: 5.9.2
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
+      zod:
+        specifier: '3'
+        version: 3.25.76
     devDependencies:
       '@tailwindcss/postcss':
         specifier: ^4.1.12
@@ -274,6 +283,9 @@ importers:
       '@types/react-dom':
         specifier: 18.2.25
         version: 18.2.25
+      '@types/uuid':
+        specifier: ^9.0.8
+        version: 9.0.8
       babel-jest:
         specifier: ^29.7.0
         version: 29.7.0(@babel/core@7.27.1)
