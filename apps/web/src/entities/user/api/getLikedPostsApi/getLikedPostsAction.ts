@@ -1,9 +1,9 @@
 'use server';
 
-import { getLikedPostsApi } from '@/entities/user/api/getLikedPostsApi';
-import { GetLikedPostsRequestDto } from '@/entities/user/api/getLikedPostsApi/dto';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
+import { type GetLikedPostsRequestDto } from '@/entities/user/api/getLikedPostsApi/dto';
+import { userService } from '@/shared/server/services/user.service';
 
 export const getLikedPostsAction = async (params: GetLikedPostsRequestDto) => {
-  return await getLikedPostsApi(serverApi, params);
+  const response = await userService.findLikedPostsByUserId(params.userId);
+  return response.data ?? [];
 };
