@@ -2,14 +2,14 @@ import { type Post, prisma } from '@highjoon-dev/prisma';
 import { type Nullable, type PaginationMeta } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
-import { getTodayMidnight } from '@/shared/server/lib/getTomorrowMidnight';
+import { getTodayMidnight } from '@/entities/post/lib/getTomorrowMidnight';
+import { postTagService } from '@/entities/tag/services/postTag.service';
+import { tagService } from '@/entities/tag/services/tag.service';
 import { handleInternalError } from '@/shared/server/lib/handleInternalError';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';
-import { postViewLogService } from '@/shared/server/services/postViewLog.service';
-import { postViewStatsService } from '@/shared/server/services/postViewStats.service';
 
-import { postTagService } from './postTag.service';
-import { tagService } from './tag.service';
+import { postViewLogService } from './postViewLog.service';
+import { postViewStatsService } from './postViewStats.service';
 
 const postTagsSelect = {
   postTags: { select: { tagId: true, tag: { select: { id: true, name: true } } } },

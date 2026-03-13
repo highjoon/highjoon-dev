@@ -2,8 +2,8 @@ import { Prisma, prisma, type Tag } from '@highjoon-dev/prisma';
 import { type Nullable } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
+import { normalizeTagName } from '@/entities/tag/lib/normalizeTagName';
 import { handleInternalError } from '@/shared/server/lib/handleInternalError';
-import { normalizeTagName } from '@/shared/server/lib/normalizeTagName';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';
 
 class TagService {

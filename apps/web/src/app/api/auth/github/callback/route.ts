@@ -1,9 +1,9 @@
 import { type NextRequest } from 'next/server';
 import { StatusCodes } from 'http-status-codes';
 
+import { authService } from '@/features/auth/services/auth.service';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';
-import { authService } from '@/shared/server/services/auth.service';
 
 export const GET = async (request: NextRequest) => {
   const code = request.nextUrl.searchParams.get('code');

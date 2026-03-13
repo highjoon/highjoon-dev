@@ -1,9 +1,9 @@
 import { type NextRequest } from 'next/server';
 
+import { createReplySchema } from '@/entities/comment/schemas/comment.schema';
+import { commentService } from '@/entities/comment/services/comment.service';
 import { authenticate } from '@/shared/server/lib/auth';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
-import { createReplySchema } from '@/shared/server/schemas/comment.schema';
-import { commentService } from '@/shared/server/services/comment.service';
 
 export async function POST(request: NextRequest) {
   const auth = authenticate(request);

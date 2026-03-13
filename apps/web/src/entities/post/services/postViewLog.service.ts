@@ -1,6 +1,6 @@
 import { prisma } from '@highjoon-dev/prisma';
 
-import { getTomorrowMidnight } from '@/shared/server/lib/getTomorrowMidnight';
+import { getTomorrowMidnight } from '@/entities/post/lib/getTomorrowMidnight';
 
 class PostViewLogService {
   public async hasViewed(postId: string, ip: string, date: Date): Promise<boolean> {

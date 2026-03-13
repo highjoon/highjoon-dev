@@ -1,7 +1,7 @@
 import { type NextRequest } from 'next/server';
 
+import { postTagService } from '@/entities/tag/services/postTag.service';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
-import { postTagService } from '@/shared/server/services/postTag.service';
 
 interface RouteContext {
   params: Promise<{ id: string }>;

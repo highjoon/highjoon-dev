@@ -1,8 +1,8 @@
 import { type NextRequest } from 'next/server';
 
+import { postService } from '@/entities/post/services/post.service';
 import { authenticate } from '@/shared/server/lib/auth';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
-import { postService } from '@/shared/server/services/post.service';
 
 export const GET = async (request: NextRequest) => {
   const skip = request.nextUrl.searchParams.get('skip');

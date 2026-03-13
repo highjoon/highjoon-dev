@@ -2,7 +2,7 @@ import { type Comment, prisma } from '@highjoon-dev/prisma';
 import { type CommentWithUser, type Nullable } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
-import { calculateCommentDepths } from '@/shared/server/lib/calculateCommentDepths';
+import { calculateCommentDepths } from '@/entities/comment/lib/calculateCommentDepths';
 import { handleInternalError } from '@/shared/server/lib/handleInternalError';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';
 

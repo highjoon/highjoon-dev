@@ -1,10 +1,10 @@
 import { type GithubUserData } from '@highjoon-dev/types';
 import { v4 as uuid } from 'uuid';
 
+import { userService } from '@/entities/user/services/user.service';
 import { handleInternalError } from '@/shared/server/lib/handleInternalError';
 import { signToken } from '@/shared/server/lib/jwt';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';
-import { userService } from '@/shared/server/services/user.service';
 
 class AuthService {
   public getGithubAuthUrl = (returnUrl?: string) => {

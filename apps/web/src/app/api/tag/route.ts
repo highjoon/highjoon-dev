@@ -1,9 +1,9 @@
 import { type NextRequest } from 'next/server';
 
+import { createTagSchema } from '@/entities/tag/schemas/tag.schema';
+import { tagService } from '@/entities/tag/services/tag.service';
 import { authenticate } from '@/shared/server/lib/auth';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
-import { createTagSchema } from '@/shared/server/schemas/tag.schema';
-import { tagService } from '@/shared/server/services/tag.service';
 
 export const GET = async () => {
   const result = await tagService.findAllTags();

@@ -1,5 +1,5 @@
 import { type GetAllPostsParams, type PostsWithMeta } from '@/entities/post/api/getAllPostsApi/dto';
-import { postService } from '@/shared/server/services/post.service';
+import { postService } from '@/entities/post/services/post.service';
 
 export const getAllPostsApi = async (params?: GetAllPostsParams): Promise<PostsWithMeta> => {
   const response = await postService.findAllPosts({

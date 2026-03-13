@@ -1,5 +1,5 @@
 import { type TagWithCount } from '@/entities/tag/api/getAllTagsApi/dto';
-import { tagService } from '@/shared/server/services/tag.service';
+import { tagService } from '@/entities/tag/services/tag.service';
 
 export const getAllTagsApi = async (): Promise<TagWithCount[]> => {
   const response = await tagService.findAllTags();

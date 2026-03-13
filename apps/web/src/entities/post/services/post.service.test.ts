@@ -46,13 +46,13 @@ jest.mock('./postViewStats.service', () => ({
   },
 }));
 
-jest.mock('./postTag.service', () => ({
+jest.mock('../../tag/services/postTag.service', () => ({
   postTagService: {
     syncPostTags: jest.fn(),
   },
 }));
 
-jest.mock('./tag.service', () => ({
+jest.mock('../../tag/services/tag.service', () => ({
   tagService: {
     findOrCreateTags: jest.fn(),
   },

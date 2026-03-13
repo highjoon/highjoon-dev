@@ -38,14 +38,14 @@ pnpm prisma generate  # Prisma 클라이언트 생성 (postinstall에도 포함)
 
 ```
 app/       앱 설정 (Provider, 글로벌 스타일, 스크립트)
-shared/    공유 유틸 (라우트 상수, 페이지네이션, UI, server/ 서비스 레이어)
-entities/  도메인 엔티티 (post, comment, tag, user, about)
-features/  사용자 기능 (likePost, createComment, auth, theme 등)
+shared/    공유 유틸 (라우트 상수, 페이지네이션, UI, server/ 교차 도메인 유틸)
+entities/  도메인 엔티티 (post, comment, tag, user, about) + 도메인별 services/schemas/lib
+features/  사용자 기능 (likePost, createComment, auth, theme 등) + 기능별 services/schemas
 widgets/   복합 UI 조합 (commentSection, featuredPostSection 등)
 page/      페이지 컨테이너 (home, blogs, posts, tags, about, auth, error)
 ```
 
-각 slice 내부 구조: `ui/` (컴포넌트), `model/` (훅/상태), `api/` (서버 액션/fetch), `lib/` (유틸)
+각 slice 내부 구조: `ui/` (컴포넌트), `model/` (훅/상태), `api/` (서버 액션/fetch), `lib/` (유틸), `services/` (비즈니스 로직), `schemas/` (Zod 스키마)
 
 ## Coding Conventions
 
@@ -55,7 +55,8 @@ page/      페이지 컨테이너 (home, blogs, posts, tags, about, auth, error)
 - **경로 별칭**: `@/*` = `apps/web/src/*`, `@highjoon-dev/ui/*` = UI 패키지
 - **환경 변수**: dotenv-cli 사용 (.env.development, .env.production)
 - **서버 액션**: Next.js server actions + revalidatePath 캐시 무효화
-- **서비스 레이어**: `src/shared/server/services/` - Prisma 기반 비즈니스 로직
+- **서비스 레이어**: 도메인별 `entities/*/services/`, `features/*/services/` - Prisma 기반 비즈니스 로직
+- **교차 도메인 유틸**: `src/shared/server/` - auth, jwt, httpHandlers, handleInternalError, extractIp, serviceResponse
 - **테마**: next-themes (class 기반 dark mode)
 - **모달**: overlay-kit
 - **토스트**: sonner

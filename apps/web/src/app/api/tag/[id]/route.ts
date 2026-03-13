@@ -1,10 +1,10 @@
 import { type NextRequest } from 'next/server';
 
+import { updateTagSchema } from '@/entities/tag/schemas/tag.schema';
+import { tagService } from '@/entities/tag/services/tag.service';
 import { authenticate } from '@/shared/server/lib/auth';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';
-import { updateTagSchema } from '@/shared/server/schemas/tag.schema';
-import { tagService } from '@/shared/server/services/tag.service';
 
 interface RouteContext {
   params: Promise<{ id: string }>;

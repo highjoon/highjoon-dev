@@ -1,9 +1,9 @@
 import { type NextRequest } from 'next/server';
 
+import { updateCommentSchema } from '@/entities/comment/schemas/comment.schema';
+import { commentService } from '@/entities/comment/services/comment.service';
 import { authenticate, verifyCommentAuthor } from '@/shared/server/lib/auth';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
-import { updateCommentSchema } from '@/shared/server/schemas/comment.schema';
-import { commentService } from '@/shared/server/services/comment.service';
 
 type RouteContext = { params: Promise<{ postId: string; commentId: string }> };
 

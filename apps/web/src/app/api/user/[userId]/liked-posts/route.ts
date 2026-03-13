@@ -1,8 +1,8 @@
 import { type NextRequest } from 'next/server';
 
+import { userService } from '@/entities/user/services/user.service';
 import { authenticate } from '@/shared/server/lib/auth';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
-import { userService } from '@/shared/server/services/user.service';
 
 type RouteContext = { params: Promise<{ userId: string }> };
 

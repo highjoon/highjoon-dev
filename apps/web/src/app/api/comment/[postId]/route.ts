@@ -1,5 +1,5 @@
+import { commentService } from '@/entities/comment/services/comment.service';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
-import { commentService } from '@/shared/server/services/comment.service';
 
 type RouteContext = { params: Promise<{ postId: string }> };
 

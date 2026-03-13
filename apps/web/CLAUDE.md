@@ -35,13 +35,13 @@ app/manifest.ts                  PWA manifest
 
 ## Entities (src/entities/)
 
-| Entity      | API                                                                                     | UI                                                                                                   | Lib                                     |
-| ----------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| **post**    | getAllPostsApi, getFeaturedPostApi, getPostApi, getPostContentApi, increaseViewCountApi | PostCard, FeaturedPost, PostContent, PostDetailHeader, PostBanner, TableOfContentsSidebar, ViewCount | MDXContent, extractHeadings, PostSchema |
-| **comment** | getCommentsApi, getRepliesApi                                                           | Comment, Comments, Reply                                                                             | -                                       |
-| **tag**     | getAllTagsApi, getPostsByTagApi                                                         | TagCard, TagList, TagBadgeList, TagButton, TagCloudContainer                                         | tag.ts                                  |
-| **user**    | getLikedPostsApi                                                                        | -                                                                                                    | useGetLikedPosts                        |
-| **about**   | -                                                                                       | ExperienceCard, ProfileHeader, ProjectList, SocialLinkButton                                         | career, company, profile (model)        |
+| Entity      | API                                                                                     | Services                                              | Schemas        | UI                                                                                                   | Lib                                                  |
+| ----------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **post**    | getAllPostsApi, getFeaturedPostApi, getPostApi, getPostContentApi, increaseViewCountApi | post, postLike, postViewLog, postViewStats            | post.schema    | PostCard, FeaturedPost, PostContent, PostDetailHeader, PostBanner, TableOfContentsSidebar, ViewCount | MDXContent, extractHeadings, PostSchema, getTomorrowMidnight |
+| **comment** | getCommentsApi, getRepliesApi                                                           | comment                                                | comment.schema | Comment, Comments, Reply                                                                             | calculateCommentDepth, calculateCommentDepths        |
+| **tag**     | getAllTagsApi, getPostsByTagApi                                                         | tag, postTag                                           | tag.schema     | TagCard, TagList, TagBadgeList, TagButton, TagCloudContainer                                         | tag.ts, normalizeTagName                              |
+| **user**    | getLikedPostsApi                                                                        | user                                                   | user.schema    | -                                                                                                    | useGetLikedPosts                                      |
+| **about**   | -                                                                                       | -                                                      | -              | ExperienceCard, ProfileHeader, ProjectList, SocialLinkButton                                         | career, company, profile (model)                      |
 
 ## Features (src/features/)
 
@@ -54,7 +54,7 @@ app/manifest.ts                  PWA manifest
 | **editComment**        | 댓글 수정        | CommentEditArea, updateCommentAction                        |
 | **manageComment**      | 댓글 옵션 메뉴   | CommentOptions                                              |
 | **filterTagsBySearch** | 태그 검색 필터   | TagSearchInput, useTagSearch                                |
-| **auth**               | GitHub OAuth     | githubLoginAction, useSignIn, RequiredSignIn, SignOutButton |
+| **auth**               | GitHub OAuth     | githubLoginAction, useSignIn, RequiredSignIn, SignOutButton, services/auth, schemas/auth |
 | **theme**              | 다크모드 토글    | ThemeToggle                                                 |
 
 ## Widgets (src/widgets/)
@@ -71,7 +71,7 @@ app/manifest.ts                  PWA manifest
 ## Shared (src/shared/)
 
 ```
-server/           서비스 레이어 (Prisma 기반 비즈니스 로직)
+server/           교차 도메인 유틸 (auth, jwt, httpHandlers, handleInternalError, extractIp, serviceResponse)
 lib/              JWT 디코딩 등 유틸
 model/            theme, metadata 생성, 외부 링크 상수
 pagination/       buildPageItems, usePagination
