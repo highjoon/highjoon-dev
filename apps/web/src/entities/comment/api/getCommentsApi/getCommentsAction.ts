@@ -1,9 +1,9 @@
 'use server';
 
-import { getCommentsApi } from '@/entities/comment/api/getCommentsApi';
-import { GetCommentsRequestDto } from '@/entities/comment/api/getCommentsApi/dto';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
+import { type GetCommentsRequestDto } from '@/entities/comment/api/getCommentsApi/dto';
+import { commentService } from '@/shared/server/services/comment.service';
 
 export const getCommentsAction = async (params: GetCommentsRequestDto) => {
-  return await getCommentsApi(serverApi, params);
+  const response = await commentService.findCommentsByPost(params.postId);
+  return response.data ?? [];
 };
