@@ -36,7 +36,6 @@
   "name": "highjoon-dev",
   "packageManager": "pnpm@9.15.0",
   "scripts": {
-    "admin": "pnpm -F @highjoon-dev/admin",
     "build": "turbo run build",
     "build:web": "pnpm -F @highjoon-dev/web build",
     "clean": "rimraf \"**/node_modules\"",
