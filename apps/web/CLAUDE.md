@@ -71,7 +71,7 @@ app/manifest.ts                  PWA manifest
 ## Shared (src/shared/)
 
 ```
-api/              API 클라이언트 (serverApi, clientApi, parseApiError)
+server/           서비스 레이어 (Prisma 기반 비즈니스 로직)
 lib/              JWT 디코딩 등 유틸
 model/            theme, metadata 생성, 외부 링크 상수
 pagination/       buildPageItems, usePagination

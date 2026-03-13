@@ -15,7 +15,6 @@ export default [
     ignores: [
       "node_modules/**",
       "apps/web/.next/**",
-      "apps/api/dist/**",
       "packages/config/**",
       "packages/prisma/**",
       "packages/types/**",
@@ -86,15 +85,6 @@ export default [
     },
     rules: {
       "@next/next/no-html-link-for-pages": "off",
-    },
-  },
-  // 6) API server overrides (apps/api)
-  {
-    files: ["apps/api/**/*.ts"],
-    rules: {
-      "no-console": "off",
-      "no-empty": "off",
-      "import/no-anonymous-default-export": "off",
     },
   },
   ...storybook.configs["flat/recommended"],
