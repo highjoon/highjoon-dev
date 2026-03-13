@@ -1,9 +1,9 @@
 'use server';
 
-import { getRepliesApi } from '@/entities/comment/api/getRepliesApi';
-import { GetRepliesRequestDto } from '@/entities/comment/api/getRepliesApi/dto';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
+import { type GetRepliesRequestDto } from '@/entities/comment/api/getRepliesApi/dto';
+import { commentService } from '@/entities/comment/services/comment.service';
 
 export const getRepliesAction = async (params: GetRepliesRequestDto) => {
-  return await getRepliesApi(serverApi, params);
+  const response = await commentService.findRepliesByComment(params.parentId);
+  return response.data ?? [];
 };

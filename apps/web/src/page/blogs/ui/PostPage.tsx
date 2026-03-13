@@ -1,4 +1,5 @@
 import React from 'react';
+import { notFound } from 'next/navigation';
 import { Post } from '@highjoon-dev/prisma';
 
 import { getPostApi } from '@/entities/post/api/getPostApi';
@@ -10,7 +11,6 @@ import PostBanner from '@/entities/post/ui/postDetail/PostBanner';
 import PostDetailHeader from '@/entities/post/ui/postDetail/PostDetailHeader';
 import TableOfContentsSidebar from '@/entities/post/ui/postDetail/TableOfContentsSidebar';
 import TableOfContentsModal from '@/entities/post/ui/TableOfContentsModal';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
 import PageSection from '@/shared/ui/layout/PageSection';
 import LikeCommentsSection from '@/widgets/likeCommentsSection/ui/LikeCommentsSection';
 
@@ -21,7 +21,12 @@ interface Props {
 }
 
 export default async function PostPage({ params }: Props) {
-  const post = await getPostApi(serverApi, params);
+  const post = await getPostApi(params);
+
+  if (!post) {
+    notFound();
+  }
+
   const content = await getPostContentApi({ contentUrl: post.contentUrl });
   const headings = extractHeadings(content);
 

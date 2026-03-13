@@ -1,9 +1,8 @@
 'use server';
 
-import { deleteReplyApi } from '@/features/deleteComment/api/deleteReplyApi';
-import { DeleteReplyRequestDto } from '@/features/deleteComment/api/deleteReplyApi/dto';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
+import { commentService } from '@/entities/comment/services/comment.service';
+import { type DeleteReplyRequestDto } from '@/features/deleteComment/api/deleteReplyApi/dto';
 
 export const deleteReplyAction = async (params: DeleteReplyRequestDto) => {
-  return await deleteReplyApi(serverApi, params);
+  await commentService.deleteReply(params.replyId);
 };

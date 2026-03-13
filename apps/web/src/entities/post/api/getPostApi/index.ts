@@ -1,16 +1,8 @@
-import { GetPostRequestDto, GetPostResponseDto } from '@/entities/post/api/getPostApi/dto';
-import { ApiClient } from '@/shared/api';
+import { type GetPostRequestDto, type PostWithTags } from '@/entities/post/api/getPostApi/dto';
+import { postService } from '@/entities/post/services/post.service';
 
-/**
- * 게시물 조회
- * @param api ApiClient
- * @param params GetPostRequestDto
- * @returns 게시물
- */
-export const getPostApi = async (api: ApiClient, params: GetPostRequestDto) => {
-  const response = await api.get<GetPostResponseDto>(`/post/${params.slug}`, {
-    next: { revalidate: 3600, tags: ['post', params.slug] },
-  });
+export const getPostApi = async (params: GetPostRequestDto): Promise<PostWithTags | null> => {
+  const response = await postService.findPost(params.slug);
 
-  return response.data;
+  return (response.data as PostWithTags) ?? null;
 };

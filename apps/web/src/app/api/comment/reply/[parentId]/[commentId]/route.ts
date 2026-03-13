@@ -1,0 +1,48 @@
+import { type NextRequest } from 'next/server';
+
+import { updateReplySchema } from '@/entities/comment/schemas/comment.schema';
+import { commentService } from '@/entities/comment/services/comment.service';
+import { authenticate, verifyCommentAuthor } from '@/shared/server/lib/auth';
+import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
+
+type RouteContext = { params: Promise<{ parentId: string; commentId: string }> };
+
+export async function PUT(request: NextRequest, context: RouteContext) {
+  const auth = authenticate(request);
+  if ('error' in auth) return auth.error;
+
+  const { commentId } = await context.params;
+
+  const authorCheck = await verifyCommentAuthor(commentId, auth.userId);
+  if ('error' in authorCheck) return authorCheck.error;
+
+  const body = await request.json();
+  const parsed = updateReplySchema.safeParse(body);
+
+  if (!parsed.success) {
+    return handleServiceResponse({
+      success: false,
+      message: parsed.error.errors[0].message,
+      data: null,
+      statusCode: 400,
+    });
+  }
+
+  const result = await commentService.updateReply(commentId, parsed.data.content);
+
+  return handleServiceResponse(result);
+}
+
+export async function DELETE(request: NextRequest, context: RouteContext) {
+  const auth = authenticate(request);
+  if ('error' in auth) return auth.error;
+
+  const { commentId } = await context.params;
+
+  const authorCheck = await verifyCommentAuthor(commentId, auth.userId);
+  if ('error' in authorCheck) return authorCheck.error;
+
+  const result = await commentService.deleteReply(commentId);
+
+  return handleServiceResponse(result);
+}

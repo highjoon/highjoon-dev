@@ -1,9 +1,10 @@
 'use server';
 
-import { githubLoginApi } from '@/features/auth/api/githubLoginApi';
 import { GithubLoginRequestDto } from '@/features/auth/api/githubLoginApi/dto';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
+import { authService } from '@/features/auth/services/auth.service';
 
 export const githubLoginAction = async (params: GithubLoginRequestDto) => {
-  return await githubLoginApi(serverApi, params);
+  const result = authService.getGithubAuthUrl(params.returnUrl);
+
+  return result.data;
 };

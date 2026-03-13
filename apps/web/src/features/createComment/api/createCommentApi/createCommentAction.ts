@@ -1,9 +1,11 @@
 'use server';
 
-import { createCommentApi } from '@/features/createComment/api/createCommentApi';
-import { CreateCommentRequestDto } from '@/features/createComment/api/createCommentApi/dto';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
+import { type Comment } from '@highjoon-dev/prisma';
+
+import { commentService } from '@/entities/comment/services/comment.service';
+import { type CreateCommentRequestDto } from '@/features/createComment/api/createCommentApi/dto';
 
 export const createCommentAction = async (params: CreateCommentRequestDto) => {
-  return await createCommentApi(serverApi, params);
+  const result = await commentService.createComment(params as unknown as Comment);
+  return result.data;
 };

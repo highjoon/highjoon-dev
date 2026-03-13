@@ -4,7 +4,6 @@ import { getAllPostsApi } from '@/entities/post/api/getAllPostsApi';
 import PostCard from '@/entities/post/ui/PostCard';
 import { getAllTagsApi } from '@/entities/tag/api/getAllTagsApi';
 import { POSTS_PER_TAG_PAGE, sortTagsByPopularity } from '@/entities/tag/lib/tag';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
 import { ROUTES } from '@/shared/routes/routes';
 import EmptyState from '@/shared/ui/layout/EmptyState';
 import PageHeader from '@/shared/ui/layout/PageHeader';
@@ -22,12 +21,12 @@ export default async function TagsPage({ searchParams }: Props) {
   const params = await searchParams;
   const currentPage = Number(params?.page) || 1;
 
-  const tags = await getAllTagsApi(serverApi);
+  const tags = await getAllTagsApi();
   const sortedTags = sortTagsByPopularity(tags);
 
   // 페이지네이션된 게시물 조회
   const skip = (currentPage - 1) * POSTS_PER_TAG_PAGE;
-  const { posts, meta } = await getAllPostsApi(serverApi, {
+  const { posts, meta } = await getAllPostsApi({
     skip,
     take: POSTS_PER_TAG_PAGE,
   });

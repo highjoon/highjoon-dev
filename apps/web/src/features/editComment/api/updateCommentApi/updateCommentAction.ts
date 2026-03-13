@@ -1,9 +1,8 @@
 'use server';
 
-import { updateCommentApi } from '@/features/editComment/api/updateCommentApi';
-import { UpdateCommentRequestDto } from '@/features/editComment/api/updateCommentApi/dto';
-import { serverApi } from '@/shared/api/apiClient/serverApi';
+import { commentService } from '@/entities/comment/services/comment.service';
+import { type UpdateCommentRequestDto } from '@/features/editComment/api/updateCommentApi/dto';
 
 export const updateCommentAction = async (params: UpdateCommentRequestDto) => {
-  await updateCommentApi(serverApi, params);
+  await commentService.updateComment(params.commentId, params.content);
 };
