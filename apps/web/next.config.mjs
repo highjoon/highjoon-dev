@@ -17,6 +17,7 @@ const nextConfig = {
   },
   experimental: {
     mdxRs: true,
+    serverComponentsExternalPackages: ['@prisma/client', '@highjoon-dev/prisma'],
   },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'dngjtjyrczhgx.cloudfront.net' }],
