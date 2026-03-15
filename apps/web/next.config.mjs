@@ -17,6 +17,9 @@ const nextConfig = {
   },
   experimental: {
     mdxRs: true,
+    outputFileTracingIncludes: {
+      '/**': ['../../packages/prisma/generated/client/**'],
+    },
   },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'dngjtjyrczhgx.cloudfront.net' }],
