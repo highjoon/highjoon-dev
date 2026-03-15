@@ -24,40 +24,9 @@ Post ──< PostTag >── Tag
  └──< PostViewStats
 ```
 
-### Post
-
-`id` `slug(unique)` `title` `description` `contentUrl` `bannerImageUrl` `publishedAt` `category` `viewCount` `likeCount` `isFeatured` `isHidden` `createdAt` `updatedAt`
-
-### User
-
-`id` `githubId` `name` `avatarUrl` `homeUrl` `role(USER|ADMIN)`
-
-### Comment (self-referencing: parentId → replies)
-
-`id` `postId` `userId` `content` `parentId(nullable)` `createdAt` `updatedAt`
-
-### PostLike (unique: postId + userId)
-
-`id` `postId` `userId` `createdAt`
-
-### Tag (unique: name)
-
-`id` `name` `createdAt` `updatedAt`
-
-### PostTag (unique: postId + tagId)
-
-`id` `postId` `tagId` `createdAt`
-
-### PostViewLog (unique: postId + ip + date)
-
-`id` `postId` `ip` `date` `expiredAt` — IP 기반 중복 조회 방지
-
-### PostViewStats (unique: postId + date)
-
-`id` `postId` `date` `viewCount` — 일별 조회 통계
-
 ## Key Points
 
 - 모든 삭제는 Cascade (Post 삭제 시 관련 데이터 모두 삭제)
 - Comment는 self-referencing으로 대댓글 구현 (parentId)
 - 환경별 .env 파일로 DATABASE_URL 관리
+- Client 초기화: `index.ts`에서 글로벌 싱글턴 패턴 (개발 시 hot-reload 대응)
