@@ -1,6 +1,10 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import createMDX from '@next/mdx';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const { PrismaPlugin } = require('@prisma/nextjs-monorepo-workaround-plugin');
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -17,9 +21,6 @@ const nextConfig = {
   },
   experimental: {
     mdxRs: true,
-    outputFileTracingIncludes: {
-      '/**': ['../../packages/prisma/generated/client/**'],
-    },
   },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'dngjtjyrczhgx.cloudfront.net' }],
@@ -29,6 +30,12 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   transpilePackages: ['@highjoon-dev/ui'],
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.plugins = [...config.plugins, new PrismaPlugin()];
+    }
+    return config;
+  },
 };
 
 const withMDX = createMDX({
