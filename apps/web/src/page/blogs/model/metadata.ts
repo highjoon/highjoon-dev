@@ -4,10 +4,11 @@ import { Post } from '@highjoon-dev/prisma';
 import { getPostApi } from '@/entities/post/api/getPostApi';
 
 type Params = {
-  params: { slug: Post['slug'] };
+  params: Promise<{ slug: Post['slug'] }>;
 };
 
-export const generateBlogsMetadata = async ({ params }: Params): Promise<Metadata> => {
+export const generateBlogsMetadata = async ({ params: paramsPromise }: Params): Promise<Metadata> => {
+  const params = await paramsPromise;
   const post = await getPostApi(params);
 
   if (!post) {

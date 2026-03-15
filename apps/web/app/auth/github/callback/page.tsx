@@ -1,3 +1,5 @@
+'use client';
+
 import dynamic from 'next/dynamic';
 
 const GithubOAuthCallbackPage = dynamic(() => import('@/page/auth/ui/GithubOAuthCallbackPage'), {

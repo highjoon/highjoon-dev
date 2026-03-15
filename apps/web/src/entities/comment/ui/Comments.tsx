@@ -46,7 +46,9 @@ export default function Comments({ comments, postId, isLoading, refetch }: Props
       </div>
       <Separator />
       <div className="space-y-4">
-        {comments?.map((comment) => <Comment key={comment.id} comment={comment} postId={postId} refetch={refetch} />)}
+        {comments?.map((comment) => (
+          <Comment key={comment.id} comment={comment} postId={postId} refetch={refetch} />
+        ))}
       </div>
     </div>
   );

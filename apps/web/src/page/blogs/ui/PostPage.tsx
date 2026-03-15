@@ -15,9 +15,7 @@ import PageSection from '@/shared/ui/layout/PageSection';
 import LikeCommentsSection from '@/widgets/likeCommentsSection/ui/LikeCommentsSection';
 
 interface Props {
-  params: {
-    slug: Post['slug'];
-  };
+  params: { slug: Post['slug'] };
 }
 
 export default async function PostPage({ params }: Props) {

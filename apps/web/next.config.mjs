@@ -1,6 +1,5 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
-import createMDX from '@next/mdx';
 import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
@@ -11,16 +10,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   outputFileTracingRoot: path.join(__dirname, '../../'),
-  // Configure pageExtensions to include md and mdx
-  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-  // Optionally, add any other Next.js config below
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
   reactStrictMode: true,
   eslint: {
-    // Disable Next.js ESLint since we're using the root eslint.config.mjs
     ignoreDuringBuilds: true,
-  },
-  experimental: {
-    mdxRs: true,
   },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'dngjtjyrczhgx.cloudfront.net' }],
@@ -38,17 +31,4 @@ const nextConfig = {
   },
 };
 
-const withMDX = createMDX({
-  extension: /\.mdx?$/,
-  options: {
-    // If you use remark-gfm, you'll need to use next.config.mjs
-    // as the package is ESM only
-    // https://github.com/remarkjs/remark-gfm#install
-    remarkPlugins: [],
-    rehypePlugins: [],
-    // If you use `MDXProvider`, uncomment the following line.
-    providerImportSource: '@mdx-js/react',
-  },
-});
-
-export default withMDX(nextConfig);
+export default nextConfig;

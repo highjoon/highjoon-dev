@@ -22,6 +22,7 @@ export default [
       "**/*.{config.js,config.cjs}",
       "**/*/.prettierrc.js",
       "./eslint.config.mjs",
+      "**/next-env.d.ts",
     ],
   },
   // 2) JS built-in recommended rules

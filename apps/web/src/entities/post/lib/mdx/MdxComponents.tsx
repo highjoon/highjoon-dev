@@ -10,9 +10,8 @@ import {
   TableRow,
 } from '@highjoon-dev/ui/components/Table';
 import { cn } from '@highjoon-dev/ui/lib/utils';
-import { type MergeComponents } from '@mdx-js/react/lib';
 import { Info } from 'lucide-react';
-import { type MDXComponents as MDXComponentsType } from 'mdx/types';
+import { type MDXComponents } from 'mdx/types';
 
 const createHeadingId = (text: string | React.ReactNode): string => {
   const textContent = typeof text === 'string' ? text : String(text);
@@ -22,7 +21,7 @@ const createHeadingId = (text: string | React.ReactNode): string => {
     .replace(/\s+/g, '-');
 };
 
-export const MdxComponents: MDXComponentsType | MergeComponents | null | undefined = {
+export const MdxComponents: MDXComponents = {
   h1: (props) => {
     const id = createHeadingId(props.children);
     return (

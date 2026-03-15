@@ -18,10 +18,11 @@ export const generateTagsMetadata = (): Metadata => {
 };
 
 interface TagDetailParams {
-  params: { name: string; page: string };
+  params: Promise<{ name: string; page: string }>;
 }
 
-export const generateTagDetailMetadata = ({ params }: TagDetailParams): Metadata => {
+export const generateTagDetailMetadata = async ({ params: paramsPromise }: TagDetailParams): Promise<Metadata> => {
+  const params = await paramsPromise;
   const tagName = decodeURIComponent(params.name);
   const pageNumber = Number(params.page);
 

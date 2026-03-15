@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 
 interface Params {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export const generatePostsMetadata = ({ params }: Params): Metadata => {
-  const { id } = params;
+export const generatePostsMetadata = async ({ params: paramsPromise }: Params): Promise<Metadata> => {
+  const { id } = await paramsPromise;
 
   return {
     title: `Posts ${id} | highjoon-dev`,

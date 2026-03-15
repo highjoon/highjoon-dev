@@ -6,11 +6,12 @@ import PostPage from '@/page/blogs/ui/PostPage';
 export const dynamic = 'force-dynamic';
 
 type Params = {
-  params: { slug: Post['slug'] };
+  params: Promise<{ slug: Post['slug'] }>;
 };
 
 export const generateMetadata = generateBlogsMetadata;
 
-export default async function Page({ params }: Params) {
+export default async function Page({ params: paramsPromise }: Params) {
+  const params = await paramsPromise;
   return <PostPage params={params} />;
 }
