@@ -28,7 +28,7 @@ export const useSignIn = () => {
       return;
     }
 
-    router.replace(loginUrl);
+    window.location.replace(loginUrl);
   };
 
   const signOut = () => {
