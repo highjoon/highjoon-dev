@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { getCookie, setCookie } from 'cookies-next/client';
 import { toast } from 'sonner';
@@ -7,13 +7,10 @@ import { githubLoginCallbackAction } from '@/features/auth/api/githubLoginCallba
 import { ACCESS_TOKEN_KEY } from '@/features/auth/model/constants';
 import { ROUTES } from '@/shared/routes/routes';
 
-/**
- * GitHub OAuth 콜백 처리를 담당하는 훅
- * @returns void
- */
 export function useGithubOAuthCallback() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const hasCalled = useRef(false);
 
   const code = searchParams.get('code');
   const state = searchParams.get('state');
@@ -26,6 +23,9 @@ export function useGithubOAuthCallback() {
       router.replace(ROUTES.HOME);
       return;
     }
+
+    if (hasCalled.current) return;
+    hasCalled.current = true;
 
     try {
       const response = await githubLoginCallbackAction({ code });
@@ -48,5 +48,5 @@ export function useGithubOAuthCallback() {
     } else {
       handleGithubCallback();
     }
-  }, [handleGithubCallback, router, searchParams, state]);
+  }, [handleGithubCallback, router, state]);
 }
