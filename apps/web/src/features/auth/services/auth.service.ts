@@ -56,22 +56,18 @@ class AuthService {
     const accessTokenUrl = new URL('https://github.com/login/oauth/access_token');
     accessTokenUrl.search = new URLSearchParams(config).toString();
 
-    try {
-      const response = await fetch(accessTokenUrl.toString(), {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-      });
-      const data = await response.json();
-      const { access_token } = data;
+    const response = await fetch(accessTokenUrl.toString(), {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+    });
+    const data = await response.json();
+    const { access_token, error, error_description } = data;
 
-      if (!access_token) {
-        throw new Error('Access token not found');
-      }
-
-      return access_token;
-    } catch {
-      throw new Error('Access Token 조회에 실패했습니다.');
+    if (!access_token) {
+      throw new Error(`GitHub OAuth 오류: ${error} - ${error_description}`);
     }
+
+    return access_token;
   };
 
   private getGithubUserData = async (accessToken: string) => {
