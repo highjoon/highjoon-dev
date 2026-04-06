@@ -9,6 +9,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async headers() {
+    return [
+      {
+        source: '/giscus-:theme.css',
+        headers: [{ key: 'Access-Control-Allow-Origin', value: '*' }],
+      },
+    ];
+  },
   outputFileTracingRoot: path.join(__dirname, '../../'),
   pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
   reactStrictMode: true,

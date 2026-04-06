@@ -1,107 +1,220 @@
-/* highjoon-dev giscus light theme */
-/* Maps blog design tokens to GitHub Primer CSS variables used by giscus */
+/* highjoon-dev — giscus light theme */
+/* Applies blog design system (indigo brand, slate palette) to giscus */
 
-:root {
-  color-scheme: light;
+main {
+  /* ── Syntax highlighting (GitHub light) ─────────────────────────── */
+  --color-prettylights-syntax-comment: #6e7781;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-entity: #8250df;
+  --color-prettylights-syntax-storage-modifier-import: #24292f;
+  --color-prettylights-syntax-entity-tag: #116329;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #116329;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #24292f;
+  --color-prettylights-syntax-markup-bold: #24292f;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-ignored-text: #eaeef2;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-brackethighlighter-angle: #57606a;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #8c959f;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
 
-  /* Canvas (backgrounds) */
+  /* ── Buttons — default ───────────────────────────────────────────── */
+  --color-btn-text: #1e293b;
+  --color-btn-bg: #ffffff;
+  --color-btn-border: rgba(30, 41, 59, 0.15);
+  --color-btn-shadow: 0 0 transparent;
+  --color-btn-inset-shadow: 0 0 transparent;
+  --color-btn-hover-bg: #f8fafc;
+  --color-btn-hover-border: rgba(30, 41, 59, 0.3);
+  --color-btn-active-bg: #f1f5f9;
+  --color-btn-active-border: rgba(30, 41, 59, 0.35);
+  --color-btn-selected-bg: #e2e8f0;
+
+  /* ── Buttons — primary (brand indigo) ───────────────────────────── */
+  --color-btn-primary-text: #ffffff;
+  --color-btn-primary-bg: #6366f1;
+  --color-btn-primary-border: rgba(67, 56, 202, 0.4);
+  --color-btn-primary-shadow: 0 0 transparent;
+  --color-btn-primary-inset-shadow: 0 0 transparent;
+  --color-btn-primary-hover-bg: #4f46e5;
+  --color-btn-primary-hover-border: rgba(67, 56, 202, 0.5);
+  --color-btn-primary-selected-bg: #4338ca;
+  --color-btn-primary-selected-shadow: 0 0 transparent;
+  --color-btn-primary-disabled-text: rgba(255, 255, 255, 0.5);
+  --color-btn-primary-disabled-bg: #a5b4fc;
+  --color-btn-primary-disabled-border: transparent;
+
+  /* ── Segmented control (Write / Preview tabs) ───────────────────── */
+  --color-segmented-control-bg: rgba(99, 102, 241, 0.08);
+  --color-segmented-control-button-bg: #ffffff;
+  --color-segmented-control-button-selected-border: #6366f1;
+
+  /* ── Action list ────────────────────────────────────────────────── */
+  --color-action-list-item-default-hover-bg: rgba(99, 102, 241, 0.06);
+
+  /* ── Foreground / text ──────────────────────────────────────────── */
+  --color-fg-default: #1e293b;
+  --color-fg-muted: #64748b;
+  --color-fg-subtle: #94a3b8;
+
+  /* ── Canvas (backgrounds) ───────────────────────────────────────── */
   --color-canvas-default: #ffffff;
   --color-canvas-overlay: #ffffff;
   --color-canvas-inset: #f8fafc;
   --color-canvas-subtle: #f8fafc;
 
-  /* Borders */
+  /* ── Borders ────────────────────────────────────────────────────── */
   --color-border-default: #e2e8f0;
   --color-border-muted: #f1f5f9;
-  --color-border-overlay: #e2e8f0;
 
-  /* Foreground / text */
-  --color-fg-default: #1e293b;
-  --color-fg-muted: #64748b;
-  --color-fg-subtle: #94a3b8;
-  --color-fg-on-emphasis: #ffffff;
+  /* ── Neutral ────────────────────────────────────────────────────── */
+  --color-neutral-muted: rgba(100, 116, 139, 0.15);
 
-  /* Accent — brand indigo (#6366f1) */
+  /* ── Accent (indigo) ────────────────────────────────────────────── */
   --color-accent-fg: #6366f1;
   --color-accent-emphasis: #4338ca;
   --color-accent-muted: rgba(99, 102, 241, 0.2);
   --color-accent-subtle: #eef2ff;
 
-  /* Neutral */
-  --color-neutral-muted: rgba(100, 116, 139, 0.15);
-  --color-neutral-emphasis: #475569;
-  --color-neutral-emphasis-plus: #1e293b;
-  --color-neutral-subtle: #f8fafc;
-
-  /* Danger */
-  --color-danger-fg: #ef4444;
-  --color-danger-emphasis: #dc2626;
-  --color-danger-muted: rgba(239, 68, 68, 0.2);
-  --color-danger-subtle: #fef2f2;
-
-  /* Attention */
+  /* ── Semantic ───────────────────────────────────────────────────── */
+  --color-success-fg: #10b981;
   --color-attention-fg: #f59e0b;
   --color-attention-muted: rgba(245, 158, 11, 0.2);
   --color-attention-subtle: #fffbeb;
+  --color-danger-fg: #ef4444;
+  --color-danger-muted: rgba(239, 68, 68, 0.2);
+  --color-danger-subtle: #fef2f2;
 
-  /* Success */
-  --color-success-fg: #10b981;
-  --color-success-emphasis: #059669;
-  --color-success-muted: rgba(16, 185, 129, 0.2);
-  --color-success-subtle: #ecfdf5;
+  /* ── Reactions ──────────────────────────────────────────────────── */
+  --color-social-reaction-bg-hover: #f1f5f9;
+  --color-social-reaction-bg-reacted-hover: #eef2ff;
+  --color-scale-blue-8: #eef2ff;
+  --color-scale-gray-7: #f1f5f9;
 
-  /* Buttons — default */
-  --color-btn-text: #1e293b;
-  --color-btn-bg: #ffffff;
-  --color-btn-border: rgba(30, 41, 59, 0.15);
-  --color-btn-shadow: none;
-  --color-btn-inset-shadow: none;
-  --color-btn-hover-bg: #f8fafc;
-  --color-btn-hover-border: rgba(30, 41, 59, 0.3);
-  --color-btn-active-bg: #f1f5f9;
-  --color-btn-active-border: rgba(30, 41, 59, 0.35);
-
-  /* Buttons — primary (brand indigo) */
-  --color-btn-primary-text: #ffffff;
-  --color-btn-primary-bg: #6366f1;
-  --color-btn-primary-border: rgba(67, 56, 202, 0.4);
-  --color-btn-primary-hover-bg: #4f46e5;
-  --color-btn-primary-hover-border: rgba(67, 56, 202, 0.5);
-  --color-btn-primary-selected-bg: #4338ca;
-  --color-btn-primary-disabled-text: rgba(255, 255, 255, 0.5);
-  --color-btn-primary-disabled-bg: #a5b4fc;
-  --color-btn-primary-disabled-border: transparent;
-
-  /* Header */
-  --color-header-bg: #ffffff;
-  --color-header-divider: #e2e8f0;
-
-  /* Label */
-  --color-label-border: #e2e8f0;
+  /* ── Misc ───────────────────────────────────────────────────────── */
+  --color-primer-shadow-inset: 0 0 transparent;
 }
 
-/* Typography */
+/* ── Loading image ───────────────────────────────────────────────────── */
+main .pagination-loader-container {
+  background-image: url("https://github.com/images/modules/pulls/progressive-disclosure-line.svg");
+}
+main .gsc-loading-image {
+  background-image: url("https://github.githubassets.com/images/mona-loading-default.gif");
+}
+
+/* ── Typography ──────────────────────────────────────────────────────── */
 body,
-.gsc-main,
 .gsc-main * {
   font-family:
-    'Pretendard Variable',
-    Pretendard,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    'Helvetica Neue',
-    Arial,
-    'Noto Sans KR',
-    sans-serif;
+    'Pretendard Variable', Pretendard,
+    -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Helvetica Neue', Arial, 'Noto Sans KR', sans-serif;
 }
 
-/* Focus ring */
+/* ── Comment card — blog .post-card style ────────────────────────────── */
+.gsc-comment > div {
+  border-radius: 1.25rem !important;
+  border-color: #e2e8f0 !important;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.gsc-comment > div:hover {
+  box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.1),
+              0 4px 6px -4px rgba(99, 102, 241, 0.1);
+  border-color: #c7d2fe !important;
+}
+
+/* ── Reply card ─────────────────────────────────────────────────────── */
+.gsc-reply {
+  border-radius: 0.75rem;
+}
+
+/* ── Timeline line — brand indigo ────────────────────────────────────── */
+.gsc-tl-line {
+  border-color: #e0e7ff !important;
+}
+
+/* ── Comment header ─────────────────────────────────────────────────── */
+.gsc-comment-header,
+.gsc-reply-header {
+  border-bottom-color: #f1f5f9 !important;
+}
+
+/* ── Comment box (input area) — blog .search-container style ─────────── */
+.gsc-comment-box {
+  border-radius: 1.25rem !important;
+  border-color: #e2e8f0 !important;
+  overflow: hidden;
+}
+.gsc-comment-box:focus-within {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 4px #eef2ff !important;
+}
+
+/* ── Tabs (Write / Preview) ─────────────────────────────────────────── */
+.gsc-comment-box-tabs {
+  border-bottom-color: #e2e8f0 !important;
+  background-color: #f8fafc !important;
+}
+
+/* ── Textarea ───────────────────────────────────────────────────────── */
+.gsc-comment-box-textarea {
+  border-radius: 0 !important;
+  resize: vertical;
+}
+.gsc-comment-box-textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Pagination buttons — blog .pagination-btn style ────────────────── */
+.gsc-pagination-button {
+  border-radius: 0.75rem !important;
+  font-weight: 600;
+  width: 40px;
+  height: 40px;
+  transition: all 0.2s;
+}
+.gsc-pagination-button:hover {
+  background-color: #eef2ff !important;
+  border-color: #6366f1 !important;
+  color: #6366f1 !important;
+}
+
+/* ── Reaction buttons ────────────────────────────────────────────────── */
+.gsc-reactions-button {
+  border-radius: 9999px !important;
+  transition: all 0.2s;
+}
+.gsc-reactions-button:hover {
+  border-color: #6366f1 !important;
+  background-color: #eef2ff !important;
+}
+
+/* ── Author avatar ───────────────────────────────────────────────────── */
+.gsc-comment-author-avatar img,
+.gsc-reply-author-avatar img {
+  border-radius: 50%;
+  border: 2px solid #e0e7ff;
+}
+
+/* ── Focus ring ──────────────────────────────────────────────────────── */
 :focus-visible {
   outline-color: #6366f1;
-}
-
-/* Reaction button hover */
-.gsc-reactions-button:hover {
-  border-color: #6366f1;
 }

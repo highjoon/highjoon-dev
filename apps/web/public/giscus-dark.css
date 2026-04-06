@@ -1,107 +1,220 @@
-/* highjoon-dev giscus dark theme */
-/* Maps blog design tokens to GitHub Primer CSS variables used by giscus */
+/* highjoon-dev — giscus dark theme */
+/* Applies blog design system (indigo brand, slate palette) to giscus */
 
-:root {
-  color-scheme: dark;
+main {
+  /* ── Syntax highlighting (GitHub dark dimmed) ───────────────────── */
+  --color-prettylights-syntax-comment: #768390;
+  --color-prettylights-syntax-constant: #6cb6ff;
+  --color-prettylights-syntax-entity: #dcbdfb;
+  --color-prettylights-syntax-storage-modifier-import: #adbac7;
+  --color-prettylights-syntax-entity-tag: #8ddb8c;
+  --color-prettylights-syntax-keyword: #f47067;
+  --color-prettylights-syntax-string: #96d0ff;
+  --color-prettylights-syntax-variable: #f69d50;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #e5534b;
+  --color-prettylights-syntax-invalid-illegal-text: #cdd9e5;
+  --color-prettylights-syntax-invalid-illegal-bg: #922323;
+  --color-prettylights-syntax-carriage-return-text: #cdd9e5;
+  --color-prettylights-syntax-carriage-return-bg: #ad2e2c;
+  --color-prettylights-syntax-string-regexp: #8ddb8c;
+  --color-prettylights-syntax-markup-list: #eac55f;
+  --color-prettylights-syntax-markup-heading: #316dca;
+  --color-prettylights-syntax-markup-italic: #adbac7;
+  --color-prettylights-syntax-markup-bold: #adbac7;
+  --color-prettylights-syntax-markup-deleted-text: #ffd8d3;
+  --color-prettylights-syntax-markup-deleted-bg: #78191b;
+  --color-prettylights-syntax-markup-inserted-text: #b4f1b4;
+  --color-prettylights-syntax-markup-inserted-bg: #1b4721;
+  --color-prettylights-syntax-markup-changed-text: #ffddb0;
+  --color-prettylights-syntax-markup-changed-bg: #682d0f;
+  --color-prettylights-syntax-markup-ignored-text: #adbac7;
+  --color-prettylights-syntax-markup-ignored-bg: #255ab2;
+  --color-prettylights-syntax-meta-diff-range: #dcbdfb;
+  --color-prettylights-syntax-brackethighlighter-angle: #768390;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #545d68;
+  --color-prettylights-syntax-constant-other-reference-link: #96d0ff;
 
-  /* Canvas (backgrounds) — slate-900 / slate-800 */
+  /* ── Buttons — default ───────────────────────────────────────────── */
+  --color-btn-text: #f1f5f9;
+  --color-btn-bg: #1e293b;
+  --color-btn-border: rgba(241, 245, 249, 0.1);
+  --color-btn-shadow: 0 0 transparent;
+  --color-btn-inset-shadow: 0 0 transparent;
+  --color-btn-hover-bg: #334155;
+  --color-btn-hover-border: rgba(241, 245, 249, 0.2);
+  --color-btn-active-bg: #0f172a;
+  --color-btn-active-border: rgba(241, 245, 249, 0.15);
+  --color-btn-selected-bg: #0f172a;
+
+  /* ── Buttons — primary (brand indigo) ───────────────────────────── */
+  --color-btn-primary-text: #ffffff;
+  --color-btn-primary-bg: #6366f1;
+  --color-btn-primary-border: rgba(129, 140, 248, 0.3);
+  --color-btn-primary-shadow: 0 0 transparent;
+  --color-btn-primary-inset-shadow: 0 0 transparent;
+  --color-btn-primary-hover-bg: #4f46e5;
+  --color-btn-primary-hover-border: rgba(129, 140, 248, 0.4);
+  --color-btn-primary-selected-bg: #4338ca;
+  --color-btn-primary-selected-shadow: 0 0 transparent;
+  --color-btn-primary-disabled-text: rgba(255, 255, 255, 0.4);
+  --color-btn-primary-disabled-bg: rgba(99, 102, 241, 0.4);
+  --color-btn-primary-disabled-border: transparent;
+
+  /* ── Segmented control (Write / Preview tabs) ───────────────────── */
+  --color-segmented-control-bg: rgba(129, 140, 248, 0.08);
+  --color-segmented-control-button-bg: #1e293b;
+  --color-segmented-control-button-selected-border: #818cf8;
+
+  /* ── Action list ────────────────────────────────────────────────── */
+  --color-action-list-item-default-hover-bg: rgba(129, 140, 248, 0.08);
+
+  /* ── Foreground / text ──────────────────────────────────────────── */
+  --color-fg-default: #f1f5f9;
+  --color-fg-muted: #94a3b8;
+  --color-fg-subtle: #64748b;
+
+  /* ── Canvas (backgrounds) — slate-900 / slate-800 ───────────────── */
   --color-canvas-default: #0f172a;
   --color-canvas-overlay: #1e293b;
   --color-canvas-inset: #0f172a;
   --color-canvas-subtle: #1e293b;
 
-  /* Borders — slate-700 / slate-800 */
+  /* ── Borders ────────────────────────────────────────────────────── */
   --color-border-default: #334155;
   --color-border-muted: #1e293b;
-  --color-border-overlay: #334155;
 
-  /* Foreground / text */
-  --color-fg-default: #f1f5f9;
-  --color-fg-muted: #94a3b8;
-  --color-fg-subtle: #64748b;
-  --color-fg-on-emphasis: #ffffff;
+  /* ── Neutral ────────────────────────────────────────────────────── */
+  --color-neutral-muted: rgba(148, 163, 184, 0.15);
 
-  /* Accent — indigo-400 for dark bg legibility */
+  /* ── Accent (indigo-400 on dark) ────────────────────────────────── */
   --color-accent-fg: #818cf8;
   --color-accent-emphasis: #6366f1;
   --color-accent-muted: rgba(129, 140, 248, 0.2);
   --color-accent-subtle: rgba(99, 102, 241, 0.15);
 
-  /* Neutral */
-  --color-neutral-muted: rgba(148, 163, 184, 0.15);
-  --color-neutral-emphasis: #94a3b8;
-  --color-neutral-emphasis-plus: #f1f5f9;
-  --color-neutral-subtle: #1e293b;
-
-  /* Danger */
-  --color-danger-fg: #f87171;
-  --color-danger-emphasis: #ef4444;
-  --color-danger-muted: rgba(248, 113, 113, 0.2);
-  --color-danger-subtle: rgba(239, 68, 68, 0.1);
-
-  /* Attention */
+  /* ── Semantic ───────────────────────────────────────────────────── */
+  --color-success-fg: #34d399;
   --color-attention-fg: #fbbf24;
   --color-attention-muted: rgba(251, 191, 36, 0.2);
   --color-attention-subtle: rgba(245, 158, 11, 0.1);
+  --color-danger-fg: #f87171;
+  --color-danger-muted: rgba(248, 113, 113, 0.2);
+  --color-danger-subtle: rgba(239, 68, 68, 0.1);
 
-  /* Success */
-  --color-success-fg: #34d399;
-  --color-success-emphasis: #10b981;
-  --color-success-muted: rgba(52, 211, 153, 0.2);
-  --color-success-subtle: rgba(16, 185, 129, 0.1);
+  /* ── Reactions ──────────────────────────────────────────────────── */
+  --color-social-reaction-bg-hover: #334155;
+  --color-social-reaction-bg-reacted-hover: rgba(99, 102, 241, 0.2);
+  --color-scale-blue-8: rgba(99, 102, 241, 0.2);
+  --color-scale-gray-7: #334155;
 
-  /* Buttons — default */
-  --color-btn-text: #f1f5f9;
-  --color-btn-bg: #1e293b;
-  --color-btn-border: rgba(241, 245, 249, 0.1);
-  --color-btn-shadow: none;
-  --color-btn-inset-shadow: none;
-  --color-btn-hover-bg: #334155;
-  --color-btn-hover-border: rgba(241, 245, 249, 0.2);
-  --color-btn-active-bg: #0f172a;
-  --color-btn-active-border: rgba(241, 245, 249, 0.15);
-
-  /* Buttons — primary (brand indigo) */
-  --color-btn-primary-text: #ffffff;
-  --color-btn-primary-bg: #6366f1;
-  --color-btn-primary-border: rgba(129, 140, 248, 0.3);
-  --color-btn-primary-hover-bg: #4f46e5;
-  --color-btn-primary-hover-border: rgba(129, 140, 248, 0.4);
-  --color-btn-primary-selected-bg: #4338ca;
-  --color-btn-primary-disabled-text: rgba(255, 255, 255, 0.4);
-  --color-btn-primary-disabled-bg: rgba(99, 102, 241, 0.4);
-  --color-btn-primary-disabled-border: transparent;
-
-  /* Header */
-  --color-header-bg: #0f172a;
-  --color-header-divider: #334155;
-
-  /* Label */
-  --color-label-border: #334155;
+  /* ── Misc ───────────────────────────────────────────────────────── */
+  --color-primer-shadow-inset: 0 0 transparent;
 }
 
-/* Typography */
+/* ── Loading image ───────────────────────────────────────────────────── */
+main .pagination-loader-container {
+  background-image: url("https://github.com/images/modules/pulls/progressive-disclosure-line-dark.svg");
+}
+main .gsc-loading-image {
+  background-image: url("https://github.githubassets.com/images/mona-loading-dimmed.gif");
+}
+
+/* ── Typography ──────────────────────────────────────────────────────── */
 body,
-.gsc-main,
 .gsc-main * {
   font-family:
-    'Pretendard Variable',
-    Pretendard,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    'Helvetica Neue',
-    Arial,
-    'Noto Sans KR',
-    sans-serif;
+    'Pretendard Variable', Pretendard,
+    -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Helvetica Neue', Arial, 'Noto Sans KR', sans-serif;
 }
 
-/* Focus ring */
+/* ── Comment card — blog .post-card style ────────────────────────────── */
+.gsc-comment > div {
+  border-radius: 1.25rem !important;
+  border-color: #334155 !important;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.gsc-comment > div:hover {
+  box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.15),
+              0 4px 6px -4px rgba(99, 102, 241, 0.15);
+  border-color: #4f46e5 !important;
+}
+
+/* ── Reply card ─────────────────────────────────────────────────────── */
+.gsc-reply {
+  border-radius: 0.75rem;
+}
+
+/* ── Timeline line ───────────────────────────────────────────────────── */
+.gsc-tl-line {
+  border-color: #1e293b !important;
+}
+
+/* ── Comment header ─────────────────────────────────────────────────── */
+.gsc-comment-header,
+.gsc-reply-header {
+  border-bottom-color: #1e293b !important;
+}
+
+/* ── Comment box ─────────────────────────────────────────────────────── */
+.gsc-comment-box {
+  border-radius: 1.25rem !important;
+  border-color: #334155 !important;
+  overflow: hidden;
+}
+.gsc-comment-box:focus-within {
+  border-color: #818cf8 !important;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15) !important;
+}
+
+/* ── Tabs (Write / Preview) ─────────────────────────────────────────── */
+.gsc-comment-box-tabs {
+  border-bottom-color: #334155 !important;
+  background-color: #1e293b !important;
+}
+
+/* ── Textarea ───────────────────────────────────────────────────────── */
+.gsc-comment-box-textarea {
+  border-radius: 0 !important;
+  resize: vertical;
+}
+.gsc-comment-box-textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Pagination buttons ──────────────────────────────────────────────── */
+.gsc-pagination-button {
+  border-radius: 0.75rem !important;
+  font-weight: 600;
+  width: 40px;
+  height: 40px;
+  transition: all 0.2s;
+}
+.gsc-pagination-button:hover {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  border-color: #818cf8 !important;
+  color: #818cf8 !important;
+}
+
+/* ── Reaction buttons ────────────────────────────────────────────────── */
+.gsc-reactions-button {
+  border-radius: 9999px !important;
+  transition: all 0.2s;
+}
+.gsc-reactions-button:hover {
+  border-color: #818cf8 !important;
+  background-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+/* ── Author avatar ───────────────────────────────────────────────────── */
+.gsc-comment-author-avatar img,
+.gsc-reply-author-avatar img {
+  border-radius: 50%;
+  border: 2px solid #334155;
+}
+
+/* ── Focus ring ──────────────────────────────────────────────────────── */
 :focus-visible {
   outline-color: #818cf8;
-}
-
-/* Reaction button hover */
-.gsc-reactions-button:hover {
-  border-color: #818cf8;
 }

@@ -10,7 +10,15 @@ export default function GiscusWidget() {
   if (!resolvedTheme) return null;
 
   const origin = window.location.origin;
-  const theme = `${origin}/giscus-${resolvedTheme === 'dark' ? 'dark' : 'light'}.css`;
+  const isDark = resolvedTheme === 'dark';
+
+  // Custom CSS requires HTTPS — giscus.app (HTTPS) blocks mixed content from HTTP origins.
+  // Fall back to built-in theme on HTTP (local dev).
+  const theme = origin.startsWith('https://')
+    ? `${origin}/giscus-${isDark ? 'dark' : 'light'}.css`
+    : isDark
+      ? 'dark'
+      : 'light';
 
   return (
     <Giscus
