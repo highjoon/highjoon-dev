@@ -74,7 +74,6 @@ const mockPost = {
   updatedAt: new Date(),
   category: null,
   viewCount: 10,
-  likeCount: 5,
   isFeatured: false,
   isHidden: false,
   postTags: [],

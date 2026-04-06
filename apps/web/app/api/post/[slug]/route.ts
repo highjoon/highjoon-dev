@@ -1,7 +1,6 @@
 import { type NextRequest } from 'next/server';
 
 import { postService } from '@/entities/post/services/post.service';
-import { authenticate } from '@/shared/server/lib/auth';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
 
 interface RouteContext {
@@ -16,9 +15,6 @@ export const GET = async (_request: NextRequest, context: RouteContext) => {
 };
 
 export const PUT = async (request: NextRequest, context: RouteContext) => {
-  const auth = authenticate(request);
-  if ('error' in auth) return auth.error;
-
   const { slug: id } = await context.params;
   const body = await request.json();
   const result = await postService.updatePost({ id, data: body });

@@ -22,13 +22,10 @@ model Post {
   createdAt      DateTime?       @default(now()) @db.Timestamptz(6)
   updatedAt      DateTime?       @updatedAt @db.Timestamptz(6)
   viewCount      Int?            @default(0)
-  likeCount      Int?            @default(0)
   isFeatured     Boolean         @default(false)
   isHidden       Boolean         @default(false)
-  PostLike       PostLike[]
   viewLogs       PostViewLog[]
   viewStats      PostViewStats[]
-  comments       Comment[]
   postTags       PostTag[]
 
   @@index([publishedAt])
@@ -55,47 +52,6 @@ model PostViewLog {
   @@unique([postId, ip, date])
 }
 
-model User {
-  id        String     @id @default(cuid())
-  githubId  Int        
-  name      String
-  avatarUrl String
-  homeUrl   String
-  role      Role       @default(USER)
-  PostLike  PostLike[]
-  comments  Comment[]
-}
-
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model PostLike {
-  id        String   @id @default(cuid())
-  postId    String
-  userId    String
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
-  Post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([postId, userId])
-}
-
-model Comment {
-  id        String   @id @default(cuid())
-  postId    String
-  userId    String
-  content   String
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt DateTime @updatedAt @db.Timestamptz(6)
-  parentId  String?
-  parent    Comment? @relation("CommentToReplies", fields: [parentId], references: [id], onDelete: Cascade)
-  replies   Comment[]@relation("CommentToReplies")
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([postId])
-  @@index([userId])
-  @@index([parentId])
-}
-
 model Tag {
   id        String    @id @default(cuid())
   name      String    @unique
@@ -118,9 +74,4 @@ model PostTag {
   @@unique([postId, tagId])
   @@index([postId])
   @@index([tagId])
-}
-
-enum Role {
-  USER
-  ADMIN
 }

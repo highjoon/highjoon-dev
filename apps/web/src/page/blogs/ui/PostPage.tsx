@@ -12,7 +12,7 @@ import PostDetailHeader from '@/entities/post/ui/postDetail/PostDetailHeader';
 import TableOfContentsSidebar from '@/entities/post/ui/postDetail/TableOfContentsSidebar';
 import TableOfContentsModal from '@/entities/post/ui/TableOfContentsModal';
 import PageSection from '@/shared/ui/layout/PageSection';
-import LikeCommentsSection from '@/widgets/likeCommentsSection/ui/LikeCommentsSection';
+import GiscusWidget from '@/widgets/giscus/ui/Giscus';
 
 interface Props {
   params: { slug: Post['slug'] };
@@ -47,7 +47,7 @@ export default async function PostPage({ params }: Props) {
       <div className="flex flex-col gap-12 px-4 mx-auto md:px-6 max-w-7xl lg:flex-row">
         <div className="w-full max-w-none lg:w-3/4">
           <PostArticleContent content={content} />
-          <LikeCommentsSection post={post} />
+          <GiscusWidget />
         </div>
 
         <div className="hidden lg:block lg:w-1/4">

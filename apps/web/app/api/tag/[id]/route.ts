@@ -2,7 +2,6 @@ import { type NextRequest } from 'next/server';
 
 import { updateTagSchema } from '@/entities/tag/schemas/tag.schema';
 import { tagService } from '@/entities/tag/services/tag.service';
-import { authenticate } from '@/shared/server/lib/auth';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';
 
@@ -18,9 +17,6 @@ export const GET = async (_request: NextRequest, context: RouteContext) => {
 };
 
 export const PUT = async (request: NextRequest, context: RouteContext) => {
-  const auth = authenticate(request);
-  if ('error' in auth) return auth.error;
-
   const { id } = await context.params;
   const body = await request.json();
   const parsed = updateTagSchema.safeParse(body);
@@ -34,10 +30,7 @@ export const PUT = async (request: NextRequest, context: RouteContext) => {
   return handleServiceResponse(result);
 };
 
-export const DELETE = async (request: NextRequest, context: RouteContext) => {
-  const auth = authenticate(request);
-  if ('error' in auth) return auth.error;
-
+export const DELETE = async (_request: NextRequest, context: RouteContext) => {
   const { id } = await context.params;
   const result = await tagService.deleteTag(id);
 

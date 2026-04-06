@@ -2,7 +2,6 @@ import { type NextRequest } from 'next/server';
 
 import { createTagSchema } from '@/entities/tag/schemas/tag.schema';
 import { tagService } from '@/entities/tag/services/tag.service';
-import { authenticate } from '@/shared/server/lib/auth';
 import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
 
 export const GET = async () => {
@@ -12,9 +11,6 @@ export const GET = async () => {
 };
 
 export const POST = async (request: NextRequest) => {
-  const auth = authenticate(request);
-  if ('error' in auth) return auth.error;
-
   const body = await request.json();
   const parsed = createTagSchema.safeParse(body);
 

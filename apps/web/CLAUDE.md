@@ -18,7 +18,7 @@ App Router 라우트와 FSD `src/page/` 컨테이너 매핑:
 
 - **이미지**: CloudFront CDN (`dngjtjyrczhgx.cloudfront.net`), webp/avif 포맷
 - **MDX**: next-mdx-remote로 서버에서 렌더링, rehype-highlight/rehype-slug 적용
-- **인증**: GitHub OAuth → 쿠키 기반 JWT (cookies-next)
+- **댓글/리액션**: giscus (GitHub Discussions 기반)
 - **캐시**: revalidatePath로 서버 액션 후 무효화
 - **폰트**: Pretendard (로컬 woff2)
 - **모달**: overlay-kit
