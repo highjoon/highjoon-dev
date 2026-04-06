@@ -6,6 +6,12 @@ import Giscus from '@giscus/react';
 export default function GiscusWidget() {
   const { resolvedTheme } = useTheme();
 
+  // resolvedTheme is undefined until mounted — avoids SSR mismatch
+  if (!resolvedTheme) return null;
+
+  const origin = window.location.origin;
+  const theme = `${origin}/giscus-${resolvedTheme === 'dark' ? 'dark' : 'light'}.css`;
+
   return (
     <Giscus
       repo={process.env.NEXT_PUBLIC_GISCUS_REPO as `${string}/${string}`}
@@ -17,7 +23,7 @@ export default function GiscusWidget() {
       reactionsEnabled="1"
       emitMetadata="0"
       inputPosition="top"
-      theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
+      theme={theme}
       lang="ko"
       loading="lazy"
     />

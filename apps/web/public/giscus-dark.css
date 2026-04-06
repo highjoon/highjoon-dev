@@ -1,0 +1,107 @@
+/* highjoon-dev giscus dark theme */
+/* Maps blog design tokens to GitHub Primer CSS variables used by giscus */
+
+:root {
+  color-scheme: dark;
+
+  /* Canvas (backgrounds) — slate-900 / slate-800 */
+  --color-canvas-default: #0f172a;
+  --color-canvas-overlay: #1e293b;
+  --color-canvas-inset: #0f172a;
+  --color-canvas-subtle: #1e293b;
+
+  /* Borders — slate-700 / slate-800 */
+  --color-border-default: #334155;
+  --color-border-muted: #1e293b;
+  --color-border-overlay: #334155;
+
+  /* Foreground / text */
+  --color-fg-default: #f1f5f9;
+  --color-fg-muted: #94a3b8;
+  --color-fg-subtle: #64748b;
+  --color-fg-on-emphasis: #ffffff;
+
+  /* Accent — indigo-400 for dark bg legibility */
+  --color-accent-fg: #818cf8;
+  --color-accent-emphasis: #6366f1;
+  --color-accent-muted: rgba(129, 140, 248, 0.2);
+  --color-accent-subtle: rgba(99, 102, 241, 0.15);
+
+  /* Neutral */
+  --color-neutral-muted: rgba(148, 163, 184, 0.15);
+  --color-neutral-emphasis: #94a3b8;
+  --color-neutral-emphasis-plus: #f1f5f9;
+  --color-neutral-subtle: #1e293b;
+
+  /* Danger */
+  --color-danger-fg: #f87171;
+  --color-danger-emphasis: #ef4444;
+  --color-danger-muted: rgba(248, 113, 113, 0.2);
+  --color-danger-subtle: rgba(239, 68, 68, 0.1);
+
+  /* Attention */
+  --color-attention-fg: #fbbf24;
+  --color-attention-muted: rgba(251, 191, 36, 0.2);
+  --color-attention-subtle: rgba(245, 158, 11, 0.1);
+
+  /* Success */
+  --color-success-fg: #34d399;
+  --color-success-emphasis: #10b981;
+  --color-success-muted: rgba(52, 211, 153, 0.2);
+  --color-success-subtle: rgba(16, 185, 129, 0.1);
+
+  /* Buttons — default */
+  --color-btn-text: #f1f5f9;
+  --color-btn-bg: #1e293b;
+  --color-btn-border: rgba(241, 245, 249, 0.1);
+  --color-btn-shadow: none;
+  --color-btn-inset-shadow: none;
+  --color-btn-hover-bg: #334155;
+  --color-btn-hover-border: rgba(241, 245, 249, 0.2);
+  --color-btn-active-bg: #0f172a;
+  --color-btn-active-border: rgba(241, 245, 249, 0.15);
+
+  /* Buttons — primary (brand indigo) */
+  --color-btn-primary-text: #ffffff;
+  --color-btn-primary-bg: #6366f1;
+  --color-btn-primary-border: rgba(129, 140, 248, 0.3);
+  --color-btn-primary-hover-bg: #4f46e5;
+  --color-btn-primary-hover-border: rgba(129, 140, 248, 0.4);
+  --color-btn-primary-selected-bg: #4338ca;
+  --color-btn-primary-disabled-text: rgba(255, 255, 255, 0.4);
+  --color-btn-primary-disabled-bg: rgba(99, 102, 241, 0.4);
+  --color-btn-primary-disabled-border: transparent;
+
+  /* Header */
+  --color-header-bg: #0f172a;
+  --color-header-divider: #334155;
+
+  /* Label */
+  --color-label-border: #334155;
+}
+
+/* Typography */
+body,
+.gsc-main,
+.gsc-main * {
+  font-family:
+    'Pretendard Variable',
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Helvetica Neue',
+    Arial,
+    'Noto Sans KR',
+    sans-serif;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline-color: #818cf8;
+}
+
+/* Reaction button hover */
+.gsc-reactions-button:hover {
+  border-color: #818cf8;
+}
