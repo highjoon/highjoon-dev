@@ -3,12 +3,12 @@ import { Metadata } from 'next';
 export const generateRootMetadata = (): Metadata => {
   return {
     title: 'highjoon-dev',
-    description: "highjoon's dev-log",
+    description: '프론트엔드 개발자 highjoon의 기술 블로그',
     metadataBase: new URL('https://highjoon-dev.com'),
-    keywords: ['highjoon', 'highjoon-dev', '윤상준'],
+    keywords: ['highjoon', 'highjoon-dev', '윤상준', '프론트엔드', 'React', 'Next.js', 'TypeScript', '웹개발'],
     openGraph: {
       title: 'highjoon-dev',
-      description: "highjoon's dev-log",
+      description: '프론트엔드 개발자 highjoon의 기술 블로그',
       images: `https://highjoon-dev.com/images/img-profile.png`,
       url: 'https://highjoon-dev.com/',
       locale: 'ko',

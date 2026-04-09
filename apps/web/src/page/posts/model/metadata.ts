@@ -8,11 +8,11 @@ export const generatePostsMetadata = async ({ params: paramsPromise }: Params): 
   const { id } = await paramsPromise;
 
   return {
-    title: `Posts ${id} | highjoon-dev`,
-    description: `highjoon's dev-log ${id} 페이지`,
+    title: `Page ${id} - highjoon-dev`,
+    description: `highjoon-dev 글 목록 · ${id}페이지`,
     openGraph: {
-      title: `Posts ${id} | highjoon-dev`,
-      description: `highjoon's dev-log ${id} 페이지`,
+      title: `Page ${id} - highjoon-dev`,
+      description: `highjoon-dev 글 목록 · ${id}페이지`,
       type: 'website',
       url: `https://highjoon-dev.com/pages/${id}`,
     },
