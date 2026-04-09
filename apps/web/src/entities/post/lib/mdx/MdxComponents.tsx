@@ -185,6 +185,10 @@ export const MdxComponents: MDXComponents = {
       ref={props.ref as React.Ref<HTMLAnchorElement>}
     />
   ),
+  img: (props) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img {...props} alt={props.alt ?? ''} className={cn('max-w-full h-auto rounded-lg my-4', props.className)} />
+  ),
   strong: (props) => (
     <strong
       {...props}
