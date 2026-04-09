@@ -47,11 +47,13 @@ export default function TableOfContentsModal({ headings }: Props) {
   const handleClick = (id: string) => {
     setOpen(false);
     setActiveId(id);
+    window.history.pushState(null, '', `#${id}`);
     setTimeout(() => {
-      document.querySelector(`#${CSS.escape(id)}`)?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
+      const element = document.querySelector(`#${CSS.escape(id)}`);
+      if (element) {
+        const top = element.getBoundingClientRect().top + window.scrollY - 96;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
     }, 100);
   };
 

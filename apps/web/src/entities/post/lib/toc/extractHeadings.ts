@@ -11,7 +11,8 @@ export function extractHeadings(content: string): Heading[] {
 
   while ((match = headingRegex.exec(content)) !== null) {
     const level = match[1].length;
-    const text = match[2].trim();
+    const rawText = match[2].trim();
+    const text = rawText.replace(/[*]{1,2}(.+?)[*]{1,2}/g, '$1').replace(/`(.+?)`/g, '$1');
     let id = text
       .toLowerCase()
       .replace(/[^\w\s\uAC00-\uD7A3-]/g, '')

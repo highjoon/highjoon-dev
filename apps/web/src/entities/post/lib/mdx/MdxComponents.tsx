@@ -1,3 +1,4 @@
+import React from 'react';
 import { Separator } from '@highjoon-dev/ui/components/Separator';
 import {
   Table,
@@ -13,12 +14,21 @@ import { cn } from '@highjoon-dev/ui/lib/utils';
 import { Info } from 'lucide-react';
 import { type MDXComponents } from 'mdx/types';
 
-const createHeadingId = (text: string | React.ReactNode): string => {
-  const textContent = typeof text === 'string' ? text : String(text);
-  return textContent
+const extractText = (node: React.ReactNode): string => {
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(extractText).join('');
+  if (React.isValidElement(node)) {
+    return extractText((node.props as { children?: React.ReactNode }).children);
+  }
+  return '';
+};
+
+const createHeadingId = (node: React.ReactNode): string => {
+  const id = extractText(node)
     .toLowerCase()
     .replace(/[^\w\s\uAC00-\uD7A3-]/g, '')
     .replace(/\s+/g, '-');
+  return /^\d/.test(id) ? `heading-${id}` : id;
 };
 
 export const MdxComponents: MDXComponents = {

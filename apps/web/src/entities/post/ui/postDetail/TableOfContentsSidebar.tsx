@@ -38,8 +38,10 @@ export default function TableOfContentsSidebar({ headings }: Props) {
     e.preventDefault();
     const element = document.querySelector(`#${CSS.escape(id)}`);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const top = element.getBoundingClientRect().top + window.scrollY - 96;
+      window.scrollTo({ top, behavior: 'smooth' });
       setActiveId(id);
+      window.history.pushState(null, '', `#${id}`);
     }
   };
 
