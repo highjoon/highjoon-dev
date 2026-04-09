@@ -1,4 +1,3 @@
-import type { PostWithTags } from '@/entities/post/api/getPostApi/dto';
 import type { TagWithCount } from '@/entities/tag/api/getAllTagsApi/dto';
 import { ROUTES } from '@/shared/routes/routes';
 
@@ -22,9 +21,4 @@ export const sortTagsByPopularity = (tags: TagWithCount[]): TagWithCount[] => {
     if (countDiff !== 0) return countDiff;
     return a.name.localeCompare(b.name);
   });
-};
-
-export const filterPostsByTag = (posts: PostWithTags[], tagName: string | null): PostWithTags[] => {
-  if (!tagName) return posts;
-  return posts?.filter((post) => post.postTags?.some((pt) => pt.tag.name === tagName));
 };
