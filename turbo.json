@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["DATABASE_URL", "NEXT_PUBLIC_GISCUS_REPO", "NEXT_PUBLIC_GISCUS_REPO_ID", "NEXT_PUBLIC_GISCUS_CATEGORY", "NEXT_PUBLIC_GISCUS_CATEGORY_ID"],
+      "env": ["DATABASE_URL", "GITHUB_CLIENT_ID", "GITHUB_CLIENT_SECRET", "JWT_SECRET", "ADMIN_GITHUB_ID", "NEXT_PUBLIC_GISCUS_REPO", "NEXT_PUBLIC_GISCUS_REPO_ID", "NEXT_PUBLIC_GISCUS_CATEGORY", "NEXT_PUBLIC_GISCUS_CATEGORY_ID"],
       "outputs": ["!.next/cache/**", ".next/**"]
     },
     "check-types": {
