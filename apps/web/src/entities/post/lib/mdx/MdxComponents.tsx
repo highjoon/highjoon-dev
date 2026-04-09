@@ -164,14 +164,14 @@ export const MdxComponents: MDXComponents = {
   blockquote: (props) => (
     <blockquote
       {...props}
-      className={cn(
-        'my-8 border-l-[3px] border-vibrant-brand pl-5 pr-5 py-4 rounded-r-xl bg-vibrant-brand-light/20 dark:bg-vibrant-brand/10 md:my-5 md:p-5',
-        props.className,
-      )}
+      className={cn('my-8 rounded-xl border border-vibrant-brand/30 overflow-hidden md:my-6', props.className)}
       ref={props.ref as React.Ref<HTMLQuoteElement>}>
-      <div className="flex items-start gap-3">
-        <Info className="w-4 h-4 mt-0.5 flex-shrink-0 text-vibrant-brand" />
-        <div className="flex-1 italic text-vibrant-text-main">{props.children}</div>
+      <div className="flex items-center gap-2 px-4 py-2 bg-vibrant-brand/10 dark:bg-vibrant-brand/20 border-b border-vibrant-brand/20">
+        <Info className="w-3.5 h-3.5 flex-shrink-0 text-vibrant-brand" />
+        <span className="text-xs font-bold tracking-widest uppercase text-vibrant-brand">Note</span>
+      </div>
+      <div className="px-5 py-4 text-vibrant-text-main bg-vibrant-brand-light/10 dark:bg-vibrant-brand/5">
+        {props.children}
       </div>
     </blockquote>
   ),
