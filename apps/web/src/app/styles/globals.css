@@ -89,15 +89,11 @@
   color: var(--color-life);
 }
 
-code {
-  border-radius: 4px;
-  background-color: var(--color-grey-100);
-  padding: 3px;
-}
-
-.dark code {
-  background-color: var(--color-grey-700);
-  color: var(--color-grey-100);
+pre code {
+  background-color: transparent !important;
+  padding: 0 !important;
+  color: inherit !important;
+  border-radius: 0;
 }
 
 code::before,

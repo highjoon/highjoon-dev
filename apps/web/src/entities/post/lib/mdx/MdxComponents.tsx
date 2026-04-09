@@ -124,7 +124,7 @@ export const MdxComponents: MDXComponents = {
     <code
       {...props}
       className={cn(
-        'bg-gray-100 dark:bg-gray-800 text-vibrant-brand rounded px-1.5 py-0.5 text-sm font-mono font-medium',
+        'bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 rounded px-1.5 py-0.5 text-sm font-mono font-medium',
         props.className,
       )}
       ref={props.ref as React.Ref<HTMLElement>}
