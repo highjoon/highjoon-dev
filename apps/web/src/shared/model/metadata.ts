@@ -31,7 +31,7 @@ export const generateRootMetadata = (): Metadata => {
       shortcut: '/favicon/apple-icon.png',
       apple: '/favicon/apple-icon.png',
       other: {
-        rel: '/favicon/apple-icon-precomposed',
+        rel: 'apple-touch-icon-precomposed',
         url: '/favicon/apple-icon-precomposed.png',
       },
     },
