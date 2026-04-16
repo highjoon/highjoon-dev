@@ -8,3 +8,13 @@ export interface GetPostRequestDto {
 export type PostWithTags = Post & { postTags?: (PostTag & { tag: Tag })[] };
 
 export type GetPostResponseDto = ServiceResponseInterface<PostWithTags>;
+
+export interface AdjacentPost {
+  slug: string;
+  title: string;
+}
+
+export interface AdjacentPosts {
+  prev: AdjacentPost | null;
+  next: AdjacentPost | null;
+}
