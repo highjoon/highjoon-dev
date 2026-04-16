@@ -6,9 +6,11 @@ import { getPostApi } from '@/entities/post/api/getPostApi';
 import { getPostContentApi } from '@/entities/post/api/getPostContentApi';
 import PostSchema from '@/entities/post/lib/PostSchema';
 import { extractHeadings } from '@/entities/post/lib/toc/extractHeadings';
+import { postService } from '@/entities/post/services/post.service';
 import PostArticleContent from '@/entities/post/ui/postDetail/PostArticleContent';
 import PostBanner from '@/entities/post/ui/postDetail/PostBanner';
 import PostDetailHeader from '@/entities/post/ui/postDetail/PostDetailHeader';
+import PostNavigation from '@/entities/post/ui/postDetail/PostNavigation';
 import TableOfContentsSidebar from '@/entities/post/ui/postDetail/TableOfContentsSidebar';
 import TableOfContentsModal from '@/entities/post/ui/TableOfContentsModal';
 import PageSection from '@/shared/ui/layout/PageSection';
@@ -25,8 +27,13 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
 
-  const content = await getPostContentApi({ contentUrl: post.contentUrl });
+  const [content, adjacentPostsResponse] = await Promise.all([
+    getPostContentApi({ contentUrl: post.contentUrl }),
+    postService.findAdjacentPosts(post.slug),
+  ]);
+
   const headings = extractHeadings(content);
+  const adjacentPosts = adjacentPostsResponse.data ?? { prev: null, next: null };
 
   return (
     <PageSection as="article" withContainer={false}>
@@ -47,6 +54,7 @@ export default async function PostPage({ params }: Props) {
       <div className="flex flex-col gap-12 px-4 mx-auto md:px-6 max-w-7xl lg:flex-row">
         <div className="w-full max-w-none lg:w-3/4">
           <PostArticleContent content={content} />
+          <PostNavigation adjacentPosts={adjacentPosts} />
           <GiscusWidget />
         </div>
 
