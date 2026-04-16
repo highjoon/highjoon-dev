@@ -209,4 +209,141 @@ describe('postService', () => {
       expect(result.statusCode).toBe(StatusCodes.CREATED);
     });
   });
+
+  describe('findAdjacentPosts', () => {
+    const olderPost = { slug: 'older-post', title: 'Older Post' };
+    const newerPost = { slug: 'newer-post', title: 'Newer Post' };
+
+    test('이전글과 다음글이 모두 있을 때 반환한다', async () => {
+      prisma.post.findUnique.mockResolvedValue(mockPost);
+      prisma.post.findFirst
+        .mockResolvedValueOnce(olderPost) // prev
+        .mockResolvedValueOnce(newerPost); // next
+
+      const result = await postService.findAdjacentPosts('test-post');
+
+      expect(result.success).toBe(true);
+      expect(result.data?.prev).toEqual(olderPost);
+      expect(result.data?.next).toEqual(newerPost);
+    });
+
+    test('이전글이 없을 때 prev가 null이다', async () => {
+      prisma.post.findUnique.mockResolvedValue(mockPost);
+      prisma.post.findFirst
+        .mockResolvedValueOnce(null) // prev
+        .mockResolvedValueOnce(newerPost); // next
+
+      const result = await postService.findAdjacentPosts('test-post');
+
+      expect(result.success).toBe(true);
+      expect(result.data?.prev).toBeNull();
+      expect(result.data?.next).toEqual(newerPost);
+    });
+
+    test('다음글이 없을 때 next가 null이다', async () => {
+      prisma.post.findUnique.mockResolvedValue(mockPost);
+      prisma.post.findFirst
+        .mockResolvedValueOnce(olderPost) // prev
+        .mockResolvedValueOnce(null); // next
+
+      const result = await postService.findAdjacentPosts('test-post');
+
+      expect(result.success).toBe(true);
+      expect(result.data?.prev).toEqual(olderPost);
+      expect(result.data?.next).toBeNull();
+    });
+
+    test('존재하지 않는 게시물이면 404를 반환한다', async () => {
+      prisma.post.findUnique.mockResolvedValue(null);
+
+      const result = await postService.findAdjacentPosts('not-found');
+
+      expect(result.success).toBe(false);
+      expect(result.statusCode).toBe(StatusCodes.NOT_FOUND);
+    });
+
+    test('숨겨진 게시물이면 404를 반환한다', async () => {
+      prisma.post.findUnique.mockResolvedValue({ ...mockPost, isHidden: true });
+
+      const result = await postService.findAdjacentPosts('hidden-post');
+
+      expect(result.success).toBe(false);
+      expect(result.statusCode).toBe(StatusCodes.NOT_FOUND);
+    });
+
+    test('DB 에러 발생 시 500을 반환한다', async () => {
+      prisma.post.findUnique.mockRejectedValue(new Error('DB error'));
+
+      const result = await postService.findAdjacentPosts('test-post');
+
+      expect(result.success).toBe(false);
+      expect(result.statusCode).toBe(StatusCodes.INTERNAL_SERVER_ERROR);
+    });
+  });
+
+  describe('findAdjacentPosts', () => {
+    test('이전글과 다음글이 모두 있을 때 반환한다', async () => {
+      const prevPost = { ...mockPost, id: 'post-0', slug: 'prev-post', publishedAt: new Date('2024-01-01') };
+      const nextPost = { ...mockPost, id: 'post-2', slug: 'next-post', publishedAt: new Date('2024-01-03') };
+      prisma.post.findUnique.mockResolvedValue(mockPost);
+      prisma.post.findFirst.mockResolvedValueOnce(prevPost).mockResolvedValueOnce(nextPost);
+
+      const result = await postService.findAdjacentPosts('test-post');
+
+      expect(result.success).toBe(true);
+      expect(result.data?.prev).toEqual(prevPost);
+      expect(result.data?.next).toEqual(nextPost);
+    });
+
+    test('이전글이 없을 때 prev가 null이다', async () => {
+      const nextPost = { ...mockPost, id: 'post-2', slug: 'next-post', publishedAt: new Date('2024-01-03') };
+      prisma.post.findUnique.mockResolvedValue(mockPost);
+      prisma.post.findFirst.mockResolvedValueOnce(null).mockResolvedValueOnce(nextPost);
+
+      const result = await postService.findAdjacentPosts('test-post');
+
+      expect(result.success).toBe(true);
+      expect(result.data?.prev).toBeNull();
+      expect(result.data?.next).toEqual(nextPost);
+    });
+
+    test('다음글이 없을 때 next가 null이다', async () => {
+      const prevPost = { ...mockPost, id: 'post-0', slug: 'prev-post', publishedAt: new Date('2024-01-01') };
+      prisma.post.findUnique.mockResolvedValue(mockPost);
+      prisma.post.findFirst.mockResolvedValueOnce(prevPost).mockResolvedValueOnce(null);
+
+      const result = await postService.findAdjacentPosts('test-post');
+
+      expect(result.success).toBe(true);
+      expect(result.data?.prev).toEqual(prevPost);
+      expect(result.data?.next).toBeNull();
+    });
+
+    test('존재하지 않는 게시물이면 404를 반환한다', async () => {
+      prisma.post.findUnique.mockResolvedValue(null);
+
+      const result = await postService.findAdjacentPosts('not-found');
+
+      expect(result.success).toBe(false);
+      expect(result.statusCode).toBe(StatusCodes.NOT_FOUND);
+    });
+
+    test('숨겨진 게시물이면 404를 반환한다', async () => {
+      prisma.post.findUnique.mockResolvedValue({ ...mockPost, isHidden: true });
+
+      const result = await postService.findAdjacentPosts('hidden-post');
+
+      expect(result.success).toBe(false);
+      expect(result.statusCode).toBe(StatusCodes.NOT_FOUND);
+    });
+
+    test('DB 에러 발생 시 500을 반환한다', async () => {
+      prisma.post.findUnique.mockRejectedValue(new Error('DB error'));
+
+      const result = await postService.findAdjacentPosts('test-post');
+
+      expect(result.success).toBe(false);
+      expect(result.statusCode).toBe(StatusCodes.INTERNAL_SERVER_ERROR);
+    });
+  });
 });

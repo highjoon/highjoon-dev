@@ -2,6 +2,7 @@ import { type Post, prisma } from '@highjoon-dev/prisma';
 import { type Nullable, type PaginationMeta } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
+import { type AdjacentPosts } from '@/entities/post/api/getPostApi/dto';
 import { getTodayMidnight } from '@/entities/post/lib/getTomorrowMidnight';
 import { postTagService } from '@/entities/tag/services/postTag.service';
 import { tagService } from '@/entities/tag/services/tag.service';
@@ -62,6 +63,33 @@ class PostService {
       return ServiceResponse.success<Post>('게시물을 찾았습니다.', post, StatusCodes.OK);
     } catch (error) {
       return handleInternalError(error, 'findPost Error');
+    }
+  }
+
+  async findAdjacentPosts(slug: Post['slug']): Promise<ServiceResponse<Nullable<AdjacentPosts>>> {
+    try {
+      const post = await prisma.post.findUnique({ where: { slug } });
+
+      if (!post || post.isHidden) {
+        return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
+      }
+
+      const [prev, next] = await Promise.all([
+        prisma.post.findFirst({
+          where: { publishedAt: { lt: post.publishedAt }, isHidden: false },
+          orderBy: { publishedAt: 'desc' },
+          select: { slug: true, title: true },
+        }),
+        prisma.post.findFirst({
+          where: { publishedAt: { gt: post.publishedAt }, isHidden: false },
+          orderBy: { publishedAt: 'asc' },
+          select: { slug: true, title: true },
+        }),
+      ]);
+
+      return ServiceResponse.success('인접 게시물을 찾았습니다.', { prev, next }, StatusCodes.OK);
+    } catch (error) {
+      return handleInternalError(error, 'findAdjacentPosts Error');
     }
   }
 
