@@ -55,7 +55,9 @@ export default async function PostPage({ params }: Props) {
         <div className="w-full max-w-none lg:w-3/4">
           <PostArticleContent content={content} />
           <PostNavigation adjacentPosts={adjacentPosts} />
-          <GiscusWidget />
+          <div className="mt-12">
+            <GiscusWidget />
+          </div>
         </div>
 
         <div className="hidden lg:block lg:w-1/4">

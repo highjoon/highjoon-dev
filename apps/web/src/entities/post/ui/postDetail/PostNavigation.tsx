@@ -13,12 +13,12 @@ export default function PostNavigation({ adjacentPosts }: Props) {
   const { prev, next } = adjacentPosts;
 
   return (
-    <nav className="grid grid-cols-2 gap-4 mt-12 pt-8 border-t border-vibrant-border-color">
-      <div>
+    <nav className="grid grid-cols-1 gap-4 mt-12 pt-8 border-t border-vibrant-border-color sm:grid-cols-2">
+      <div className="flex">
         {prev ? (
           <Link
             href={createPostPath(prev.slug)}
-            className="flex flex-col gap-2 p-4 transition-colors rounded-2xl border border-vibrant-border-color hover:border-vibrant-brand hover:bg-vibrant-brand-light dark:hover:bg-indigo-950 group">
+            className="flex flex-col w-full gap-2 p-4 transition-colors rounded-2xl border border-vibrant-border-color hover:border-vibrant-brand hover:bg-vibrant-brand-light dark:hover:bg-indigo-950 group">
             <span className="flex items-center gap-1 text-xs font-bold text-vibrant-text-muted group-hover:text-vibrant-brand">
               <ChevronLeft size={14} />
               이전글
@@ -30,11 +30,11 @@ export default function PostNavigation({ adjacentPosts }: Props) {
         ) : null}
       </div>
 
-      <div>
+      <div className="flex">
         {next ? (
           <Link
             href={createPostPath(next.slug)}
-            className="flex flex-col items-end gap-2 p-4 transition-colors rounded-2xl border border-vibrant-border-color hover:border-vibrant-brand hover:bg-vibrant-brand-light dark:hover:bg-indigo-950 group">
+            className="flex flex-col items-end w-full gap-2 p-4 transition-colors rounded-2xl border border-vibrant-border-color hover:border-vibrant-brand hover:bg-vibrant-brand-light dark:hover:bg-indigo-950 group">
             <span className="flex items-center gap-1 text-xs font-bold text-vibrant-text-muted group-hover:text-vibrant-brand">
               다음글
               <ChevronRight size={14} />
