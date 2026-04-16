@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { getGiscusStatsApi } from '@/entities/giscus/api/getGiscusStatsApi';
 import { getAllPostsApi } from '@/entities/post/api/getAllPostsApi';
 import { POSTS_PER_PAGE } from '@/entities/post/lib/post';
 import PostsSchema from '@/entities/post/lib/PostsSchema';
@@ -16,10 +17,10 @@ interface Props {
 
 export default async function PostsPage({ params }: Props) {
   const currentPage = Number(params.id);
-  const { posts, meta } = await getAllPostsApi({
-    skip: (currentPage - 1) * POSTS_PER_PAGE,
-    take: POSTS_PER_PAGE,
-  });
+  const [{ posts, meta }, giscusStats] = await Promise.all([
+    getAllPostsApi({ skip: (currentPage - 1) * POSTS_PER_PAGE, take: POSTS_PER_PAGE }),
+    getGiscusStatsApi(),
+  ]);
 
   const totalPage = Math.ceil(meta.total / POSTS_PER_PAGE);
 
@@ -39,7 +40,7 @@ export default async function PostsPage({ params }: Props) {
 
         <PostGrid>
           {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
+            <PostCard key={post.id} post={post} giscusStats={giscusStats[post.slug]} />
           ))}
         </PostGrid>
 

@@ -5,17 +5,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
-import { ChevronRight, Clock } from 'lucide-react';
+import { ChevronRight, Clock, Eye, Heart, MessageSquare } from 'lucide-react';
 
+import { GiscusStats } from '@/entities/giscus/api/getGiscusStatsApi/dto';
 import { PostWithTags } from '@/entities/post/api/getPostApi/dto';
 import { createPostPath } from '@/entities/post/lib/post';
 import { ROUTES } from '@/shared/routes/routes';
 
 interface Props {
   post: PostWithTags;
+  giscusStats?: GiscusStats;
 }
 
-export default function PostCard({ post }: Props) {
+export default function PostCard({ post, giscusStats }: Props) {
   const router = useRouter();
 
   return (
@@ -58,11 +60,26 @@ export default function PostCard({ post }: Props) {
             ))}
           </div>
 
-          <p className="mb-6 text-sm font-medium leading-relaxed text-slate-600 dark:text-slate-400 line-clamp-2">
+          <p className="mb-4 text-sm font-medium leading-relaxed text-slate-600 dark:text-slate-400 line-clamp-2">
             {post.description}
           </p>
 
-          <div className="flex items-center justify-between h-16 pt-6 mt-auto border-t border-slate-200 dark:border-slate-800 group/footer">
+          <div className="flex items-center gap-3 mb-6 text-xs font-medium text-slate-400 dark:text-slate-500">
+            <span className="flex items-center gap-1">
+              <Eye size={13} />
+              <span>{(post.viewCount ?? 0).toLocaleString()}</span>
+            </span>
+            <span className="flex items-center gap-1">
+              <MessageSquare size={13} />
+              <span>{(giscusStats?.commentCount ?? 0).toLocaleString()}</span>
+            </span>
+            <span className="flex items-center gap-1">
+              <Heart size={13} />
+              <span>{(giscusStats?.reactionCount ?? 0).toLocaleString()}</span>
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between h-8 pt-6 mt-auto border-t border-slate-200 dark:border-slate-800">
             <span className="text-sm font-bold transition-colors text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
               Read more
             </span>

@@ -52,3 +52,4 @@ storybook-static
 
 # Prisma generated client
 packages/prisma/generated
+.env*.local

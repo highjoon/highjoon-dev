@@ -2,6 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { Tag } from 'lucide-react';
 
+import { getGiscusStatsApi } from '@/entities/giscus/api/getGiscusStatsApi';
 import PostCard from '@/entities/post/ui/PostCard';
 import { getAllTagsApi } from '@/entities/tag/api/getAllTagsApi';
 import { getPostsByTagApi } from '@/entities/tag/api/getPostsByTagApi';
@@ -37,11 +38,10 @@ export default async function TagDetailPage({ params }: Props) {
   const take = POSTS_PER_TAG_PAGE;
 
   // 태그별 게시물 조회
-  const posts = await getPostsByTagApi({
-    tagId: tag.id,
-    skip,
-    take,
-  });
+  const [posts, giscusStats] = await Promise.all([
+    getPostsByTagApi({ tagId: tag.id, skip, take }),
+    getGiscusStatsApi(),
+  ]);
 
   // 전체 페이지 수 계산
   const totalPosts = tag._count.postTags;
@@ -87,7 +87,7 @@ export default async function TagDetailPage({ params }: Props) {
       ) : (
         <PostGrid>
           {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
+            <PostCard key={post.id} post={post} giscusStats={giscusStats[post.slug]} />
           ))}
         </PostGrid>
       )}

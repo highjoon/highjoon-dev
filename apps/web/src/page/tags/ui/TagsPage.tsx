@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { getGiscusStatsApi } from '@/entities/giscus/api/getGiscusStatsApi';
 import { getAllPostsApi } from '@/entities/post/api/getAllPostsApi';
 import PostCard from '@/entities/post/ui/PostCard';
 import { getAllTagsApi } from '@/entities/tag/api/getAllTagsApi';
@@ -21,15 +22,14 @@ export default async function TagsPage({ searchParams }: Props) {
   const params = await searchParams;
   const currentPage = Number(params?.page) || 1;
 
-  const tags = await getAllTagsApi();
-  const sortedTags = sortTagsByPopularity(tags);
-
-  // 페이지네이션된 게시물 조회
   const skip = (currentPage - 1) * POSTS_PER_TAG_PAGE;
-  const { posts, meta } = await getAllPostsApi({
-    skip,
-    take: POSTS_PER_TAG_PAGE,
-  });
+
+  const [tags, { posts, meta }, giscusStats] = await Promise.all([
+    getAllTagsApi(),
+    getAllPostsApi({ skip, take: POSTS_PER_TAG_PAGE }),
+    getGiscusStatsApi(),
+  ]);
+  const sortedTags = sortTagsByPopularity(tags);
 
   const totalPages = Math.ceil(meta.total / POSTS_PER_TAG_PAGE);
 
@@ -66,7 +66,7 @@ export default async function TagsPage({ searchParams }: Props) {
       ) : (
         <PostGrid>
           {posts.map((post) => (
-            <PostCard key={post.id} post={post} />
+            <PostCard key={post.id} post={post} giscusStats={giscusStats[post.slug]} />
           ))}
         </PostGrid>
       )}
