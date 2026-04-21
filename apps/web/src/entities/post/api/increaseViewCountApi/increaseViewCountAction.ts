@@ -12,4 +12,7 @@ export const increaseViewCountAction = async (params: IncreaseViewCountRequestDt
 
   await postService.increaseViewCount(params.slug, ip);
   revalidatePath(`/blogs/${params.slug}`);
+  revalidatePath('/');
+  revalidatePath('/pages/[id]', 'page');
+  revalidatePath('/tags/[name]/[page]', 'page');
 };

@@ -34,9 +34,10 @@ interface DiscussionsPage {
   nodes: DiscussionNode[];
 }
 
-// giscus discussion title 형식: "blogs/slug"
+// giscus discussion title 형식: "blogs/slug" (mapping="pathname")
+// 실제 GitHub Discussions 확인 결과: leading slash 없이 "blogs/slug-name" 형식으로 생성됨
 function extractSlugFromTitle(title: string): string | null {
-  const match = title.match(/^blogs\/(.+)$/);
+  const match = title.match(/^\/?blogs\/(.+)$/);
   return match ? match[1] : null;
 }
 
