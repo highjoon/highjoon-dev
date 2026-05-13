@@ -64,4 +64,45 @@ describe('categoryService', () => {
       expect(result.statusCode).toBe(StatusCodes.INTERNAL_SERVER_ERROR);
     });
   });
+
+  describe('findCategoryBySlug', () => {
+    test('카테고리를 찾으면 parent/children 포함하여 반환한다', async () => {
+      const mockCategory = {
+        id: 'c2',
+        slug: 'react',
+        name: 'React',
+        parentId: 'c1',
+        parent: { id: 'c1', slug: 'frontend', name: '프론트엔드', parentId: null },
+        children: [],
+      };
+      prisma.category.findUnique.mockResolvedValue(mockCategory);
+
+      const result = await categoryService.findCategoryBySlug('react');
+
+      expect(result.success).toBe(true);
+      expect(result.data).toEqual(mockCategory);
+      expect(prisma.category.findUnique).toHaveBeenCalledWith({
+        where: { slug: 'react' },
+        include: { parent: true, children: { orderBy: { name: 'asc' } } },
+      });
+    });
+
+    test('카테고리가 없으면 404 응답을 반환한다', async () => {
+      prisma.category.findUnique.mockResolvedValue(null);
+
+      const result = await categoryService.findCategoryBySlug('unknown');
+
+      expect(result.success).toBe(false);
+      expect(result.statusCode).toBe(StatusCodes.NOT_FOUND);
+    });
+
+    test('에러 발생 시 500 응답을 반환한다', async () => {
+      prisma.category.findUnique.mockRejectedValue(new Error('DB error'));
+
+      const result = await categoryService.findCategoryBySlug('react');
+
+      expect(result.success).toBe(false);
+      expect(result.statusCode).toBe(StatusCodes.INTERNAL_SERVER_ERROR);
+    });
+  });
 });
