@@ -1,10 +1,14 @@
-import { prisma } from '@highjoon-dev/prisma';
+import { Prisma, prisma } from '@highjoon-dev/prisma';
 import { type Nullable } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
 import { type CategoryTree } from '@/entities/category/api/getAllCategoriesApi/dto';
 import { handleInternalError } from '@/shared/server/lib/handleInternalError';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';
+
+type CategoryWithRelations = Prisma.CategoryGetPayload<{
+  include: { parent: true; children: true };
+}>;
 
 class CategoryService {
   async findAllCategories(): Promise<ServiceResponse<Nullable<CategoryTree>>> {
@@ -21,7 +25,7 @@ class CategoryService {
     }
   }
 
-  async findCategoryBySlug(slug: string) {
+  async findCategoryBySlug(slug: string): Promise<ServiceResponse<Nullable<CategoryWithRelations>>> {
     try {
       const category = await prisma.category.findUnique({
         where: { slug },

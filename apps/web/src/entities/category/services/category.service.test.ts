@@ -80,6 +80,7 @@ describe('categoryService', () => {
       const result = await categoryService.findCategoryBySlug('react');
 
       expect(result.success).toBe(true);
+      expect(result.statusCode).toBe(StatusCodes.OK);
       expect(result.data).toEqual(mockCategory);
       expect(prisma.category.findUnique).toHaveBeenCalledWith({
         where: { slug: 'react' },
