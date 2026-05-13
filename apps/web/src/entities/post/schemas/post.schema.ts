@@ -13,6 +13,7 @@ export const postSchema = z.object({
   ),
   tags: z.preprocess((arg) => (Array.isArray(arg) ? arg : []), z.array(z.string()).default([])),
   category: z.string().optional(),
+  categoryId: z.string().cuid().nullable().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
   viewCount: z.number().default(0),
