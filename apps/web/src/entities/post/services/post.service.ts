@@ -16,6 +16,10 @@ const postTagsSelect = {
   postTags: { select: { tagId: true, tag: { select: { id: true, name: true } } } },
 } as const;
 
+const postCategorySelect = {
+  categoryRef: { select: { id: true, slug: true, name: true, parentId: true } },
+} as const;
+
 class PostService {
   async findAllPosts(options?: {
     skip?: number;
@@ -31,7 +35,7 @@ class PostService {
           orderBy: { publishedAt: 'desc' },
           skip,
           take,
-          include: postTagsSelect,
+          include: { ...postTagsSelect, ...postCategorySelect },
         }),
         prisma.post.count({ where: { isHidden: false } }),
       ]);
@@ -54,7 +58,10 @@ class PostService {
 
   async findPost(slug: Post['slug']): Promise<ServiceResponse<Nullable<Post>>> {
     try {
-      const post = await prisma.post.findUnique({ where: { slug }, include: postTagsSelect });
+      const post = await prisma.post.findUnique({
+        where: { slug },
+        include: { ...postTagsSelect, ...postCategorySelect },
+      });
 
       if (!post || post.isHidden) {
         return ServiceResponse.failure('게시물이 존재하지 않습니다.', null, StatusCodes.NOT_FOUND);
@@ -98,7 +105,7 @@ class PostService {
       const post = await prisma.post.findFirst({
         where: { isFeatured: true, isHidden: false },
         orderBy: { publishedAt: 'desc' },
-        include: postTagsSelect,
+        include: { ...postTagsSelect, ...postCategorySelect },
       });
 
       if (!post) {
@@ -128,7 +135,7 @@ class PostService {
 
         return await transaction.post.findUnique({
           where: { id: post.id },
-          include: { postTags: { include: { tag: true } } },
+          include: { postTags: { include: { tag: true } }, categoryRef: true },
         });
       });
 
@@ -173,7 +180,10 @@ class PostService {
           }
         }
 
-        return await transaction.post.findUnique({ where: { id }, include: { postTags: { include: { tag: true } } } });
+        return await transaction.post.findUnique({
+          where: { id },
+          include: { postTags: { include: { tag: true } }, categoryRef: true },
+        });
       });
 
       return ServiceResponse.success('게시물이 수정되었습니다.', result as Post, StatusCodes.OK);

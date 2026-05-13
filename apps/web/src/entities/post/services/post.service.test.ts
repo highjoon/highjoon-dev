@@ -142,6 +142,29 @@ describe('postService', () => {
       expect(result.success).toBe(false);
       expect(result.statusCode).toBe(StatusCodes.NOT_FOUND);
     });
+
+    test('findPost는 categoryRef를 include 한다', async () => {
+      const mockPostWithCategory = {
+        id: 'p1',
+        slug: 'test',
+        title: 'T',
+        isHidden: false,
+        postTags: [],
+        categoryRef: { id: 'c1', slug: 'react', name: 'React', parentId: null },
+      };
+      prisma.post.findUnique.mockResolvedValue(mockPostWithCategory);
+
+      const result = await postService.findPost('test');
+
+      expect(result.success).toBe(true);
+      expect(prisma.post.findUnique).toHaveBeenCalledWith({
+        where: { slug: 'test' },
+        include: {
+          postTags: { select: { tagId: true, tag: { select: { id: true, name: true } } } },
+          categoryRef: { select: { id: true, slug: true, name: true, parentId: true } },
+        },
+      });
+    });
   });
 
   describe('findFeaturedPost', () => {
