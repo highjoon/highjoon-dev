@@ -19,6 +19,7 @@ model Post {
   bannerImageUrl String
   publishedAt    DateTime        @db.Timestamptz(6)
   category       String?
+  categoryId     String?
   createdAt      DateTime?       @default(now()) @db.Timestamptz(6)
   updatedAt      DateTime?       @updatedAt @db.Timestamptz(6)
   viewCount      Int?            @default(0)
@@ -27,8 +28,10 @@ model Post {
   viewLogs       PostViewLog[]
   viewStats      PostViewStats[]
   postTags       PostTag[]
+  categoryRef    Category?       @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
   @@index([publishedAt])
+  @@index([categoryId])
 }
 
 model PostViewStats {
@@ -74,4 +77,19 @@ model PostTag {
   @@unique([postId, tagId])
   @@index([postId])
   @@index([tagId])
+}
+
+model Category {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  name      String
+  parentId  String?
+  parent    Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id], onDelete: Restrict)
+  children  Category[] @relation("CategoryHierarchy")
+  createdAt DateTime   @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime   @updatedAt       @db.Timestamptz(6)
+  posts     Post[]
+
+  @@index([parentId])
+  @@index([slug])
 }
