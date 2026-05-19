@@ -14,4 +14,4 @@ export const createPostPath = (slug: Post['slug']) => {
 /**
  * 게시물 페이지당 게시물 수
  */
-export const POSTS_PER_PAGE = 9;
+export const POSTS_PER_PAGE = 6;

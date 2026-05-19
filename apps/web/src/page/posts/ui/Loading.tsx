@@ -19,7 +19,7 @@ export default function Loading() {
       <Skeleton />
 
       <PostGrid>
-        {Array.from({ length: 9 }).map((_, index) => (
+        {Array.from({ length: 6 }).map((_, index) => (
           <PostCardSkeleton key={index} />
         ))}
       </PostGrid>
