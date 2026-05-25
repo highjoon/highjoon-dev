@@ -9,10 +9,9 @@ PostgreSQL + Prisma ORM. 스키마: `schema.prisma`, 생성된 클라이언트: 
 
 ```bash
 pnpm prisma generate       # 클라이언트 생성 (root postinstall에 포함)
-pnpm prisma migrate-dev    # 개발 마이그레이션 (.env.development)
-pnpm prisma migrate        # 프로덕션 마이그레이션 (.env.production)
-pnpm prisma push-dev       # 개발 DB push (마이그레이션 없이 스키마 동기화)
-pnpm prisma pull-dev       # 개발 DB pull
+pnpm prisma migrate        # 마이그레이션 (.env DATABASE_URL)
+pnpm prisma push           # DB push (마이그레이션 없이 스키마 동기화)
+pnpm prisma pull           # DB pull
 pnpm prisma deploy         # prisma migrate deploy (CI/CD)
 ```
 
@@ -36,4 +35,4 @@ Category ──< Category   (parentId self-ref, onDelete: Restrict — 하위 �
   - `Category.parent`: Restrict (하위 카테고리 존재 시 부모 삭제 금지)
 - **댓글/좋아요/유저 모델 없음** — giscus(GitHub Discussions)로 외주화 (`User`, `Comment`, `PostLike`는 과거 제거됨)
 - 타임스탬프는 `Timestamptz(6)`로 통일, 일별 집계용 컬럼만 `@db.Date`
-- 환경별 `.env`로 `DATABASE_URL` 분리 (dotenv-cli)
+- `packages/prisma/.env`의 `DATABASE_URL`을 Prisma CLI가 자동 로드

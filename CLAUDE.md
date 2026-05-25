@@ -19,7 +19,7 @@ packages/config                         Prettier, TSConfig 공유 설정
 
 ```bash
 pnpm dev              # 전체 개발 서버 (turbo --parallel)
-pnpm web dev          # 웹 프론트엔드만 (dotenv -e .env.development)
+pnpm web dev          # 웹 프론트엔드만
 pnpm build            # 전체 빌드
 pnpm test             # 전체 테스트 (apps/web jest)
 pnpm lint             # ESLint (apps/web만 대상)
@@ -54,7 +54,7 @@ page/      페이지 컨테이너 (home, blogs, posts, tags, categories, about, 
 - **Import 정렬**: simple-import-sort (react/next > @패키지 > @/ 내부 > 상대경로)
 - **미사용 import**: unused-imports 플러그인으로 자동 제거
 - **경로 별칭**: `@/*` = `apps/web/src/*`, `@highjoon-dev/ui/*` = UI 패키지 (`transpilePackages`로 빌드)
-- **환경 변수**: dotenv-cli (`.env.development` / `.env.production`)
+- **환경 변수**: 각 패키지의 `.env`를 Next.js / Prisma CLI가 자동 로드
 - **서버 액션**: Next.js server actions + `revalidatePath`로 캐시 무효화
 - **서비스 레이어**: `entities/*/services/`, `features/*/services/` — Prisma 기반 비즈니스 로직, 도메인별 폴더
 - **교차 도메인 유틸**: `src/shared/server/lib/` (extractIp, handleInternalError, httpHandlers), `src/shared/server/models/` (serviceResponse)
