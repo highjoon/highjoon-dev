@@ -12,6 +12,27 @@ Sentry.init({
 
   enableLogs: true,
 
+  ignoreErrors: [
+    'top.GLOBALS',
+    'ResizeObserver loop',
+    'ChunkLoadError',
+    'Loading chunk',
+    'Loading CSS chunk',
+    'Hydration failed',
+    'There was an error while hydrating',
+    'NetworkError when attempting to fetch resource',
+    'Failed to fetch',
+  ],
+
+  denyUrls: [
+    /extensions\//i,
+    /^chrome:\/\//i,
+    /^chrome-extension:\/\//i,
+    /^moz-extension:\/\//i,
+    /^safari-extension:\/\//i,
+    /^safari-web-extension:\/\//i,
+  ],
+
   integrations: [Sentry.replayIntegration()],
 });
 
