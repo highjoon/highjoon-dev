@@ -66,3 +66,5 @@ page/      페이지 컨테이너 (home, blogs, posts, tags, categories, about, 
 - `DATABASE_URL` — Prisma 연결 (PostgreSQL)
 - `GITHUB_TOKEN` — giscus API 호출 (`entities/giscus/services`)
 - `NEXT_PUBLIC_GISCUS_REPO`, `NEXT_PUBLIC_GISCUS_REPO_ID`, `NEXT_PUBLIC_GISCUS_CATEGORY`, `NEXT_PUBLIC_GISCUS_CATEGORY_ID` — giscus 위젯 설정
+- `NEXT_PUBLIC_SENTRY_DSN`, `SENTRY_DSN` — Sentry 클라이언트/서버 DSN
+- `SENTRY_ORG`, `SENTRY_PROJECT`, `SENTRY_AUTH_TOKEN` — 빌드 시 source map 업로드용

@@ -3,7 +3,19 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "env": ["DATABASE_URL", "GITHUB_TOKEN", "NEXT_PUBLIC_GISCUS_REPO", "NEXT_PUBLIC_GISCUS_REPO_ID", "NEXT_PUBLIC_GISCUS_CATEGORY", "NEXT_PUBLIC_GISCUS_CATEGORY_ID"],
+      "env": [
+        "DATABASE_URL",
+        "GITHUB_TOKEN",
+        "NEXT_PUBLIC_GISCUS_REPO",
+        "NEXT_PUBLIC_GISCUS_REPO_ID",
+        "NEXT_PUBLIC_GISCUS_CATEGORY",
+        "NEXT_PUBLIC_GISCUS_CATEGORY_ID",
+        "NEXT_PUBLIC_SENTRY_DSN",
+        "SENTRY_DSN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "SENTRY_AUTH_TOKEN"
+      ],
       "outputs": ["!.next/cache/**", ".next/**"]
     },
     "check-types": {
