@@ -14,6 +14,7 @@ import { Dialog, DialogContent, DialogTitle } from '@highjoon-dev/ui/components/
 import dayjs from 'dayjs';
 import { ChevronRight, FileText } from 'lucide-react';
 
+import { formatCategoryBreadcrumb } from '@/entities/category/lib/category';
 import { useGetPosts } from '@/entities/post/api/getAllPostsApi/useGetPosts';
 import { createPostPath } from '@/entities/post/lib/post';
 
@@ -35,7 +36,10 @@ export default function SearchDialog({ isOpen, onClose }: SearchDialogProps) {
 
     const query = searchQuery.toLowerCase();
     return posts.filter(
-      (post) => post.title.toLowerCase().includes(query) || (post.category?.toLowerCase().includes(query) ?? false),
+      (post) =>
+        post.title.toLowerCase().includes(query) ||
+        (post.categoryRef?.name.toLowerCase().includes(query) ?? false) ||
+        (post.categoryRef?.parent?.name.toLowerCase().includes(query) ?? false),
     );
   }, [searchQuery, posts]);
 
@@ -73,7 +77,8 @@ export default function SearchDialog({ isOpen, onClose }: SearchDialogProps) {
 
             const searchLower = search.toLowerCase();
             if (post.title.toLowerCase().includes(searchLower)) return 1;
-            if (post.category?.toLowerCase().includes(searchLower)) return 1;
+            if (post.categoryRef?.name.toLowerCase().includes(searchLower)) return 1;
+            if (post.categoryRef?.parent?.name.toLowerCase().includes(searchLower)) return 1;
             return 0;
           }}>
           <div className="flex items-center justify-between px-6 py-5 border-b border-slate-300 dark:border-slate-800">
@@ -114,7 +119,7 @@ export default function SearchDialog({ isOpen, onClose }: SearchDialogProps) {
                         {post.title}
                       </p>
                       <p className="text-xs truncate text-slate-500 dark:text-slate-400">
-                        {post.category} · {dayjs(post.publishedAt).format('YYYY-MM-DD')}
+                        {formatCategoryBreadcrumb(post.categoryRef)} · {dayjs(post.publishedAt).format('YYYY-MM-DD')}
                       </p>
                     </div>
                     <ChevronRight size={16} className="ml-2 text-slate-300 group-hover:text-indigo-600" />

@@ -1,9 +1,10 @@
-import { Post } from '@highjoon-dev/prisma';
 import { PaginationMeta, ServiceResponseInterface } from '@highjoon-dev/types';
+
+import type { PostWithTags } from '@/entities/post/api/getPostApi/dto';
 
 // 페이지네이션 응답 타입
 export interface PostsWithMeta {
-  posts: Post[];
+  posts: PostWithTags[];
   meta: PaginationMeta;
 }
 

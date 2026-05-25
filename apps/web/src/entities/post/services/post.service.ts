@@ -17,7 +17,15 @@ const postTagsSelect = {
 } as const;
 
 const postCategorySelect = {
-  categoryRef: { select: { id: true, slug: true, name: true, parentId: true } },
+  categoryRef: {
+    select: {
+      id: true,
+      slug: true,
+      name: true,
+      parentId: true,
+      parent: { select: { id: true, slug: true, name: true } },
+    },
+  },
 } as const;
 
 class PostService {
@@ -135,7 +143,7 @@ class PostService {
 
         return await transaction.post.findUnique({
           where: { id: post.id },
-          include: { postTags: { include: { tag: true } }, categoryRef: true },
+          include: { postTags: { include: { tag: true } }, ...postCategorySelect },
         });
       });
 
@@ -182,7 +190,7 @@ class PostService {
 
         return await transaction.post.findUnique({
           where: { id },
-          include: { postTags: { include: { tag: true } }, categoryRef: true },
+          include: { postTags: { include: { tag: true } }, ...postCategorySelect },
         });
       });
 

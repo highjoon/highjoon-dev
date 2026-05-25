@@ -72,7 +72,6 @@ const mockPost = {
   publishedAt: new Date(),
   createdAt: new Date(),
   updatedAt: new Date(),
-  category: null,
   categoryId: null,
   viewCount: 10,
   isFeatured: false,
@@ -161,7 +160,15 @@ describe('postService', () => {
         where: { slug: 'test' },
         include: {
           postTags: { select: { tagId: true, tag: { select: { id: true, name: true } } } },
-          categoryRef: { select: { id: true, slug: true, name: true, parentId: true } },
+          categoryRef: {
+            select: {
+              id: true,
+              slug: true,
+              name: true,
+              parentId: true,
+              parent: { select: { id: true, slug: true, name: true } },
+            },
+          },
         },
       });
     });

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import { ChevronRight, Clock, Eye, Heart, MessageSquare } from 'lucide-react';
 
+import { createCategoryPath, formatCategoryBreadcrumb } from '@/entities/category/lib/category';
 import { GiscusStats } from '@/entities/giscus/api/getGiscusStatsApi/dto';
 import { PostWithTags } from '@/entities/post/api/getPostApi/dto';
 import { createPostPath } from '@/entities/post/lib/post';
@@ -15,6 +16,8 @@ interface Props {
 }
 
 export default function PostCard({ post, giscusStats }: Props) {
+  const categoryLabel = formatCategoryBreadcrumb(post.categoryRef);
+
   return (
     <li className="relative overflow-hidden transition-all duration-500 bg-white border dark:bg-slate-900 group rounded-3xl hover:-translate-y-2 border-slate-200 dark:border-slate-800 hover:shadow-2xl hover:shadow-indigo-100/50 dark:hover:shadow-indigo-500/10">
       <div className="flex flex-col h-full">
@@ -28,9 +31,15 @@ export default function PostCard({ post, giscusStats }: Props) {
         </div>
         <div className="flex flex-col flex-1 p-8">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-black tracking-wider text-indigo-600 uppercase dark:text-indigo-400">
-              {post.category}
-            </span>
+            {post.categoryRef ? (
+              <Link
+                href={createCategoryPath(post.categoryRef.slug)}
+                className="relative z-10 text-xs font-black tracking-wider text-indigo-600 uppercase transition-colors dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300">
+                {categoryLabel}
+              </Link>
+            ) : (
+              <span />
+            )}
             <div className="flex items-center text-xs font-bold text-slate-500 dark:text-slate-400">
               <Clock size={14} className="mr-1.5" />
               <span>{dayjs(post.publishedAt).format('YYYY-MM-DD')}</span>

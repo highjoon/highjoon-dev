@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { type Post } from '@highjoon-dev/prisma';
 
 import { type PostsWithMeta } from '@/entities/post/api/getAllPostsApi/dto';
+import { type PostWithTags } from '@/entities/post/api/getPostApi/dto';
 
 export const useGetPosts = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<PostWithTags[]>([]);
 
   const getPostListHandler = useCallback(async () => {
     const response = await fetch('/api/post');

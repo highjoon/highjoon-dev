@@ -12,7 +12,6 @@ export const postSchema = z.object({
     z.date().refine((date) => !isNaN(date.getTime()), { message: '유효한 날짜여야 합니다.' }),
   ),
   tags: z.preprocess((arg) => (Array.isArray(arg) ? arg : []), z.array(z.string()).default([])),
-  category: z.string().optional(),
   categoryId: z.string().cuid().nullable().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),

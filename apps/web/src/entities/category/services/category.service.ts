@@ -10,9 +10,21 @@ type CategoryWithRelations = Prisma.CategoryGetPayload<{
   include: { parent: true; children: true };
 }>;
 
+const postCategorySelect = {
+  categoryRef: {
+    select: {
+      id: true,
+      slug: true,
+      name: true,
+      parentId: true,
+      parent: { select: { id: true, slug: true, name: true } },
+    },
+  },
+} as const;
+
 type PostsByCategoryResult = {
   posts: Prisma.PostGetPayload<{
-    include: { postTags: { include: { tag: true } }; categoryRef: true };
+    include: { postTags: { include: { tag: true } }; categoryRef: typeof postCategorySelect.categoryRef };
   }>[];
   meta: PaginationMeta;
   category: Prisma.CategoryGetPayload<{ include: { children: { select: { id: true } } } }>;
@@ -81,7 +93,7 @@ class CategoryService {
           take,
           include: {
             postTags: { include: { tag: true } },
-            categoryRef: true,
+            ...postCategorySelect,
           },
         }),
         prisma.post.count({ where }),

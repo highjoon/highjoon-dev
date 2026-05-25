@@ -5,9 +5,13 @@ export interface GetPostRequestDto {
   slug: Post['slug'];
 }
 
+export type CategoryRef = Pick<Category, 'id' | 'slug' | 'name' | 'parentId'> & {
+  parent: Pick<Category, 'id' | 'slug' | 'name'> | null;
+};
+
 export type PostWithTags = Post & {
   postTags?: (PostTag & { tag: Tag })[];
-  categoryRef?: Category | null;
+  categoryRef?: CategoryRef | null;
 };
 
 export type GetPostResponseDto = ServiceResponseInterface<PostWithTags>;
