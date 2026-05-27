@@ -51,6 +51,7 @@
     "prettier-config": "pnpm -F @highjoon-dev/prettier-config",
     "prettier:fix": "pnpm -r run prettier:fix",
     "prisma": "pnpm -F @highjoon-dev/prisma",
+    "drizzle": "pnpm -F @highjoon-dev/drizzle",
     "prune": "pnpm prune",
     "test": "turbo run test",
     "test:coverage": "pnpm -r run test --coverage",
