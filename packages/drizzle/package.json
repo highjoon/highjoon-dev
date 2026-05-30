@@ -11,9 +11,12 @@
     "pull": "drizzle-kit pull",
     "studio": "drizzle-kit studio",
     "check": "drizzle-kit check",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "prettier:fix": "prettier './*.ts' './schema/**/*.ts' --write"
   },
   "dependencies": {
+    "@paralleldrive/cuid2": "^3.3.0",
     "drizzle-orm": "^0.45.2",
     "pg": "^8.13.1"
   },
@@ -21,6 +24,7 @@
     "@types/pg": "^8.11.10",
     "dotenv": "^16.4.7",
     "drizzle-kit": "^0.31.10",
+    "prettier": "^3.8.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }

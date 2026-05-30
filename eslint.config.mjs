@@ -18,6 +18,7 @@ export default [
       "packages/config/**",
       "packages/prisma/**",
       "packages/types/**",
+      "packages/drizzle/.migrations-reference/**",
       "coverage/**",
       "**/*.{config.js,config.cjs}",
       "**/*/.prettierrc.js",
@@ -76,7 +77,9 @@ export default [
     },
   },
   // 5) Next.js rules for apps/web ONLY
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...compat
+    .extends("next/core-web-vitals", "next/typescript")
+    .map((cfg) => ({ ...cfg, files: ["apps/web/**/*.{js,jsx,ts,tsx}"] })),
   {
     files: ["apps/web/**/*.{js,jsx,ts,tsx}"],
     settings: {

@@ -44,6 +44,9 @@ importers:
       eslint-plugin-simple-import-sort:
         specifier: ^12.1.1
         version: 12.1.1(eslint@9.39.4(jiti@2.6.1))
+      eslint-plugin-storybook:
+        specifier: ^9.1.20
+        version: 9.1.20(eslint@9.39.4(jiti@2.6.1))(storybook@9.1.20(@testing-library/dom@10.4.1)(prettier@3.8.1)(vite@7.1.4(@types/node@22.19.15)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.87.0)(terser@5.46.0)(tsx@4.22.3)(yaml@2.8.2)))(typescript@5.9.3)
       eslint-plugin-unicorn:
         specifier: ^59.0.1
         version: 59.0.1(eslint@9.39.4(jiti@2.6.1))
@@ -71,6 +74,9 @@ importers:
       '@giscus/react':
         specifier: ^3.1.0
         version: 3.1.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@highjoon-dev/drizzle':
+        specifier: workspace:*
+        version: link:../../packages/drizzle
       '@highjoon-dev/prisma':
         specifier: workspace:*
         version: link:../../packages/prisma
@@ -79,7 +85,7 @@ importers:
         version: link:../../packages/ui
       '@sentry/nextjs':
         specifier: ^10.53.1
-        version: 10.53.1(@opentelemetry/core@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.7.1(@opentelemetry/api@1.9.1))(next@15.5.12(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.87.0))(react@19.2.4)(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(postcss@8.5.8))
+        version: 10.53.1(@opentelemetry/core@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.7.1(@opentelemetry/api@1.9.1))(next@15.5.12(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.87.0))(react@19.2.4)(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(lightningcss@1.31.1)(postcss@8.5.8))
       '@vercel/analytics':
         specifier: ^1.5.0
         version: 1.6.1(next@15.5.12(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.87.0))(react@19.2.4)
@@ -92,6 +98,9 @@ importers:
       dayjs:
         specifier: ^1.11.20
         version: 1.11.20
+      drizzle-orm:
+        specifier: ^0.45.2
+        version: 0.45.2(@opentelemetry/api@1.9.1)(@prisma/client@6.19.2(prisma@6.19.2(magicast@0.3.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.15.6)(gel@2.2.0)(pg@8.21.0)(prisma@6.19.2(magicast@0.3.5)(typescript@5.9.3))
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
@@ -218,6 +227,9 @@ importers:
 
   packages/drizzle:
     dependencies:
+      '@paralleldrive/cuid2':
+        specifier: ^3.3.0
+        version: 3.3.0
       drizzle-orm:
         specifier: ^0.45.2
         version: 0.45.2(@opentelemetry/api@1.9.1)(@prisma/client@6.19.2(prisma@6.19.2(magicast@0.3.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.15.6)(gel@2.2.0)(pg@8.21.0)(prisma@6.19.2(magicast@0.3.5)(typescript@5.9.3))
@@ -234,6 +246,9 @@ importers:
       drizzle-kit:
         specifier: ^0.31.10
         version: 0.31.10
+      prettier:
+        specifier: ^3.8.1
+        version: 3.8.1
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
@@ -1996,6 +2011,10 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@noble/hashes@2.2.0':
+    resolution: {integrity: sha512-IYqDGiTXab6FniAgnSdZwgWbomxpy9FtYvLKs7wCUs2a8RkITG+DFGO1DM9cr+E3/RgADRpFjrKVaJ1z6sjtEg==}
+    engines: {node: '>= 20.19.0'}
+
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -2187,6 +2206,10 @@ packages:
     engines: {node: ^18.19.0 || >=20.6.0}
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
+
+  '@paralleldrive/cuid2@3.3.0':
+    resolution: {integrity: sha512-OqiFvSOF0dBSesELYY2CAMa4YINvlLpvKOz/rv6NeZEqiyttlHgv98Juwv4Ch+GrEV7IZ8jfI2VcEoYUjXXCjw==}
+    hasBin: true
 
   '@parcel/watcher-android-arm64@2.5.6':
     resolution: {integrity: sha512-YQxSS34tPF/6ZG7r/Ih9xy+kP/WwediEUsqmtf0cuCV5TPPKw/PQHRhueUo6JdeFJaqV3pyjm0GdYjZotbRt/A==}
@@ -4422,6 +4445,9 @@ packages:
     resolution: {integrity: sha512-aVNobHnJqLiUelTaHat9DZ1qM2w0C0Eym4LPI/3JxOnSokGVdsl1T1kN7TFvsEAD8G47A6VKQ0TVHqbBnYMJlQ==}
     engines: {node: '>=12.0.0'}
 
+  bignumber.js@9.3.1:
+    resolution: {integrity: sha512-Ko0uX15oIUS7wJ3Rb30Fs6SkVbLmPBAKdlm7q9+ak9bbIeFf0MwuBsQV6z7+X768/cHsfg+WlysDWJcmthjsjQ==}
+
   brace-expansion@1.1.12:
     resolution: {integrity: sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==}
 
@@ -5074,6 +5100,9 @@ packages:
   environment@1.1.0:
     resolution: {integrity: sha512-xUtoPkMggbz0MPyPiIWr1Kp4aeWJjDZ6SMvURhimjdZgsRuDplF5/s9hcgGhyXMhs+6vpnuoiZ2kFiu3FMnS8Q==}
     engines: {node: '>=18'}
+
+  error-causes@3.0.2:
+    resolution: {integrity: sha512-i0B8zq1dHL6mM85FGoxaJnVtx6LD5nL2v0hlpGdntg5FOSyzQ46c9lmz5qx0xRS2+PWHGOHcYxGIBC5Le2dRMw==}
 
   error-ex@1.3.4:
     resolution: {integrity: sha512-sqQamAnR14VgCr1A618A3sGrygcpK+HEbenA/HiEAkkUwcZIIB/tgWqHFxWgOyDh4nB4JCRimh79dR5Ywc9MDQ==}
@@ -9791,6 +9820,8 @@ snapshots:
   '@next/swc-win32-x64-msvc@15.5.12':
     optional: true
 
+  '@noble/hashes@2.2.0': {}
+
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -10030,6 +10061,12 @@ snapshots:
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/core': 2.7.1(@opentelemetry/api@1.9.1)
+
+  '@paralleldrive/cuid2@3.3.0':
+    dependencies:
+      '@noble/hashes': 2.2.0
+      bignumber.js: 9.3.1
+      error-causes: 3.0.2
 
   '@parcel/watcher-android-arm64@2.5.6':
     optional: true
@@ -11082,7 +11119,7 @@ snapshots:
 
   '@sentry/core@10.53.1': {}
 
-  '@sentry/nextjs@10.53.1(@opentelemetry/core@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.7.1(@opentelemetry/api@1.9.1))(next@15.5.12(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.87.0))(react@19.2.4)(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(postcss@8.5.8))':
+  '@sentry/nextjs@10.53.1(@opentelemetry/core@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.7.1(@opentelemetry/api@1.9.1))(next@15.5.12(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.87.0))(react@19.2.4)(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(lightningcss@1.31.1)(postcss@8.5.8))':
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/semantic-conventions': 1.41.1
@@ -11094,7 +11131,7 @@ snapshots:
       '@sentry/opentelemetry': 10.53.1(@opentelemetry/api@1.9.1)(@opentelemetry/core@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.7.1(@opentelemetry/api@1.9.1))(@opentelemetry/semantic-conventions@1.41.1)
       '@sentry/react': 10.53.1(react@19.2.4)
       '@sentry/vercel-edge': 10.53.1
-      '@sentry/webpack-plugin': 5.3.0(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(postcss@8.5.8))
+      '@sentry/webpack-plugin': 5.3.0(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(lightningcss@1.31.1)(postcss@8.5.8))
       next: 15.5.12(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.87.0)
       rollup: 4.60.4
       stacktrace-parser: 0.1.11
@@ -11174,10 +11211,10 @@ snapshots:
       '@opentelemetry/resources': 2.7.1(@opentelemetry/api@1.9.1)
       '@sentry/core': 10.53.1
 
-  '@sentry/webpack-plugin@5.3.0(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(postcss@8.5.8))':
+  '@sentry/webpack-plugin@5.3.0(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(lightningcss@1.31.1)(postcss@8.5.8))':
     dependencies:
       '@sentry/bundler-plugin-core': 5.3.0
-      webpack: 5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(postcss@8.5.8)
+      webpack: 5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(lightningcss@1.31.1)(postcss@8.5.8)
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -12297,6 +12334,8 @@ snapshots:
     dependencies:
       open: 8.4.2
 
+  bignumber.js@9.3.1: {}
+
   brace-expansion@1.1.12:
     dependencies:
       balanced-match: 1.0.2
@@ -12802,6 +12841,8 @@ snapshots:
 
   environment@1.1.0: {}
 
+  error-causes@3.0.2: {}
+
   error-ex@1.3.4:
     dependencies:
       is-arrayish: 0.2.1
@@ -13210,6 +13251,15 @@ snapshots:
     dependencies:
       '@typescript-eslint/utils': 8.57.0(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
       eslint: 10.0.3(jiti@2.6.1)
+      storybook: 9.1.20(@testing-library/dom@10.4.1)(prettier@3.8.1)(vite@7.1.4(@types/node@22.19.15)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.87.0)(terser@5.46.0)(tsx@4.22.3)(yaml@2.8.2))
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
+  eslint-plugin-storybook@9.1.20(eslint@9.39.4(jiti@2.6.1))(storybook@9.1.20(@testing-library/dom@10.4.1)(prettier@3.8.1)(vite@7.1.4(@types/node@22.19.15)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.87.0)(terser@5.46.0)(tsx@4.22.3)(yaml@2.8.2)))(typescript@5.9.3):
+    dependencies:
+      '@typescript-eslint/utils': 8.57.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+      eslint: 9.39.4(jiti@2.6.1)
       storybook: 9.1.20(@testing-library/dom@10.4.1)(prettier@3.8.1)(vite@7.1.4(@types/node@22.19.15)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.87.0)(terser@5.46.0)(tsx@4.22.3)(yaml@2.8.2))
     transitivePeerDependencies:
       - supports-color
@@ -16535,15 +16585,16 @@ snapshots:
 
   tapable@2.3.3: {}
 
-  terser-webpack-plugin@5.6.0(@swc/core@1.10.16(@swc/helpers@0.5.15))(postcss@8.5.8)(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(postcss@8.5.8)):
+  terser-webpack-plugin@5.6.0(@swc/core@1.10.16(@swc/helpers@0.5.15))(lightningcss@1.31.1)(postcss@8.5.8)(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(lightningcss@1.31.1)(postcss@8.5.8)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       terser: 5.46.0
-      webpack: 5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(postcss@8.5.8)
+      webpack: 5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(lightningcss@1.31.1)(postcss@8.5.8)
     optionalDependencies:
       '@swc/core': 1.10.16(@swc/helpers@0.5.15)
+      lightningcss: 1.31.1
       postcss: 8.5.8
 
   terser@5.46.0:
@@ -17090,7 +17141,7 @@ snapshots:
 
   webpack-virtual-modules@0.6.2: {}
 
-  webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(postcss@8.5.8):
+  webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(lightningcss@1.31.1)(postcss@8.5.8):
     dependencies:
       '@types/estree': 1.0.8
       '@types/json-schema': 7.0.15
@@ -17112,7 +17163,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.3
-      terser-webpack-plugin: 5.6.0(@swc/core@1.10.16(@swc/helpers@0.5.15))(postcss@8.5.8)(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(postcss@8.5.8))
+      terser-webpack-plugin: 5.6.0(@swc/core@1.10.16(@swc/helpers@0.5.15))(lightningcss@1.31.1)(postcss@8.5.8)(webpack@5.107.2(@swc/core@1.10.16(@swc/helpers@0.5.15))(lightningcss@1.31.1)(postcss@8.5.8))
       watchpack: 2.5.1
       webpack-sources: 3.5.0
     transitivePeerDependencies:
