@@ -5,33 +5,6 @@ import { StatusCodes } from 'http-status-codes';
 
 import { tagService } from './tag.service';
 
-jest.mock('@highjoon-dev/prisma', () => {
-  const mockPrismaClientKnownRequestError = class PrismaClientKnownRequestError extends Error {
-    code: string;
-    constructor(message: string, { code }: { code: string }) {
-      super(message);
-      this.code = code;
-      this.name = 'PrismaClientKnownRequestError';
-    }
-  };
-
-  return {
-    prisma: {
-      tag: {
-        findMany: jest.fn(),
-        findUnique: jest.fn(),
-        create: jest.fn(),
-        update: jest.fn(),
-        delete: jest.fn(),
-        upsert: jest.fn(),
-      },
-    },
-    Prisma: {
-      PrismaClientKnownRequestError: mockPrismaClientKnownRequestError,
-    },
-  };
-});
-
 jest.mock('@highjoon-dev/drizzle', () => {
   type Chain = {
     select: jest.Mock;
@@ -41,6 +14,13 @@ jest.mock('@highjoon-dev/drizzle', () => {
     groupBy: jest.Mock;
     orderBy: jest.Mock;
     limit: jest.Mock;
+    insert: jest.Mock;
+    values: jest.Mock;
+    onConflictDoNothing: jest.Mock;
+    update: jest.Mock;
+    set: jest.Mock;
+    delete: jest.Mock;
+    returning: jest.Mock;
   };
   const chain: Chain = {
     select: jest.fn(() => chain),
@@ -50,6 +30,13 @@ jest.mock('@highjoon-dev/drizzle', () => {
     groupBy: jest.fn(() => chain),
     orderBy: jest.fn(),
     limit: jest.fn(),
+    insert: jest.fn(() => chain),
+    values: jest.fn(() => chain),
+    onConflictDoNothing: jest.fn(() => chain),
+    update: jest.fn(() => chain),
+    set: jest.fn(() => chain),
+    delete: jest.fn(() => chain),
+    returning: jest.fn(),
   };
   // schema.tag.id / schema.postTag.tagId 등 어떤 깊이 접근도 객체를 반환하도록
   const deep = (): object => new Proxy({}, { get: () => deep() });
@@ -68,7 +55,6 @@ jest.mock('drizzle-orm', () => ({
   asc: jest.fn(),
 }));
 
-const { prisma, Prisma } = jest.requireMock('@highjoon-dev/prisma');
 const { db } = jest.requireMock('@highjoon-dev/drizzle');
 
 describe('tagService', () => {
@@ -126,18 +112,18 @@ describe('tagService', () => {
 
   describe('createTag', () => {
     test('태그를 생성하고 201 응답을 반환한다', async () => {
-      const mockTag = { id: '1', name: 'react' };
-      prisma.tag.create.mockResolvedValue(mockTag);
+      const mockTag = { id: '1', name: 'react', createdAt: new Date(), updatedAt: new Date() };
+      db.returning.mockResolvedValue([mockTag]);
 
       const result = await tagService.createTag({ name: '  React  ' });
 
       expect(result.success).toBe(true);
       expect(result.statusCode).toBe(StatusCodes.CREATED);
-      expect(prisma.tag.create).toHaveBeenCalledWith({ data: { name: 'react' } });
+      expect(db.values).toHaveBeenCalledWith({ name: 'react' }); // 정규화된 이름
     });
 
     test('중복 태그면 400 응답을 반환한다', async () => {
-      prisma.tag.create.mockRejectedValue(new Prisma.PrismaClientKnownRequestError('Unique', { code: 'P2002' }));
+      db.returning.mockResolvedValue([]); // onConflictDoNothing → 빈 배열
 
       const result = await tagService.createTag({ name: 'react' });
 
@@ -149,28 +135,38 @@ describe('tagService', () => {
 
   describe('updateTag', () => {
     test('태그를 수정한다', async () => {
-      const mockTag = { id: '1', name: 'typescript' };
-      prisma.tag.update.mockResolvedValue(mockTag);
+      const mockTag = { id: '1', name: 'typescript', createdAt: new Date(), updatedAt: new Date() };
+      db.returning.mockResolvedValue([mockTag]);
 
       const result = await tagService.updateTag('1', { name: 'TypeScript' });
 
       expect(result.success).toBe(true);
-      expect(prisma.tag.update).toHaveBeenCalledWith({ where: { id: '1' }, data: { name: 'typescript' } });
+      expect(db.set).toHaveBeenCalledWith({ name: 'typescript' });
     });
 
     test('존재하지 않는 태그면 404 응답을 반환한다', async () => {
-      prisma.tag.update.mockRejectedValue(new Prisma.PrismaClientKnownRequestError('Not found', { code: 'P2025' }));
+      db.returning.mockResolvedValue([]); // 매칭 행 없음
 
       const result = await tagService.updateTag('999', { name: 'test' });
 
       expect(result.success).toBe(false);
       expect(result.statusCode).toBe(StatusCodes.NOT_FOUND);
     });
+
+    test('이름이 중복되면 400 응답을 반환한다', async () => {
+      db.returning.mockRejectedValue(Object.assign(new Error('dup'), { code: '23505' }));
+
+      const result = await tagService.updateTag('1', { name: 'react' });
+
+      expect(result.success).toBe(false);
+      expect(result.statusCode).toBe(StatusCodes.BAD_REQUEST);
+      expect(result.message).toBe('이미 존재하는 태그입니다.');
+    });
   });
 
   describe('deleteTag', () => {
     test('태그를 삭제하고 204 응답을 반환한다', async () => {
-      prisma.tag.delete.mockResolvedValue({});
+      db.returning.mockResolvedValue([{ id: '1' }]);
 
       const result = await tagService.deleteTag('1');
 
@@ -179,7 +175,7 @@ describe('tagService', () => {
     });
 
     test('존재하지 않는 태그면 404 응답을 반환한다', async () => {
-      prisma.tag.delete.mockRejectedValue(new Prisma.PrismaClientKnownRequestError('Not found', { code: 'P2025' }));
+      db.returning.mockResolvedValue([]); // 삭제된 행 없음
 
       const result = await tagService.deleteTag('999');
 
@@ -189,18 +185,26 @@ describe('tagService', () => {
   });
 
   describe('findOrCreateTag', () => {
-    test('태그명을 정규화해서 upsert한다', async () => {
-      const mockTag = { id: '1', name: 'react' };
-      prisma.tag.upsert.mockResolvedValue(mockTag);
+    test('새 태그면 생성해서 반환한다', async () => {
+      const mockTag = { id: '1', name: 'react', createdAt: new Date(), updatedAt: new Date() };
+      db.returning.mockResolvedValue([mockTag]);
 
       const result = await tagService.findOrCreateTag('  React  ');
 
       expect(result).toEqual(mockTag);
-      expect(prisma.tag.upsert).toHaveBeenCalledWith({
-        where: { name: 'react' },
-        update: {},
-        create: { name: 'react' },
-      });
+      expect(db.values).toHaveBeenCalledWith({ name: 'react' }); // 정규화된 이름
+      expect(db.onConflictDoNothing).toHaveBeenCalled();
+    });
+
+    test('이미 존재하면 수정 없이 기존 태그를 조회해 반환한다', async () => {
+      const existing = { id: '1', name: 'react', createdAt: new Date(), updatedAt: new Date() };
+      db.returning.mockResolvedValue([]); // onConflictDoNothing → 충돌 시 빈 배열
+      db.limit.mockResolvedValue([existing]); // 기존 행 조회
+
+      const result = await tagService.findOrCreateTag('react');
+
+      expect(result).toEqual(existing);
+      expect(db.update).not.toHaveBeenCalled(); // 찾기일 땐 update 안 함
     });
   });
 });
