@@ -25,7 +25,7 @@ class TagService {
 
   async findAllTags(): Promise<ServiceResponse<Nullable<TagWithCount[]>>> {
     try {
-      const tags = await db
+      const tags: TagWithCount[] = await db
         .select({
           id: schema.tag.id,
           name: schema.tag.name,
