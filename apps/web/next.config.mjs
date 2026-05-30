@@ -32,7 +32,8 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     unoptimized: true,
   },
-  transpilePackages: ['@highjoon-dev/ui'],
+  transpilePackages: ['@highjoon-dev/ui', '@highjoon-dev/drizzle'],
+  serverExternalPackages: ['pg'],
   webpack: (config, { isServer }) => {
     if (isServer) {
       config.plugins = [...config.plugins, new PrismaPlugin()];
