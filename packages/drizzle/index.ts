@@ -1,3 +1,35 @@
 export * from './client';
 export * as schema from './schema';
 export * from 'drizzle-orm/pg-core';
+// 자주 쓰는 쿼리 연산자만 명시적으로 재export (drizzle-orm/pg-core 와 타입 이름 충돌 회피)
+export {
+  and,
+  asc,
+  avg,
+  between,
+  count,
+  countDistinct,
+  desc,
+  eq,
+  exists,
+  gt,
+  gte,
+  ilike,
+  inArray,
+  isNotNull,
+  isNull,
+  like,
+  lt,
+  lte,
+  max,
+  min,
+  ne,
+  not,
+  notBetween,
+  notExists,
+  notInArray,
+  notLike,
+  or,
+  sql,
+  sum,
+} from 'drizzle-orm';
