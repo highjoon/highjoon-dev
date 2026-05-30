@@ -33,6 +33,28 @@ pnpm prisma generate  # Prisma 클라이언트 생성 (postinstall에도 포함)
 
 - **pre-commit**: `pnpm type-check && pnpm exec lint-staged`
 - **lint-staged**: `*.{js,jsx,ts,tsx}` → eslint --fix + prettier --write
+- **commit-msg**: `commitlint --edit` — 커밋 메시지 컨벤션 검증 (아래 참고)
+
+## Commit Convention
+
+[Conventional Commits](https://www.conventionalcommits.org) 형식. `commitlint.config.mjs`(extends `@commitlint/config-conventional`)로 강제하며 commit-msg 훅에서 검증한다.
+
+```
+<type>(<scope>)?: <설명>      # scope는 선택
+
+<본문>                        # 선택. 변경점이 여러 개면 "- " 불릿, 이유 설명은 산문
+```
+
+- **type**: `feat` `fix` `chore` `docs` `refactor` `perf` `style` `test` `build` `ci` `revert`
+- **scope**: 선택. 도메인/슬라이스 단위로만 사용 (`category`, `post`, `api`, `prisma` 등). 패키지 경로 표기(`(web)` 등)는 지양하고, 해당 패키지명은 설명에 녹인다 (예: `feat: drizzle ...`)
+- **설명**: 한국어. 한글·영문 고유명사 혼용 허용 (`subject-case` 검사 비활성화), 제목 끝 마침표 없음, 헤더 100자 이내
+- 커밋/PR에 `Co-Authored-By` 넣지 않는다
+
+```
+feat: drizzle 도메인별 스키마 및 클라이언트/설정 정비
+feat(category): findAllCategories 서비스 구현
+fix: Sentry environment를 production/preview/development로 정규화
+```
 
 ## Architecture: FSD (Feature-Sliced Design)
 
