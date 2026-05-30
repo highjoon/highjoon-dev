@@ -1,11 +1,11 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { Post } from '@highjoon-dev/prisma';
 
 import { getPostApi } from '@/entities/post/api/getPostApi';
 import { getPostContentApi } from '@/entities/post/api/getPostContentApi';
 import PostSchema from '@/entities/post/lib/PostSchema';
 import { extractHeadings } from '@/entities/post/lib/toc/extractHeadings';
+import { type Post } from '@/entities/post/model/types';
 import { postService } from '@/entities/post/services/post.service';
 import PostArticleContent from '@/entities/post/ui/postDetail/PostArticleContent';
 import PostBanner from '@/entities/post/ui/postDetail/PostBanner';

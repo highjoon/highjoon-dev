@@ -1,7 +1,8 @@
-import { Category, Post, PostTag, Tag } from '@highjoon-dev/prisma';
+import { Category, PostTag, Tag } from '@highjoon-dev/prisma';
 import { PaginationMeta, ServiceResponseInterface } from '@highjoon-dev/types';
 
 import type { CategoryRef } from '@/entities/post/api/getPostApi/dto';
+import { type Post } from '@/entities/post/model/types';
 
 export type CategoryPostsItem = Post & {
   postTags?: (PostTag & { tag: Tag })[];

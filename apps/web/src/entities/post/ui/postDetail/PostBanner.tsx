@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import { type Post } from '@highjoon-dev/prisma';
+
+import { type Post } from '@/entities/post/model/types';
 
 interface Props {
   bannerImageUrl: Post['bannerImageUrl'];

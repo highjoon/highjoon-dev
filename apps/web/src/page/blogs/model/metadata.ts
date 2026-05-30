@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
-import { Post } from '@highjoon-dev/prisma';
 
 import { getPostApi } from '@/entities/post/api/getPostApi';
+import { type Post } from '@/entities/post/model/types';
 
 type Params = {
   params: Promise<{ slug: Post['slug'] }>;

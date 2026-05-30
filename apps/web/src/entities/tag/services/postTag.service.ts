@@ -1,7 +1,8 @@
-import { type Post, prisma } from '@highjoon-dev/prisma';
+import { prisma } from '@highjoon-dev/prisma';
 import { type Nullable } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
+import { type Post } from '@/entities/post/model/types';
 import { type Tag } from '@/entities/tag/model/types';
 import { handleInternalError } from '@/shared/server/lib/handleInternalError';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';

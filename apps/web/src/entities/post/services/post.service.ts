@@ -1,9 +1,10 @@
-import { type Post, prisma } from '@highjoon-dev/prisma';
+import { prisma } from '@highjoon-dev/prisma';
 import { type Nullable, type PaginationMeta } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
 import { type AdjacentPosts } from '@/entities/post/api/getPostApi/dto';
 import { getTodayMidnight } from '@/entities/post/lib/getTomorrowMidnight';
+import { type Post } from '@/entities/post/model/types';
 import { postTagService } from '@/entities/tag/services/postTag.service';
 import { tagService } from '@/entities/tag/services/tag.service';
 import { handleInternalError } from '@/shared/server/lib/handleInternalError';

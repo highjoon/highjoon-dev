@@ -1,8 +1,9 @@
 /**
  * @jest-environment node
  */
-import { type Post } from '@highjoon-dev/prisma';
 import { StatusCodes } from 'http-status-codes';
+
+import { type Post } from '@/entities/post/model/types';
 
 import { postService } from './post.service';
 
