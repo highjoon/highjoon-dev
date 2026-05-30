@@ -1,4 +1,4 @@
-import type { TagWithCount } from '@/entities/tag/api/getAllTagsApi/dto';
+import type { TagWithCount } from '@/entities/tag/model/types';
 import { ROUTES } from '@/shared/routes/routes';
 
 export const createTagPath = (tagName: string) => {
@@ -17,7 +17,7 @@ export const findTagByName = (tags: TagWithCount[], name: string): TagWithCount 
 
 export const sortTagsByPopularity = (tags: TagWithCount[]): TagWithCount[] => {
   return [...tags].sort((a, b) => {
-    const countDiff = b._count.postTags - a._count.postTags;
+    const countDiff = b.postCount - a.postCount;
     if (countDiff !== 0) return countDiff;
     return a.name.localeCompare(b.name);
   });

@@ -44,7 +44,7 @@ export default async function TagDetailPage({ params }: Props) {
   ]);
 
   // 전체 페이지 수 계산
-  const totalPosts = tag._count.postTags;
+  const totalPosts = tag.postCount;
   const totalPages = Math.ceil(totalPosts / POSTS_PER_TAG_PAGE);
 
   // 페이지 번호 유효성 검증

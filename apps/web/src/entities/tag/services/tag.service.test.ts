@@ -32,7 +32,40 @@ jest.mock('@highjoon-dev/prisma', () => {
   };
 });
 
+jest.mock('@highjoon-dev/drizzle', () => {
+  type Chain = {
+    select: jest.Mock;
+    from: jest.Mock;
+    leftJoin: jest.Mock;
+    groupBy: jest.Mock;
+    orderBy: jest.Mock;
+  };
+  const chain: Chain = {
+    select: jest.fn(() => chain),
+    from: jest.fn(() => chain),
+    leftJoin: jest.fn(() => chain),
+    groupBy: jest.fn(() => chain),
+    orderBy: jest.fn(),
+  };
+  // schema.tag.id / schema.postTag.tagId 등 어떤 깊이 접근도 객체를 반환하도록
+  const deep = (): object => new Proxy({}, { get: () => deep() });
+  return {
+    db: chain,
+    schema: deep(),
+    eq: jest.fn(),
+    count: jest.fn(),
+    asc: jest.fn(),
+  };
+});
+
+jest.mock('drizzle-orm', () => ({
+  eq: jest.fn(),
+  count: jest.fn(),
+  asc: jest.fn(),
+}));
+
 const { prisma, Prisma } = jest.requireMock('@highjoon-dev/prisma');
+const { db } = jest.requireMock('@highjoon-dev/drizzle');
 
 describe('tagService', () => {
   beforeEach(() => {
@@ -40,25 +73,24 @@ describe('tagService', () => {
   });
 
   describe('findAllTags', () => {
-    test('모든 태그를 조회한다', async () => {
+    test('모든 태그를 postCount와 함께 조회한다', async () => {
       const mockTags = [
-        { id: '1', name: 'react', _count: { postTags: 5 } },
-        { id: '2', name: 'typescript', _count: { postTags: 3 } },
+        { id: '1', name: 'react', createdAt: new Date(), updatedAt: new Date(), postCount: 5 },
+        { id: '2', name: 'typescript', createdAt: new Date(), updatedAt: new Date(), postCount: 3 },
       ];
-      prisma.tag.findMany.mockResolvedValue(mockTags);
+      db.orderBy.mockResolvedValue(mockTags);
 
       const result = await tagService.findAllTags();
 
       expect(result.success).toBe(true);
       expect(result.data).toEqual(mockTags);
-      expect(prisma.tag.findMany).toHaveBeenCalledWith({
-        include: { _count: { select: { postTags: true } } },
-        orderBy: { name: 'asc' },
-      });
+      // 모든 태그가 나오도록 leftJoin + 태그별 집계를 위해 groupBy 를 쓴다
+      expect(db.leftJoin).toHaveBeenCalled();
+      expect(db.groupBy).toHaveBeenCalled();
     });
 
     test('에러 발생 시 500 응답을 반환한다', async () => {
-      prisma.tag.findMany.mockRejectedValue(new Error('DB error'));
+      db.orderBy.mockRejectedValue(new Error('DB error'));
 
       const result = await tagService.findAllTags();
 

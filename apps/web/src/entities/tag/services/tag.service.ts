@@ -1,8 +1,10 @@
+import { asc, count, db, eq, schema } from '@highjoon-dev/drizzle';
 import { Prisma, prisma, type Tag } from '@highjoon-dev/prisma';
 import { type Nullable } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
 import { normalizeTagName } from '@/entities/tag/lib/normalizeTagName';
+import { type TagWithCount } from '@/entities/tag/model/types';
 import { handleInternalError } from '@/shared/server/lib/handleInternalError';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';
 
@@ -21,12 +23,20 @@ class TagService {
     return tags;
   }
 
-  async findAllTags(): Promise<ServiceResponse<Nullable<Tag[]>>> {
+  async findAllTags(): Promise<ServiceResponse<Nullable<TagWithCount[]>>> {
     try {
-      const tags = await prisma.tag.findMany({
-        include: { _count: { select: { postTags: true } } },
-        orderBy: { name: 'asc' },
-      });
+      const tags = await db
+        .select({
+          id: schema.tag.id,
+          name: schema.tag.name,
+          createdAt: schema.tag.createdAt,
+          updatedAt: schema.tag.updatedAt,
+          postCount: count(schema.postTag.id),
+        })
+        .from(schema.tag)
+        .leftJoin(schema.postTag, eq(schema.tag.id, schema.postTag.tagId))
+        .groupBy(schema.tag.id)
+        .orderBy(asc(schema.tag.name));
 
       return ServiceResponse.success('태그를 조회했습니다.', tags, StatusCodes.OK);
     } catch (error) {
