@@ -37,15 +37,19 @@ jest.mock('@highjoon-dev/drizzle', () => {
     select: jest.Mock;
     from: jest.Mock;
     leftJoin: jest.Mock;
+    where: jest.Mock;
     groupBy: jest.Mock;
     orderBy: jest.Mock;
+    limit: jest.Mock;
   };
   const chain: Chain = {
     select: jest.fn(() => chain),
     from: jest.fn(() => chain),
     leftJoin: jest.fn(() => chain),
+    where: jest.fn(() => chain),
     groupBy: jest.fn(() => chain),
     orderBy: jest.fn(),
+    limit: jest.fn(),
   };
   // schema.tag.id / schema.postTag.tagId 등 어떤 깊이 접근도 객체를 반환하도록
   const deep = (): object => new Proxy({}, { get: () => deep() });
@@ -101,8 +105,8 @@ describe('tagService', () => {
 
   describe('findTag', () => {
     test('태그를 찾으면 성공 응답을 반환한다', async () => {
-      const mockTag = { id: '1', name: 'react' };
-      prisma.tag.findUnique.mockResolvedValue(mockTag);
+      const mockTag = { id: '1', name: 'react', createdAt: new Date(), updatedAt: new Date() };
+      db.limit.mockResolvedValue([mockTag]);
 
       const result = await tagService.findTag('1');
 
@@ -111,7 +115,7 @@ describe('tagService', () => {
     });
 
     test('태그가 없으면 404 응답을 반환한다', async () => {
-      prisma.tag.findUnique.mockResolvedValue(null);
+      db.limit.mockResolvedValue([]); // 빈 배열 = 미존재
 
       const result = await tagService.findTag('999');
 

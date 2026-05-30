@@ -1,10 +1,10 @@
 import { asc, count, db, eq, schema } from '@highjoon-dev/drizzle';
-import { Prisma, prisma, type Tag } from '@highjoon-dev/prisma';
-import { type Nullable } from '@highjoon-dev/types';
+import { Prisma, prisma } from '@highjoon-dev/prisma';
+import type { Nullable } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
 import { normalizeTagName } from '@/entities/tag/lib/normalizeTagName';
-import { type TagWithCount } from '@/entities/tag/model/types';
+import type { Tag, TagWithCount } from '@/entities/tag/model/types';
 import { handleInternalError } from '@/shared/server/lib/handleInternalError';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';
 
@@ -44,9 +44,9 @@ class TagService {
     }
   }
 
-  async findTag(id: string): Promise<ServiceResponse<Nullable<Tag>>> {
+  async findTag(id: Tag['id']): Promise<ServiceResponse<Nullable<Tag>>> {
     try {
-      const tag = await prisma.tag.findUnique({ where: { id } });
+      const [tag]: Tag[] = await db.select().from(schema.tag).where(eq(schema.tag.id, id)).limit(1);
 
       if (!tag) {
         return ServiceResponse.failure('태그를 찾을 수 없습니다.', null, StatusCodes.NOT_FOUND);
