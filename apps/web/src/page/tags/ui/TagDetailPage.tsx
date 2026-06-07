@@ -34,12 +34,12 @@ export default async function TagDetailPage({ params }: Props) {
   }
 
   // 페이지네이션 계산
-  const skip = (currentPage - 1) * POSTS_PER_TAG_PAGE;
-  const take = POSTS_PER_TAG_PAGE;
+  const offset = (currentPage - 1) * POSTS_PER_TAG_PAGE;
+  const limit = POSTS_PER_TAG_PAGE;
 
   // 태그별 게시물 조회
   const [posts, giscusStats] = await Promise.all([
-    getPostsByTagApi({ tagId: tag.id, skip, take }),
+    getPostsByTagApi({ tagId: tag.id, offset, limit }),
     getGiscusStatsApi(),
   ]);
 

@@ -12,6 +12,7 @@ export {
   desc,
   eq,
   exists,
+  getTableColumns,
   gt,
   gte,
   ilike,

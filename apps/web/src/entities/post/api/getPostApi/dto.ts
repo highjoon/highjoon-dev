@@ -1,7 +1,8 @@
-import { Category, PostTag, Tag } from '@highjoon-dev/prisma';
 import { ServiceResponseInterface } from '@highjoon-dev/types';
 
-import { type Post } from '@/entities/post/model/types';
+import { type Category } from '@/entities/category/model/types';
+import { type Post, type PostTag } from '@/entities/post/model/types';
+import { type Tag } from '@/entities/tag/model/types';
 
 export interface GetPostRequestDto {
   slug: Post['slug'];

@@ -9,10 +9,10 @@ interface RouteContext {
 
 export const GET = async (request: NextRequest, context: RouteContext) => {
   const { id } = await context.params;
-  const skip = parseInt(request.nextUrl.searchParams.get('skip') ?? '0', 10);
-  const take = parseInt(request.nextUrl.searchParams.get('take') ?? '9', 10);
+  const offset = parseInt(request.nextUrl.searchParams.get('offset') ?? '0', 10);
+  const limit = parseInt(request.nextUrl.searchParams.get('limit') ?? '9', 10);
 
-  const result = await postTagService.findPostsByTag(id, { skip, take });
+  const result = await postTagService.findPostsByTag(id, { offset, limit });
 
   return handleServiceResponse(result);
 };
