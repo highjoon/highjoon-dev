@@ -40,13 +40,6 @@ pnpm -F @highjoon-dev/drizzle studio     # Drizzle Studio
 
 ## 연결 주의 (Supabase 트랜잭션 풀러)
 
-`DATABASE_URL`이 pgbouncer 트랜잭션 풀러(6543)다. **Drizzle `.prepare()`(named prepared statement)는 이 모드에서 깨지므로 사용 금지.** 일반 쿼리(`db.select()/insert()/update()/delete()`)는 unnamed라 정상 동작한다.
+`DATABASE_URL`이 pgbouncer 트랜잭션 풀러(6543)다. **Drizzle `.prepare()`(named prepared statement)는 이 모드에서 깨지므로 사용 금지.** 일반 쿼리(`db.select()/insert()/update()/delete()`)는 unnamed라 정상 동작한다. 단일 트랜잭션 DDL(`DROP` 등)은 이 모드로도 돌릴 수 있으나, 다중 문장 마이그레이션은 direct URL(5432) 권장.
 
-## 알려진 DB Drift (후속 정리 대상)
-
-`schema/`는 의도한 모델만 담지만, 실제 DB에는 과거 정리 미완으로 남은 잔재가 있다 — `drizzle-kit generate`로 DROP 마이그레이션을 만들어 제거 예정 (direct URL 필요):
-
-- `User` 테이블 + `Role` enum — giscus 외주화로 모델에선 제거됐으나 DB에 잔존
-- `Post.likeCount` 컬럼 — 스키마엔 없으나 DB에 잔존
-
-`.migrations-reference/`(introspection 원본)에는 위 잔재가 그대로 보이지만, `schema/`는 의도적으로 제외한다.
+> 실제 DB는 현재 `schema/`와 일치한다. 과거 잔재(`User` 테이블·`Role` enum·`Post.likeCount`)는 모두 DROP 완료.

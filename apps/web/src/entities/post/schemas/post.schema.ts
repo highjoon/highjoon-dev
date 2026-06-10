@@ -16,7 +16,6 @@ export const postSchema = z.object({
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
   viewCount: z.number().default(0),
-  likeCount: z.number().default(0),
   isHidden: z.boolean().default(false),
 });
 

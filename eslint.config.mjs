@@ -17,7 +17,6 @@ export default [
       "apps/web/.next/**",
       "packages/config/**",
       "packages/types/**",
-      "packages/drizzle/.migrations-reference/**",
       "coverage/**",
       "**/*.{config.js,config.cjs}",
       "**/*/.prettierrc.js",
