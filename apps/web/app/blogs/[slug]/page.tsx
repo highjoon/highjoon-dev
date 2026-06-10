@@ -1,5 +1,4 @@
-import { type Post } from '@highjoon-dev/prisma';
-
+import { type Post } from '@/entities/post/model/types';
 import { generateBlogsMetadata } from '@/page/blogs/model/metadata';
 import PostPage from '@/page/blogs/ui/PostPage';
 

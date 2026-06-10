@@ -1,25 +1,12 @@
-import {
-  alias,
-  and,
-  asc,
-  count,
-  db,
-  desc,
-  eq,
-  getTableColumns,
-  inArray,
-  isNotNull,
-  isNull,
-  schema,
-} from '@highjoon-dev/drizzle';
+import { and, asc, count, db, desc, eq, inArray, isNotNull, isNull, schema } from '@highjoon-dev/drizzle';
 import { type Nullable, type PaginationMeta } from '@highjoon-dev/types';
 import { StatusCodes } from 'http-status-codes';
 
 import { type CategoryTree } from '@/entities/category/api/getAllCategoriesApi/dto';
 import { type Category } from '@/entities/category/model/types';
-import { type CategoryRef, type PostWithTags } from '@/entities/post/api/getPostApi/dto';
-import { attachTagsToPosts } from '@/shared/server/lib/attachTagsToPosts';
+import { type PostWithTags } from '@/entities/post/api/getPostApi/dto';
 import { handleInternalError } from '@/shared/server/lib/handleInternalError';
+import { shapePostsWithRelations } from '@/shared/server/lib/shapePostsWithRelations';
 import { ServiceResponse } from '@/shared/server/models/serviceResponse';
 
 type CategoryWithRelations = Category & {
@@ -138,58 +125,8 @@ class CategoryService {
         db.select({ value: count() }).from(schema.post).where(conditions),
       ]);
 
-      const postIds = posts.map((post) => post.id);
-      const postCategoryIds = [
-        ...new Set(posts.map((post) => post.categoryId).filter((id): id is string => id !== null)),
-      ];
-
-      // ② 게시물에 붙일 (postTag, tag)와 (category, parent) 참조를 한 번에 끌어온다.
-      const parentCategory = alias(schema.category, 'parentCategory');
-      const [tagRows, categoryRefRows] = await Promise.all([
-        postIds.length
-          ? db
-              .select({ postTag: getTableColumns(schema.postTag), tag: getTableColumns(schema.tag) })
-              .from(schema.postTag)
-              .innerJoin(schema.tag, eq(schema.tag.id, schema.postTag.tagId))
-              .where(inArray(schema.postTag.postId, postIds))
-          : Promise.resolve([]),
-        postCategoryIds.length
-          ? db
-              .select({
-                id: schema.category.id,
-                slug: schema.category.slug,
-                name: schema.category.name,
-                parentId: schema.category.parentId,
-                parentRefId: parentCategory.id,
-                parentRefSlug: parentCategory.slug,
-                parentRefName: parentCategory.name,
-              })
-              .from(schema.category)
-              .leftJoin(parentCategory, eq(parentCategory.id, schema.category.parentId))
-              .where(inArray(schema.category.id, postCategoryIds))
-          : Promise.resolve([]),
-      ]);
-
-      // categoryId → CategoryRef 맵 (leftJoin이라 부모 없으면 parent를 null로 정규화)
-      const categoryRefByCategoryId = new Map<string, CategoryRef>();
-      for (const row of categoryRefRows) {
-        categoryRefByCategoryId.set(row.id, {
-          id: row.id,
-          slug: row.slug,
-          name: row.name,
-          parentId: row.parentId,
-          parent:
-            row.parentId && row.parentRefId
-              ? { id: row.parentRefId, slug: row.parentRefSlug!, name: row.parentRefName! }
-              : null,
-        });
-      }
-
-      const postsWithTags = attachTagsToPosts(posts, tagRows);
-      const shapedPosts: PostWithTags[] = postsWithTags.map((post) => ({
-        ...post,
-        categoryRef: post.categoryId ? (categoryRefByCategoryId.get(post.categoryId) ?? null) : null,
-      }));
+      // ② 게시물마다 태그/카테고리 참조를 셰이핑해 붙인다.
+      const shapedPosts: PostWithTags[] = await shapePostsWithRelations(posts);
 
       const hasMore = skip + posts.length < total;
 
