@@ -5,7 +5,6 @@
  * @param rows  postTag와 tag가 짝지어진 조인 결과 행
  * @returns 각 게시물에 `postTags: (PT & { tag })[]`가 붙은 새 배열
  */
-/** @TODO 마이그레이션 완료 후 구조 변경 필요 */
 export const attachTagsToPosts = <P extends { id: string }, PT extends { postId: string }, T>(
   posts: P[],
   rows: { postTag: PT; tag: T }[],

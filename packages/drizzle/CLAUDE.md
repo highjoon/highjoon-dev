@@ -1,6 +1,6 @@
 # @highjoon-dev/drizzle
 
-Drizzle ORM 패키지. **이 프로젝트의 유일한 ORM이자 DB 스키마 소유자다.** (Prisma는 제거됨)
+Drizzle ORM 패키지. **이 프로젝트의 유일한 ORM이자 DB 스키마 소유자다.**
 
 ## 스키마 소유권 정책
 

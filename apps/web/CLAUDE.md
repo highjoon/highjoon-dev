@@ -38,8 +38,8 @@ Next.js 15 (App Router) + React 19. **라우트는 `apps/web/app/`에 있고, FS
 ## next.config.mjs 핵심
 
 - `outputFileTracingRoot: monorepo root` — Vercel 모노레포 트레이싱
-- `transpilePackages: ['@highjoon-dev/ui']`
-- `@prisma/nextjs-monorepo-workaround-plugin` — 서버 빌드에서 Prisma 엔진 번들링
+- `transpilePackages: ['@highjoon-dev/ui', '@highjoon-dev/drizzle']`
+- `serverExternalPackages: ['pg']` — node-postgres는 서버 번들에서 제외
 - `images.unoptimized: true` (CloudFront에서 직접 서빙)
 - `images.remotePatterns`: `dngjtjyrczhgx.cloudfront.net` 단일 허용
 - `headers`: `/giscus-:theme.css`에 `Access-Control-Allow-Origin: *`
