@@ -1,12 +1,16 @@
-import { type Post, prisma } from '@highjoon-dev/prisma';
+import { db, schema, sql } from '@highjoon-dev/drizzle';
+
+import { type Post } from '@/entities/post/model/types';
 
 class PostViewStatsService {
   public async findOrCreateTodayStats(postId: Post['id'], date: Date) {
-    return await prisma.postViewStats.upsert({
-      where: { postId_date: { postId, date } },
-      update: { viewCount: { increment: 1 } },
-      create: { postId, date, viewCount: 1 },
-    });
+    return await db
+      .insert(schema.postViewStats)
+      .values({ postId, date, viewCount: 1 })
+      .onConflictDoUpdate({
+        target: [schema.postViewStats.postId, schema.postViewStats.date],
+        set: { viewCount: sql`${schema.postViewStats.viewCount} + 1` },
+      });
   }
 }
 

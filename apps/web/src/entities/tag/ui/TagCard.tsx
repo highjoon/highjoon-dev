@@ -3,15 +3,15 @@
 import React from 'react';
 import Link from 'next/link';
 
-import type { TagWithCount } from '@/entities/tag/api/getAllTagsApi/dto';
 import { createTagPagePath } from '@/entities/tag/lib/tag';
+import type { TagWithCount } from '@/entities/tag/model/types';
 
 interface Props {
   tag: TagWithCount;
 }
 
 export default function TagCard({ tag }: Props) {
-  const postCount = tag._count.postTags;
+  const postCount = tag.postCount;
 
   return (
     <Link href={createTagPagePath(tag.name, 1)}>

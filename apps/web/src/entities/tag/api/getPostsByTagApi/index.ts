@@ -1,12 +1,11 @@
-import { type Post } from '@highjoon-dev/prisma';
-
+import { type PostWithTags } from '@/entities/post/api/getPostApi/dto';
 import { type GetPostsByTagParams } from '@/entities/tag/api/getPostsByTagApi/dto';
 import { postTagService } from '@/entities/tag/services/postTag.service';
 
-export const getPostsByTagApi = async (params: GetPostsByTagParams): Promise<Post[]> => {
-  const { tagId, skip = 0, take = 9 } = params;
+export const getPostsByTagApi = async (params: GetPostsByTagParams): Promise<PostWithTags[]> => {
+  const { tagId, offset = 0, limit = 9 } = params;
 
-  const response = await postTagService.findPostsByTag(tagId, { skip, take });
+  const response = await postTagService.findPostsByTag(tagId, { offset, limit });
 
-  return (response.data as Post[]) ?? [];
+  return response.data ?? [];
 };

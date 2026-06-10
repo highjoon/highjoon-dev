@@ -1,4 +1,4 @@
-import { type TagWithCount } from '@/entities/tag/api/getAllTagsApi/dto';
+import { type TagWithCount } from '@/entities/tag/model/types';
 import { tagService } from '@/entities/tag/services/tag.service';
 
 export const getAllTagsApi = async (): Promise<TagWithCount[]> => {

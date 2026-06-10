@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import { type Post } from '@highjoon-dev/prisma';
 
 import { MdxComponents } from '@/entities/post/lib/mdx/MdxComponents';
 import MDXContent from '@/entities/post/lib/mdx/MDXContent';
+import { type Post } from '@/entities/post/model/types';
 import ViewCount from '@/entities/post/ui/ViewCount';
 import TagBadgeList from '@/entities/tag/ui/TagBadgeList';
 

@@ -1,64 +1,86 @@
 /**
  * @jest-environment node
  */
-import { type Post } from '@highjoon-dev/prisma';
 import { StatusCodes } from 'http-status-codes';
+
+import { type Post } from '@/entities/post/model/types';
 
 import { postService } from './post.service';
 
-jest.mock('@highjoon-dev/prisma', () => ({
-  prisma: {
-    post: {
-      findMany: jest.fn(),
-      findUnique: jest.fn(),
-      findFirst: jest.fn(),
-      create: jest.fn(),
-      update: jest.fn(),
-      count: jest.fn(),
-      createManyAndReturn: jest.fn(),
+// 쿼리 빌더 체인 mock (postTag/category 서비스 테스트와 동일 구조).
+// 빌더 메서드는 모두 체인을 돌려주고, 체인 자체가 thenable 이라 await/Promise.all 어디서 풀든
+// 큐(FIFO)에 쌓아둔 결과를 순서대로 내보낸다.
+jest.mock('@highjoon-dev/drizzle', () => {
+  const queue: Array<{ value: unknown } | { error: unknown }> = [];
+
+  const chain: Record<string, unknown> = {
+    then(resolve: (value: unknown) => void, reject: (error: unknown) => void) {
+      const next = queue.length ? queue.shift()! : { value: [] };
+      if ('error' in next) reject(next.error);
+      else resolve(next.value);
     },
-    postTag: {
-      createMany: jest.fn(),
-      deleteMany: jest.fn(),
+  };
+  const methods = [
+    'select',
+    'from',
+    'where',
+    'orderBy',
+    'limit',
+    'offset',
+    'insert',
+    'values',
+    'returning',
+    'onConflictDoNothing',
+    'update',
+    'set',
+    'delete',
+  ];
+  for (const method of methods) {
+    chain[method] = jest.fn(() => chain);
+  }
+  chain.transaction = jest.fn((callback: (tx: unknown) => unknown) => callback(chain));
+
+  const deep = (): object => new Proxy({}, { get: () => deep() });
+
+  return {
+    db: chain,
+    schema: deep(),
+    and: jest.fn(),
+    asc: jest.fn(),
+    count: jest.fn(),
+    desc: jest.fn(),
+    eq: jest.fn(),
+    gt: jest.fn(),
+    lt: jest.fn(),
+    sql: jest.fn(),
+    __enqueue: (...values: unknown[]) => values.forEach((value) => queue.push({ value })),
+    __enqueueError: (error: unknown) => queue.push({ error }),
+    __reset: () => {
+      queue.length = 0;
     },
-    $transaction: jest.fn(),
-  },
-  Prisma: {
-    PrismaClientKnownRequestError: class PrismaClientKnownRequestError extends Error {
-      code: string;
-      constructor(message: string, { code }: { code: string }) {
-        super(message);
-        this.code = code;
-      }
-    },
-  },
+  };
+});
+
+// 관계 셰이핑은 자체 테스트(shapePostsWithRelations.test)로 검증하므로 여기서는 패스스루로 mock.
+jest.mock('../../../shared/server/lib/shapePostsWithRelations', () => ({
+  shapePostsWithRelations: jest.fn((posts: Array<Record<string, unknown>>) =>
+    Promise.resolve(posts.map((post) => ({ ...post, postTags: [], categoryRef: null }))),
+  ),
 }));
 
-jest.mock('./postViewLog.service', () => ({
-  postViewLogService: {
-    logView: jest.fn(),
-  },
-}));
+jest.mock('./postViewLog.service', () => ({ postViewLogService: { logView: jest.fn() } }));
+jest.mock('./postViewStats.service', () => ({ postViewStatsService: { findOrCreateTodayStats: jest.fn() } }));
+jest.mock('../../tag/services/postTag.service', () => ({ postTagService: { syncPostTags: jest.fn() } }));
+jest.mock('../../tag/services/tag.service', () => ({ tagService: { findOrCreateTags: jest.fn() } }));
 
-jest.mock('./postViewStats.service', () => ({
-  postViewStatsService: {
-    findOrCreateTodayStats: jest.fn(),
-  },
-}));
-
-jest.mock('../../tag/services/postTag.service', () => ({
-  postTagService: {
-    syncPostTags: jest.fn(),
-  },
-}));
-
-jest.mock('../../tag/services/tag.service', () => ({
-  tagService: {
-    findOrCreateTags: jest.fn(),
-  },
-}));
-
-const { prisma } = jest.requireMock('@highjoon-dev/prisma');
+const drizzle = jest.requireMock('@highjoon-dev/drizzle') as {
+  db: Record<string, jest.Mock>;
+  __enqueue: (...values: unknown[]) => void;
+  __enqueueError: (error: unknown) => void;
+  __reset: () => void;
+};
+const { db } = drizzle;
+const { shapePostsWithRelations } = jest.requireMock('../../../shared/server/lib/shapePostsWithRelations');
 const { postViewLogService } = jest.requireMock('./postViewLog.service');
 const { postViewStatsService } = jest.requireMock('./postViewStats.service');
 
@@ -76,27 +98,28 @@ const mockPost = {
   viewCount: 10,
   isFeatured: false,
   isHidden: false,
-  postTags: [],
-} satisfies Post & { postTags: never[] };
+} satisfies Post;
 
 describe('postService', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    drizzle.__reset();
   });
 
   describe('findAllPosts', () => {
-    test('게시물 목록을 페이지네이션으로 조회한다', async () => {
-      prisma.$transaction.mockResolvedValue([[mockPost], 1]);
+    test('게시물 목록을 페이지네이션으로 조회하고 관계를 셰이핑한다', async () => {
+      drizzle.__enqueue([mockPost], [{ value: 1 }]); // ① posts → ② count
 
       const result = await postService.findAllPosts({ skip: 0, take: 10 });
 
       expect(result.success).toBe(true);
       expect(result.data?.posts).toHaveLength(1);
       expect(result.data?.meta).toEqual({ total: 1, skip: 0, take: 10, hasMore: false });
+      expect(shapePostsWithRelations).toHaveBeenCalledWith([mockPost]);
     });
 
     test('게시물이 없으면 404 응답을 반환한다', async () => {
-      prisma.$transaction.mockResolvedValue([[], 0]);
+      drizzle.__enqueue([], [{ value: 0 }]);
 
       const result = await postService.findAllPosts({ skip: 0, take: 10 });
 
@@ -105,7 +128,7 @@ describe('postService', () => {
     });
 
     test('에러 발생 시 500 응답을 반환한다', async () => {
-      prisma.$transaction.mockRejectedValue(new Error('DB error'));
+      drizzle.__enqueueError(new Error('DB error'));
 
       const result = await postService.findAllPosts();
 
@@ -115,17 +138,18 @@ describe('postService', () => {
   });
 
   describe('findPost', () => {
-    test('slug로 게시물을 조회한다', async () => {
-      prisma.post.findUnique.mockResolvedValue(mockPost);
+    test('slug로 게시물을 조회하고 셰이핑 헬퍼로 관계를 붙인다', async () => {
+      drizzle.__enqueue([mockPost]);
 
       const result = await postService.findPost('test-post');
 
       expect(result.success).toBe(true);
-      expect(result.data).toEqual(mockPost);
+      expect(result.data).toEqual({ ...mockPost, postTags: [], categoryRef: null });
+      expect(shapePostsWithRelations).toHaveBeenCalledWith([mockPost]);
     });
 
     test('게시물이 없으면 404 응답을 반환한다', async () => {
-      prisma.post.findUnique.mockResolvedValue(null);
+      drizzle.__enqueue([]);
 
       const result = await postService.findPost('not-found');
 
@@ -134,59 +158,28 @@ describe('postService', () => {
     });
 
     test('숨겨진 게시물이면 404 응답을 반환한다', async () => {
-      prisma.post.findUnique.mockResolvedValue({ ...mockPost, isHidden: true });
+      drizzle.__enqueue([{ ...mockPost, isHidden: true }]);
 
       const result = await postService.findPost('hidden-post');
 
       expect(result.success).toBe(false);
       expect(result.statusCode).toBe(StatusCodes.NOT_FOUND);
     });
-
-    test('findPost는 categoryRef를 include 한다', async () => {
-      const mockPostWithCategory = {
-        id: 'p1',
-        slug: 'test',
-        title: 'T',
-        isHidden: false,
-        postTags: [],
-        categoryRef: { id: 'c1', slug: 'react', name: 'React', parentId: null },
-      };
-      prisma.post.findUnique.mockResolvedValue(mockPostWithCategory);
-
-      const result = await postService.findPost('test');
-
-      expect(result.success).toBe(true);
-      expect(prisma.post.findUnique).toHaveBeenCalledWith({
-        where: { slug: 'test' },
-        include: {
-          postTags: { select: { tagId: true, tag: { select: { id: true, name: true } } } },
-          categoryRef: {
-            select: {
-              id: true,
-              slug: true,
-              name: true,
-              parentId: true,
-              parent: { select: { id: true, slug: true, name: true } },
-            },
-          },
-        },
-      });
-    });
   });
 
   describe('findFeaturedPost', () => {
     test('추천 게시물을 조회한다', async () => {
       const featured = { ...mockPost, isFeatured: true };
-      prisma.post.findFirst.mockResolvedValue(featured);
+      drizzle.__enqueue([featured]);
 
       const result = await postService.findFeaturedPost();
 
       expect(result.success).toBe(true);
-      expect(result.data).toEqual(featured);
+      expect(result.data).toEqual({ ...featured, postTags: [], categoryRef: null });
     });
 
     test('추천 게시물이 없으면 404 응답을 반환한다', async () => {
-      prisma.post.findFirst.mockResolvedValue(null);
+      drizzle.__enqueue([]);
 
       const result = await postService.findFeaturedPost();
 
@@ -197,30 +190,30 @@ describe('postService', () => {
 
   describe('increaseViewCount', () => {
     test('첫 조회 시 조회수를 증가시킨다', async () => {
-      prisma.post.findUnique.mockResolvedValue(mockPost);
+      drizzle.__enqueue([mockPost], [{ ...mockPost, viewCount: 11 }]); // ① 게시물 조회 → ② update returning
       postViewLogService.logView.mockResolvedValue(true);
-      prisma.post.update.mockResolvedValue({ ...mockPost, viewCount: 11 });
       postViewStatsService.findOrCreateTodayStats.mockResolvedValue({});
 
       const result = await postService.increaseViewCount('test-post', '127.0.0.1');
 
       expect(result.success).toBe(true);
       expect(result.message).toBe('조회수가 증가되었습니다.');
+      expect(db.update).toHaveBeenCalled();
     });
 
     test('같은 날 재조회 시 조회수를 증가시키지 않는다', async () => {
-      prisma.post.findUnique.mockResolvedValue(mockPost);
+      drizzle.__enqueue([mockPost]);
       postViewLogService.logView.mockResolvedValue(false);
 
       const result = await postService.increaseViewCount('test-post', '127.0.0.1');
 
       expect(result.success).toBe(true);
       expect(result.message).toBe('오늘 이미 조회된 게시물입니다.');
-      expect(prisma.post.update).not.toHaveBeenCalled();
+      expect(db.update).not.toHaveBeenCalled();
     });
 
     test('존재하지 않는 게시물이면 404 응답을 반환한다', async () => {
-      prisma.post.findUnique.mockResolvedValue(null);
+      drizzle.__enqueue([]);
 
       const result = await postService.increaseViewCount('not-found', '127.0.0.1');
 
@@ -232,12 +225,13 @@ describe('postService', () => {
   describe('createManyPosts', () => {
     test('여러 게시물을 생성한다', async () => {
       const posts = [mockPost];
-      prisma.post.createManyAndReturn.mockResolvedValue(posts);
+      drizzle.__enqueue(posts);
 
       const result = await postService.createManyPosts(posts as Post[]);
 
       expect(result.success).toBe(true);
       expect(result.statusCode).toBe(StatusCodes.CREATED);
+      expect(result.data).toEqual(posts);
     });
   });
 
@@ -246,10 +240,7 @@ describe('postService', () => {
     const newerPost = { slug: 'newer-post', title: 'Newer Post' };
 
     test('이전글과 다음글이 모두 있을 때 반환한다', async () => {
-      prisma.post.findUnique.mockResolvedValue(mockPost);
-      prisma.post.findFirst
-        .mockResolvedValueOnce(olderPost) // prev
-        .mockResolvedValueOnce(newerPost); // next
+      drizzle.__enqueue([mockPost], [olderPost], [newerPost]); // ① 본체 → ② prev → ③ next
 
       const result = await postService.findAdjacentPosts('test-post');
 
@@ -259,10 +250,7 @@ describe('postService', () => {
     });
 
     test('이전글이 없을 때 prev가 null이다', async () => {
-      prisma.post.findUnique.mockResolvedValue(mockPost);
-      prisma.post.findFirst
-        .mockResolvedValueOnce(null) // prev
-        .mockResolvedValueOnce(newerPost); // next
+      drizzle.__enqueue([mockPost], [], [newerPost]);
 
       const result = await postService.findAdjacentPosts('test-post');
 
@@ -272,10 +260,7 @@ describe('postService', () => {
     });
 
     test('다음글이 없을 때 next가 null이다', async () => {
-      prisma.post.findUnique.mockResolvedValue(mockPost);
-      prisma.post.findFirst
-        .mockResolvedValueOnce(olderPost) // prev
-        .mockResolvedValueOnce(null); // next
+      drizzle.__enqueue([mockPost], [olderPost], []);
 
       const result = await postService.findAdjacentPosts('test-post');
 
@@ -285,7 +270,7 @@ describe('postService', () => {
     });
 
     test('존재하지 않는 게시물이면 404를 반환한다', async () => {
-      prisma.post.findUnique.mockResolvedValue(null);
+      drizzle.__enqueue([]);
 
       const result = await postService.findAdjacentPosts('not-found');
 
@@ -294,7 +279,7 @@ describe('postService', () => {
     });
 
     test('숨겨진 게시물이면 404를 반환한다', async () => {
-      prisma.post.findUnique.mockResolvedValue({ ...mockPost, isHidden: true });
+      drizzle.__enqueue([{ ...mockPost, isHidden: true }]);
 
       const result = await postService.findAdjacentPosts('hidden-post');
 
@@ -303,73 +288,7 @@ describe('postService', () => {
     });
 
     test('DB 에러 발생 시 500을 반환한다', async () => {
-      prisma.post.findUnique.mockRejectedValue(new Error('DB error'));
-
-      const result = await postService.findAdjacentPosts('test-post');
-
-      expect(result.success).toBe(false);
-      expect(result.statusCode).toBe(StatusCodes.INTERNAL_SERVER_ERROR);
-    });
-  });
-
-  describe('findAdjacentPosts', () => {
-    test('이전글과 다음글이 모두 있을 때 반환한다', async () => {
-      const prevPost = { ...mockPost, id: 'post-0', slug: 'prev-post', publishedAt: new Date('2024-01-01') };
-      const nextPost = { ...mockPost, id: 'post-2', slug: 'next-post', publishedAt: new Date('2024-01-03') };
-      prisma.post.findUnique.mockResolvedValue(mockPost);
-      prisma.post.findFirst.mockResolvedValueOnce(prevPost).mockResolvedValueOnce(nextPost);
-
-      const result = await postService.findAdjacentPosts('test-post');
-
-      expect(result.success).toBe(true);
-      expect(result.data?.prev).toEqual(prevPost);
-      expect(result.data?.next).toEqual(nextPost);
-    });
-
-    test('이전글이 없을 때 prev가 null이다', async () => {
-      const nextPost = { ...mockPost, id: 'post-2', slug: 'next-post', publishedAt: new Date('2024-01-03') };
-      prisma.post.findUnique.mockResolvedValue(mockPost);
-      prisma.post.findFirst.mockResolvedValueOnce(null).mockResolvedValueOnce(nextPost);
-
-      const result = await postService.findAdjacentPosts('test-post');
-
-      expect(result.success).toBe(true);
-      expect(result.data?.prev).toBeNull();
-      expect(result.data?.next).toEqual(nextPost);
-    });
-
-    test('다음글이 없을 때 next가 null이다', async () => {
-      const prevPost = { ...mockPost, id: 'post-0', slug: 'prev-post', publishedAt: new Date('2024-01-01') };
-      prisma.post.findUnique.mockResolvedValue(mockPost);
-      prisma.post.findFirst.mockResolvedValueOnce(prevPost).mockResolvedValueOnce(null);
-
-      const result = await postService.findAdjacentPosts('test-post');
-
-      expect(result.success).toBe(true);
-      expect(result.data?.prev).toEqual(prevPost);
-      expect(result.data?.next).toBeNull();
-    });
-
-    test('존재하지 않는 게시물이면 404를 반환한다', async () => {
-      prisma.post.findUnique.mockResolvedValue(null);
-
-      const result = await postService.findAdjacentPosts('not-found');
-
-      expect(result.success).toBe(false);
-      expect(result.statusCode).toBe(StatusCodes.NOT_FOUND);
-    });
-
-    test('숨겨진 게시물이면 404를 반환한다', async () => {
-      prisma.post.findUnique.mockResolvedValue({ ...mockPost, isHidden: true });
-
-      const result = await postService.findAdjacentPosts('hidden-post');
-
-      expect(result.success).toBe(false);
-      expect(result.statusCode).toBe(StatusCodes.NOT_FOUND);
-    });
-
-    test('DB 에러 발생 시 500을 반환한다', async () => {
-      prisma.post.findUnique.mockRejectedValue(new Error('DB error'));
+      drizzle.__enqueueError(new Error('DB error'));
 
       const result = await postService.findAdjacentPosts('test-post');
 

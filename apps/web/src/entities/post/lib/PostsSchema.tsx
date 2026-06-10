@@ -1,5 +1,6 @@
 import Script from 'next/script';
-import { type Post } from '@highjoon-dev/prisma';
+
+import { type Post } from '@/entities/post/model/types';
 
 type Props = {
   posts: Post[];

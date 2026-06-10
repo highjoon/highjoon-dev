@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { TagWithCount } from '@/entities/tag/api/getAllTagsApi/dto';
+import type { TagWithCount } from '@/entities/tag/model/types';
 
 import AllTopicsButton from './AllTopicsButton';
 import EmptyTagSearchState from './EmptyTagSearchState';

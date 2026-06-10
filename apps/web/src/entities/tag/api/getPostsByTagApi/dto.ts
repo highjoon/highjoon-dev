@@ -1,10 +1,12 @@
-import { Post } from '@highjoon-dev/prisma';
 import { ServiceResponseInterface } from '@highjoon-dev/types';
 
-export type GetPostsByTagResponseDto = ServiceResponseInterface<Post[]>;
+import { type PostWithTags } from '@/entities/post/api/getPostApi/dto';
+import { Tag } from '@/entities/tag/model/types';
+
+export type GetPostsByTagResponseDto = ServiceResponseInterface<PostWithTags[]>;
 
 export interface GetPostsByTagParams {
-  tagId: string;
-  skip?: number;
-  take?: number;
+  tagId: Tag['id'];
+  offset?: number;
+  limit?: number;
 }

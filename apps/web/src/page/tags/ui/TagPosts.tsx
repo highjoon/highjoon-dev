@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import type { TagWithCount } from '@/entities/tag/api/getAllTagsApi/dto';
+import type { TagWithCount } from '@/entities/tag/model/types';
 import TagCloudContainer from '@/entities/tag/ui/TagCloudContainer';
 import { TagSearchInput, useTagSearch } from '@/features/filterTagsBySearch';
 

@@ -16,7 +16,6 @@ export default [
       "node_modules/**",
       "apps/web/.next/**",
       "packages/config/**",
-      "packages/prisma/**",
       "packages/types/**",
       "coverage/**",
       "**/*.{config.js,config.cjs}",
@@ -51,7 +50,7 @@ export default [
         "error",
         {
           groups: [
-            ["^react$", "^next", "^@mantine", "^@", "^[a-z]"],
+            ["^react$", "^next", "^@", "^[a-z]"],
             ["^@/"],
             ["^~"],
             ["^\\.\\.(?!/?$)", "^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
@@ -75,8 +74,24 @@ export default [
       "@next/next/no-html-link-for-pages": "off",
     },
   },
+  // 4.5) Node 설정 파일(next.config.mjs, commitlint.config.mjs 등)에 Node 전역 제공
+  {
+    files: ["**/*.{cjs,mjs}", "**/*.config.js"],
+    languageOptions: {
+      globals: {
+        process: "readonly",
+        console: "readonly",
+        module: "readonly",
+        require: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+      },
+    },
+  },
   // 5) Next.js rules for apps/web ONLY
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...compat
+    .extends("next/core-web-vitals", "next/typescript")
+    .map((cfg) => ({ ...cfg, files: ["apps/web/**/*.{js,jsx,ts,tsx}"] })),
   {
     files: ["apps/web/**/*.{js,jsx,ts,tsx}"],
     settings: {

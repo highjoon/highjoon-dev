@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { type Post } from '@highjoon-dev/prisma';
 import { Eye } from 'lucide-react';
 
 import { useIncreaseViewCount } from '@/entities/post/api/increaseViewCountApi/useIncreaseViewCount';
+import { type Post } from '@/entities/post/model/types';
 
 interface Props {
   slug: Post['slug'];

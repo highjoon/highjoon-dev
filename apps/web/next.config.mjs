@@ -1,10 +1,6 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { createRequire } from 'module';
 import { withSentryConfig } from '@sentry/nextjs';
-
-const require = createRequire(import.meta.url);
-const { PrismaPlugin } = require('@prisma/nextjs-monorepo-workaround-plugin');
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -32,13 +28,8 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     unoptimized: true,
   },
-  transpilePackages: ['@highjoon-dev/ui'],
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.plugins = [...config.plugins, new PrismaPlugin()];
-    }
-    return config;
-  },
+  transpilePackages: ['@highjoon-dev/ui', '@highjoon-dev/drizzle'],
+  serverExternalPackages: ['pg'],
 };
 
 export default withSentryConfig(nextConfig, {

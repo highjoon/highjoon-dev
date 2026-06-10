@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 
-import type { TagWithCount } from '@/entities/tag/api/getAllTagsApi/dto';
+import type { TagWithCount } from '@/entities/tag/model/types';
 
 export function useTagSearch(tags: TagWithCount[]) {
   const [searchQuery, setSearchQuery] = useState('');

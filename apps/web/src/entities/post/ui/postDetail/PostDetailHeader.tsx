@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { type Post } from '@highjoon-dev/prisma';
 import { Calendar, ChevronLeft, Eye } from 'lucide-react';
 
 import { useIncreaseViewCount } from '@/entities/post/api/increaseViewCountApi/useIncreaseViewCount';
+import { type Post } from '@/entities/post/model/types';
 import TagBadgeList from '@/entities/tag/ui/TagBadgeList';
 import { ROUTES } from '@/shared/routes/routes';
 
