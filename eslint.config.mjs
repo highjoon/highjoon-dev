@@ -16,7 +16,6 @@ export default [
       "node_modules/**",
       "apps/web/.next/**",
       "packages/config/**",
-      "packages/prisma/**",
       "packages/types/**",
       "packages/drizzle/.migrations-reference/**",
       "coverage/**",

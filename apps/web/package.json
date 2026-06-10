@@ -2,7 +2,6 @@
   "dependencies": {
     "@giscus/react": "^3.1.0",
     "@highjoon-dev/drizzle": "workspace:*",
-    "@highjoon-dev/prisma": "workspace:*",
     "@highjoon-dev/ui": "workspace:*",
     "@sentry/nextjs": "^10.53.1",
     "@vercel/analytics": "^1.5.0",
@@ -32,7 +31,6 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
-    "@prisma/nextjs-monorepo-workaround-plugin": "^6.19.2",
     "@tailwindcss/postcss": "^4.1.12",
     "@tailwindcss/typography": "^0.5.16",
     "@testing-library/dom": "^10.4.1",
