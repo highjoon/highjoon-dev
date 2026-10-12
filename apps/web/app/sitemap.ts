@@ -4,6 +4,8 @@ import { getAllPostsApi } from '@/entities/post/api/getAllPostsApi';
 import { POSTS_PER_PAGE } from '@/entities/post/lib/post';
 import { ROUTES } from '@/shared/routes/routes';
 
+const SITEMAP_POSTS_SIZE = 2000;
+
 /**
  * 동적 sitemap 생성
  * 모든 블로그 포스트와 페이지를 포함하여 SEO 최적화
@@ -36,7 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   try {
     // 블로그 포스트 목록 가져오기
-    const response = await getAllPostsApi();
+    const response = await getAllPostsApi({ take: SITEMAP_POSTS_SIZE });
 
     // 블로그 포스트 URL들
     const blogPostUrls = response.posts.map((post) => ({

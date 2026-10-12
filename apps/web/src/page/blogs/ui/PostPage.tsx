@@ -1,12 +1,12 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 
+import { getAdjacentPostsApi } from '@/entities/post/api/getAdjacentPostsApi';
 import { getPostApi } from '@/entities/post/api/getPostApi';
 import { getPostContentApi } from '@/entities/post/api/getPostContentApi';
 import PostSchema from '@/entities/post/lib/PostSchema';
 import { extractHeadings } from '@/entities/post/lib/toc/extractHeadings';
 import { type Post } from '@/entities/post/model/types';
-import { postService } from '@/entities/post/services/post.service';
 import PostArticleContent from '@/entities/post/ui/postDetail/PostArticleContent';
 import PostBanner from '@/entities/post/ui/postDetail/PostBanner';
 import PostDetailHeader from '@/entities/post/ui/postDetail/PostDetailHeader';
@@ -27,13 +27,12 @@ export default async function PostPage({ params }: Props) {
     notFound();
   }
 
-  const [content, adjacentPostsResponse] = await Promise.all([
+  const [content, adjacentPosts] = await Promise.all([
     getPostContentApi({ contentUrl: post.contentUrl }),
-    postService.findAdjacentPosts(post.slug),
+    getAdjacentPostsApi(post.slug),
   ]);
 
   const headings = extractHeadings(content);
-  const adjacentPosts = adjacentPostsResponse.data ?? { prev: null, next: null };
 
   return (
     <PageSection as="article" withContainer={false}>

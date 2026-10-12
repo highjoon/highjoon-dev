@@ -1,3 +1,6 @@
-import { schema } from '@highjoon-dev/drizzle';
-
-export type Category = typeof schema.category.$inferSelect;
+export interface Category {
+  id: string;
+  slug: string;
+  name: string;
+  parentId: string | null;
+}

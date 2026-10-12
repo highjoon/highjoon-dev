@@ -1,4 +1,4 @@
-import { PaginationMeta, ServiceResponseInterface } from '@highjoon-dev/types';
+import { PaginationMeta } from '@highjoon-dev/types';
 
 import { type Category } from '@/entities/category/model/types';
 import type { CategoryRef } from '@/entities/post/api/getPostApi/dto';
@@ -14,7 +14,6 @@ export interface GetCategoryPostsRequestDto {
   slug: string;
   skip?: number;
   take?: number;
-  includeChildren?: boolean;
 }
 
 export interface GetCategoryPostsResponseData {
@@ -22,5 +21,3 @@ export interface GetCategoryPostsResponseData {
   meta: PaginationMeta;
   category: Category;
 }
-
-export type GetCategoryPostsResponseDto = ServiceResponseInterface<GetCategoryPostsResponseData>;

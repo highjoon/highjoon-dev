@@ -39,7 +39,7 @@ export default async function TagDetailPage({ params }: Props) {
 
   // 태그별 게시물 조회
   const [posts, giscusStats] = await Promise.all([
-    getPostsByTagApi({ tagId: tag.id, offset, limit }),
+    getPostsByTagApi({ tagName: tag.name, offset, limit }),
     getGiscusStatsApi(),
   ]);
 

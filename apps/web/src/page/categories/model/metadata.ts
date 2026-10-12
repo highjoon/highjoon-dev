@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { categoryService } from '@/entities/category/services/category.service';
+import { getCategoryApi } from '@/entities/category/api/getCategoryApi';
 
 interface CategoryDetailParams {
   params: Promise<{ slug: string; page: string }>;
@@ -13,8 +13,7 @@ export const generateCategoryDetailMetadata = async ({
   const slug = decodeURIComponent(params.slug);
   const pageNumber = Number(params.page);
 
-  const response = await categoryService.findCategoryBySlug(slug);
-  const category = response.data;
+  const category = await getCategoryApi(slug);
 
   const breadcrumb = category?.parent ? `${category.parent.name} · ${category.name}` : (category?.name ?? slug);
   const title = `${breadcrumb} - ${pageNumber}페이지 | highjoon-dev`;

@@ -1,8 +1,14 @@
+import { toPostWithTags } from '@/entities/post/lib/toPostWithTags';
+import { type PostResponse } from '@/entities/post/model/response';
 import { type Post } from '@/entities/post/model/types';
-import { postService } from '@/entities/post/services/post.service';
+import { fetchApi } from '@/shared/api/fetchApi';
 
 export const getFeaturedPostApi = async (): Promise<Post | null> => {
-  const response = await postService.findFeaturedPost();
+  const data = await fetchApi<PostResponse>('/posts/featured');
 
-  return response.data ?? null;
+  if (!data) {
+    return null;
+  }
+
+  return toPostWithTags(data);
 };

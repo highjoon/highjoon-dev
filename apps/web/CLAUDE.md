@@ -17,19 +17,11 @@ Next.js 15 (App Router) + React 19. **라우트는 `apps/web/app/`에 있고, FS
 
 ## API Routes (`app/api/`)
 
-| Endpoint                         | Purpose                    |
-| -------------------------------- | -------------------------- |
-| `GET /api/post`                  | 게시물 목록                |
-| `GET /api/post/many`             | 다건 조회                  |
-| `GET /api/post/featured`         | featured 게시물            |
-| `GET /api/post/[slug]`           | 단건 조회                  |
-| `POST /api/post/[slug]/view`     | 조회수 기록 (IP 중복 차단) |
-| `GET /api/tag`, `/api/tag/[id]`  | 태그 목록 / 단건           |
-| `GET /api/tag/[id]/posts`        | 태그별 게시물              |
-| `GET /api/category`              | 카테고리 목록              |
-| `GET /api/category/[slug]/posts` | 카테고리별 게시물          |
+| Endpoint        | Purpose                                              |
+| --------------- | ---------------------------------------------------- |
+| `GET /api/post` | 검색 다이얼로그용 게시물 목록 (`getAllPostsApi` 중계) |
 
-표준 응답: `src/shared/server/models/serviceResponse.ts` 사용. 에러는 `handleInternalError`로 래핑.
+데이터는 highjoon-dev-backend(`API_BASE_URL`)에서 받음. 호출은 `src/shared/api/fetchApi.ts` 한 곳을 거침.
 
 ## Middleware
 
@@ -38,8 +30,7 @@ Next.js 15 (App Router) + React 19. **라우트는 `apps/web/app/`에 있고, FS
 ## next.config.mjs 핵심
 
 - `outputFileTracingRoot: monorepo root` — Vercel 모노레포 트레이싱
-- `transpilePackages: ['@highjoon-dev/ui', '@highjoon-dev/drizzle']`
-- `serverExternalPackages: ['pg']` — node-postgres는 서버 번들에서 제외
+- `transpilePackages: ['@highjoon-dev/ui']`
 - `images.unoptimized: true` (CloudFront에서 직접 서빙)
 - `images.remotePatterns`: `dngjtjyrczhgx.cloudfront.net` 단일 허용
 - `headers`: `/giscus-:theme.css`에 `Access-Control-Allow-Origin: *`
@@ -56,4 +47,4 @@ Next.js 15 (App Router) + React 19. **라우트는 `apps/web/app/`에 있고, FS
 ## Tests
 
 - Jest + jsdom (`jest.config.js`는 `next/jest`로 구성)
-- 서버 코드 테스트는 파일 상단에 `@jest-environment node` 지시문 사용 (예: `shared/server/lib/*.test.ts`)
+- 서버 코드 테스트는 파일 상단에 `@jest-environment node` 지시문 사용 (예: `shared/api/fetchApi.test.ts`)

@@ -1,6 +1,7 @@
-import { schema } from '@highjoon-dev/drizzle';
-
-export type Tag = typeof schema.tag.$inferSelect;
+export interface Tag {
+  id: string;
+  name: string;
+}
 
 export type TagWithCount = Tag & {
   postCount: number;

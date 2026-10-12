@@ -1,8 +1,14 @@
 import { type GetPostRequestDto, type PostWithTags } from '@/entities/post/api/getPostApi/dto';
-import { postService } from '@/entities/post/services/post.service';
+import { toPostWithTags } from '@/entities/post/lib/toPostWithTags';
+import { type PostDetailResponse } from '@/entities/post/model/response';
+import { fetchApi } from '@/shared/api/fetchApi';
 
 export const getPostApi = async (params: GetPostRequestDto): Promise<PostWithTags | null> => {
-  const response = await postService.findPost(params.slug);
+  const data = await fetchApi<PostDetailResponse>(`/posts/${encodeURIComponent(params.slug)}`);
 
-  return (response.data as PostWithTags) ?? null;
+  if (!data) {
+    return null;
+  }
+
+  return toPostWithTags(data.post);
 };

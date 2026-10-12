@@ -1,5 +1,3 @@
-import { ServiceResponseInterface } from '@highjoon-dev/types';
-
 import { type Category } from '@/entities/category/model/types';
 import { type Post, type PostTag } from '@/entities/post/model/types';
 import { type Tag } from '@/entities/tag/model/types';
@@ -16,8 +14,6 @@ export type PostWithTags = Post & {
   postTags?: (PostTag & { tag: Tag })[];
   categoryRef?: CategoryRef | null;
 };
-
-export type GetPostResponseDto = ServiceResponseInterface<PostWithTags>;
 
 export interface AdjacentPost {
   slug: string;

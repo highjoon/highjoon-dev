@@ -5,7 +5,6 @@ highjoon-dev.com 블로그 프론트엔드. Next.js 15 App Router + React 19, FS
 ## Stack
 
 - **Framework**: Next.js 15 (App Router), React 19, TypeScript 5
-- **DB/ORM**: Drizzle ORM (PostgreSQL / Supabase) — `@highjoon-dev/drizzle`
 - **UI**: `@highjoon-dev/ui` (Radix + shadcn 스타일), Tailwind CSS
 - **MDX**: next-mdx-remote (rehype-highlight, rehype-slug, remark-gfm, remark-toc)
 - **댓글/리액션**: giscus (GitHub Discussions)

@@ -1,24 +1,24 @@
-import { type NextRequest } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
-import { postService } from '@/entities/post/services/post.service';
-import { handleServiceResponse } from '@/shared/server/lib/httpHandlers';
+import { getAllPostsApi } from '@/entities/post/api/getAllPostsApi';
+
+const toNumber = (value: string | null) => {
+  if (!value) {
+    return undefined;
+  }
+
+  return Number(value);
+};
 
 export const GET = async (request: NextRequest) => {
   const skip = request.nextUrl.searchParams.get('skip');
   const take = request.nextUrl.searchParams.get('take');
   const limit = request.nextUrl.searchParams.get('limit');
 
-  const result = await postService.findAllPosts({
-    skip: skip ? Number(skip) : undefined,
-    take: limit ? Number(limit) : take ? Number(take) : undefined,
+  const data = await getAllPostsApi({
+    skip: toNumber(skip),
+    take: toNumber(limit) ?? toNumber(take),
   });
 
-  return handleServiceResponse(result);
-};
-
-export const POST = async (request: NextRequest) => {
-  const body = await request.json();
-  const result = await postService.createPost(body);
-
-  return handleServiceResponse(result);
+  return NextResponse.json({ data });
 };

@@ -1,7 +1,16 @@
-import { schema } from '@highjoon-dev/drizzle';
+export interface Post {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  contentUrl: string;
+  bannerImageUrl: string;
+  publishedAt: string;
+  createdAt: string;
+  updatedAt: string;
+  viewCount: number;
+}
 
-export type Post = typeof schema.post.$inferSelect;
-
-export type PostTag = typeof schema.postTag.$inferSelect;
-
-export type PostViewLog = typeof schema.postViewLog.$inferSelect;
+export interface PostTag {
+  tagId: string;
+}

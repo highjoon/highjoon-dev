@@ -1,4 +1,4 @@
-import { PaginationMeta, ServiceResponseInterface } from '@highjoon-dev/types';
+import { PaginationMeta } from '@highjoon-dev/types';
 
 import type { PostWithTags } from '@/entities/post/api/getPostApi/dto';
 
@@ -7,8 +7,6 @@ export interface PostsWithMeta {
   posts: PostWithTags[];
   meta: PaginationMeta;
 }
-
-export type GetAllPostsResponseDto = ServiceResponseInterface<PostsWithMeta>;
 
 // API 파라미터 타입
 export interface GetAllPostsParams {

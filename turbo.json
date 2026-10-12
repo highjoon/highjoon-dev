@@ -4,7 +4,7 @@
     "build": {
       "dependsOn": ["^build"],
       "env": [
-        "DATABASE_URL",
+        "API_BASE_URL",
         "GITHUB_TOKEN",
         "NEXT_PUBLIC_GISCUS_REPO",
         "NEXT_PUBLIC_GISCUS_REPO_ID",
